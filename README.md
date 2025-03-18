@@ -23,110 +23,7 @@ The UI consists of:
 Here is a simple **HTML, CSS & JavaScript** snippet from the project:
 
 ```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Virus Detector</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            background: linear-gradient(to right, #2c3e50, #4ca1af);
-            color: #fff;
-        }
-        h1 {
-            margin-bottom: 20px;
-        }
-        .container {
-            max-width: 400px;
-            width: 90%;
-            padding: 20px;
-            background: #1a242f;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
-        input[type="file"], button {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: none;
-            border-radius: 5px;
-        }
-        input[type="file"] {
-            background-color: #34495e;
-            color: #fff;
-        }
-        button {
-            background-color: #4ca1af;
-            color: white;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #3498db;
-        }
-        .output {
-            margin-top: 20px;
-            font-size: 14px;
-        }
-    </style>
-</head>
-<body>
-    <h1>Simple Virus Detector</h1>
-    <div class="container">
-        <form id="virusForm">
-            <label for="fileInput">Upload a File to Scan:</label>
-            <input type="file" id="fileInput" required>
-            <button type="submit">Scan File</button>
-        </form>
-        <div class="output" id="result"></div>
-    </div>
 
-    <script>
-        const virusSignatures = {
-            "malicious_code_snippet_1": "Delete the infected file or restore from backup.",
-            "virus_pattern_abc": "Run an antivirus scan and isolate the file.",
-            "trojan_script_xyz": "Disconnect from the internet and reinstall the application."
-        };
-
-        document.getElementById("virusForm").addEventListener("submit", function(event) {
-            event.preventDefault();
-            const fileInput = document.getElementById("fileInput").files[0];
-            const resultDiv = document.getElementById("result");
-
-            if (!fileInput) {
-                resultDiv.textContent = "Please upload a file.";
-                return;
-            }
-
-            const fileName = fileInput.name.toLowerCase();
-            let found = false;
-
-            for (let signature in virusSignatures) {
-                if (fileName.includes(signature)) {
-                    found = true;
-                    resultDiv.innerHTML = `
-                        <strong>Virus Detected:</strong> ${signature}<br>
-                        <strong>Resolution:</strong> ${virusSignatures[signature]}
-                    `;
-                    break;
-                }
-            }
-
-            if (!found) {
-                resultDiv.textContent = "No viruses detected!";
-            }
-        });
-    </script>
-</body>
-</html>
 ```
 
 📌 **Output Preview:** This code creates a simple browser-based virus detection system that scans uploaded files for virus signatures.
@@ -163,6 +60,10 @@ Here is a simple **HTML, CSS & JavaScript** snippet from the project:
 This project is licensed under the MIT License.
 
 ## 👥 Team & Contributors
-- Your Name
-- Contributor Name
+- Contributor Name:
+- Sam verma
+- Sukhman Singh Khattra
+- Keshav Dhiman
+- Shivansh Pathania
+- Umesh Sharma
 
