@@ -1,4 +1,3 @@
-// Simulated virus signatures and resolutions
 const virusSignatures = {
     "malicious_code_snippet_1": "Delete the infected file or restore from backup.",
     "virus_pattern_abc": "Run an antivirus scan and isolate the file.",
@@ -8,7 +7,6 @@ const virusSignatures = {
 document.getElementById("virusForm").addEventListener("submit", function(event) {
     event.preventDefault();
 
-    // Simulate scanning a file
     const fileInput = document.getElementById("fileInput").files[0];
     const resultDiv = document.getElementById("result");
 
@@ -17,7 +15,6 @@ document.getElementById("virusForm").addEventListener("submit", function(event) 
         return;
     }
 
-    // Simulated "scanning" result
     const fileName = fileInput.name.toLowerCase();
     let found = false;
 
