@@ -7,16 +7,26 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Simple Virus Detector</h1>
-    <div class="container">
+    <header>
+        <h1>Simple Virus Detector</h1>
+    </header>
+    
+    <main class="container">
         <form id="virusForm">
-            <label for="fileInput">Upload a File to Scan:</label>
-            <input type="file" id="fileInput" required>
-            <button type="submit">Scan File</button>
+            <fieldset>
+                <legend>Upload a File to Scan</legend>
+                <label for="fileInput">Choose a file:</label>
+                <input type="file" id="fileInput" required>
+                <button type="button" id="scanButton">Scan File</button>
+            </fieldset>
         </form>
-        <div class="output" id="result"></div>
-    </div>
 
-    <script src="script.js"></script> 
+        <div class="output hidden" id="result">
+            <p>Scanning result will appear here...</p>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
 </body>
 </html>
+
