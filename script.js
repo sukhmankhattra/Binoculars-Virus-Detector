@@ -8,7 +8,6 @@ const virusForm = document.getElementById("virusForm");
 const fileInput = document.getElementById("fileInput");
 const resultDiv = document.getElementById("result");
 
-// Progress bar elements
 const progressContainer = document.createElement("div");
 progressContainer.id = "progressContainer";
 const progressBar = document.createElement("div");
@@ -16,18 +15,17 @@ progressBar.id = "progressBar";
 progressContainer.appendChild(progressBar);
 virusForm.appendChild(progressContainer);
 
-// File info display
 const fileInfo = document.createElement("div");
 fileInfo.className = "file-info";
 virusForm.appendChild(fileInfo);
 
-// Drag & drop zone
+
 const dropZone = document.createElement("div");
 dropZone.className = "drop-zone";
 dropZone.textContent = "Or drag & drop a file here to scan";
 virusForm.appendChild(dropZone);
 
-// Drag & drop functionality
+
 dropZone.addEventListener("dragover", (e) => {
     e.preventDefault();
     dropZone.style.backgroundColor = "rgba(44, 62, 80, 0.6)";
@@ -47,7 +45,7 @@ dropZone.addEventListener("drop", (e) => {
     }
 });
 
-// File info display function
+
 function displayFileInfo(file) {
     fileInfo.innerHTML = `
         <strong>File Name:</strong> ${file.name}<br>
@@ -56,7 +54,7 @@ function displayFileInfo(file) {
     `;
 }
 
-// Progress simulation
+
 function simulateProgress(callback) {
     let progress = 0;
     progressBar.style.width = "0%";
@@ -72,7 +70,7 @@ function simulateProgress(callback) {
     }, 100);
 }
 
-// Main scan logic with form submit
+
 virusForm.addEventListener("submit", function(event) {
     event.preventDefault();
 
