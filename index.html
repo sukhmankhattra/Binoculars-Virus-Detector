@@ -5,51 +5,45 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Virus Detector</title>
   <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
   <header>
-    <h1>🛡️ Advanced Virus Detector</h1>
-    <p>Upload or drag and drop a file below to scan for threats</p>
+    <h1>Simple Virus Detector</h1>
   </header>
-
+  
   <main class="container">
     <form id="virusForm">
       <fieldset>
-        <legend>Scan a File</legend>
+        <legend>Upload a File to Scan</legend>
 
-        <!-- File input area -->
-        <div id="dropArea" class="drop-zone">
-          <p>📁 Drag & drop file here or click to upload</p>
-          <input type="file" id="fileInput" hidden required />
+      
+        <label for="fileInput">Choose a file:</label>
+        <input type="file" id="fileInput" required />
+
+        
+        <div id="dropZone" class="drop-zone">
+          <p>📁 Or drag and drop your file here</p>
         </div>
 
-        <!-- File info -->
+        
         <div id="fileName" class="file-info hidden"></div>
 
-        <!-- Scan button -->
-        <button type="button" id="scanButton">🔍 Scan Now</button>
+        
+        <button type="button" id="scanButton">Scan File</button>
 
-        <!-- Progress bar -->
-        <div id="progressBarContainer" class="hidden">
+        
+        <div id="progressContainer" class="hidden">
           <div id="progressBar"></div>
         </div>
       </fieldset>
     </form>
 
-    <!-- Scan result -->
+  
     <div class="output hidden" id="result">
-      <div id="scanStatus">Scanning...</div>
-      <div id="scanMessage"></div>
+      <p id="scanStatus">Scanning result will appear here...</p>
     </div>
   </main>
-
-  <footer>
-    <p>&copy; 2025 VirusGuard Inc.</p>
-  </footer>
 
   <script src="script.js"></script>
 </body>
 </html>
-
-
