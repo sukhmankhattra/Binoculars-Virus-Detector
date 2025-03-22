@@ -21,6 +21,10 @@ h1 {
     animation: fadeIn 1s ease-in-out;
 }
 
+.hidden {
+    display: none;
+}
+
 .container {
     max-width: 400px;
     width: 90%;
@@ -80,6 +84,100 @@ button:active {
     font-size: 15px;
     text-align: center;
     animation: fadeIn 1.2s ease-in-out;
+}
+
+#progressContainer {
+    margin-top: 10px;
+    background-color: #2c3e50;
+    border-radius: 6px;
+    overflow: hidden;
+    height: 10px;
+}
+
+#progressBar {
+    width: 0%;
+    height: 100%;
+    background-color: #4ca1af;
+    transition: width 0.5s ease;
+}
+
+.file-info {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #f1f1f1;
+    word-break: break-all;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.drop-zone {
+    margin-top: 10px;
+    padding: 20px;
+    border: 2px dashed #4ca1af;
+    border-radius: 8px;
+    text-align: center;
+    background-color: rgba(44, 62, 80, 0.4);
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.drop-zone:hover {
+    background-color: rgba(44, 62, 80, 0.6);
+}
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+}
+
+.login-card {
+    background: rgba(26, 36, 47, 0.9);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    max-width: 400px;
+    width: 90%;
+    animation: slideIn 0.8s ease-out;
+}
+
+.login-card h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    text-transform: uppercase;
+}
+
+.login-card label {
+    display: block;
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.login-card input[type="text"],
+.login-card input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 6px;
+    border: none;
+    border-radius: 6px;
+    background-color: #34495e;
+    color: #fff;
+    transition: background 0.3s;
+}
+
+.login-card input[type="text"]:focus,
+.login-card input[type="password"]:focus {
+    outline: 2px solid #4ca1af;
+}
+
+.error-message {
+    color: #e74c3c;
+    margin-top: 10px;
+    font-size: 14px;
+    text-align: center;
 }
 
 @keyframes fadeIn {
