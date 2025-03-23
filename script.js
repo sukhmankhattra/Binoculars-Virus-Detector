@@ -1,103 +1,80 @@
-const virusSignatures = {
-    "malicious_code_snippet_1": "Delete the infected file or restore from backup.",
-    "virus_pattern_abc": "Run an antivirus scan and isolate the file.",
-    "trojan_script_xyz": "Disconnect from the internet and reinstall the application."
-};
+// DOM Elements
+const fileInput = document.getElementById('fileInput');
+const dropZone = document.getElementById('dropZone');
+const fileNameDisplay = document.getElementById('fileName');
+const scanButton = document.getElementById('scanButton');
+const progressContainer = document.getElementById('progressContainer');
+const progressBar = document.getElementById('progressBar');
+const resultDiv = document.getElementById('result');
+const scanStatus = document.getElementById('scanStatus');
 
-const virusForm = document.getElementById("virusForm");
-const fileInput = document.getElementById("fileInput");
-const resultDiv = document.getElementById("result");
+let selectedFile = null;
 
 
-const progressContainer = document.createElement("div");
-progressContainer.id = "progressContainer";
-const progressBar = document.createElement("div");
-progressBar.id = "progressBar";
-progressContainer.appendChild(progressBar);
-virusForm.appendChild(progressContainer);
+fileInput.addEventListener('change', (e) => {
+    selectedFile = e.target.files[0];
+    displayFileName(selectedFile.name);
+});
 
-const fileInfo = document.createElement("div");
-fileInfo.className = "file-info";
-virusForm.appendChild(fileInfo);
 
-const dropZone = document.createElement("div");
-dropZone.className = "drop-zone";
-dropZone.textContent = "Or drag & drop a file here to scan";
-virusForm.appendChild(dropZone);
-dropZone.addEventListener("dragover", (e) => {
+dropZone.addEventListener('dragover', (e) => {
     e.preventDefault();
-    dropZone.style.backgroundColor = "rgba(44, 62, 80, 0.6)";
+    dropZone.style.backgroundColor = 'rgba(44, 62, 80, 0.8)';
 });
 
-dropZone.addEventListener("dragleave", () => {
-    dropZone.style.backgroundColor = "rgba(44, 62, 80, 0.4)";
+dropZone.addEventListener('dragleave', () => {
+    dropZone.style.backgroundColor = 'rgba(44, 62, 80, 0.4)';
 });
 
-dropZone.addEventListener("drop", (e) => {
+dropZone.addEventListener('drop', (e) => {
     e.preventDefault();
-    dropZone.style.backgroundColor = "rgba(44, 62, 80, 0.4)";
-    const file = e.dataTransfer.files[0];
-    if (file) {
-        fileInput.files = e.dataTransfer.files;
-        displayFileInfo(file);
-    }
+    dropZone.style.backgroundColor = 'rgba(44, 62, 80, 0.4)';
+    selectedFile = e.dataTransfer.files[0];
+    displayFileName(selectedFile.name);
+    fileInput.files = e.dataTransfer.files; 
 });
 
 
-function displayFileInfo(file) {
-    fileInfo.innerHTML = `
-        <strong>File Name:</strong> ${file.name}<br>
-        <strong>File Size:</strong> ${(file.size / 1024).toFixed(2)} KB<br>
-        <strong>File Type:</strong> ${file.type || "Unknown"}
-    `;
-}
-
-
-function simulateProgress(callback) {
-    let progress = 0;
-    progressBar.style.width = "0%";
-
-    const interval = setInterval(() => {
-        progress += 10;
-        progressBar.style.width = ${progress}%;
-
-        if (progress >= 100) {
-            clearInterval(interval);
-            setTimeout(callback, 300);
-        }
-    }, 100);
-}
-
-
-virusForm.addEventListener("submit", function(event) {
-    event.preventDefault();
-
-    const file = fileInput.files[0];
-    if (!file) {
-        resultDiv.textContent = "Please upload a file.";
-        resultDiv.classList.remove("hidden");
+scanButton.addEventListener('click', () => {
+    if (!selectedFile) {
+        alert('Please select a file to scan.');
         return;
     }
 
-    displayFileInfo(file);
-    resultDiv.textContent = "Scanning...";
-    resultDiv.classList.remove("hidden");
-
-    simulateProgress(() => {
-        const fileName = file.name.toLowerCase();
-        let found = false;
-
-        for (let signature in virusSignatures) {
-            if (fileName.includes(signature)) {
-                found = true;
-                resultDiv.innerHTML = `
-                    <strong>🚨 Virus Detected:</strong> ${signature}<br>
-                    <strong>🛡 Resolution:</strong> ${virusSignatures[signature]}
-                `;
-                return;
-            }
-        }
-
-        resultDiv.innerHTML = "<strong>✅ No viruses detected!</strong>";
-    });
+    progressBar.style.width = '0%';
+    progressContainer.classList.remove('hidden');
+    resultDiv.classList.add('hidden');
+    simulateScan();
 });
+
+function displayFileName(name) {
+    fileNameDisplay.textContent = `Selected File: ${name}`;
+    fileNameDisplay.classList.remove('hidden');
+}
+
+function simulateScan() {
+    let progress = 0;
+    const interval = setInterval(() => {
+        progress += 10;
+        progressBar.style.width = `${progress}%`;
+
+        if (progress >= 100) {
+            clearInterval(interval);
+            showResult();
+        }
+    }, 300);
+}
+
+function showResult() {
+    progressContainer.classList.add('hidden');
+    resultDiv.classList.remove('hidden');
+
+    const isInfected = Math.random() < 0.5; 
+    if (isInfected) {
+        scanStatus.textContent = '⚠️ File is infected! Please delete it immediately.';
+        scanStatus.style.color = '#e74c3c';
+    } else {
+        scanStatus.textContent = '✅ File is safe! No threats detected.';
+        scanStatus.style.color = '#2ecc71';
+    }
+}
