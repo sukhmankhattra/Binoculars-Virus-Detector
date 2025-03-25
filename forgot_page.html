@@ -6,70 +6,97 @@
     <title>Forgot Password</title>
     <style>
         body {
-            font-family: sans-serif;
+            font-family: 'Nunito', sans-serif; /* Modern, clean font */
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #413c3c;
+            background: linear-gradient(135deg, #6dd5ed, #2193b0); /* Gradient background */
+            color: #333;
         }
 
         .forgot-password-container {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(54, 52, 52, 0.1);
-            width: 300px;
+            background-color: rgba(255, 255, 255, 0.95); /* Slightly transparent white */
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            width: 400px;
+            text-align: center;
         }
 
         .forgot-password-container h2 {
-            text-align: center;
-            margin-bottom: 20px;
+            color: #2193b0; /* Accent color */
+            margin-bottom: 35px;
+            font-size: 28px;
+            font-weight: 700;
         }
 
         .forgot-password-container label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
+            color: #555;
+            text-align: left;
+            font-weight: 600;
         }
 
         .forgot-password-container input[type="email"],
         .forgot-password-container button {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #2933c1;
-            border-radius: 4px;
+            width: calc(100% - 24px);
+            padding: 14px;
+            margin-bottom: 25px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
             box-sizing: border-box;
+            font-size: 16px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .forgot-password-container input[type="email"]:focus {
+            outline: none;
+            border-color: #2193b0;
+            box-shadow: 0 0 8px rgba(33, 147, 176, 0.5);
         }
 
         .forgot-password-container button {
-            background-color: #3f5267;
-            color: rgb(233, 228, 228);
+            background: linear-gradient(to right, #6dd5ed, #2193b0); /* Button gradient */
+            color: white;
             border: none;
             cursor: pointer;
+            font-weight: 600;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
         .forgot-password-container button:hover {
-            background-color: #3881cf;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(33, 147, 176, 0.4);
         }
 
         .forgot-password-container .message {
-            text-align: center;
-            margin-top: 10px;
+            margin-top: 25px;
+            font-size: 15px;
+            font-weight: 500;
         }
 
+        .forgot-password-container .success {
+            color: #28a745; /* Green for success */
+        }
+
+        .forgot-password-container .error {
+            color: #dc3545; /* Red for error */
+        }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
     <div class="forgot-password-container">
-        <h2>Forgot Password</h2>
+        <h2>Reset Your Password</h2>
         <form id="forgotPasswordForm">
-            <label for="email">Email:</label>
+            <label for="email">Enter your email address:</label>
             <input type="email" id="email" name="email" required>
 
-            <button type="submit">Reset Password</button>
+            <button type="submit">Send Password Reset Link</button>
 
             <div class="message" id="resetMessage"></div>
         </form>
@@ -77,24 +104,20 @@
 
     <script>
         document.getElementById('forgotPasswordForm').addEventListener('submit', function(event) {
-            event.preventDefault(); 
+            event.preventDefault();
 
             const email = document.getElementById('email').value;
             const resetMessage = document.getElementById('resetMessage');
 
-            
-            */
-
-            
-            if(email){
-                resetMessage.textContent = 'Password reset link sent to your email. (Simulated)';
-                resetMessage.style.color = "green";
+            if (email) {
+                resetMessage.textContent = 'A password reset link has been sent to your email.';
+                resetMessage.className = 'message success';
+                // Replace with your fetch request here
             } else {
-                resetMessage.textContent = 'Please enter an email address.';
-                resetMessage.style.color = "red";
+                resetMessage.textContent = 'Please enter a valid email address.';
+                resetMessage.className = 'message error';
             }
         });
     </script>
-
 </body>
 </html>
