@@ -12,7 +12,7 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #f4f4f4;
+            background-color: #c7c8ea;
         }
 
         .sign-up-container {
@@ -67,7 +67,7 @@
 <body>
 
     <div class="sign-up-container">
-        <h2>Sign Up</h2>
+        <h1><b>Binoculars</h1>
         <form id="signUpForm">
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" required>
@@ -93,34 +93,7 @@
             const password = document.getElementById('password').value;
             const signUpMessage = document.getElementById('signUpMessage');
 
-            // Simulate sign-up process (replace with your actual backend logic)
-            // Example: Send user data to server for registration
-
-            // In a real application, you'd send an AJAX request to your server here.
-            /*
-            fetch('/api/sign-up', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ username: username, email: email, password: password }),
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    window.location.href = '/dashboard'; // Redirect on success
-                } else {
-                    signUpMessage.textContent = data.message || 'Sign up failed.';
-                    signUpMessage.style.color = 'red';
-                }
-            })
-            .catch(error => {
-                signUpMessage.textContent = 'An error occurred.';
-                signUpMessage.style.color = 'red';
-            });
-            */
-
-            //For this example we just simulate:
+            
             if(username && email && password){
                 window.location.href = '/dashboard'; //Simulated redirect.
             } else {
