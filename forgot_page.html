@@ -12,14 +12,14 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #f4f4f4;
+            background-color: #413c3c;
         }
 
-        ..forgot-password-container {
+        .forgot-password-container {
             background-color: #fff;
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 4px rgba(54, 52, 52, 0.1);
             width: 300px;
         }
 
@@ -38,20 +38,20 @@
             width: 100%;
             padding: 10px;
             margin-bottom: 15px;
-            border: 1px solid #ccc;
+            border: 1px solid #2933c1;
             border-radius: 4px;
             box-sizing: border-box;
         }
 
         .forgot-password-container button {
-            background-color: #007bff;
-            color: white;
+            background-color: #3f5267;
+            color: rgb(233, 228, 228);
             border: none;
             cursor: pointer;
         }
 
         .forgot-password-container button:hover {
-            background-color: #0056b3;
+            background-color: #3881cf;
         }
 
         .forgot-password-container .message {
@@ -77,42 +77,15 @@
 
     <script>
         document.getElementById('forgotPasswordForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent default form submission
+            event.preventDefault(); 
 
             const email = document.getElementById('email').value;
             const resetMessage = document.getElementById('resetMessage');
 
-            // Simulate password reset process (replace with your actual backend logic)
-            // Example: Send reset link to email
-
-            // In a real application, you'd send an AJAX request to your server here.
-            // Example using fetch:
-
-            /*
-            fetch('/api/reset-password', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email: email }),
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    resetMessage.textContent = 'Password reset link sent to your email.';
-                    resetMessage.style.color = 'green';
-                } else {
-                    resetMessage.textContent = 'Email not found or error occurred.';
-                    resetMessage.style.color = 'red';
-                }
-            })
-            .catch(error => {
-                resetMessage.textContent = 'An error occurred.';
-                resetMessage.style.color = 'red';
-            });
+            
             */
 
-            //For this example we just simulate:
+            
             if(email){
                 resetMessage.textContent = 'Password reset link sent to your email. (Simulated)';
                 resetMessage.style.color = "green";
