@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+
+        .sign-up-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+
+        .sign-up-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .sign-up-container label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .sign-up-container input[type="text"],
+        .sign-up-container input[type="email"],
+        .sign-up-container input[type="password"],
+        .sign-up-container button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .sign-up-container button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .sign-up-container button:hover {
+            background-color: #0056b3;
+        }
+
+        .sign-up-container .message {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 0.9em;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="sign-up-container">
+        <h2>Sign Up</h2>
+        <form id="signUpForm">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit">Sign Up</button>
+
+            <div class="message" id="signUpMessage"></div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('signUpForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const signUpMessage = document.getElementById('signUpMessage');
+
+            // Simulate sign-up process (replace with your actual backend logic)
+            // Example: Send user data to server for registration
+
+            // In a real application, you'd send an AJAX request to your server here.
+            /*
+            fetch('/api/sign-up', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username: username, email: email, password: password }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    window.location.href = '/dashboard'; // Redirect on success
+                } else {
+                    signUpMessage.textContent = data.message || 'Sign up failed.';
+                    signUpMessage.style.color = 'red';
+                }
+            })
+            .catch(error => {
+                signUpMessage.textContent = 'An error occurred.';
+                signUpMessage.style.color = 'red';
+            });
+            */
+
+            //For this example we just simulate:
+            if(username && email && password){
+                window.location.href = '/dashboard'; //Simulated redirect.
+            } else {
+                signUpMessage.textContent = 'Please fill out all fields.';
+                signUpMessage.style.color = "red";
+            }
+        });
+    </script>
+
+</body>
+</html>
