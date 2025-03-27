@@ -4,116 +4,239 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sign Up</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <style>
+        :root {
+            --primary: #3a7bd5;
+            --bg-light: #f4f6fa;
+            --bg-dark: #121212;
+            --card-bg-light: rgba(255, 255, 255, 0.8);
+            --card-bg-dark: rgba(30, 30, 30, 0.7);
+            --border-radius: 16px;
+        }
+
         body {
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background: linear-gradient(135deg, #667eea, #764ba2);
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
-            background: linear-gradient(135deg, #74b9ff, #6c5ce7);
-            color: #fff;
-        }
-
-        .sign-up-container {
-            background-color: rgba(41, 37, 37, 0.95);
-            padding: 30px;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-            width: 100%;
-            max-width: 360px;
-        }
-
-        .sign-up-container h1 {
-            text-align: center;
-            margin-bottom: 24px;
-            color: #6c5ce7;
-        }
-
-        .sign-up-container label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-        }
-
-        .sign-up-container input[type="text"],
-        .sign-up-container input[type="email"],
-        .sign-up-container input[type="password"],
-        .sign-up-container button {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 16px;
-            border: none;
-            border-radius: 8px;
-            box-sizing: border-box;
-            font-size: 1rem;
-        }
-
-        .sign-up-container input {
-            background-color: #f0f0f0;
-        }
-
-        .sign-up-container button {
-            background-color: #6c5ce7;
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
             transition: background-color 0.3s ease;
         }
 
-        .sign-up-container button:hover {
-            background-color: #4834d4;
+        .container {
+            backdrop-filter: blur(16px);
+            background-color: var(--card-bg-light);
+            padding: 40px 30px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 380px;
+            transition: background-color 0.4s ease, color 0.4s ease;
         }
 
-        .sign-up-container .message {
+        .container.dark {
+            background-color: var(--card-bg-dark);
+            color: #fff;
+        }
+
+        .container h2 {
             text-align: center;
-            margin-top: 10px;
-            font-size: 0.9em;
-            color: red;
+            margin-bottom: 20px;
         }
 
-        @media (max-width: 400px) {
-            .sign-up-container {
-                padding: 20px;
+        label {
+            font-size: 14px;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .input-group i {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            color: #888;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px 12px 10px 36px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            outline: none;
+            transition: border-color 0.3s ease;
+            font-family: 'Segoe UI', sans-serif; /* Consistent font */
+        }
+
+        .input-group input:focus {
+            border-color: var(--primary);
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: var(--primary);
+            color: #fff;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            font-family: 'Segoe UI', sans-serif; /* Consistent font */
+        }
+
+        button:hover {
+            background: #2b5ca8;
+        }
+
+        .message {
+            text-align: center;
+            font-size: 14px;
+            margin-top: 16px;
+            min-height: 18px;
+        }
+
+        .spinner {
+            display: none;
+            margin: 10px auto;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .toggle-theme {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.3);
+            backdrop-filter: blur(10px);
+            padding: 8px 14px;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-theme:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            .toggle-theme {
+                top: 10px;
+                right: 10px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="sign-up-container">
-        <h1>Welcome to Binoculars</h1>
+
+    <button class="toggle-theme" id="themeToggle">🌙 Dark Mode</button>
+
+    <div class="container" id="formContainer">
+        <h2><i class="fa-solid fa-user-plus"></i> Sign Up</h2>
         <form id="signUpForm">
             <label for="username">Username</label>
-            <input type="text" id="username" name="username" required />
+            <div class="input-group">
+                <i class="fa-solid fa-user"></i>
+                <input type="text" id="username" placeholder="Enter username" required />
+            </div>
 
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" required />
+            <label for="email">Email Address</label>
+            <div class="input-group">
+                <i class="fa-solid fa-envelope"></i>
+                <input type="email" id="email" placeholder="you@example.com" required />
+            </div>
 
             <label for="password">Password</label>
-            <input type="password" id="password" name="password" required />
+            <div class="input-group">
+                <i class="fa-solid fa-lock"></i>
+                <input type="password" id="password" placeholder="Create password" required />
+            </div>
 
             <button type="submit">Sign Up</button>
+            <div class="spinner" id="spinner"></div>
             <div class="message" id="signUpMessage"></div>
         </form>
     </div>
 
     <script>
-        document.getElementById('signUpForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const username = document.getElementById('username').value;
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const signUpMessage = document.getElementById('signUpMessage');
+        const form = document.getElementById('signUpForm');
+        const usernameInput = document.getElementById('username');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const messageDiv = document.getElementById('signUpMessage');
+        const spinner = document.getElementById('spinner');
+        const themeToggle = document.getElementById('themeToggle');
+        const container = document.getElementById('formContainer');
 
-            if (username && email && password) {
-                signUpMessage.textContent = 'Sign-up successful! Redirecting...';
-                signUpMessage.style.color = 'green';
-                setTimeout(() => window.location.href = '/dashboard', 1500);
-            } else {
-                signUpMessage.textContent = 'Please fill out all fields.';
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const username = usernameInput.value.trim();
+            const email = emailInput.value.trim();
+            const password = passwordInput.value.trim();
+
+            if (!username || !email || !password) {
+                messageDiv.textContent = '⚠️ Please fill in all fields.';
+                messageDiv.style.color = 'orangered';
+                return;
             }
+
+            const emailRegex = /^[^\\s@]+@[^\\s@]+\.[^\\s@]+$/;
+            if (!emailRegex.test(email)) {
+                messageDiv.textContent = '⚠️ Please enter a valid email address.';
+                messageDiv.style.color = 'orangered';
+                return;
+            }
+
+            if (password.length < 6) {
+                messageDiv.textContent = '⚠️ Password must be at least 6 characters long.';
+                messageDiv.style.color = 'orangered';
+                return;
+            }
+
+            spinner.style.display = 'block';
+            messageDiv.textContent = '';
+            setTimeout(() => {
+                spinner.style.display = 'none';
+                messageDiv.innerHTML = `✅ Account created successfully for <b>${username}</b>!`;
+                messageDiv.style.color = 'green';
+                form.reset(); // Clear the form
+                // In a real application, you would make an API call here
+                // to create the user account and potentially redirect.
+            }, 2000);
+        });
+
+        themeToggle.addEventListener('click', () => {
+            container.classList.toggle('dark');
+            const isDark = container.classList.contains('dark');
+            themeToggle.textContent = isDark ? '☀️ Light Mode' : '🌙 Dark Mode';
         });
     </script>
+
 </body>
 </html>
