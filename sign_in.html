@@ -1,191 +1,193 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title> Sign In To Virus Detector</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: Arial, sans-serif;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Sign In To Virus Detector</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: all 0.3s ease-in-out; /* Smooth transitions */
+        }
 
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      overflow: hidden;
-      position: relative;
-      background: linear-gradient(135deg, #008b8b, #00ced1); /* Cyan blue gradient */
-      color: white;
-    }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+            background: linear-gradient(135deg, #008b8b, #00ced1); /* Cyan blue gradient */
+            color: white;
+        }
 
-    .particle-bg {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: url('https://www.transparenttextures.com/patterns/dark-fish-skin.png');
-      background-size: 5px 5px;
-      animation: moveParticles 20s linear infinite;
-      z-index: 0;
-      opacity: 0.6;
-    }
+        .particle-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/dark-fish-skin.png');
+            background-size: 5px 5px;
+            animation: moveParticles 20s linear infinite;
+            z-index: 0;
+            opacity: 0.6;
+        }
 
-    @keyframes moveParticles {
-      0% { transform: translate(0, 0); }
-      100% { transform: translate(100px, 100px); }
-    }
+        @keyframes moveParticles {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(100px, 100px); }
+        }
 
-    .sign-in-container {
-      background: rgba(34, 34, 34, 0.9);
-      padding: 40px;
-      width: 90%;
-      max-width: 400px;
-      border-radius: 8px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-      text-align: center;
-      position: relative;
-      z-index: 1;
-      animation: fadeIn 1s ease-in-out;
-    }
+        .sign-in-container {
+            background: rgba(34, 34, 34, 0.95); /* Slightly less transparent */
+            padding: 50px; /* More padding */
+            width: 90%;
+            max-width: 450px; /* Slightly wider */
+            border-radius: 12px; /* More rounded */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6); /* More prominent shadow */
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            animation: fadeIn 1s ease-in-out;
+        }
 
-    .sign-in-container h2 {
-      margin-bottom: 20px;
-      font-size: 24px;
-      color: #00ced1; /* Cyan blue header */
-    }
+        .sign-in-container h2 {
+            margin-bottom: 30px;
+            font-size: 28px;
+            color: #00ced1; /* Cyan blue header */
+            letter-spacing: 0.5px;
+        }
 
-    .input-field {
-      position: relative;
-      margin: 10px 0;
-    }
+        .input-field {
+            position: relative;
+            margin: 15px 0; /* More spacing */
+        }
 
-    .input-field input {
-      width: 100%;
-      padding: 14px 40px 14px 14px; /* Increased padding */
-      border: 1px solid #333;
-      border-radius: 4px;
-      background: #333;
-      color: white;
-      transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    }
+        .input-field input {
+            width: 100%;
+            padding: 16px 45px 16px 16px; /* More padding */
+            border: none;
+            border-radius: 6px;
+            background: #444; /* Darker input background */
+            color: white;
+            transition: box-shadow 0.3s ease;
+        }
 
-    .input-field input:focus {
-      border-color: #00ced1; /* Cyan blue focus */
-      box-shadow: 0 0 8px rgba(0, 206, 209, 0.6);
-      outline: none;
-    }
+        .input-field input:focus {
+            box-shadow: 0 0 10px rgba(0, 206, 209, 0.8);
+            outline: none;
+        }
 
-    .input-field input::placeholder {
-      color: #999;
-    }
+        .input-field input::placeholder {
+            color: #777;
+        }
 
-    .input-icon {
-      position: absolute;
-      top: 50%;
-      right: 10px;
-      transform: translateY(-50%);
-      color: #999;
-    }
+        .input-icon {
+            position: absolute;
+            top: 50%;
+            right: 15px;
+            transform: translateY(-50%);
+            color: #777;
+            font-size: 18px;
+        }
 
-    .sign-in-container button {
-      width: 100%;
-      padding: 14px; /* Increased padding */
-      background: #00ced1; /* Cyan blue button */
-      border: none;
-      border-radius: 4px;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
-      margin-top: 10px;
-    }
+        .sign-in-container button {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #00ced1, #008b8b); /* Gradient button */
+            border: none;
+            border-radius: 6px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            margin-top: 20px;
+            font-size: 16px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
 
-    .sign-in-container button:hover {
-      background: #008b8b; /* Darker cyan blue hover */
-      transform: scale(1.05);
-      box-shadow: 0 4px 12px rgba(0, 139, 139, 0.4);
-    }
+        .sign-in-container button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 139, 139, 0.5);
+        }
 
-    .sign-in-container .alternative-signin {
-      margin-top: 20px;
-      font-size: 14px;
-      color: #999;
-    }
+        .sign-in-container .alternative-signin {
+            margin-top: 25px;
+            font-size: 15px;
+            color: #999;
+        }
 
-    .sign-in-container a {
-      color: #00ced1; /* Cyan blue link */
-      text-decoration: none;
-      font-weight: bold;
-      position: relative;
-      display: inline-block;
-      padding-bottom: 2px;
-    }
+        .sign-in-container a {
+            color: #00ced1;
+            text-decoration: none;
+            font-weight: bold;
+        }
 
-    .sign-in-container a::after {
-      content: "";
-      position: absolute;
-      width: 100%;
-      height: 2px;
-      background: #00ced1; /* Cyan blue underline */
-      bottom: 0;
-      left: 0;
-      transform: scaleX(0);
-      transform-origin: bottom right;
-      transition: transform 0.3s ease;
-    }
+        .sign-in-container a:hover {
+            text-decoration: underline;
+        }
 
-    .sign-in-container a:hover::after {
-      transform: scaleX(1);
-      transform-origin: bottom left;
-    }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    @media (max-width: 500px) {
-      .sign-in-container {
-        padding: 30px 20px;
-      }
-      .particle-bg{
-        background: none;
-      }
-    }
-  </style>
+        @media (max-width: 500px) {
+            .sign-in-container {
+                padding: 40px 30px;
+                border-radius: 10px;
+            }
+            .particle-bg{
+                background: none;
+            }
+            .sign-in-container h2 {
+                font-size: 26px;
+                margin-bottom: 25px;
+            }
+            .input-field input, .sign-in-container button {
+                padding: 14px;
+                font-size: 15px;
+            }
+            .input-icon {
+                font-size: 16px;
+            }
+            .sign-in-container .alternative-signin {
+                font-size: 14px;
+                margin-top: 20px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="particle-bg"></div>
-  <div class="sign-in-container">
-    <h2>Sign In To Virus Detector</h2>
-    <form onsubmit="redirectToHome(event)">
-      <div class="input-field">
-        <input type="email" placeholder="Email" required>
-        <span class="input-icon">📧</span>
-      </div>
-      <div class="input-field">
-        <input type="password" placeholder="Password" minlength="8" maxlength="20" required>
-        <span class="input-icon">🔒</span>
-      </div>
-      <button type="submit">Sign In</button>
-    </form>
-    <div class="alternative-signin">
-      <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
-      <p><a href="forgot_page.html" id="forgot-password-link">Forgot Password?</a></p>
+    <div class="particle-bg"></div>
+    <div class="sign-in-container">
+        <h2>Sign In</h2>
+        <form onsubmit="redirectToHome(event)">
+            <div class="input-field">
+                <input type="email" placeholder="Email" required>
+                <span class="input-icon">📧</span>
+            </div>
+            <div class="input-field">
+                <input type="password" placeholder="Password" minlength="8" maxlength="20" required>
+                <span class="input-icon">🔒</span>
+            </div>
+            <button type="submit">Secure Sign In</button>
+        </form>
+        <div class="alternative-signin">
+            <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
+            <p><a href="forgot_page.html" id="forgot-password-link">Forgot Password?</a></p>
+        </div>
     </div>
-  </div>
 
-  <script>
-    function redirectToHome(event) {
-      event.preventDefault();
-      window.location.href = "index.html";
-    }
-  </script>
+    <script>
+        function redirectToHome(event) {
+            event.preventDefault();
+            window.location.href = "index.html";
+        }
+    </script>
 </body>
 </html>
