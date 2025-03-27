@@ -47,6 +47,7 @@
         .container h2 {
             text-align: center;
             margin-bottom: 20px;
+            font-weight: bold;
         }
 
         label {
@@ -74,6 +75,7 @@
             border-radius: 8px;
             outline: none;
             transition: border-color 0.3s ease;
+            font-family: 'Segoe UI', sans-serif;
         }
 
         .input-group input:focus {
@@ -90,25 +92,18 @@
             border-radius: 8px;
             cursor: pointer;
             transition: background 0.3s ease;
+            font-family: 'Segoe UI', sans-serif;
         }
 
         button:hover {
             background: #2b5ca8;
         }
 
-        .alternative-signin {
+        .message {
             text-align: center;
-            margin-top: 16px;
             font-size: 14px;
-        }
-
-        .alternative-signin a {
-            color: var(--primary);
-            text-decoration: none;
-        }
-
-        .alternative-signin a:hover {
-            text-decoration: underline;
+            margin-top: 16px;
+            min-height: 18px;
         }
 
         .toggle-theme {
@@ -123,8 +118,23 @@
             color: #fff;
             font-size: 14px;
             cursor: pointer;
+            transition: all 0.3s ease;
         }
 
+        .toggle-theme:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            .toggle-theme {
+                top: 10px;
+                right: 10px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -132,8 +142,8 @@
     <button class="toggle-theme" id="themeToggle">🌙 Dark Mode</button>
 
     <div class="container" id="formContainer">
-        <h2>Sign In to Virus Detector</h2>
-        <form onsubmit="redirectToHome(event)">
+        <h2><i class="fa-solid fa-right-to-bracket"></i> Sign In</h2>
+        <form id="signInForm">
             <label for="email">Email Address</label>
             <div class="input-group">
                 <i class="fa-solid fa-envelope"></i>
@@ -143,33 +153,12 @@
             <label for="password">Password</label>
             <div class="input-group">
                 <i class="fa-solid fa-lock"></i>
-                <input type="password" id="password" placeholder="Enter your password" minlength="8" required />
+                <input type="password" id="password" placeholder="Enter your password" required />
             </div>
 
             <button type="submit">Sign In</button>
+            <div class="message" id="signInMessage"></div>
         </form>
-
-        <div class="alternative-signin">
-            <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
-            <p><a href="forgot_page.html">Forgot Password?</a></p>
-        </div>
     </div>
-
-    <script>
-        function redirectToHome(event) {
-            event.preventDefault();
-            window.location.href = "index.html";
-        }
-
-        const themeToggle = document.getElementById('themeToggle');
-        const container = document.getElementById('formContainer');
-
-        themeToggle.addEventListener('click', () => {
-            container.classList.toggle('dark');
-            const isDark = container.classList.contains('dark');
-            themeToggle.textContent = isDark ? '☀️ Light Mode' : '🌙 Dark Mode';
-        });
-    </script>
-
 </body>
 </html>
