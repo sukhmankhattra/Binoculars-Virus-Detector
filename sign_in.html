@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Music Player - Sign In</title>
+  <title> Sign In To Virus Detector</title>
   <style>
     * {
       margin: 0;
@@ -19,11 +19,10 @@
       min-height: 100vh;
       overflow: hidden;
       position: relative;
-      background: linear-gradient(135deg, rgba(0, 0, 0, 0.7), rgba(29, 185, 84, 0.8));
+      background: linear-gradient(135deg, #008b8b, #00ced1); /* Cyan blue gradient */
       color: white;
     }
 
-   
     .particle-bg {
       position: absolute;
       top: 0;
@@ -58,6 +57,7 @@
     .sign-in-container h2 {
       margin-bottom: 20px;
       font-size: 24px;
+      color: #00ced1; /* Cyan blue header */
     }
 
     .input-field {
@@ -67,7 +67,7 @@
 
     .input-field input {
       width: 100%;
-      padding: 12px 40px 12px 12px;
+      padding: 14px 40px 14px 14px; /* Increased padding */
       border: 1px solid #333;
       border-radius: 4px;
       background: #333;
@@ -76,8 +76,8 @@
     }
 
     .input-field input:focus {
-      border-color: #1db954;
-      box-shadow: 0 0 8px rgba(29, 185, 84, 0.6);
+      border-color: #00ced1; /* Cyan blue focus */
+      box-shadow: 0 0 8px rgba(0, 206, 209, 0.6);
       outline: none;
     }
 
@@ -95,8 +95,8 @@
 
     .sign-in-container button {
       width: 100%;
-      padding: 12px;
-      background: #b91d1d;
+      padding: 14px; /* Increased padding */
+      background: #00ced1; /* Cyan blue button */
       border: none;
       border-radius: 4px;
       color: white;
@@ -107,9 +107,9 @@
     }
 
     .sign-in-container button:hover {
-      background: #17a843;
+      background: #008b8b; /* Darker cyan blue hover */
       transform: scale(1.05);
-      box-shadow: 0 4px 12px rgba(23, 168, 67, 0.4);
+      box-shadow: 0 4px 12px rgba(0, 139, 139, 0.4);
     }
 
     .sign-in-container .alternative-signin {
@@ -119,7 +119,7 @@
     }
 
     .sign-in-container a {
-      color: #1db954;
+      color: #00ced1; /* Cyan blue link */
       text-decoration: none;
       font-weight: bold;
       position: relative;
@@ -132,7 +132,7 @@
       position: absolute;
       width: 100%;
       height: 2px;
-      background: #1db954;
+      background: #00ced1; /* Cyan blue underline */
       bottom: 0;
       left: 0;
       transform: scaleX(0);
@@ -154,13 +154,16 @@
       .sign-in-container {
         padding: 30px 20px;
       }
+      .particle-bg{
+        background: none;
+      }
     }
   </style>
 </head>
 <body>
   <div class="particle-bg"></div>
   <div class="sign-in-container">
-    <h2>Sign In to Music Player</h2>
+    <h2>Sign In To Virus Detector</h2>
     <form onsubmit="redirectToHome(event)">
       <div class="input-field">
         <input type="email" placeholder="Email" required>
@@ -173,17 +176,16 @@
       <button type="submit">Sign In</button>
     </form>
     <div class="alternative-signin">
-      <p>Don't have an account? <a href="#">Sign Up</a></p>
-      
-      <p><a href="#" id="forgot-password-link">Forgot Password?</a></p>
+      <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
+      <p><a href="forgot_page.html" id="forgot-password-link">Forgot Password?</a></p>
     </div>
   </div>
 
   <script>
-   
     function redirectToHome(event) {
-      event.preventDefault(); 
-      window.location.href = "index.html";    }
+      event.preventDefault();
+      window.location.href = "index.html";
+    }
   </script>
 </body>
 </html>

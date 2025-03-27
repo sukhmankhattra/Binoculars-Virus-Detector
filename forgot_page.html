@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<<<<<<< HEAD
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Forgot Password</title>
@@ -97,18 +98,195 @@
             <input type="email" id="email" name="email" required>
 
             <button type="submit">Send Password Reset Link</button>
+=======
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Forgot Password</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    :root {
+      --primary: #3a7bd5;
+      --bg-light: #f4f6fa;
+      --bg-dark: #121212;
+      --card-bg-light: rgba(255, 255, 255, 0.8);
+      --card-bg-dark: rgba(30, 30, 30, 0.7);
+      --border-radius: 16px;
+    }
 
-            <div class="message" id="resetMessage"></div>
-        </form>
-    </div>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: background-color 0.3s ease;
+    }
 
+    .container {
+      backdrop-filter: blur(16px);
+      background-color: var(--card-bg-light);
+      padding: 40px 30px;
+      border-radius: var(--border-radius);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+      width: 90%;
+      max-width: 380px;
+      transition: background-color 0.4s ease, color 0.4s ease;
+    }
+
+    .container.dark {
+      background-color: var(--card-bg-dark);
+      color: #fff;
+    }
+
+    .container h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-size: 14px;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .input-group {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .input-group i {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      color: #888;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 10px 12px 10px 36px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+
+    .input-group input:focus {
+      border-color: var(--primary);
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background: var(--primary);
+      color: #fff;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #2b5ca8;
+    }
+
+    .message {
+      text-align: center;
+      font-size: 14px;
+      margin-top: 16px;
+      min-height: 18px;
+    }
+
+    .spinner {
+      display: none;
+      margin: 10px auto;
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid var(--primary);
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .toggle-theme {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.3);
+      backdrop-filter: blur(10px);
+      padding: 8px 14px;
+      border-radius: 12px;
+      color: #fff;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .toggle-theme:hover {
+      background: rgba(255,255,255,0.2);
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 30px 20px;
+      }
+
+      .toggle-theme {
+        top: 10px;
+        right: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <button class="toggle-theme" id="themeToggle">🌙 Dark Mode</button>
+
+  <div class="container" id="formContainer">
+    <h2><i class="fa-solid fa-unlock-keyhole"></i> Forgot Password</h2>
+    <form id="forgotPasswordForm">
+      <label for="email">Email Address</label>
+      <div class="input-group">
+        <i class="fa-solid fa-envelope"></i>
+        <input type="email" id="email" placeholder="you@example.com" required />
+      </div>
+>>>>>>> 72374d7348642c8bc267bdfbd760845e93c08a57
+
+      <button type="submit">Send Reset Link</button>
+      <div class="spinner" id="spinner"></div>
+      <div class="message" id="resetMessage"></div>
+    </form>
+  </div>
+
+<<<<<<< HEAD
     <script>
         document.getElementById('forgotPasswordForm').addEventListener('submit', function(event) {
             event.preventDefault();
+=======
+  <script>
+    const form = document.getElementById('forgotPasswordForm');
+    const emailInput = document.getElementById('email');
+    const messageDiv = document.getElementById('resetMessage');
+    const spinner = document.getElementById('spinner');
+    const themeToggle = document.getElementById('themeToggle');
+    const container = document.getElementById('formContainer');
+>>>>>>> 72374d7348642c8bc267bdfbd760845e93c08a57
 
-            const email = document.getElementById('email').value;
-            const resetMessage = document.getElementById('resetMessage');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const email = emailInput.value.trim();
 
+<<<<<<< HEAD
             if (email) {
                 resetMessage.textContent = 'A password reset link has been sent to your email.';
                 resetMessage.className = 'message success';
@@ -119,5 +297,31 @@
             }
         });
     </script>
+=======
+      const emailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;
+      if (!emailRegex.test(email)) {
+        messageDiv.textContent = '⚠️ Please enter a valid email address.';
+        messageDiv.style.color = 'orangered';
+        return;
+      }
+
+      spinner.style.display = 'block';
+      messageDiv.textContent = '';
+      setTimeout(() => {
+        spinner.style.display = 'none';
+        messageDiv.innerHTML = `✅ A password reset link has been sent to <b>${email}</b>`;
+        messageDiv.style.color = 'green';
+        emailInput.value = '';
+      }, 2000);
+    });
+
+    themeToggle.addEventListener('click', () => {
+      container.classList.toggle('dark');
+      const isDark = container.classList.contains('dark');
+      themeToggle.textContent = isDark ? '☀️ Light Mode' : '🌙 Dark Mode';
+    });
+  </script>
+
+>>>>>>> 72374d7348642c8bc267bdfbd760845e93c08a57
 </body>
 </html>
