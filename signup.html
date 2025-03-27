@@ -17,7 +17,7 @@
         }
 
         body {
-            font-family: 'Segoe UI', sans-serif;
+            font-family: 'Poppins', sans-serif; /* Using Poppins for consistency */
             margin: 0;
             padding: 0;
             height: 100vh;
@@ -74,7 +74,7 @@
             border-radius: 8px;
             outline: none;
             transition: border-color 0.3s ease;
-            font-family: 'Segoe UI', sans-serif; /* Consistent font */
+            font-family: 'Poppins', sans-serif; /* Using Poppins for consistency */
         }
 
         .input-group input:focus {
@@ -91,7 +91,7 @@
             border-radius: 8px;
             cursor: pointer;
             transition: background 0.3s ease;
-            font-family: 'Segoe UI', sans-serif; /* Consistent font */
+            font-family: 'Poppins', sans-serif; /* Using Poppins for consistency */
         }
 
         button:hover {
@@ -141,6 +141,22 @@
             background: rgba(255,255,255,0.2);
         }
 
+        .login-link { /* New style for the link */
+            text-align: center;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        .login-link a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
         @media (max-width: 480px) {
             .container {
                 padding: 30px 20px;
@@ -182,6 +198,9 @@
             <div class="spinner" id="spinner"></div>
             <div class="message" id="signUpMessage"></div>
         </form>
+        <div class="login-link">
+            Already have an account? <a href="sign_in.html">Sign in</a>
+        </div>
     </div>
 
     <script>
@@ -225,7 +244,7 @@
                 spinner.style.display = 'none';
                 messageDiv.innerHTML = `✅ Account created successfully for <b>${username}</b>!`;
                 messageDiv.style.color = 'green';
-                form.reset(); // Clear the form
+                form.reset();
                 // In a real application, you would make an API call here
                 // to create the user account and potentially redirect.
             }, 2000);
