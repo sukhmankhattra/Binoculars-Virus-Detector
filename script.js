@@ -10,12 +10,10 @@ const scanStatus = document.getElementById('scanStatus');
 
 let selectedFile = null;
 
-
 fileInput.addEventListener('change', (e) => {
     selectedFile = e.target.files[0];
     displayFileName(selectedFile.name);
 });
-
 
 dropZone.addEventListener('dragover', (e) => {
     e.preventDefault();
@@ -31,9 +29,8 @@ dropZone.addEventListener('drop', (e) => {
     dropZone.style.backgroundColor = 'rgba(44, 62, 80, 0.4)';
     selectedFile = e.dataTransfer.files[0];
     displayFileName(selectedFile.name);
-    fileInput.files = e.dataTransfer.files; 
+    fileInput.files = e.dataTransfer.files;
 });
-
 
 scanButton.addEventListener('click', () => {
     if (!selectedFile) {
@@ -69,12 +66,24 @@ function showResult() {
     progressContainer.classList.add('hidden');
     resultDiv.classList.remove('hidden');
 
-    const isInfected = Math.random() < 0.5; 
-    if (isInfected) {
-        scanStatus.textContent = '⚠️ File is infected! Please delete it immediately.';
-        scanStatus.style.color = '#e74c3c';
+    const scanners = [
+        { name: 'Scanner A', probability: 0.4 },
+        { name: 'Scanner B', probability: 0.3 },
+        { name: 'Scanner C', probability: 0.2 },
+        { name: 'Scanner D', probability: 0.5 },
+    ];
+
+    const results = scanners.map(scanner => {
+        const isInfected = Math.random() < scanner.probability;
+        return `${scanner.name}: ${isInfected ? '⚠️ Infected' : '✅ Safe'}`;
+    });
+
+    scanStatus.innerHTML = results.join('<br>');
+    scanStatus.style.color = '#3498db';
+
+    if (results.some(result => result.includes('Infected'))) {
+        scanStatus.innerHTML += '<br><strong style="color:#e74c3c;">Some threats detected. Please take appropriate action.</strong>';
     } else {
-        scanStatus.textContent = '✅ File is safe! No threats detected.';
-        scanStatus.style.color = '#2ecc71';
+        scanStatus.innerHTML += '<br><strong style="color:#2ecc71;">All scans completed. No threats detected.</strong>';
     }
 }
