@@ -9,8 +9,12 @@
     :root {
       --primary: #3a7bd5;
       --bg-light: #f4f6fa;
+      --bg-dark: #121212;
       --card-bg-light: rgba(255, 255, 255, 0.8);
+      --card-bg-dark: rgba(30, 30, 30, 0.7);
       --border-radius: 16px;
+      --text-light: #000;
+      --text-dark: #fff;
     }
 
     body {
@@ -22,7 +26,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      transition: background-color 0.3s ease;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
 
     .container {
@@ -34,6 +38,12 @@
       width: 90%;
       max-width: 400px;
       text-align: center;
+      transition: background-color 0.4s ease, color 0.4s ease;
+    }
+
+    .container.dark {
+      background-color: var(--card-bg-dark);
+      color: var(--text-dark);
     }
 
     h1 {
@@ -73,11 +83,32 @@
     button:hover {
       background: #2b5ca8;
     }
+
+    .toggle-theme {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.3);
+      backdrop-filter: blur(10px);
+      padding: 8px 14px;
+      border-radius: 12px;
+      color: #fff;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .toggle-theme:hover {
+      background: rgba(255,255,255,0.2);
+    }
   </style>
 </head>
 <body>
 
-  <div class="container">
+  <button class="toggle-theme" id="themeToggle">🌙 Dark Mode</button>
+
+  <div class="container" id="formContainer">
     <h1><i class="fa-solid fa-shield-virus"></i> Virus Detector</h1>
     <form id="virusForm">
       <label for="fileInput">Upload a File to Scan</label>
@@ -89,6 +120,17 @@
       </div>
     </form>
   </div>
+
+  <script>
+    const themeToggle = document.getElementById('themeToggle');
+    const container = document.getElementById('formContainer');
+
+    themeToggle.addEventListener('click', () => {
+      container.classList.toggle('dark');
+      const isDark = container.classList.contains('dark');
+      themeToggle.textContent = isDark ? '☀️ Light Mode' : '🌙 Dark Mode';
+    });
+  </script>
 
 </body>
 </html>
