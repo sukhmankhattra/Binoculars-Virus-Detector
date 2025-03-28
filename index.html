@@ -1,136 +1,189 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Virus Detector</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SecureScan | Virus Detector</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
     :root {
-      --primary: #3a7bd5;
-      --bg-light: #f4f6fa;
-      --bg-dark: #121212;
-      --card-bg-light: rgba(255, 255, 255, 0.8);
-      --card-bg-dark: rgba(30, 30, 30, 0.7);
-      --border-radius: 16px;
-      --text-light: #000;
-      --text-dark: #fff;
+      --primary: #3a7bd5; --danger: #e74c3c; --success: #2ecc71;
+      --bg: linear-gradient(135deg, #667eea, #764ba2); --card-bg: rgba(255,255,255,0.9);
+      --text: #333; --border-radius: 16px;
     }
-
     body {
       font-family: 'Segoe UI', sans-serif;
-      margin: 0;
-      padding: 0;
-      height: 100vh;
-      background: linear-gradient(135deg, #667eea, #764ba2);
+      min-height: 100vh;
+      background: var(--bg);
       display: flex;
       justify-content: center;
       align-items: center;
-      transition: background-color 0.3s ease, color 0.3s ease;
+      margin: 0;
     }
-
     .container {
-      backdrop-filter: blur(16px);
-      background-color: var(--card-bg-light);
-      padding: 40px 30px;
+      background: var(--card-bg);
+      padding: 2rem;
       border-radius: var(--border-radius);
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.2);
       width: 90%;
       max-width: 400px;
       text-align: center;
-      transition: background-color 0.4s ease, color 0.4s ease;
     }
-
-    .container.dark {
-      background-color: var(--card-bg-dark);
-      color: var(--text-dark);
-    }
-
     h1 {
-      margin-bottom: 20px;
+      color: var(--primary);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
     }
-
-    label {
-      font-size: 14px;
-      display: block;
-      margin-bottom: 6px;
-    }
-
-    input[type="file"] {
-      display: none;
-    }
-
     .drop-zone {
       border: 2px dashed var(--primary);
-      padding: 20px;
+      padding: 1.5rem;
       border-radius: 10px;
       cursor: pointer;
-      margin-bottom: 20px;
+      margin: 1rem 0;
+      transition: all 0.3s;
     }
-
+    .drop-zone.highlight {
+      background: rgba(58,123,213,0.1);
+    }
     button {
       width: 100%;
-      padding: 12px;
+      padding: 0.8rem;
       background: var(--primary);
-      color: #fff;
-      font-weight: bold;
+      color: white;
       border: none;
       border-radius: 8px;
       cursor: pointer;
-      transition: background 0.3s ease;
+      font-weight: 600;
+      transition: all 0.3s;
     }
-
     button:hover {
-      background: #2b5ca8;
+      opacity: 0.9;
+      transform: translateY(-2px);
     }
-
-    .toggle-theme {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      background: rgba(255,255,255,0.1);
-      border: 1px solid rgba(255,255,255,0.3);
-      backdrop-filter: blur(10px);
-      padding: 8px 14px;
-      border-radius: 12px;
-      color: #fff;
-      font-size: 14px;
-      cursor: pointer;
-      transition: all 0.3s ease;
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
     }
-
-    .toggle-theme:hover {
-      background: rgba(255,255,255,0.2);
+    .result {
+      margin-top: 1rem;
+      padding: 1rem;
+      border-radius: 8px;
+      display: none;
+    }
+    .safe { background: rgba(46,204,113,0.15); }
+    .danger { background: rgba(231,76,60,0.15); }
+    .progress {
+      height: 6px;
+      background: rgba(0,0,0,0.1);
+      border-radius: 3px;
+      margin: 1rem 0;
+      display: none;
+    }
+    .progress-bar {
+      height: 100%;
+      border-radius: 3px;
+      background: var(--primary);
+      width: 0%;
+      transition: width 0.3s;
     }
   </style>
 </head>
 <body>
-
-  <button class="toggle-theme" id="themeToggle">🌙 Dark Mode</button>
-
-  <div class="container" id="formContainer">
-    <h1><i class="fa-solid fa-shield-virus"></i> Virus Detector</h1>
-    <form id="virusForm">
-      <label for="fileInput">Upload a File to Scan</label>
-      <input type="file" id="fileInput" required />
-      <div id="dropZone" class="drop-zone">📁 Drag and drop a file here</div>
-      <button type="button" id="scanButton">Scan File</button>
-      <div id="result" class="output hidden">
-        <p id="scanStatus">Scanning result will appear here...</p>
-      </div>
-    </form>
+  <div class="container">
+    <h1><i class="fas fa-shield-virus"></i> SecureScan</h1>
+    <p>Upload a file to scan for viruses</p>
+    
+    <div id="dropZone" class="drop-zone">
+      <i class="fas fa-cloud-upload-alt" style="font-size:2rem;"></i>
+      <p>Drag & drop file or click to browse</p>
+    </div>
+    <input type="file" id="fileInput" style="display:none;">
+    
+    <div class="progress" id="progress">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+    
+    <button id="scanBtn" disabled>Scan File</button>
+    
+    <div id="result" class="result"></div>
   </div>
 
   <script>
-    const themeToggle = document.getElementById('themeToggle');
-    const container = document.getElementById('formContainer');
+    const dropZone = document.getElementById('dropZone');
+    const fileInput = document.getElementById('fileInput');
+    const scanBtn = document.getElementById('scanBtn');
+    const result = document.getElementById('result');
+    const progress = document.getElementById('progress');
+    const progressBar = document.getElementById('progressBar');
 
-    themeToggle.addEventListener('click', () => {
-      container.classList.toggle('dark');
-      const isDark = container.classList.contains('dark');
-      themeToggle.textContent = isDark ? '☀️ Light Mode' : '🌙 Dark Mode';
+    // Drag and drop
+    ['dragenter', 'dragover'].forEach(e => {
+      dropZone.addEventListener(e, () => dropZone.classList.add('highlight'));
     });
-  </script>
+    ['dragleave', 'drop'].forEach(e => {
+      dropZone.addEventListener(e, () => dropZone.classList.remove('highlight'));
+    });
+    dropZone.addEventListener('drop', e => {
+      e.preventDefault();
+      fileInput.files = e.dataTransfer.files;
+      updateFileInfo();
+    });
+    dropZone.addEventListener('click', () => fileInput.click());
+    fileInput.addEventListener('change', updateFileInfo);
 
+    function updateFileInfo() {
+      if (fileInput.files.length) {
+        const file = fileInput.files[0];
+        if (file.size > 50 * 1024 * 1024) {
+          showResult('File too large (max 50MB)', 'danger');
+          scanBtn.disabled = true;
+          return;
+        }
+        scanBtn.disabled = false;
+      }
+    }
+
+    // Scan button
+    scanBtn.addEventListener('click', () => {
+      const file = fileInput.files[0];
+      if (!file) return;
+      
+      progress.style.display = 'block';
+      scanBtn.disabled = true;
+      scanBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Scanning...';
+      
+      // Simulate scan progress
+      let progressVal = 0;
+      const interval = setInterval(() => {
+        progressVal += Math.random() * 20;
+        if (progressVal >= 100) {
+          progressVal = 100;
+          clearInterval(interval);
+          completeScan(file);
+        }
+        progressBar.style.width = `${progressVal}%`;
+      }, 300);
+    });
+
+    function completeScan(file) {
+      const isSafe = Math.random() > 0.3;
+      if (isSafe) {
+        showResult('No threats found! File is safe.', 'safe');
+      } else {
+        showResult('Malware detected! Do not open.', 'danger');
+      }
+      scanBtn.disabled = false;
+      scanBtn.textContent = 'Scan File';
+    }
+
+    function showResult(message, type) {
+      result.textContent = message;
+      result.className = `result ${type}`;
+      result.style.display = 'block';
+    }
+  </script>
 </body>
 </html>
