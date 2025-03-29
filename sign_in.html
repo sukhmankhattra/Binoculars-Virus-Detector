@@ -11,13 +11,15 @@
             --primary: #3a7bd5;
             --bg-light: #f4f6fa;
             --bg-dark: #121212;
-            --card-bg-light: rgba(255, 255, 255, 0.8);
-            --card-bg-dark: rgba(30, 30, 30, 0.7);
+            --text-light: #000;
+            --text-dark: #fff;
+            --card-bg-light: rgba(255, 255, 255, 0.9);
+            --card-bg-dark: rgba(30, 30, 30, 0.8);
             --border-radius: 16px;
         }
 
         body {
-            font-family: 'Segoe UI', sans-serif;
+            font-family: 'Poppins', sans-serif;
             margin: 0;
             padding: 0;
             height: 100vh;
@@ -25,66 +27,82 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        body.dark {
+            background: #1a1a1a;
+            color: var(--text-dark);
         }
 
         .container {
             backdrop-filter: blur(16px);
             background-color: var(--card-bg-light);
-            padding: 40px 30px;
+            padding: 50px 40px;
             border-radius: var(--border-radius);
             box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
             width: 90%;
-            max-width: 380px;
+            max-width: 420px;
             transition: background-color 0.4s ease, color 0.4s ease;
         }
 
         .container.dark {
             background-color: var(--card-bg-dark);
-            color: #fff;
-        }
-
-        .container h2 {
-            text-align: center;
-            margin-bottom: 20px;
-            font-weight: bold;
-        }
-
-        label {
-            font-size: 14px;
-            display: block;
-            margin-bottom: 6px;
+            color: var(--text-dark);
         }
 
         .input-group {
             position: relative;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         .input-group i {
             position: absolute;
-            top: 12px;
+            top: 15px;
             left: 12px;
             color: #888;
         }
 
         .input-group input {
             width: 100%;
-            padding: 10px 12px 10px 36px;
+            padding: 14px 12px 14px 40px;
             border: 1px solid #ccc;
             border-radius: 8px;
             outline: none;
             transition: border-color 0.3s ease;
-            font-family: 'Segoe UI', sans-serif;
+            font-size: 16px;
+            background: #fff;
+            color: #000;
         }
 
-        .input-group input:focus {
-            border-color: var(--primary);
+        .dark .input-group input {
+            background: #333;
+            color: #fff;
+            border: 1px solid #555;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 12px;
+            top: 15px;
+            cursor: pointer;
+            color: #888;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .remember-me input {
+            margin-right: 6px;
         }
 
         button {
             width: 100%;
-            padding: 12px;
+            padding: 16px;
             background: var(--primary);
             color: #fff;
             font-weight: bold;
@@ -92,58 +110,36 @@
             border-radius: 8px;
             cursor: pointer;
             transition: background 0.3s ease;
-            font-family: 'Segoe UI', sans-serif;
+            font-size: 16px;
         }
 
         button:hover {
             background: #2b5ca8;
         }
 
-        .message {
-            text-align: center;
-            font-size: 14px;
-            margin-top: 16px;
-            min-height: 18px;
-        }
-
         .toggle-theme {
             position: absolute;
-            width:0%;
             top: 20px;
             right: 20px;
-            background: rgba(255, 253, 253, 0.1);
+            background: rgba(255, 255, 255, 0.1);
             border: 1px solid rgba(255,255,255,0.3);
-            backdrop-filter: blur(10px);
             padding: 8px 14px;
-            border-radius: 100%;
+            border-radius: 50%;
             color: #fff;
-            font-size: 14px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: background 0.3s ease;
         }
 
         .toggle-theme:hover {
-            background: rgba(255, 255, 255, 0.799);
+            background: rgba(255, 255, 255, 0.8);
         }
 
-        @media (max-width: 480px) {
-            .container {
-                padding: 30px 20px;
-            }
-
-            .toggle-theme {
-                top: 10px;
-                right: 10px;
-            }
-        }
     </style>
 </head>
 <body>
-
     <button class="toggle-theme" id="themeToggle">🌙</button>
-
     <div class="container" id="formContainer">
-        <h2><i class="fa-solid fa-right-to-bracket"></i> Welcome Back To Binoculars Security!</h2>
+        <h2><i class="fa-solid fa-right-to-bracket"></i> Welcome Back!</h2>
         <form id="signInForm">
             <label for="email">Email Address</label>
             <div class="input-group">
@@ -155,11 +151,44 @@
             <div class="input-group">
                 <i class="fa-solid fa-lock"></i>
                 <input type="password" id="password" placeholder="Enter your password" required />
+                <i class="fa-solid fa-eye toggle-password" id="togglePassword"></i>
+            </div>
+
+            <div class="remember-me">
+                <input type="checkbox" id="rememberMe" />
+                <label for="rememberMe">Remember me</label>
             </div>
 
             <button type="submit">Sign In</button>
-            <div class="message" id="signInMessage"></div>
         </form>
     </div>
+
+    <script>
+        document.getElementById("themeToggle").addEventListener("click", function () {
+            document.body.classList.toggle("dark");
+            document.getElementById("formContainer").classList.toggle("dark");
+            this.textContent = document.body.classList.contains("dark") ? "☀️" : "🌙";
+            localStorage.setItem("theme", document.body.classList.contains("dark") ? "dark" : "light");
+        });
+
+        document.getElementById("togglePassword").addEventListener("click", function () {
+            let passwordField = document.getElementById("password");
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                this.classList.replace("fa-eye", "fa-eye-slash");
+            } else {
+                passwordField.type = "password";
+                this.classList.replace("fa-eye-slash", "fa-eye");
+            }
+        });
+
+        window.onload = function () {
+            if (localStorage.getItem("theme") === "dark") {
+                document.body.classList.add("dark");
+                document.getElementById("formContainer").classList.add("dark");
+                document.getElementById("themeToggle").textContent = "☀️";
+            }
+        };
+    </script>
 </body>
 </html>
