@@ -89,25 +89,37 @@
       width: 0%;
       transition: width 0.3s;
     }
+    #fileName {
+      margin-top: 1rem;
+      font-weight: 500;
+      color: var(--text);
+    }
+    #stopBtn {
+      margin-top: 0.5rem;
+      background: var(--danger);
+      display: none;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <h1><i class="fas fa-shield-virus"></i> SecureScan</h1>
     <p>Upload a file to scan for viruses</p>
-    
+
     <div id="dropZone" class="drop-zone">
       <i class="fas fa-cloud-upload-alt" style="font-size:2rem;"></i>
       <p>Drag & drop file or click to browse</p>
     </div>
     <input type="file" id="fileInput" style="display:none;">
-    
+
     <div class="progress" id="progress">
       <div class="progress-bar" id="progressBar"></div>
     </div>
-    
+
     <button id="scanBtn" disabled>Scan File</button>
-    
+    <button id="stopBtn">Stop Scan</button>
+
+    <p id="fileName"></p>
     <div id="result" class="result"></div>
   </div>
 
@@ -115,11 +127,16 @@
     const dropZone = document.getElementById('dropZone');
     const fileInput = document.getElementById('fileInput');
     const scanBtn = document.getElementById('scanBtn');
+    const stopBtn = document.getElementById('stopBtn');
     const result = document.getElementById('result');
     const progress = document.getElementById('progress');
     const progressBar = document.getElementById('progressBar');
+    const fileName = document.getElementById('fileName');
 
-    // Drag and drop
+    let scanInterval = null;
+    let scanning = false;
+
+    // Drag and Drop
     ['dragenter', 'dragover'].forEach(e => {
       dropZone.addEventListener(e, () => dropZone.classList.add('highlight'));
     });
@@ -135,6 +152,8 @@
     fileInput.addEventListener('change', updateFileInfo);
 
     function updateFileInfo() {
+      result.style.display = 'none';
+      fileName.textContent = '';
       if (fileInput.files.length) {
         const file = fileInput.files[0];
         if (file.size > 50 * 1024 * 1024) {
@@ -143,32 +162,48 @@
           return;
         }
         scanBtn.disabled = false;
+        fileName.textContent = `Selected file: ${file.name}`;
       }
     }
 
-    // Scan button
     scanBtn.addEventListener('click', () => {
       const file = fileInput.files[0];
-      if (!file) return;
-      
+      if (!file || scanning) return;
+
+      scanning = true;
       progress.style.display = 'block';
       scanBtn.disabled = true;
+      stopBtn.style.display = 'block';
       scanBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Scanning...';
-      
-      // Simulate scan progress
+      fileName.textContent = `Scanning: ${file.name}`;
+
       let progressVal = 0;
-      const interval = setInterval(() => {
+      scanInterval = setInterval(() => {
         progressVal += Math.random() * 20;
         if (progressVal >= 100) {
           progressVal = 100;
-          clearInterval(interval);
+          clearInterval(scanInterval);
           completeScan(file);
         }
         progressBar.style.width = `${progressVal}%`;
       }, 300);
     });
 
+    stopBtn.addEventListener('click', () => {
+      if (!scanning) return;
+      clearInterval(scanInterval);
+      scanning = false;
+      progressBar.style.width = '0%';
+      progress.style.display = 'none';
+      scanBtn.disabled = false;
+      scanBtn.textContent = 'Scan File';
+      stopBtn.style.display = 'none';
+      fileName.textContent = 'Scan stopped by user.';
+      showResult('Scan was stopped.', 'danger');
+    });
+
     function completeScan(file) {
+      scanning = false;
       const isSafe = Math.random() > 0.3;
       if (isSafe) {
         showResult('No threats found! File is safe.', 'safe');
@@ -177,6 +212,7 @@
       }
       scanBtn.disabled = false;
       scanBtn.textContent = 'Scan File';
+      stopBtn.style.display = 'none';
     }
 
     function showResult(message, type) {
