@@ -189,6 +189,11 @@
                 document.getElementById("themeToggle").textContent = "☀️";
             }
         };
+
+        document.getElementById("signInForm").addEventListener("submit", function (e) {
+            e.preventDefault(); 
+            window.location.href = "index.html";
+        });
     </script>
 </body>
 </html>
