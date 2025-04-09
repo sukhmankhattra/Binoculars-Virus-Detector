@@ -225,7 +225,8 @@
                 return;
             }
 
-            const emailRegex = /^[^\\s@]+@[^\\s@]+\.[^\\s@]+$/;
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
             if (!emailRegex.test(email)) {
                 messageDiv.textContent = '⚠️ Please enter a valid email address.';
                 messageDiv.style.color = 'orangered';
@@ -245,8 +246,9 @@
                 messageDiv.innerHTML = `✅ Account created successfully for <b>${username}</b>!`;
                 messageDiv.style.color = 'green';
                 form.reset();
-                // In a real application, you would make an API call here
-                // to create the user account and potentially redirect.
+                setTimeout(() => {
+                    window.location.href = 'sign_in.html';
+                }, 1500);
             }, 2000);
         });
 
