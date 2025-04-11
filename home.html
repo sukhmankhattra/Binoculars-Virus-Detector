@@ -3,79 +3,148 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Home Page</title>
+  <title>My Binoculars</title>
   <style>
+    :root {
+      --primary: #4a90e2;
+      --light-bg: linear-gradient(135deg, #667eea, #764ba2);
+      --dark-bg: #121212;
+      --card-light: #ffffff;
+      --card-dark: rgba(30, 30, 30, 0.7);
+      --text-light: #333;
+      --text-dark: #f0f0f0;
+    }
+
     body {
       font-family: Arial, sans-serif;
-      background: #f5f5f5;
       margin: 0;
       padding: 0;
-    }
-    header {
-      background-color: #4a90e2;
-      color: white;
-      padding: 1rem 2rem;
-      text-align: center;
-    }
-    nav {
-      background-color: #333;
+      height: 100vh;
+      background: var(--light-bg);
       display: flex;
       justify-content: center;
-      gap: 1rem;
-      padding: 0.5rem;
+      align-items: center;
+      transition: background-color 0.3s ease;
     }
-    nav a {
-      color: white;
-      text-decoration: none;
-      padding: 0.5rem 1rem;
-    }
-    nav a:hover {
-      background-color: #555;
-    }
-    main {
-      padding: 2rem;
-      max-width: 800px;
-      margin: auto;
+
+    .container {
+      background-color: var(--card-light);
+      padding: 40px 30px;
+      border-radius: 16px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+      width: 90%;
+      max-width: 500px;
       text-align: center;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
+
+    h1 {
+      color: var(--primary);
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      margin-top: 0;
+      color: var(--text-light);
+    }
+
     .start-button {
-      background-color: #4a90e2;
+      background-color: var(--primary);
       color: white;
-      padding: 0.75rem 1.5rem;
+      padding: 12px 24px;
       border: none;
-      border-radius: 5px;
+      border-radius: 8px;
       font-size: 1rem;
+      font-weight: bold;
       cursor: pointer;
-      margin-top: 1rem;
+      margin-top: 20px;
+      transition: background 0.3s ease;
     }
+
     .start-button:hover {
       background-color: #357ABD;
     }
-    footer {
-      background-color: #4a90e2;
+
+    .about-link {
+      display: inline-block;
+      margin-top: 30px;
+      text-decoration: none;
+      color: var(--primary);
+      font-weight: bold;
+      font-size: 0.95rem;
+    }
+
+    .about-link:hover {
+      text-decoration: underline;
+    }
+
+    .toggle-theme {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(10px);
+      padding: 8px 14px;
+      border-radius: 12px;
       color: white;
-      text-align: center;
-      padding: 1rem;
-      position: fixed;
-      bottom: 0;
-      width: 100%;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .toggle-theme:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    body.dark {
+      background: var(--dark-bg);
+    }
+
+    body.dark .container {
+      background-color: var(--card-dark);
+      color: var(--text-dark);
+    }
+
+    body.dark h2 {
+      color: var(--text-dark);
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 30px 20px;
+      }
+
+      .toggle-theme {
+        top: 10px;
+        right: 10px;
+      }
     }
   </style>
 </head>
 <body>
-  <header>
+
+  <button class="toggle-theme" id="themeToggle">🌙 Dark Mode</button>
+
+  <div class="container">
     <h1>Welcome to My Binoculars</h1>
-  </header>
-  <nav>
-    <a href="#">About</a>
-  </nav>
-  <main>
     <h2>Hello!</h2>
-    <p></p>
+    <p>Ready to explore?</p>
     <button class="start-button" onclick="alert('Getting started!')">Let's Get Started</button>
-  </main>
-  <footer>
-    &copy; 2025 My Binoculars
-  </footer>
+    <br />
+    <a class="about-link" href="#">About</a>
+  </div>
+
+  <script>
+    const themeToggle = document.getElementById('themeToggle');
+    const body = document.body;
+
+    themeToggle.addEventListener('click', () => {
+      body.classList.toggle('dark');
+      const isDark = body.classList.contains('dark');
+      themeToggle.textContent = isDark ? '☀️ Light Mode' : '🌙 Dark Mode';
+    });
+  </script>
+
 </body>
 </html>
