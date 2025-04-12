@@ -3,32 +3,44 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Binoculars Virus scan| Virus Detector</title>
+  <title>Binoculars Virus Scan | Virus Detector</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
     :root {
-      --primary: #3a7bd5; --danger: #e74c3c; --success: #2ecc71;
-      --bg: linear-gradient(135deg, #667eea, #764ba2); --card-bg: rgba(255,255,255,0.9);
-      --text: #333; --border-radius: 16px;
+      --primary: #3a7bd5;
+      --danger: #e74c3c;
+      --success: #2ecc71;
+      --light-bg: linear-gradient(135deg, #667eea, #764ba2);
+      --dark-bg: #121212;
+      --card-light: rgba(255,255,255,0.9);
+      --card-dark: rgba(30, 30, 30, 0.85);
+      --text-light: #333;
+      --text-dark: #f0f0f0;
+      --border-radius: 16px;
     }
+
     body {
       font-family: 'Segoe UI', sans-serif;
       min-height: 100vh;
-      background: var(--bg);
+      background: var(--light-bg);
       display: flex;
       justify-content: center;
       align-items: center;
       margin: 0;
+      transition: background 0.3s ease;
     }
+
     .container {
-      background: var(--card-bg);
+      background: var(--card-light);
       padding: 2rem;
       border-radius: var(--border-radius);
       box-shadow: 0 12px 30px rgba(0,0,0,0.2);
       width: 90%;
       max-width: 400px;
       text-align: center;
+      transition: background 0.3s ease, color 0.3s ease;
     }
+
     h1 {
       color: var(--primary);
       margin-bottom: 1rem;
@@ -37,6 +49,7 @@
       justify-content: center;
       gap: 0.5rem;
     }
+
     .drop-zone {
       border: 2px dashed var(--primary);
       padding: 1.5rem;
@@ -45,9 +58,11 @@
       margin: 1rem 0;
       transition: all 0.3s;
     }
+
     .drop-zone.highlight {
       background: rgba(58,123,213,0.1);
     }
+
     button {
       width: 100%;
       padding: 0.8rem;
@@ -59,22 +74,32 @@
       font-weight: 600;
       transition: all 0.3s;
     }
+
     button:hover {
       opacity: 0.9;
       transform: translateY(-2px);
     }
+
     button:disabled {
       opacity: 0.6;
       cursor: not-allowed;
     }
+
     .result {
       margin-top: 1rem;
       padding: 1rem;
       border-radius: 8px;
       display: none;
     }
-    .safe { background: rgba(46,204,113,0.15); }
-    .danger { background: rgba(231,76,60,0.15); }
+
+    .safe {
+      background: rgba(46,204,113,0.15);
+    }
+
+    .danger {
+      background: rgba(231,76,60,0.15);
+    }
+
     .progress {
       height: 6px;
       background: rgba(0,0,0,0.1);
@@ -82,6 +107,7 @@
       margin: 1rem 0;
       display: none;
     }
+
     .progress-bar {
       height: 100%;
       border-radius: 3px;
@@ -89,19 +115,60 @@
       width: 0%;
       transition: width 0.3s;
     }
+
     #fileName {
       margin-top: 1rem;
       font-weight: 500;
-      color: var(--text);
+      color: var(--text-light);
     }
+
     #stopBtn {
       margin-top: 0.5rem;
       background: var(--danger);
       display: none;
     }
+
+    #themeToggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 0.4rem 0.8rem;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      z-index: 1000;
+      transition: background 0.3s, transform 0.2s;
+      width: auto;
+    }
+
+    #themeToggle:hover {
+      transform: translateY(-2px);
+      opacity: 0.9;
+    }
+
+    /* Dark Mode */
+    body.dark {
+      background: var(--dark-bg);
+    }
+
+    body.dark .container {
+      background: var(--card-dark);
+      color: var(--text-dark);
+    }
+
+    body.dark #fileName {
+      color: var(--text-dark);
+    }
   </style>
 </head>
 <body>
+
+  <button id="themeToggle">🌙 Dark Mode</button>
+
   <div class="container">
     <h1><i class="fas fa-shield-virus"></i> Binoculars Virus Scan</h1>
     <p>Upload a file to scan for viruses</p>
@@ -132,6 +199,8 @@
     const progress = document.getElementById('progress');
     const progressBar = document.getElementById('progressBar');
     const fileName = document.getElementById('fileName');
+    const themeToggle = document.getElementById('themeToggle');
+    const body = document.body;
 
     let scanInterval = null;
     let scanning = false;
@@ -162,7 +231,7 @@
           return;
         }
         scanBtn.disabled = false;
-        fileName.textContent = `Selected file: ${file.name}`;
+        fileName.textContent = Selected file: ${file.name};
       }
     }
 
@@ -175,7 +244,7 @@
       scanBtn.disabled = true;
       stopBtn.style.display = 'block';
       scanBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Scanning...';
-      fileName.textContent = `Scanning: ${file.name}`;
+      fileName.textContent = Scanning: ${file.name};
 
       let progressVal = 0;
       scanInterval = setInterval(() => {
@@ -185,7 +254,7 @@
           clearInterval(scanInterval);
           completeScan(file);
         }
-        progressBar.style.width = `${progressVal}%`;
+        progressBar.style.width = ${progressVal}%;
       }, 300);
     });
 
@@ -217,9 +286,16 @@
 
     function showResult(message, type) {
       result.textContent = message;
-      result.className = `result ${type}`;
+      result.className = result ${type};
       result.style.display = 'block';
     }
+
+    // Theme toggle
+    themeToggle.addEventListener('click', () => {
+      body.classList.toggle('dark');
+      const isDark = body.classList.contains('dark');
+      themeToggle.textContent = isDark ? '☀ Light Mode' : '🌙 Dark Mode';
+    });
   </script>
 </body>
 </html>
