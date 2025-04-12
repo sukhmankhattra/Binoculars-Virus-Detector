@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Binoculars Virus Scan | Virus Detector</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
@@ -12,10 +12,10 @@
       --success: #2ecc71;
       --light-bg: linear-gradient(135deg, #667eea, #764ba2);
       --dark-bg: #121212;
-      --card-light: rgba(255,255,255,0.9);
-      --card-dark: rgba(30, 30, 30, 0.85);
-      --text-light: #333;
-      --text-dark: #f0f0f0;
+      --card-light: rgba(255,255,255,0.95);
+      --card-dark: rgba(30, 30, 30, 0.9);
+      --text-light: #222;
+      --text-dark: #eee;
       --border-radius: 16px;
     }
 
@@ -27,7 +27,7 @@
       justify-content: center;
       align-items: center;
       margin: 0;
-      transition: background 0.3s ease;
+      transition: background 0.4s ease;
     }
 
     .container {
@@ -35,10 +35,10 @@
       padding: 2rem;
       border-radius: var(--border-radius);
       box-shadow: 0 12px 30px rgba(0,0,0,0.2);
-      width: 90%;
-      max-width: 400px;
+      width: 95%;
+      max-width: 420px;
       text-align: center;
-      transition: background 0.3s ease, color 0.3s ease;
+      transition: background 0.3s, color 0.3s;
     }
 
     h1 {
@@ -72,6 +72,7 @@
       border-radius: 8px;
       cursor: pointer;
       font-weight: 600;
+      margin-top: 0.5rem;
       transition: all 0.3s;
     }
 
@@ -90,40 +91,42 @@
       padding: 1rem;
       border-radius: 8px;
       display: none;
+      font-weight: bold;
     }
 
     .safe {
       background: rgba(46,204,113,0.15);
+      color: var(--success);
     }
 
     .danger {
       background: rgba(231,76,60,0.15);
+      color: var(--danger);
     }
 
     .progress {
-      height: 6px;
+      height: 8px;
       background: rgba(0,0,0,0.1);
-      border-radius: 3px;
+      border-radius: 4px;
       margin: 1rem 0;
       display: none;
     }
 
     .progress-bar {
       height: 100%;
-      border-radius: 3px;
+      border-radius: 4px;
       background: var(--primary);
       width: 0%;
       transition: width 0.3s;
     }
 
     #fileName {
-      margin-top: 1rem;
+      margin-top: 0.5rem;
       font-weight: 500;
       color: var(--text-light);
     }
 
     #stopBtn {
-      margin-top: 0.5rem;
       background: var(--danger);
       display: none;
     }
@@ -132,7 +135,7 @@
       position: fixed;
       top: 20px;
       right: 20px;
-      padding: 0.4rem 0.8rem;
+      padding: 0.5rem 1rem;
       background: var(--primary);
       color: white;
       border: none;
@@ -141,8 +144,6 @@
       font-weight: 600;
       cursor: pointer;
       z-index: 1000;
-      transition: background 0.3s, transform 0.2s;
-      width: auto;
     }
 
     #themeToggle:hover {
@@ -162,6 +163,18 @@
 
     body.dark #fileName {
       color: var(--text-dark);
+    }
+
+    body.dark .drop-zone {
+      border-color: var(--text-dark);
+    }
+
+    body.dark .safe {
+      background: rgba(46,204,113,0.1);
+    }
+
+    body.dark .danger {
+      background: rgba(231,76,60,0.1);
     }
   </style>
 </head>
@@ -205,19 +218,29 @@
     let scanInterval = null;
     let scanning = false;
 
-    // Drag and Drop
-    ['dragenter', 'dragover'].forEach(e => {
-      dropZone.addEventListener(e, () => dropZone.classList.add('highlight'));
+    // Drag and Drop handlers
+    ['dragenter', 'dragover'].forEach(event => {
+      dropZone.addEventListener(event, (e) => {
+        e.preventDefault();
+        dropZone.classList.add('highlight');
+      });
     });
-    ['dragleave', 'drop'].forEach(e => {
-      dropZone.addEventListener(e, () => dropZone.classList.remove('highlight'));
+
+    ['dragleave', 'drop'].forEach(event => {
+      dropZone.addEventListener(event, (e) => {
+        e.preventDefault();
+        dropZone.classList.remove('highlight');
+      });
     });
-    dropZone.addEventListener('drop', e => {
+
+    dropZone.addEventListener('click', () => fileInput.click());
+
+    dropZone.addEventListener('drop', (e) => {
       e.preventDefault();
       fileInput.files = e.dataTransfer.files;
       updateFileInfo();
     });
-    dropZone.addEventListener('click', () => fileInput.click());
+
     fileInput.addEventListener('change', updateFileInfo);
 
     function updateFileInfo() {
@@ -231,7 +254,7 @@
           return;
         }
         scanBtn.disabled = false;
-        fileName.textContent = Selected file: ${file.name};
+        fileName.textContent = `Selected file: ${file.name}`;
       }
     }
 
@@ -240,11 +263,13 @@
       if (!file || scanning) return;
 
       scanning = true;
-      progress.style.display = 'block';
       scanBtn.disabled = true;
-      stopBtn.style.display = 'block';
+      stopBtn.style.display = 'inline-block';
       scanBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Scanning...';
-      fileName.textContent = Scanning: ${file.name};
+      fileName.textContent = `Scanning: ${file.name}`;
+      result.style.display = 'none';
+      progressBar.style.width = '0%';
+      progress.style.display = 'block';
 
       let progressVal = 0;
       scanInterval = setInterval(() => {
@@ -254,7 +279,7 @@
           clearInterval(scanInterval);
           completeScan(file);
         }
-        progressBar.style.width = ${progressVal}%;
+        progressBar.style.width = `${progressVal}%`;
       }, 300);
     });
 
@@ -265,7 +290,7 @@
       progressBar.style.width = '0%';
       progress.style.display = 'none';
       scanBtn.disabled = false;
-      scanBtn.textContent = 'Scan File';
+      scanBtn.innerHTML = 'Scan File';
       stopBtn.style.display = 'none';
       fileName.textContent = 'Scan stopped by user.';
       showResult('Scan was stopped.', 'danger');
@@ -274,19 +299,15 @@
     function completeScan(file) {
       scanning = false;
       const isSafe = Math.random() > 0.3;
-      if (isSafe) {
-        showResult('No threats found! File is safe.', 'safe');
-      } else {
-        showResult('Malware detected! Do not open.', 'danger');
-      }
+      showResult(isSafe ? 'No threats found! File is safe.' : 'Malware detected! Do not open.', isSafe ? 'safe' : 'danger');
       scanBtn.disabled = false;
-      scanBtn.textContent = 'Scan File';
+      scanBtn.innerHTML = 'Scan File';
       stopBtn.style.display = 'none';
     }
 
     function showResult(message, type) {
       result.textContent = message;
-      result.className = result ${type};
+      result.className = `result ${type}`;
       result.style.display = 'block';
     }
 
