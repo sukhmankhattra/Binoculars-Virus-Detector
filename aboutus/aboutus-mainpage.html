@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About Us | Binoculars Virus Scan</title>
+  <style>
+    :root {
+      --primary: #3a7bd5;
+      --light-bg: linear-gradient(135deg, #667eea, #764ba2);
+      --dark-bg: #121212;
+      --card-light: rgba(255, 255, 255, 0.9);
+      --card-dark: rgba(30, 30, 30, 0.8);
+      --text-light: #333;
+      --text-dark: #f0f0f0;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--light-bg);
+      transition: background-color 0.3s ease;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      background: var(--card-light);
+      color: var(--text-light);
+      padding: 40px 30px;
+      border-radius: 16px;
+      max-width: 600px;
+      width: 90%;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    h1 {
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+
+    p {
+      line-height: 1.6;
+      font-size: 1rem;
+    }
+
+    .toggle-theme {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(10px);
+      padding: 6px 12px;
+      border-radius: 12px;
+      color: white;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .toggle-theme:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    body.dark {
+      background: var(--dark-bg);
+    }
+
+    body.dark .container {
+      background-color: var(--card-dark);
+      color: var(--text-dark);
+    }
+
+    body.dark .toggle-theme {
+      color: var(--text-dark);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+  </style>
+</head>
+<body>
+  <button class="toggle-theme" id="themeToggle">🌙 Dark Mode</button>
+
+  <div class="container">
+    <h1>About Us</h1>
+    <p>
+      At <strong>Binoculars Virus Scan</strong>, our mission is to keep your files safe and secure with a fast and intuitive virus scanning experience. We believe cybersecurity should be simple, accessible, and trustworthy for everyone.
+    </p>
+    <p>
+      Our team is passionate about developing smart tools that protect your digital world. Whether you’re uploading important work files or sharing media with friends, we’ve got your back.
+    </p>
+    <p>
+      Stay protected. Stay confident. Binoculars is watching for threats, so you don’t have to.
+    </p>
+  </div>
+
+  <script>
+    const themeToggle = document.getElementById('themeToggle');
+    const body = document.body;
+
+    themeToggle.addEventListener('click', () => {
+      body.classList.toggle('dark');
+      const isDark = body.classList.contains('dark');
+      themeToggle.textContent = isDark ? '☀ Light Mode' : '🌙 Dark Mode';
+    });
+  </script>
+</body>
+</html>
