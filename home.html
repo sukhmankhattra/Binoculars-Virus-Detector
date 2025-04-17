@@ -9,7 +9,7 @@
       --primary: #4a90e2;
       --light-bg: linear-gradient(135deg, #667eea, #764ba2);
       --dark-bg: #121212;
-      --card-light: #ffffff;
+      --card-light: rgba(255, 255, 255, 0.9); /* Updated for better visibility */
       --card-dark: rgba(30, 30, 30, 0.7);
       --text-light: #333;
       --text-dark: #f0f0f0;
@@ -22,6 +22,7 @@
       height: 100vh;
       background: var(--light-bg);
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       transition: background-color 0.3s ease;
@@ -36,6 +37,7 @@
       max-width: 500px;
       text-align: center;
       transition: background-color 0.3s ease, color 0.3s ease;
+      margin-top: 20px; /* Added margin for spacing */
     }
 
     h1 {
@@ -49,7 +51,7 @@
     }
 
     .start-button {
-      background-color: var(--primary);
+      background-color: purple; /* Changed to purple */
       color: white;
       padding: 12px 24px;
       border: none;
@@ -120,28 +122,66 @@
         right: 10px;
       }
     }
+
+    footer {
+      background-color: var(--card-light);
+      padding: 10px;
+      text-align: center;
+      position: relative;
+      top: 0;
+      width: 100%;
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1); /* Added shadow for depth */
+    }
+
+    footer a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: var(--primary);
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    .copyright {
+      margin-top: auto;
+      padding: 20px; /* Adjusted padding to prevent cutting off */
+      font-size: 0.8rem;
+      color: var(--text-light);
+    }
   </style>
 </head>
 <body>
 
-  <button class="toggle-theme" id="themeToggle">🌙 Dark Mode</button>
+  <footer>
+    <a href="sign_in.html">Sign In</a>
+    <a href="signup.html">Sign Up</a>
+    <a href="aboutus/aboutus-mainpage.html">About Us</a>
+    <a href="home.html">Home</a>
+  </footer>
 
   <div class="container">
     <h1>Welcome to My Binoculars</h1>
     <h2>Hello!</h2>
     <p>Ready to explore?</p>
-    <button class="start-button" onclick="alert('Getting started!')">Let's Get Started</button>
+    <button class="start-button" onclick="window.location.href='index.html'">Let's Get Started</button>
     <br />
-    <a class="about-link" href="aboutus\aboutus-mainpage.html">About Us</a>
+    <a class="about-link" href="aboutus/aboutus-mainpage.html">About Us</a>
+  </div>
+
+  <div class="copyright">
+    © 2023 My Binoculars. All rights reserved.
   </div>
 
   <script>
-    const themeToggle = document.getElementById('themeToggle');
-    const body = document.body;
+    const themeToggle = document.createElement('button');
+    themeToggle.className = 'toggle-theme';
+    themeToggle.textContent = '🌙 Dark Mode';
+    document.body.appendChild(themeToggle);
 
     themeToggle.addEventListener('click', () => {
-      body.classList.toggle('dark');
-      const isDark = body.classList.contains('dark');
+      document.body.classList.toggle('dark');
+      const isDark = document.body.classList.contains('dark');
       themeToggle.textContent = isDark ? '☀️ Light Mode' : '🌙 Dark Mode';
     });
   </script>
