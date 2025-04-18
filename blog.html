@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Binoculars Security - Blog</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet" />
+    <style>
+        /* Embedded CSS to match home.html style with theme support */
+        :root {
+            --bg-color-light: #f5f5f5;
+            --text-color-light: #333;
+            --nav-bg-light: #121212;
+            --nav-text-light: white;
+            --accent-color-light: #4a90e2;
+            --accent-hover-light: #3a7bc8;
+            --footer-bg-light: white;
+            --footer-text-light: #555;
+
+            --bg-color-dark: #121212;
+            --text-color-dark: #ddd;
+            --nav-bg-dark: #1e1e1e;
+            --nav-text-dark: #ddd;
+            --accent-color-dark: #4a90e2;
+            --accent-hover-dark: #3a7bc8;
+            --footer-bg-dark: #1e1e1e;
+            --footer-text-dark: #aaa;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Lato', sans-serif;
+            background-color: var(--bg-color-light);
+            color: var(--text-color-light);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        body.dark-theme {
+            background-color: var(--bg-color-dark);
+            color: var(--text-color-dark);
+        }
+
+        #nav {
+            display: flex;
+            flex-direction: column;
+            background-color: var(--nav-bg-light);
+            color: var(--nav-text-light);
+            padding: 10px 50px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        body.dark-theme #nav {
+            background-color: var(--nav-bg-dark);
+            color: var(--nav-text-dark);
+        }
+
+        .navTop {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 20px 0;
+        }
+
+        .navItem {
+            display: flex;
+            align-items: center;
+            margin-left: 20px;
+        }
+
+        .search {
+            display: flex;
+            align-items: center;
+            background-color: white;
+            padding: 10px 15px;
+            border-radius: 30px;
+            margin: 0 20px;
+            flex-grow: 1;
+            max-width: 400px;
+        }
+
+        body.dark-theme .search {
+            background-color: #333;
+        }
+
+        .searchInput {
+            border: none;
+            outline: none;
+            background: transparent;
+            width: 100%;
+            font-size: 1rem;
+            color: #333;
+        }
+
+        body.dark-theme .searchInput {
+            color: #ddd;
+        }
+
+        .searchIcon {
+            cursor: pointer;
+        }
+
+        .limitedOffer {
+            background-color: var(--accent-color-light);
+            padding: 5px 15px;
+            border-radius: 30px;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 12px;
+            color: white;
+            user-select: none;
+            transition: background-color 0.3s ease;
+        }
+
+        body.dark-theme .limitedOffer {
+            background-color: var(--accent-color-dark);
+        }
+
+        button#themeToggle {
+            background-color: transparent;
+            border: 2px solid var(--accent-color-light);
+            color: var(--accent-color-light);
+            padding: 6px 15px;
+            border-radius: 30px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+
+        button#themeToggle:hover {
+            background-color: var(--accent-hover-light);
+            color: white;
+            border-color: var(--accent-hover-light);
+        }
+
+        body.dark-theme button#themeToggle {
+            border-color: var(--accent-color-dark);
+            color: var(--accent-color-dark);
+        }
+
+        body.dark-theme button#themeToggle:hover {
+            background-color: var(--accent-hover-dark);
+            color: white;
+            border-color: var(--accent-hover-dark);
+        }
+
+        .navBottom {
+            display: flex;
+            justify-content: center;
+            padding: 15px 0;
+        }
+
+        .menuItem {
+            margin: 0 25px;
+            cursor: pointer;
+            font-weight: 400;
+            color: #aaa;
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+
+        .menuItem:hover {
+            color: white;
+        }
+
+        header.blog-header {
+            text-align: center;
+            padding: 3rem 1rem 2rem 1rem;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--nav-bg-light);
+            letter-spacing: 2px;
+            user-select: none;
+            transition: color 0.3s ease;
+        }
+
+        body.dark-theme header.blog-header {
+            color: var(--text-color-dark);
+        }
+
+        main {
+            max-width: 900px;
+            margin: 0 auto 4rem;
+            padding: 0 1rem;
+        }
+
+        .search-container {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .search-container input[type="text"] {
+            width: 90%;
+            max-width: 400px;
+            padding: 0.75rem 1.25rem;
+            font-size: 1.1rem;
+            border: 2px solid var(--accent-color-light);
+            border-radius: 30px;
+            outline: none;
+            box-shadow: 0 2px 6px rgba(74, 144, 226, 0.4);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            color: var(--text-color-light);
+        }
+
+        body.dark-theme .search-container input[type="text"] {
+            border-color: var(--accent-color-dark);
+            box-shadow: 0 2px 6px rgba(74, 144, 226, 0.8);
+            color: var(--text-color-dark);
+            background-color: #333;
+        }
+
+        .posts-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .blog-post {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+            padding: 1.5rem 2rem;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        body.dark-theme .blog-post {
+            background: #222;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.6);
+        }
+
+        .blog-post:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+        }
+
+        .blog-post h2 {
+            margin-bottom: 0.5rem;
+            font-size: 1.8rem;
+            color: var(--accent-color-light);
+            font-weight: 700;
+            transition: color 0.3s ease;
+        }
+
+        body.dark-theme .blog-post h2 {
+            color: var(--accent-color-dark);
+        }
+
+        .blog-post:hover h2 {
+            color: var(--accent-hover-light);
+        }
+
+        body.dark-theme .blog-post:hover h2 {
+            color: var(--accent-hover-dark);
+        }
+
+        .blog-post .date {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        body.dark-theme .blog-post .date {
+            color: #aaa;
+        }
+
+        .blog-post .summary {
+            font-size: 1rem;
+            color: #444;
+            flex-grow: 1;
+        }
+
+        body.dark-theme .blog-post .summary {
+            color: #ccc;
+        }
+
+        .blog-post .content {
+            margin-top: 1rem;
+            font-size: 1rem;
+            color: #333;
+            line-height: 1.5;
+            display: none;
+            transition: max-height 0.4s ease;
+        }
+
+        body.dark-theme .blog-post .content {
+            color: #eee;
+        }
+
+        .blog-post.expanded .content {
+            display: block;
+        }
+
+        .blog-post img {
+            max-width: 100%;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            object-fit: cover;
+            height: 200px;
+        }
+
+        footer {
+            display: flex;
+            padding: 50px;
+            background-color: var(--footer-bg-light);
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 2rem;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        body.dark-theme footer {
+            background-color: var(--footer-bg-dark);
+            color: var(--footer-text-dark);
+        }
+
+        .footerLeft {
+            flex: 2;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .footerRight {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .footerMenu {
+            min-width: 150px;
+        }
+
+        .fMenuTitle {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--text-color-light);
+        }
+
+        body.dark-theme .fMenuTitle {
+            color: var(--footer-text-dark);
+        }
+
+        .fList {
+            list-style: none;
+        }
+
+        .fListItem {
+            margin-bottom: 10px;
+            color: #555;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-theme .fListItem {
+            color: #aaa;
+        }
+
+        .fListItem:hover {
+            color: var(--accent-color-light);
+        }
+
+        body.dark-theme .fListItem:hover {
+            color: var(--accent-hover-dark);
+        }
+
+        .fInput {
+            padding: 10px;
+            border: 1px solid #ddd;
+            width: 70%;
+            margin-right: 10px;
+            border-radius: 5px;
+        }
+
+        body.dark-theme .fInput {
+            background-color: #333;
+            border-color: #555;
+            color: #ddd;
+        }
+
+        .fButton {
+            padding: 10px 20px;
+            background-color: var(--accent-color-light);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-theme .fButton {
+            background-color: var(--accent-color-dark);
+        }
+
+        .fButton:hover {
+            background-color: var(--accent-hover-light);
+        }
+
+        body.dark-theme .fButton:hover {
+            background-color: var(--accent-hover-dark);
+        }
+
+        .fIcons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .fIcon {
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .fIcon:hover {
+            transform: scale(1.2);
+        }
+
+        .copyright {
+            color: #777;
+            font-size: 14px;
+            margin-top: 20px;
+        }
+
+        body.dark-theme .copyright {
+            color: #aaa;
+        }
+
+        @media screen and (max-width: 768px) {
+            #nav {
+                padding: 10px 20px;
+            }
+
+            .navTop {
+                flex-direction: row;
+                padding: 10px 0;
+                justify-content: space-between;
+            }
+
+            .navItem {
+                margin: 0 10px;
+            }
+
+            .navBottom {
+                flex-wrap: wrap;
+            }
+
+            .menuItem {
+                margin: 10px;
+            }
+
+            main {
+                padding: 0 10px;
+            }
+
+            footer {
+                flex-direction: column;
+                padding: 30px 10px;
+            }
+
+            .footerLeft {
+                flex-direction: column;
+                margin-bottom: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav id="nav" role="navigation" aria-label="Primary Navigation">
+        <div class="navTop">
+            <div class="navItem">
+                <!-- Logo removed as per user request -->
+            </div>
+            <div class="navItem">
+                <div class="search" role="search">
+                    <input type="text" placeholder="Search scans..." class="searchInput" aria-label="Search scans" />
+                    <img src="https://cdn-icons-png.flaticon.com/512/149/149852.png" width="20" height="20" alt="Search Icon" class="searchIcon" />
+                </div>
+            </div>
+            <div class="navItem">
+                <span class="limitedOffer">FREE SCAN!</span>
+            </div>
+            <div class="navItem">
+                <button id="themeToggle" aria-label="Toggle light and dark theme">Toggle Theme</button>
+            </div>
+            <div>
+<button onclick="window.location.href='combined ui/combined_login_signup.html'" style="background-color: var(--accent-color-light); color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">Sign Up</button>
+            </div>
+        </div>
+        <div class="navBottom" role="menubar" aria-label="Secondary Navigation">
+            <h3 class="menuItem" role="menuitem" tabindex="0">QUICK SCAN</h3>
+            <h3 class="menuItem" role="menuitem" tabindex="0">DEEP SCAN</h3>
+            <h3 class="menuItem" role="menuitem" tabindex="0">CUSTOM SCAN</h3>
+            <h3 class="menuItem" role="menuitem" tabindex="0">REALTIME PROTECTION</h3>
+            <h3 class="menuItem" role="menuitem" tabindex="0">FIREWALL</h3>
+        </div>
+    </nav>
+
+    <header class="blog-header" role="banner" aria-label="Blog Page Header">
+        Binoculars Security Blog
+    </header>
+
+    <main>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search blog posts..." aria-label="Search blog posts" />
+        </div>
+
+        <section class="posts-grid" id="postsGrid" aria-live="polite" aria-relevant="additions removals">
+            <!-- Blog posts will be dynamically inserted here -->
+        </section>
+    </main>
+
+    <footer role="contentinfo">
+        <div class="footerLeft">
+            <div class="footerMenu">
+                <h1 class="fMenuTitle">About Us</h1>
+                <ul class="fList">
+                    <li class="fListItem">Company</li>
+                    <li class="fListItem">Security Team</li>
+                    <li class="fListItem">Careers</li>
+                    <li class="fListItem">Partners</li>
+                    <li class="fListItem">Press</li>
+                </ul>
+            </div>
+            <div class="footerMenu">
+                <h1 class="fMenuTitle">Support</h1>
+                <ul class="fList">
+                    <li class="fListItem">Help Center</li>
+                    <li class="fListItem">Tutorials</li>
+                    <li class="fListItem">FAQ</li>
+                    <li class="fListItem">Contact</li>
+                    <li class="fListItem">Blog</li>
+                </ul>
+            </div>
+            <div class="footerMenu">
+                <h1 class="fMenuTitle">Products</h1>
+                <ul class="fList">
+                    <li class="fListItem">Binoculars Basic</li>
+                    <li class="fListItem">Binoculars Pro</li>
+                    <li class="fListItem">Enterprise Suite</li>
+                    <li class="fListItem">Mobile Security</li>
+                    <li class="fListItem">VPN Service</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footerRight">
+            <div class="footerRightMenu">
+                <h1 class="fMenuTitle">Subscribe to our newsletter</h1>
+                <div class="fMail">
+                    <input type="text" placeholder="your@email.com" class="fInput" aria-label="Email address" />
+                    <button class="fButton" aria-label="Subscribe to newsletter">SUBSCRIBE</button>
+                </div>
+            </div>
+            <div class="footerRightMenu">
+                <h1 class="fMenuTitle">Follow Us</h1>
+                <div class="fIcons">
+                    <img src="https://cdn-icons-png.flaticon.com/512/124/124010.png" alt="Facebook" class="fIcon" />
+                    <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter" class="fIcon" />
+                    <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram" class="fIcon" />
+                    <img src="https://cdn-icons-png.flaticon.com/512/1384/1384023.png" alt="YouTube" class="fIcon" />
+                </div>
+            </div>
+            <div class="footerRightMenu">
+                <span class="copyright">© 2023 Binoculars Security. All rights reserved.</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Embedded JavaScript for blog interactivity and theme toggle
+
+        const blogPostsData = [
+            {
+                title: "How Binocular Detects Viruses Efficiently",
+                date: "April 20, 2024",
+                summary: "Discover the advanced algorithms and technology behind Binocular's virus detection capabilities.",
+                image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                content: `<p>Binocular uses a combination of heuristic analysis, signature matching, and machine learning to detect viruses quickly and accurately. Our system continuously updates its database to stay ahead of emerging threats.</p>
+                          <p>By leveraging cloud computing and real-time scanning, Binocular ensures minimal impact on your device's performance while providing robust protection.</p>`
+            },
+            {
+                title: "Tips to Keep Your Device Safe from Malware",
+                date: "March 15, 2024",
+                summary: "Simple yet effective practices to protect your device from malware and cyber threats.",
+                image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                content: `<p>Regularly update your software and operating system to patch vulnerabilities. Avoid clicking on suspicious links or downloading files from untrusted sources.</p>
+                          <p>Use strong, unique passwords and enable two-factor authentication wherever possible. Binocular also recommends running regular virus scans to detect any hidden threats.</p>`
+            },
+            {
+                title: "Understanding the Latest Virus Trends in 2024",
+                date: "February 10, 2024",
+                summary: "An overview of the most prevalent virus types and how Binocular adapts to new challenges.",
+                image: "https://images.unsplash.com/photo-1563206767-5b18f218e8de?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                content: `<p>The virus landscape is constantly evolving, with ransomware and phishing attacks on the rise. Binocular's adaptive detection methods help identify new variants quickly.</p>
+                          <p>Stay informed and vigilant by following our blog for updates on emerging threats and best practices for cybersecurity.</p>`
+            },
+{
+    title: "The Importance of Regular Virus Scans",
+    date: "January 5, 2024",
+    summary: "Why regular virus scans are essential for maintaining device health and security.",
+    image: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80",
+    content: `<p>Regular virus scans help detect threats early before they can cause damage. Binocular's fast scanning technology makes it easy to keep your device safe without slowing it down.</p>`
+},
+            {
+                title: "How to Recognize Phishing Attacks",
+                date: "December 20, 2023",
+                summary: "Learn to identify phishing emails and websites to protect your personal information.",
+                image: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                content: `<p>Phishing attacks often use fake emails or websites to trick you into revealing sensitive information. Binocular helps detect and block these threats effectively.</p>`
+            },
+            {
+                title: "Best Practices for Cybersecurity in 2024",
+                date: "November 10, 2023",
+                summary: "Top tips and strategies to enhance your cybersecurity posture this year.",
+                image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                content: `<p>Stay ahead of cyber threats by following best practices such as using strong passwords, keeping software updated, and being cautious online.</p>`
+            }
+        ];
+
+        const postsGrid = document.getElementById('postsGrid');
+        const searchInput = document.getElementById('searchInput');
+        const themeToggleBtn = document.getElementById('themeToggle');
+
+        function createPostElement(post) {
+            const article = document.createElement('article');
+            article.className = 'blog-post';
+            article.tabIndex = 0;
+
+            article.innerHTML = `
+                <img src="${post.image}" alt="${post.title}" />
+                <h2>${post.title}</h2>
+                <div class="date">Published on ${post.date}</div>
+                <div class="summary">${post.summary}</div>
+                <div class="content">${post.content}</div>
+            `;
+
+            // Toggle expand/collapse on click or keyboard enter/space
+            article.addEventListener('click', () => {
+                article.classList.toggle('expanded');
+            });
+            article.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    article.classList.toggle('expanded');
+                }
+            });
+
+            return article;
+        }
+
+        function renderPosts(posts) {
+            postsGrid.innerHTML = '';
+            posts.forEach(post => {
+                postsGrid.appendChild(createPostElement(post));
+            });
+        }
+
+        searchInput.addEventListener('input', () => {
+            const query = searchInput.value.toLowerCase();
+            const filteredPosts = blogPostsData.filter(post =>
+                post.title.toLowerCase().includes(query) ||
+                post.summary.toLowerCase().includes(query) ||
+                post.content.toLowerCase().includes(query)
+            );
+            renderPosts(filteredPosts);
+        });
+
+        themeToggleBtn.addEventListener('click', () => {
+            document.body.classList.toggle('dark-theme');
+            // Save preference to localStorage
+            if(document.body.classList.contains('dark-theme')) {
+                localStorage.setItem('theme', 'dark');
+            } else {
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        // Load theme preference on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme');
+            if(savedTheme === 'dark') {
+                document.body.classList.add('dark-theme');
+            }
+            renderPosts(blogPostsData);
+        });
+    </script>
+</body>
+</html>
