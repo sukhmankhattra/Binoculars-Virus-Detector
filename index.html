@@ -3,320 +3,555 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Binoculars Virus Scan | Virus Detector</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <title>Binoculars Virus Scan | Advanced Virus Detector</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
     :root {
       --primary: #3a7bd5;
+      --primary-dark: #2b5ca8;
       --danger: #e74c3c;
       --success: #2ecc71;
-      --light-bg: linear-gradient(135deg, #667eea, #764ba2);
-      --dark-bg: #121212;
-      --card-light: rgba(255,255,255,0.95);
-      --card-dark: rgba(30, 30, 30, 0.9);
-      --text-light: #222;
-      --text-dark: #eee;
+      --warning: #f39c12;
+      --bg-light: #f4f6fa;
+      --bg-dark: #121212;
+      --card-bg-light: rgba(255, 255, 255, 0.9);
+      --card-bg-dark: rgba(30, 30, 30, 0.9);
       --border-radius: 16px;
+      --text-light: #333;
+      --text-dark: #f0f0f0;
+      --shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
     body {
-      font-family: 'Segoe UI', sans-serif;
+      font-family: 'Segoe UI', 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
       min-height: 100vh;
-      background: var(--light-bg);
+      background: linear-gradient(135deg, #667eea, #764ba2);
       display: flex;
       justify-content: center;
       align-items: center;
-      margin: 0;
-      transition: background 0.4s ease;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      line-height: 1.6;
     }
 
     .container {
-      background: var(--card-light);
-      padding: 2rem;
+      backdrop-filter: blur(16px) saturate(180%);
+      background-color: var(--card-bg-light);
+      padding: 2.5rem;
       border-radius: var(--border-radius);
-      box-shadow: 0 12px 30px rgba(0,0,0,0.2);
-      width: 95%;
-      max-width: 420px;
+      box-shadow: var(--shadow);
+      width: 90%;
+      max-width: 500px;
       text-align: center;
-      transition: background 0.3s, color 0.3s;
+      transition: all 0.4s ease;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .container.dark {
+      background-color: var(--card-bg-dark);
+      color: var(--text-dark);
     }
 
     h1 {
+      margin-bottom: 1.5rem;
+      font-weight: 700;
       color: var(--primary);
-      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+    }
+
+    .description {
+      margin-bottom: 1.5rem;
+      font-size: 0.95rem;
+      opacity: 0.9;
+    }
+
+    label {
+      font-size: 0.9rem;
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      text-align: left;
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+
+    .drop-zone {
+      border: 2px dashed var(--primary);
+      padding: 2rem;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-bottom: 1.5rem;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      min-height: 150px;
+      background-color: rgba(58, 123, 213, 0.05);
+    }
+
+    .drop-zone.highlight {
+      border-color: var(--success);
+      background-color: rgba(46, 204, 113, 0.1);
+      transform: scale(1.01);
+    }
+
+    .drop-zone i {
+      font-size: 2.5rem;
+      color: var(--primary);
+    }
+
+    .drop-zone p {
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    .file-info {
+      display: none;
+      margin-top: 0.5rem;
+      padding: 0.75rem;
+      background-color: rgba(58, 123, 213, 0.1);
+      border-radius: 8px;
+      text-align: left;
+      font-size: 0.9rem;
+    }
+
+    .file-info.show {
+      display: block;
+    }
+
+    button {
+      width: 100%;
+      padding: 0.9rem;
+      background: var(--primary);
+      color: #fff;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 1rem;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 0.5rem;
     }
 
-    .drop-zone {
-      border: 2px dashed var(--primary);
-      padding: 1.5rem;
-      border-radius: 10px;
-      cursor: pointer;
-      margin: 1rem 0;
-      transition: all 0.3s;
-    }
-
-    .drop-zone.highlight {
-      background: rgba(58,123,213,0.1);
-    }
-
-    button {
-      width: 100%;
-      padding: 0.8rem;
-      background: var(--primary);
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: 600;
-      margin-top: 0.5rem;
-      transition: all 0.3s;
-    }
-
     button:hover {
-      opacity: 0.9;
+      background: var(--primary-dark);
       transform: translateY(-2px);
     }
 
     button:disabled {
-      opacity: 0.6;
+      background: #95a5a6;
       cursor: not-allowed;
+      transform: none;
+    }
+
+    .toggle-theme {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.3);
+      backdrop-filter: blur(10px);
+      padding: 0.6rem 1rem;
+      border-radius: 12px;
+      color: #fff;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      z-index: 100;
+    }
+
+    .toggle-theme:hover {
+      background: rgba(255,255,255,0.2);
     }
 
     .result {
-      margin-top: 1rem;
-      padding: 1rem;
-      border-radius: 8px;
+      margin-top: 1.5rem;
+      padding: 1.25rem;
+      border-radius: 10px;
       display: none;
-      font-weight: bold;
+      animation: fadeIn 0.5s ease;
     }
 
-    .safe {
-      background: rgba(46,204,113,0.15);
-      color: var(--success);
+    .result.show {
+      display: block;
     }
 
-    .danger {
-      background: rgba(231,76,60,0.15);
-      color: var(--danger);
+    .result.safe {
+      background-color: rgba(46, 204, 113, 0.15);
+      border: 1px solid var(--success);
     }
 
-    .progress {
-      height: 8px;
-      background: rgba(0,0,0,0.1);
-      border-radius: 4px;
+    .result.danger {
+      background-color: rgba(231, 76, 60, 0.15);
+      border: 1px solid var(--danger);
+    }
+
+    .result.warning {
+      background-color: rgba(243, 156, 18, 0.15);
+      border: 1px solid var(--warning);
+    }
+
+    .result-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+      font-weight: 600;
+    }
+
+    .progress-container {
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
       margin: 1rem 0;
       display: none;
     }
 
+    .progress-container.show {
+      display: block;
+    }
+
     .progress-bar {
-      height: 100%;
-      border-radius: 4px;
-      background: var(--primary);
+      height: 8px;
+      border-radius: 8px;
+      background-color: var(--primary);
       width: 0%;
-      transition: width 0.3s;
+      transition: width 0.3s ease;
     }
 
-    #fileName {
-      margin-top: 0.5rem;
+    .file-details {
+      text-align: left;
+      margin-top: 1rem;
+      font-size: 0.85rem;
+    }
+
+    .file-details div {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.25rem;
+    }
+
+    .file-details span:first-child {
       font-weight: 500;
-      color: var(--text-light);
+      opacity: 0.8;
     }
 
-    #stopBtn {
-      background: var(--danger);
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    .pulse {
+      animation: pulse 1.5s infinite;
+    }
+
+    .loading {
       display: none;
     }
 
-    #themeToggle {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      padding: 0.5rem 1rem;
-      background: var(--primary);
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      cursor: pointer;
-      z-index: 1000;
+    .loading.show {
+      display: inline-block;
     }
 
-    #themeToggle:hover {
-      transform: translateY(-2px);
-      opacity: 0.9;
-    }
-
-    /* Dark Mode */
-    body.dark {
-      background: var(--dark-bg);
-    }
-
-    body.dark .container {
-      background: var(--card-dark);
-      color: var(--text-dark);
-    }
-
-    body.dark #fileName {
-      color: var(--text-dark);
-    }
-
-    body.dark .drop-zone {
-      border-color: var(--text-dark);
-    }
-
-    body.dark .safe {
-      background: rgba(46,204,113,0.1);
-    }
-
-    body.dark .danger {
-      background: rgba(231,76,60,0.1);
+    @media (max-width: 480px) {
+      .container {
+        padding: 1.5rem;
+      }
+      
+      h1 {
+        font-size: 1.5rem;
+      }
     }
   </style>
 </head>
 <body>
 
-  <button id="themeToggle">🌙 Dark Mode</button>
+  <button class="toggle-theme" id="themeToggle">
+    <i class="fas fa-moon"></i>
+    <span>Dark Mode</span>
+  </button>
 
-  <div class="container">
-    <h1><i class="fas fa-shield-virus"></i> Binoculars Virus Scan</h1>
-    <p>Upload a file to scan for viruses</p>
-
-    <div id="dropZone" class="drop-zone">
-      <i class="fas fa-cloud-upload-alt" style="font-size:2rem;"></i>
-      <p>Drag & drop file or click to browse</p>
-    </div>
-    <input type="file" id="fileInput" style="display:none;">
-
-    <div class="progress" id="progress">
-      <div class="progress-bar" id="progressBar"></div>
-    </div>
-
-    <button id="scanBtn" disabled>Scan File</button>
-    <button id="stopBtn">Stop Scan</button>
-
-    <p id="fileName"></p>
-    <div id="result" class="result"></div>
+  <div class="container" id="formContainer">
+    <h1><i class="fa-solid fa-shield-virus"></i> Binoculars Virus Scan</h1>
+    <p class="description">Advanced file scanning powered by AI to detect malware, viruses, and suspicious content</p>
+    
+    <form id="virusForm">
+      <label for="fileInput">Select a file to scan (Max 50MB)</label>
+      <input type="file" id="fileInput" required />
+      <div id="dropZone" class="drop-zone">
+        <i class="fas fa-cloud-upload-alt"></i>
+        <p>Drag & drop your file here or click to browse</p>
+      </div>
+      <div id="fileInfo" class="file-info">
+        <strong>Selected file:</strong> <span id="fileName"></span>
+        <div class="file-details">
+          <div>
+            <span>Size:</span>
+            <span id="fileSize"></span>
+          </div>
+          <div>
+            <span>Type:</span>
+            <span id="fileType"></span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="progress-container" id="progressContainer">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+      
+      <button type="button" id="scanButton" disabled>
+        <i class="fas fa-search"></i>
+        <span>Scan File</span>
+      </button>
+      
+      <div id="result" class="result">
+        <div class="result-header">
+          <i id="resultIcon"></i>
+          <span id="resultTitle"></span>
+        </div>
+        <p id="scanStatus"></p>
+        <div id="scanDetails" class="file-details"></div>
+      </div>
+    </form>
   </div>
 
   <script>
-    const dropZone = document.getElementById('dropZone');
-    const fileInput = document.getElementById('fileInput');
-    const scanBtn = document.getElementById('scanBtn');
-    const stopBtn = document.getElementById('stopBtn');
-    const result = document.getElementById('result');
-    const progress = document.getElementById('progress');
-    const progressBar = document.getElementById('progressBar');
-    const fileName = document.getElementById('fileName');
+    // DOM Elements
     const themeToggle = document.getElementById('themeToggle');
-    const body = document.body;
+    const container = document.getElementById('formContainer');
+    const fileInput = document.getElementById('fileInput');
+    const dropZone = document.getElementById('dropZone');
+    const scanButton = document.getElementById('scanButton');
+    const fileInfo = document.getElementById('fileInfo');
+    const fileName = document.getElementById('fileName');
+    const fileSize = document.getElementById('fileSize');
+    const fileType = document.getElementById('fileType');
+    const result = document.getElementById('result');
+    const resultIcon = document.getElementById('resultIcon');
+    const resultTitle = document.getElementById('resultTitle');
+    const scanStatus = document.getElementById('scanStatus');
+    const scanDetails = document.getElementById('scanDetails');
+    const progressContainer = document.getElementById('progressContainer');
+    const progressBar = document.getElementById('progressBar');
 
-    let scanInterval = null;
-    let scanning = false;
-
-    // Drag and Drop handlers
-    ['dragenter', 'dragover'].forEach(event => {
-      dropZone.addEventListener(event, (e) => {
-        e.preventDefault();
-        dropZone.classList.add('highlight');
-      });
+    // Theme Toggle
+    themeToggle.addEventListener('click', () => {
+      container.classList.toggle('dark');
+      const isDark = container.classList.contains('dark');
+      themeToggle.innerHTML = isDark 
+        ? '<i class="fas fa-sun"></i><span>Light Mode</span>' 
+        : '<i class="fas fa-moon"></i><span>Dark Mode</span>';
+      
+      // Save preference to localStorage
+      localStorage.setItem('themePreference', isDark ? 'dark' : 'light');
     });
 
-    ['dragleave', 'drop'].forEach(event => {
-      dropZone.addEventListener(event, (e) => {
-        e.preventDefault();
-        dropZone.classList.remove('highlight');
-      });
+    // Check for saved theme preference
+    if (localStorage.getItem('themePreference') === 'dark') {
+      container.classList.add('dark');
+      themeToggle.innerHTML = '<i class="fas fa-sun"></i><span>Light Mode</span>';
+    }
+
+    // File Drag and Drop
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+      dropZone.addEventListener(eventName, preventDefaults, false);
     });
 
+    function preventDefaults(e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    ['dragenter', 'dragover'].forEach(eventName => {
+      dropZone.addEventListener(eventName, highlight, false);
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+      dropZone.addEventListener(eventName, unhighlight, false);
+    });
+
+    function highlight() {
+      dropZone.classList.add('highlight');
+    }
+
+    function unhighlight() {
+      dropZone.classList.remove('highlight');
+    }
+
+    dropZone.addEventListener('drop', handleDrop, false);
     dropZone.addEventListener('click', () => fileInput.click());
 
-    dropZone.addEventListener('drop', (e) => {
-      e.preventDefault();
-      fileInput.files = e.dataTransfer.files;
-      updateFileInfo();
-    });
-
-    fileInput.addEventListener('change', updateFileInfo);
-
-    function updateFileInfo() {
-      result.style.display = 'none';
-      fileName.textContent = '';
-      if (fileInput.files.length) {
-        const file = fileInput.files[0];
-        if (file.size > 50 * 1024 * 1024) {
-          showResult('File too large (max 50MB)', 'danger');
-          scanBtn.disabled = true;
-          return;
-        }
-        scanBtn.disabled = false;
-        fileName.textContent = `Selected file: ${file.name}`;
+    function handleDrop(e) {
+      const dt = e.dataTransfer;
+      const files = dt.files;
+      if (files.length) {
+        handleFiles(files);
       }
     }
 
-    scanBtn.addEventListener('click', () => {
-      const file = fileInput.files[0];
-      if (!file || scanning) return;
+    // File Input Change
+    fileInput.addEventListener('change', function() {
+      if (this.files.length) {
+        handleFiles(this.files);
+      }
+    });
 
-      scanning = true;
-      scanBtn.disabled = true;
-      stopBtn.style.display = 'inline-block';
-      scanBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Scanning...';
-      fileName.textContent = `Scanning: ${file.name}`;
-      result.style.display = 'none';
-      progressBar.style.width = '0%';
-      progress.style.display = 'block';
+    // Handle Selected Files
+    function handleFiles(files) {
+      const file = files[0];
+      
+      // Check file size (max 50MB)
+      if (file.size > 50 * 1024 * 1024) {
+        showResult('danger', 'File Too Large', 'Please select a file smaller than 50MB');
+        scanButton.disabled = true;
+        return;
+      }
+      
+      // Update file info display
+      fileName.textContent = file.name;
+      fileSize.textContent = formatFileSize(file.size);
+      fileType.textContent = file.type || 'Unknown';
+      fileInfo.classList.add('show');
+      
+      // Enable scan button
+      scanButton.disabled = false;
+      
+      // Store the file for scanning
+      scanButton.file = file;
+    }
 
-      let progressVal = 0;
-      scanInterval = setInterval(() => {
-        progressVal += Math.random() * 20;
-        if (progressVal >= 100) {
-          progressVal = 100;
-          clearInterval(scanInterval);
+    // Format file size
+    function formatFileSize(bytes) {
+      if (bytes === 0) return '0 Bytes';
+      const k = 1024;
+      const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+      const i = Math.floor(Math.log(bytes) / Math.log(k));
+      return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    }
+
+    // Scan Button Click
+    scanButton.addEventListener('click', function() {
+      const file = this.file;
+      if (!file) return;
+      
+      // Show progress bar
+      progressContainer.classList.add('show');
+      
+      // Simulate scanning progress (in a real app, this would be API calls)
+      simulateScan(file);
+    });
+
+    // Simulate scanning process
+    function simulateScan(file) {
+      scanButton.disabled = true;
+      scanButton.innerHTML = '<i class="fas fa-spinner fa-spin loading show"></i><span>Scanning...</span>';
+      
+      let progress = 0;
+      const interval = setInterval(() => {
+        progress += Math.random() * 10;
+        if (progress > 100) progress = 100;
+        progressBar.style.width = `${progress}%`;
+        
+        if (progress === 100) {
+          clearInterval(interval);
           completeScan(file);
         }
-        progressBar.style.width = `${progressVal}%`;
-      }, 300);
-    });
+      }, 200);
+    }
 
-    stopBtn.addEventListener('click', () => {
-      if (!scanning) return;
-      clearInterval(scanInterval);
-      scanning = false;
-      progressBar.style.width = '0%';
-      progress.style.display = 'none';
-      scanBtn.disabled = false;
-      scanBtn.innerHTML = 'Scan File';
-      stopBtn.style.display = 'none';
-      fileName.textContent = 'Scan stopped by user.';
-      showResult('Scan was stopped.', 'danger');
-    });
-
+    // Complete the scan with results
     function completeScan(file) {
-      scanning = false;
-      const isSafe = Math.random() > 0.3;
-      showResult(isSafe ? 'No threats found! File is safe.' : 'Malware detected! Do not open.', isSafe ? 'safe' : 'danger');
-      scanBtn.disabled = false;
-      scanBtn.innerHTML = 'Scan File';
-      stopBtn.style.display = 'none';
+      // In a real app, this would be the actual scan result from an API
+      // For demo purposes, we'll randomly generate a result
+      const isSafe = Math.random() > 0.3; // 70% chance of being safe
+      const hasWarning = !isSafe && Math.random() > 0.5; // If unsafe, 50% chance of warning vs danger
+      
+      if (isSafe) {
+        showResult('safe', 'No Threats Found', 'Your file appears to be clean and safe to use.', file);
+      } else if (hasWarning) {
+        showResult('warning', 'Potential Risk Detected', 'This file contains elements that may be suspicious. Proceed with caution.', file);
+      } else {
+        showResult('danger', 'Malware Detected!', 'This file contains malicious code and should not be opened.', file);
+      }
+      
+      scanButton.disabled = false;
+      scanButton.innerHTML = '<i class="fas fa-search"></i><span>Scan File</span>';
     }
 
-    function showResult(message, type) {
-      result.textContent = message;
-      result.className = `result ${type}`;
-      result.style.display = 'block';
+    // Show scan results
+    function showResult(type, title, message, file) {
+      result.className = `result show ${type}`;
+      
+      // Set appropriate icon
+      const iconClass = {
+        safe: 'fas fa-check-circle',
+        warning: 'fas fa-exclamation-triangle',
+        danger: 'fas fa-times-circle'
+      }[type];
+      
+      resultIcon.className = iconClass;
+      resultTitle.textContent = title;
+      scanStatus.textContent = message;
+      
+      // Add file details if available
+      if (file) {
+        scanDetails.innerHTML = `
+          <div>
+            <span>File name:</span>
+            <span>${file.name}</span>
+          </div>
+          <div>
+            <span>File size:</span>
+            <span>${formatFileSize(file.size)}</span>
+          </div>
+          <div>
+            <span>File type:</span>
+            <span>${file.type || 'Unknown'}</span>
+          </div>
+          <div>
+            <span>Scan date:</span>
+            <span>${new Date().toLocaleString()}</span>
+          </div>
+        `;
+      }
+      
+      // Scroll to result
+      result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
 
-    // Theme toggle
-    themeToggle.addEventListener('click', () => {
-      body.classList.toggle('dark');
-      const isDark = body.classList.contains('dark');
-      themeToggle.textContent = isDark ? '☀ Light Mode' : '🌙 Dark Mode';
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      // Any initialization code can go here
     });
   </script>
+
 </body>
 </html>
