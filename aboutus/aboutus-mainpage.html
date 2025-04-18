@@ -4,98 +4,254 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>About Us | Binoculars Virus Scan</title>
+  <link rel="stylesheet" href="../style.css" />
   <style>
-    :root {
-      --primary: #3a7bd5;
-      --light-bg: linear-gradient(135deg, #667eea, #764ba2);
-      --dark-bg: #121212;
-      --card-light: rgba(255, 255, 255, 0.9);
-      --card-dark: rgba(30, 30, 30, 0.8);
-      --text-light: #333;
-      --text-dark: #f0f0f0;
-    }
-
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: var(--light-bg);
-      transition: background-color 0.3s ease;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-    }
-
-    .container {
-      background: var(--card-light);
-      color: var(--text-light);
-      padding: 40px 30px;
+    /* Additional styles specific to about us page */
+    .about-container {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.95);
       border-radius: 16px;
-      max-width: 600px;
-      width: 90%;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
-      text-align: center;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+      color: #333;
       transition: background-color 0.3s ease, color 0.3s ease;
     }
 
-    h1 {
-      color: var(--primary);
+    body.dark .about-container {
+      background: rgba(30, 30, 30, 0.85);
+      color: #f0f0f0;
+    }
+
+    h1, h2 {
+      color: var(--primary, #3a7bd5);
       margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    h2 {
+      margin-top: 2.5rem;
     }
 
     p {
       line-height: 1.6;
-      font-size: 1rem;
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+    }
+
+    .section {
+      margin-bottom: 3rem;
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 20px;
+      justify-items: center;
+    }
+
+    .team-member {
+      background: #f0f0f0;
+      border-radius: 12px;
+      padding: 15px;
+      width: 100%;
+      max-width: 180px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: background 0.3s ease;
+      text-align: center;
+    }
+
+    body.dark .team-member {
+      background: #222;
+    }
+
+    .team-member img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 10px;
+      border: 3px solid var(--primary, #3a7bd5);
+    }
+
+    .team-member h3 {
+      margin: 0.5rem 0 0.25rem;
+      font-size: 1.1rem;
+    }
+
+    .team-member p {
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    body.dark .team-member p {
+      color: #bbb;
+    }
+
+    .timeline {
+      border-left: 3px solid var(--primary, #3a7bd5);
+      margin-left: 20px;
+      padding-left: 20px;
+    }
+
+    .timeline-item {
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -11px;
+      top: 5px;
+      width: 18px;
+      height: 18px;
+      background: var(--primary, #3a7bd5);
+      border-radius: 50%;
+      border: 3px solid white;
+      box-shadow: 0 0 5px rgba(58, 123, 213, 0.7);
+    }
+
+    .testimonial {
+      background: #e9f0ff;
+      border-left: 5px solid var(--primary, #3a7bd5);
+      padding: 15px 20px;
+      margin-bottom: 1.5rem;
+      border-radius: 8px;
+      font-style: italic;
+      color: #333;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    body.dark .testimonial {
+      background: #1e1e1e;
+      color: #ddd;
+      border-left-color: #3a7bd5;
+      box-shadow: 0 2px 8px rgba(58,123,213,0.7);
+    }
+
+    .testimonial strong {
+      display: block;
+      margin-top: 8px;
+      font-style: normal;
+      color: var(--primary, #3a7bd5);
     }
 
     .toggle-theme {
-      position: absolute;
+      position: fixed;
       top: 20px;
       right: 20px;
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      backdrop-filter: blur(10px);
-      padding: 6px 12px;
-      border-radius: 12px;
-      color: white;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(58, 123, 213, 0.7);
+      padding: 8px 14px;
+      border-radius: 20px;
+      color: var(--primary, #3a7bd5);
       font-size: 14px;
       cursor: pointer;
+      box-shadow: 0 2px 8px rgba(58, 123, 213, 0.3);
       transition: all 0.3s ease;
+      z-index: 1000;
     }
 
     .toggle-theme:hover {
-      background: rgba(255, 255, 255, 0.2);
+      background: var(--primary, #3a7bd5);
+      color: white;
+      border-color: transparent;
+      box-shadow: 0 4px 12px rgba(58, 123, 213, 0.7);
     }
 
-    body.dark {
-      background: var(--dark-bg);
-    }
-
-    body.dark .container {
-      background-color: var(--card-dark);
-      color: var(--text-dark);
-    }
-
-    body.dark .toggle-theme {
-      color: var(--text-dark);
-      border-color: rgba(255, 255, 255, 0.3);
+    @media (max-width: 600px) {
+      .team-grid {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      }
     }
   </style>
 </head>
 <body>
   <button class="toggle-theme" id="themeToggle">🌙 Dark Mode</button>
 
-  <div class="container">
+  <div class="about-container">
     <h1>About Us</h1>
-    <p>
-      At <strong>Binoculars Virus Scan</strong>, our mission is to keep your files safe and secure with a fast and intuitive virus scanning experience. We believe cybersecurity should be simple, accessible, and trustworthy for everyone.
-    </p>
-    <p>
-      Our team is passionate about developing smart tools that protect your digital world. Whether you’re uploading important work files or sharing media with friends, we’ve got your back.
-    </p>
-    <p>
-      Stay protected. Stay confident. Binoculars is watching for threats, so you don’t have to.
-    </p>
+
+    <section class="section mission">
+      <h2>Our Mission</h2>
+      <p>
+        At <strong>Binoculars Virus Scan</strong>, our mission is to provide fast, reliable, and user-friendly virus scanning solutions that protect your digital life. We strive to make cybersecurity accessible and trustworthy for everyone, empowering users to stay safe online with confidence.
+      </p>
+    </section>
+
+    <section class="section values">
+      <h2>Our Values</h2>
+      <p><strong>Integrity:</strong> We prioritize honesty and transparency in all our operations.</p>
+      <p><strong>Innovation:</strong> We continuously improve our technology to stay ahead of emerging threats.</p>
+      <p><strong>User-Centric:</strong> Our users’ safety and experience are at the heart of everything we do.</p>
+      <p><strong>Collaboration:</strong> We believe in working together to build a safer digital world.</p>
+    </section>
+
+    <section class="section team">
+      <h2>Meet the Team</h2>
+      <div class="team-grid">
+        <div class="team-member">
+          <alt="Shivansh Pathania" />
+          <h3>Shivansh Pathania</h3>
+        
+        </div>
+        <div class="team-member">
+          <alt="Keshav Dhiman" />
+          <h3>Keshav Dhiman</h3>
+        
+        </div>
+        <div class="team-member">
+          <alt="Sam Verma" />
+          <h3>Sam Verma</h3>
+         
+        </div>
+        <div class="team-member">
+          <alt="Sukhman khattra" />
+          <h3>Sukhman Khattra</h3>
+
+        </div>
+        <div class="team-member">
+          <alt="Umesh" />
+          <h3>Umesh</h3>
+    
+        </div>
+      </div>
+    </section>
+
+    <section class="section history">
+      <h2>Our Journey</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <strong>2018:</strong> Founded Binoculars Virus Scan with a vision to simplify cybersecurity.
+        </div>
+        <div class="timeline-item">
+          <strong>2019:</strong> Launched our first virus scanning product with real-time threat detection.
+        </div>
+        <div class="timeline-item">
+          <strong>2021:</strong> Expanded our team and introduced AI-powered scanning technology.
+        </div>
+        <div class="timeline-item">
+          <strong>2023:</strong> Reached 1 million users worldwide and launched mobile app versions.
+        </div>
+      </div>
+    </section>
+
+    <section class="section testimonials">
+      <h2>What Our Users Say</h2>
+      <div class="testimonial">
+        "Binoculars Virus Scan gives me peace of mind knowing my files are safe. The interface is clean and easy to use."
+        <strong>- Alex P.</strong>
+      </div>
+      <div class="testimonial">
+        "The scanning speed and accuracy are impressive. I highly recommend Binoculars to everyone."
+        <strong>- Maria L.</strong>
+      </div>
+      <div class="testimonial">
+        "Customer support is responsive and helpful. It’s great to have a trustworthy tool protecting my computer."
+        <strong>- David K.</strong>
+      </div>
+    </section>
   </div>
 
   <script>
