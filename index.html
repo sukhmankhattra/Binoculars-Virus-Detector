@@ -33,12 +33,20 @@
       margin: 0;
       padding: 0;
       min-height: 100vh;
-      background: linear-gradient(135deg, #667eea, #764ba2);
+      background: linear-gradient(135deg, #667eea, #764ba2, #4ca1af);
+      background-size: 400% 400%;
+      animation: gradientAnimation 15s ease infinite;
       display: flex;
       justify-content: center;
       align-items: center;
       transition: background-color 0.3s ease, color 0.3s ease;
       line-height: 1.6;
+    }
+
+    @keyframes gradientAnimation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
     .container {
@@ -67,6 +75,16 @@
       align-items: center;
       justify-content: center;
       gap: 0.75rem;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
     }
 
     .description {
@@ -327,9 +345,13 @@
     .progress-bar {
       height: 8px;
       border-radius: 8px;
-      background-color: var(--primary);
-      width: 0%;
-      transition: width 0.3s ease;
+      background: linear-gradient(90deg, #4ca1af, #3498db);
+      box-shadow: 0 0 10px rgba(58, 123, 213, 0.8);
+      transition: width 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .progress-bar:hover {
+      box-shadow: 0 0 20px rgba(58, 123, 213, 1);
     }
 
     .file-details {
@@ -420,6 +442,21 @@
   </style>
 </head>
 <body>
+
+  <div id="particles-js"></div>
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <script>
+    particlesJS("particles-js", {
+      particles: {
+        number: { value: 80 },
+        color: { value: "#ffffff" },
+        shape: { type: "circle" },
+        opacity: { value: 0.5 },
+        size: { value: 3 },
+        move: { speed: 2 }
+      }
+    });
+  </script>
 
   <div class="toggle-theme">
     <div class="theme-label-box">
