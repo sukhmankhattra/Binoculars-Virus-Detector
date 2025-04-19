@@ -211,6 +211,10 @@
       background-color: rgba(255, 255, 255, 0.3);
       border-radius: 24px;
       transition: 0.4s;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5px;
     }
 
     .slider:before {
@@ -225,12 +229,35 @@
       transition: 0.4s;
     }
 
+    .slider i {
+      font-size: 12px;
+      transition: opacity 0.3s ease, color 0.3s ease;
+    }
+
+    #moonIcon {
+      color: #4a90e2; /* Blue for moon */
+      opacity: 1;
+    }
+
+    #sunIcon {
+      color: #f1c40f; /* Yellow for sun */
+      opacity: 0;
+    }
+
     input:checked + .slider {
       background-color: var(--primary);
     }
 
     input:checked + .slider:before {
       transform: translateX(26px);
+    }
+
+    input:checked + .slider #moonIcon {
+      opacity: 0;
+    }
+
+    input:checked + .slider #sunIcon {
+      opacity: 1;
     }
 
     .result {
@@ -365,17 +392,28 @@
       background-color: rgba(0, 0, 0, 0.5);
       color: var(--text-dark);
     }
+
+    .theme-label-box i {
+      font-size: 1.2rem;
+      transition: color 0.3s ease;
+    }
+
+    .container.dark .theme-label-box i {
+      color: var(--text-dark);
+    }
   </style>
 </head>
 <body>
 
   <div class="toggle-theme">
     <div class="theme-label-box">
+      <i class="fas fa-moon" id="moonIcon"></i>
       <span>Dark Mode</span>
       <label class="switch">
         <input type="checkbox" id="themeToggleSwitch">
         <span class="slider"></span>
       </label>
+      <i class="fas fa-sun" id="sunIcon"></i>
     </div>
   </div>
 
@@ -442,16 +480,23 @@
     const scanDetails = document.getElementById('scanDetails');
     const progressContainer = document.getElementById('progressContainer');
     const progressBar = document.getElementById('progressBar');
+    const themeIcon = document.getElementById('themeIcon');
 
     // Check for saved theme preference
     if (localStorage.getItem('themePreference') === 'dark') {
       container.classList.add('dark');
       themeToggleSwitch.checked = true;
+      document.getElementById('moonIcon').style.opacity = '0';
+      document.getElementById('sunIcon').style.opacity = '1';
     }
 
     themeToggleSwitch.addEventListener('change', () => {
       const isDark = themeToggleSwitch.checked;
       container.classList.toggle('dark', isDark);
+
+      // Toggle icon visibility
+      document.getElementById('moonIcon').style.opacity = isDark ? '0' : '1';
+      document.getElementById('sunIcon').style.opacity = isDark ? '1' : '0';
 
       // Save preference to localStorage
       localStorage.setItem('themePreference', isDark ? 'dark' : 'light');
