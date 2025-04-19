@@ -1085,7 +1085,8 @@
             if (index < 0) currentSlide = totalSlides - 1;
             
             document.querySelector('.sliderWrapper').style.transform = 
-                translateX(-${currentSlide * 100}%);
+    `translateX(-${currentSlide * 100}%)`;
+
             
             // Add active class to current slide with delay for animation
             setTimeout(() => {
