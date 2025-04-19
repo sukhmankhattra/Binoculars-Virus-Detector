@@ -10,6 +10,18 @@ body {
     background: linear-gradient(135deg, #2c3e50, #4ca1af);
     color: #fff;
     transition: background 0.5s ease-in-out;
+    /* Added to center the virus scan container */
+    height: 100vh;
+}
+.container {
+    margin: auto;
+}
+#scannerWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
 }
 
 h1 {

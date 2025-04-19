@@ -41,6 +41,9 @@ scanButton.addEventListener('click', () => {
     progressBar.style.width = '0%';
     progressContainer.classList.remove('hidden');
     resultDiv.classList.add('hidden');
+
+    // Placeholder for real virus scanning API integration
+    // TODO: Replace simulateScan with actual API call to scan the selectedFile
     simulateScan();
 });
 
@@ -49,6 +52,7 @@ function displayFileName(name) {
     fileNameDisplay.classList.remove('hidden');
 }
 
+// Simulated scan function - to be replaced with real API call
 function simulateScan() {
     let progress = 0;
     const interval = setInterval(() => {
@@ -57,6 +61,7 @@ function simulateScan() {
 
         if (progress >= 100) {
             clearInterval(interval);
+            // Placeholder for processing real API response
             showResult();
         }
     }, 300);
@@ -66,6 +71,7 @@ function showResult() {
     progressContainer.classList.add('hidden');
     resultDiv.classList.remove('hidden');
 
+    // Placeholder for real scan results from API
     const scanners = [
         { name: 'Scanner A', probability: 0.4 },
         { name: 'Scanner B', probability: 0.3 },

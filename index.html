@@ -470,49 +470,51 @@
     </div>
   </div>
 
-  <div class="container" id="formContainer">
-    <h1><i class="fa-solid fa-shield-virus"></i> Binoculars Virus Scan</h1>
-    <p class="description">Advanced file scanning powered by AI to detect malware, viruses, and suspicious content</p>
-    
-    <form id="virusForm">
-      <label for="fileInput">Select a file to scan (Max 50MB)</label>
-      <input type="file" id="fileInput" required />
-      <div id="dropZone" class="drop-zone">
-        <i class="fas fa-cloud-upload-alt"></i>
-        <p>Drag & drop your file here or click to browse</p>
-      </div>
-      <div id="fileInfo" class="file-info">
-        <strong>Selected file:</strong> <span id="fileName"></span>
-        <div class="file-details">
-          <div>
-            <span>Size:</span>
-            <span id="fileSize"></span>
-          </div>
-          <div>
-            <span>Type:</span>
-            <span id="fileType"></span>
+  <div id="scannerWrapper">
+    <div class="container" id="formContainer">
+      <h1><i class="fa-solid fa-shield-virus"></i> Binoculars Virus Scan</h1>
+      <p class="description">Advanced file scanning powered by AI to detect malware, viruses, and suspicious content</p>
+      
+      <form id="virusForm">
+        <label for="fileInput">Select a file to scan (Max 50MB)</label>
+        <input type="file" id="fileInput" required />
+        <div id="dropZone" class="drop-zone">
+          <i class="fas fa-cloud-upload-alt"></i>
+          <p>Drag & drop your file here or click to browse</p>
+        </div>
+        <div id="fileInfo" class="file-info">
+          <strong>Selected file:</strong> <span id="fileName"></span>
+          <div class="file-details">
+            <div>
+              <span>Size:</span>
+              <span id="fileSize"></span>
+            </div>
+            <div>
+              <span>Type:</span>
+              <span id="fileType"></span>
+            </div>
           </div>
         </div>
-      </div>
-      
-      <div class="progress-container" id="progressContainer">
-        <div class="progress-bar" id="progressBar"></div>
-      </div>
-      
-      <button type="button" id="scanButton" disabled>
-        <i class="fas fa-search"></i>
-        <span>Scan File</span>
-      </button>
-      
-      <div id="result" class="result">
-        <div class="result-header">
-          <i id="resultIcon"></i>
-          <span id="resultTitle"></span>
+        
+        <div class="progress-container" id="progressContainer">
+          <div class="progress-bar" id="progressBar"></div>
         </div>
-        <p id="scanStatus"></p>
-        <div id="scanDetails" class="file-details"></div>
-      </div>
-    </form>
+        
+        <button type="button" id="scanButton" disabled>
+          <i class="fas fa-search"></i>
+          <span>Scan File</span>
+        </button>
+        
+        <div id="result" class="result">
+          <div class="result-header">
+            <i id="resultIcon"></i>
+            <span id="resultTitle"></span>
+          </div>
+          <p id="scanStatus"></p>
+          <div id="scanDetails" class="file-details"></div>
+        </div>
+      </form>
+    </div>
   </div>
 
   <script>
@@ -640,11 +642,12 @@
       // Show progress bar
       progressContainer.classList.add('show');
       
-      // Simulate scanning progress (in a real app, this would be API calls)
+      // Placeholder for real virus scanning API integration
+      // TODO: Replace simulateScan with actual API call to scan the file
       simulateScan(file);
     });
 
-    // Simulate scanning process
+    // Simulate scanning process - to be replaced with real API call
     function simulateScan(file) {
       scanButton.disabled = true;
       scanButton.innerHTML = '<i class="fas fa-spinner fa-spin loading show"></i><span>Scanning...</span>';
@@ -657,14 +660,14 @@
         
         if (progress === 100) {
           clearInterval(interval);
+          // Placeholder for processing real API response
           completeScan(file);
         }
       }, 200);
     }
 
-    // Complete the scan with results
+    // Complete the scan with results - to be replaced with real API response handling
     function completeScan(file) {
-      // In a real app, this would be the actual scan result from an API
       // For demo purposes, we'll randomly generate a result
       const isSafe = Math.random() > 0.3; // 70% chance of being safe
       const hasWarning = !isSafe && Math.random() > 0.5; // If unsafe, 50% chance of warning vs danger
@@ -681,9 +684,9 @@
       scanButton.innerHTML = '<i class="fas fa-search"></i><span>Scan File</span>';
     }
 
-    // Show scan results
+    // Show scan results with enhanced animations
     function showResult(type, title, message, file) {
-      result.className = `result show ${type}`;
+      result.className = `result show ${type} pulse`;
       
       // Set appropriate icon
       const iconClass = {
