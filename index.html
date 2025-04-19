@@ -165,23 +165,72 @@
       position: fixed;
       top: 20px;
       right: 20px;
-      background: rgba(255,255,255,0.1);
-      border: 1px solid rgba(255,255,255,0.3);
-      backdrop-filter: blur(10px);
-      padding: 0.6rem 1rem;
-      border-radius: 12px;
-      color: #fff;
-      font-size: 0.9rem;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
       z-index: 100;
     }
 
-    .toggle-theme:hover {
-      background: rgba(255,255,255,0.2);
+    .theme-label-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      padding: 8px 12px;
+      background-color: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 8px;
+      color: #fff;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .container.dark .theme-label-box {
+      background-color: rgba(0, 0, 0, 0.5);
+      color: var(--text-dark);
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 24px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(255, 255, 255, 0.3);
+      border-radius: 24px;
+      transition: 0.4s;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      border-radius: 50%;
+      transition: 0.4s;
+    }
+
+    input:checked + .slider {
+      background-color: var(--primary);
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(26px);
     }
 
     .result {
@@ -289,14 +338,46 @@
         font-size: 1.5rem;
       }
     }
+
+    .theme-label {
+      font-size: 0.9rem;
+      color: #fff;
+      font-weight: 500;
+    }
+
+    .container.dark .theme-label {
+      color: var(--text-dark);
+    }
+
+    .theme-label-box {
+      padding: 4px 8px;
+      background-color: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 8px;
+      color: #fff;
+      font-size: 0.85rem;
+      font-weight: 500;
+      text-align: center;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .container.dark .theme-label-box {
+      background-color: rgba(0, 0, 0, 0.5);
+      color: var(--text-dark);
+    }
   </style>
 </head>
 <body>
 
-  <button class="toggle-theme" id="themeToggle">
-    <i class="fas fa-moon"></i>
-    <span>Dark Mode</span>
-  </button>
+  <div class="toggle-theme">
+    <div class="theme-label-box">
+      <span>Dark Mode</span>
+      <label class="switch">
+        <input type="checkbox" id="themeToggleSwitch">
+        <span class="slider"></span>
+      </label>
+    </div>
+  </div>
 
   <div class="container" id="formContainer">
     <h1><i class="fa-solid fa-shield-virus"></i> Binoculars Virus Scan</h1>
@@ -345,7 +426,7 @@
 
   <script>
     // DOM Elements
-    const themeToggle = document.getElementById('themeToggle');
+    const themeToggleSwitch = document.getElementById('themeToggleSwitch');
     const container = document.getElementById('formContainer');
     const fileInput = document.getElementById('fileInput');
     const dropZone = document.getElementById('dropZone');
@@ -362,23 +443,19 @@
     const progressContainer = document.getElementById('progressContainer');
     const progressBar = document.getElementById('progressBar');
 
-    // Theme Toggle
-    themeToggle.addEventListener('click', () => {
-      container.classList.toggle('dark');
-      const isDark = container.classList.contains('dark');
-      themeToggle.innerHTML = isDark 
-        ? '<i class="fas fa-sun"></i><span>Light Mode</span>' 
-        : '<i class="fas fa-moon"></i><span>Dark Mode</span>';
-      
-      // Save preference to localStorage
-      localStorage.setItem('themePreference', isDark ? 'dark' : 'light');
-    });
-
     // Check for saved theme preference
     if (localStorage.getItem('themePreference') === 'dark') {
       container.classList.add('dark');
-      themeToggle.innerHTML = '<i class="fas fa-sun"></i><span>Light Mode</span>';
+      themeToggleSwitch.checked = true;
     }
+
+    themeToggleSwitch.addEventListener('change', () => {
+      const isDark = themeToggleSwitch.checked;
+      container.classList.toggle('dark', isDark);
+
+      // Save preference to localStorage
+      localStorage.setItem('themePreference', isDark ? 'dark' : 'light');
+    });
 
     // File Drag and Drop
     ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
