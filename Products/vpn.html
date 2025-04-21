@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Binoculars VPN Service | Secure Your Connection</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    :root {
+      --primary: #3a7bd5;
+      --primary-dark: #2b5ca8;
+      --danger: #e74c3c;
+      --success: #2ecc71;
+      --warning: #f39c12;
+      --bg-light: #f4f6fa;
+      --bg-dark: #121212;
+      --card-bg-light: rgba(255, 255, 255, 0.9);
+      --card-bg-dark: rgba(30, 30, 30, 0.9);
+      --border-radius: 16px;
+      --text-light: #333;
+      --text-dark: #f0f0f0;
+      --shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #667eea, #764ba2, #4ca1af);
+      background-size: 400% 400%;
+      animation: gradientAnimation 15s ease infinite;
+      display: flex;
+      flex-direction: column;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      color: var(--text-light);
+    }
+
+    @keyframes gradientAnimation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    nav {
+      background-color: var(--card-bg-light);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: var(--shadow);
+      border-radius: var(--border-radius);
+      margin: 1rem 2rem 0 2rem;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    nav.dark {
+      background-color: var(--card-bg-dark);
+      color: var(--text-dark);
+    }
+
+    nav .logo {
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: var(--primary);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    nav ul li {
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--text-light);
+      transition: color 0.3s ease;
+    }
+
+    nav.dark ul li {
+      color: var(--text-dark);
+    }
+
+    nav ul li:hover {
+      color: var(--primary-dark);
+    }
+
+    .container {
+      backdrop-filter: blur(16px) saturate(180%);
+      background-color: var(--card-bg-light);
+      padding: 2.5rem;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      width: 90%;
+      max-width: 900px;
+      margin: 2rem auto 4rem auto;
+      transition: all 0.4s ease;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-light);
+    }
+
+    .container.dark {
+      background-color: var(--card-bg-dark);
+      color: var(--text-dark);
+    }
+
+    h1 {
+      margin-bottom: 1rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-align: center;
+    }
+
+    p.description {
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+      text-align: center;
+      opacity: 0.9;
+    }
+
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+      margin-bottom: 3rem;
+    }
+
+    .feature-item {
+      background-color: var(--bg-light);
+      border-radius: 12px;
+      padding: 1.5rem;
+      width: 250px;
+      box-shadow: var(--shadow);
+      text-align: center;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      cursor: default;
+    }
+
+    .container.dark .feature-item {
+      background-color: #222;
+      color: var(--text-dark);
+    }
+
+    .feature-item i {
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+
+    .feature-item h3 {
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+    }
+
+    .feature-item p {
+      font-size: 0.95rem;
+      opacity: 0.85;
+    }
+
+    .cta {
+      text-align: center;
+    }
+
+    .cta button {
+      background: linear-gradient(135deg, #4ca1af, #3498db);
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      font-size: 1.1rem;
+      font-weight: 700;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .cta button:hover {
+      background: linear-gradient(135deg, #5db4d4, #2980b9);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .toggle-theme {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 100;
+    }
+
+    .theme-label-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      padding: 8px 12px;
+      background-color: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 8px;
+      color: #333333;
+      font-size: 0.85rem;
+      font-weight: 500;
+      text-align: center;
+      transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+
+    .theme-label-box:hover {
+      box-shadow: 0 0 15px rgba(58, 123, 213, 0.8), 0 0 30px rgba(58, 123, 213, 0.5);
+    }
+
+    .container.dark .theme-label-box {
+      background-color: rgba(0, 0, 0, 0.5);
+      color: var(--text-dark);
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 24px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(255, 255, 255, 0.3);
+      border-radius: 24px;
+      transition: 0.4s;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      border-radius: 50%;
+      transition: 0.4s;
+    }
+
+    .slider i {
+      font-size: 12px;
+      transition: opacity 0.3s ease, color 0.3s ease;
+    }
+
+    input:checked + .slider {
+      background-color: var(--primary);
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
+
+    input:checked + .slider #moonIcon {
+      opacity: 0;
+    }
+
+    input:checked + .slider #sunIcon {
+      opacity: 1;
+    }
+
+    .footer {
+      background-color: var(--card-bg-light);
+      padding: 2rem;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      margin: 0 2rem 2rem 2rem;
+      color: var(--text-light);
+      transition: background-color 0.3s ease, color 0.3s ease;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .footer.dark {
+      background-color: var(--card-bg-dark);
+      color: var(--text-dark);
+    }
+
+    .footer-section {
+      flex: 1 1 200px;
+      min-width: 200px;
+    }
+
+    .footer-section h3 {
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    .footer-section ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-section ul li {
+      margin-bottom: 0.5rem;
+      cursor: pointer;
+      color: var(--text-light);
+      transition: color 0.3s ease;
+    }
+
+    .footer.dark .footer-section ul li {
+      color: var(--text-dark);
+    }
+
+    .footer-section ul li:hover {
+      color: var(--primary-dark);
+    }
+
+    @media (max-width: 768px) {
+      .features {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      nav, .container, .footer {
+        margin: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav id="mainNav">
+    <div class="logo" tabindex="0" role="link" aria-label="Binoculars Home" onclick="location.href='index.html'">Binoculars</div>
+    <ul>
+      <li tabindex="0" role="link" onclick="location.href='index.html'">Home</li>
+      <li tabindex="0" role="link" onclick="location.href='Products/vpn.html'">VPN Service</li>
+      <li tabindex="0" role="link" onclick="location.href='FreeScan.html'">Free Scan</li>
+      <li tabindex="0" role="link" onclick="location.href='support/blog.html'">Blog</li>
+      <li tabindex="0" role="link" onclick="location.href='aboutus/aboutus-mainpage.html'">About Us</li>
+    </ul>
+  </nav>
+
+  <div class="container" id="vpnContainer">
+    <h1><i class="fa-solid fa-shield-halved"></i> Binoculars VPN Service</h1>
+    <p class="description">Secure your internet connection and protect your privacy with Binoculars VPN. Enjoy fast, reliable, and anonymous browsing anywhere in the world.</p>
+
+    <section class="features" aria-label="VPN Service Features">
+      <article class="feature-item" tabindex="0">
+        <i class="fa-solid fa-lock"></i>
+        <h3>Strong Encryption</h3>
+        <p>Protect your data with military-grade AES-256 encryption to keep your information safe from hackers and surveillance.</p>
+      </article>
+      <article class="feature-item" tabindex="0">
+        <i class="fa-solid fa-globe"></i>
+        <h3>Global Servers</h3>
+        <p>Access servers in over 50 countries to bypass geo-restrictions and enjoy content from anywhere.</p>
+      </article>
+      <article class="feature-item" tabindex="0">
+        <i class="fa-solid fa-bolt"></i>
+        <h3>High Speed</h3>
+        <p>Experience fast and stable connections with unlimited bandwidth for streaming, gaming, and browsing.</p>
+      </article>
+      <article class="feature-item" tabindex="0">
+        <i class="fa-solid fa-user-secret"></i>
+        <h3>No Logs Policy</h3>
+        <p>We do not track or store your online activities, ensuring your privacy is always protected.</p>
+      </article>
+      <article class="feature-item" tabindex="0">
+        <i class="fa-solid fa-shield-virus"></i>
+        <h3>Malware Protection</h3>
+        <p>Integrated malware detection to keep your devices safe from threats while connected to the VPN.</p>
+      </article>
+      <article class="feature-item" tabindex="0">
+        <i class="fa-solid fa-headset"></i>
+        <h3>24/7 Support</h3>
+        <p>Our dedicated support team is available around the clock to assist you with any issues or questions.</p>
+      </article>
+      <article class="feature-item" tabindex="0">
+        <i class="fa-solid fa-shield-alt"></i>
+        <h3>Kill Switch</h3>
+        <p>Automatically blocks internet traffic if the VPN connection drops, ensuring your data is never exposed.</p>
+      </article>
+      <article class="feature-item" tabindex="0">
+        <i class="fa-solid fa-mobile-screen-button"></i>
+        <h3>Multi-Device Support</h3>
+        <p>Use Binoculars VPN on multiple devices simultaneously with a single subscription.</p>
+      </article>
+      <article class="feature-item" tabindex="0">
+        <i class="fa-solid fa-wifi"></i>
+        <h3>Wi-Fi Protection</h3>
+        <p>Secure your connection on public Wi-Fi networks to prevent hackers from intercepting your data.</p>
+      </article>
+      <article class="feature-item" tabindex="0">
+        <i class="fa-solid fa-lock-open"></i>
+        <h3>Bypass Censorship</h3>
+        <p>Access blocked websites and services in restrictive regions with ease.</p>
+      </article>
+    </section>
+
+    <div class="cta">
+      <button onclick="location.href='signup.html'">Get Started Now</button>
+    </div>
+  </div>
+
+  <div class="toggle-theme" role="region" aria-label="Toggle dark and light theme">
+    <div class="theme-label-box" tabindex="0" role="button" aria-pressed="false" onclick="toggleTheme()">
+      <i class="fas fa-moon" id="moonIcon"></i>
+      <span>Dark Mode</span>
+      <label class="switch">
+        <input type="checkbox" id="themeToggleSwitch" aria-label="Toggle dark mode" />
+        <span class="slider"></span>
+      </label>
+      <i class="fas fa-sun" id="sunIcon"></i>
+    </div>
+  </div>
+
+  <footer class="footer" role="contentinfo" aria-label="Site Footer">
+    <section class="footer-section" aria-label="About Us">
+      <h3>About Us</h3>
+      <ul>
+        <li tabindex="0" role="link" onclick="location.href='aboutus/aboutus-mainpage.html'">Company</li>
+        <li tabindex="0" role="link">Security Team</li>
+        <li tabindex="0" role="link">Careers</li>
+        <li tabindex="0" role="link">Partners</li>
+        <li tabindex="0" role="link">Press</li>
+      </ul>
+    </section>
+    <section class="footer-section" aria-label="Support">
+      <h3>Support</h3>
+      <ul>
+        <li tabindex="0" role="link" onclick="location.href='support/help center.html'">Help Center</li>
+        <li tabindex="0" role="link" onclick="location.href='support/tutorials.html'">Tutorials</li>
+        <li tabindex="0" role="link" onclick="location.href='support/FAQ.html'">FAQ</li>
+        <li tabindex="0" role="link" onclick="location.href='support/contact us.html'">Contact</li>
+        <li tabindex="0" role="link" onclick="location.href='support/blog.html'">Blog</li>
+      </ul>
+    </section>
+    <section class="footer-section" aria-label="Products">
+      <h3>Products</h3>
+      <ul>
+        <li tabindex="0" role="link" onclick="location.href='FreeScan.html'">Binoculars Basic</li>
+        <li tabindex="0" role="link">Binoculars Pro</li>
+        <li tabindex="0" role="link">Enterprise Suite</li>
+        <li tabindex="0" role="link">Mobile Security</li>
+        <li tabindex="0" role="link" onclick="location.href='Products/vpn.html'">VPN Service</li>
+      </ul>
+    </section>
+  </footer>
+
+  <script>
+    const themeToggleSwitch = document.getElementById('themeToggleSwitch');
+    const body = document.body;
+    const container = document.querySelector('.container');
+    const nav = document.getElementById('mainNav');
+    const footer = document.querySelector('.footer');
+    const themeLabelBox = document.querySelector('.theme-label-box');
+
+    function toggleTheme() {
+      const isDark = themeToggleSwitch.checked;
+      if (isDark) {
+        body.style.background = 'linear-gradient(135deg, #121212, #2b2b2b, #121212)';
+        body.style.color = 'var(--text-dark)';
+        container.classList.add('dark');
+        nav.classList.add('dark');
+        footer.classList.add('dark');
+        themeLabelBox.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+        themeLabelBox.style.color = 'var(--text-dark)';
+        themeLabelBox.setAttribute('aria-pressed', 'true');
+      } else {
+        body.style.background = 'linear-gradient(135deg, #667eea, #764ba2, #4ca1af)';
+        body.style.color = 'var(--text-light)';
+        container.classList.remove('dark');
+        nav.classList.remove('dark');
+        footer.classList.remove('dark');
+        themeLabelBox.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
+        themeLabelBox.style.color = '#333333';
+        themeLabelBox.setAttribute('aria-pressed', 'false');
+      }
+    }
+
+    themeToggleSwitch.addEventListener('change', toggleTheme);
+
+    // Load saved theme preference
+    window.addEventListener('DOMContentLoaded', () => {
+      const savedTheme = localStorage.getItem('themePreference');
+      if (savedTheme === 'dark') {
+        themeToggleSwitch.checked = true;
+        toggleTheme();
+      }
+    });
+
+    // Save theme preference on toggle
+    themeToggleSwitch.addEventListener('change', () => {
+      localStorage.setItem('themePreference', themeToggleSwitch.checked ? 'dark' : 'light');
+    });
+  </script>
+
+</body>
+</html>
