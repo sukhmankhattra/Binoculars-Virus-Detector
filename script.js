@@ -68,6 +68,7 @@ function showResult(fileHash) {
     progressContainer.classList.add('hidden');
     resultDiv.classList.remove('hidden');
 
+    // Placeholder for real scan results from API
     const scanners = [
         { name: 'Scanner A', probability: 0.4 },
         { name: 'Scanner B', probability: 0.3 },
