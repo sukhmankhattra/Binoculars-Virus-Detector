@@ -32,7 +32,7 @@ dropZone.addEventListener('drop', (e) => {
     fileInput.files = e.dataTransfer.files;
 });
 
-scanButton.addEventListener('click', () => {
+scanButton.addEventListener('click', async () => {
     if (!selectedFile) {
         alert('Please select a file to scan.');
         return;
@@ -42,9 +42,8 @@ scanButton.addEventListener('click', () => {
     progressContainer.classList.remove('hidden');
     resultDiv.classList.add('hidden');
 
-    // Placeholder for real virus scanning API integration
-    // TODO: Replace simulateScan with actual API call to scan the selectedFile
-    simulateScan();
+    const fileHash = await hashFile(selectedFile);
+    simulateScan(fileHash);
 });
 
 function displayFileName(name) {
@@ -52,8 +51,7 @@ function displayFileName(name) {
     fileNameDisplay.classList.remove('hidden');
 }
 
-// Simulated scan function - to be replaced with real API call
-function simulateScan() {
+function simulateScan(fileHash) {
     let progress = 0;
     const interval = setInterval(() => {
         progress += 10;
@@ -61,13 +59,12 @@ function simulateScan() {
 
         if (progress >= 100) {
             clearInterval(interval);
-            // Placeholder for processing real API response
-            showResult();
+            showResult(fileHash);
         }
     }, 300);
 }
 
-function showResult() {
+function showResult(fileHash) {
     progressContainer.classList.add('hidden');
     resultDiv.classList.remove('hidden');
 
@@ -79,8 +76,18 @@ function showResult() {
         { name: 'Scanner D', probability: 0.5 },
     ];
 
+    function deterministicRandom(seed) {
+        let hash = 0;
+        for (let i = 0; i < seed.length; i++) {
+            hash = (hash * 31 + seed.charCodeAt(i)) >>> 0;
+        }
+        return (hash % 1000) / 1000;
+    }
+
     const results = scanners.map(scanner => {
-        const isInfected = Math.random() < scanner.probability;
+        const seed = fileHash + scanner.name;
+        const rand = deterministicRandom(seed);
+        const isInfected = rand < scanner.probability;
         return `${scanner.name}: ${isInfected ? '⚠️ Infected' : '✅ Safe'}`;
     });
 
@@ -92,4 +99,11 @@ function showResult() {
     } else {
         scanStatus.innerHTML += '<br><strong style="color:#2ecc71;">All scans completed. No threats detected.</strong>';
     }
+}
+
+async function hashFile(file) {
+    const buffer = await file.arrayBuffer();
+    const hashBuffer = await crypto.subtle.digest('SHA-256', buffer);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
 }

@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Binoculars Security - FAQ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet" />
+    <style>
+        /* Embedded CSS to match existing style with theme support */
+        :root {
+            --bg-color-light: #f5f5f5;
+            --text-color-light: #333;
+            --nav-bg-light: #121212;
+            --nav-text-light: white;
+            --accent-color-light: #4a90e2;
+            --accent-hover-light: #3a7bc8;
+            --footer-bg-light: white;
+            --footer-text-light: #555;
+            --card-bg-light: white;
+            --input-bg-light: white;
+            --input-border-light: #ddd;
+
+            --bg-color-dark: #121212;
+            --text-color-dark: #ddd;
+            --nav-bg-dark: #1e1e1e;
+            --nav-text-dark: #ddd;
+            --accent-color-dark: #4a90e2;
+            --accent-hover-dark: #3a7bc8;
+            --footer-bg-dark: #1e1e1e;
+            --footer-text-dark: #aaa;
+            --card-bg-dark: #222;
+            --input-bg-dark: #333;
+            --input-border-dark: #555;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Lato', sans-serif;
+            background-color: var(--bg-color-light);
+            color: var(--text-color-light);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        body.dark-theme {
+            background-color: var(--bg-color-dark);
+            color: var(--text-color-dark);
+        }
+
+        #nav {
+            display: flex;
+            flex-direction: column;
+            background-color: var(--nav-bg-light);
+            color: var(--nav-text-light);
+            padding: 10px 50px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        body.dark-theme #nav {
+            background-color: var(--nav-bg-dark);
+            color: var(--nav-text-dark);
+        }
+
+        .navTop {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 20px 0;
+        }
+
+        .navItem {
+            display: flex;
+            align-items: center;
+            margin-left: 20px;
+        }
+
+        .search {
+            display: flex;
+            align-items: center;
+            background-color: white;
+            padding: 10px 15px;
+            border-radius: 30px;
+            margin: 0 20px;
+            flex-grow: 1;
+            max-width: 400px;
+        }
+
+        body.dark-theme .search {
+            background-color: #333;
+        }
+
+        .searchInput {
+            border: none;
+            outline: none;
+            background: transparent;
+            width: 100%;
+            font-size: 1rem;
+            color: #333;
+        }
+
+        body.dark-theme .searchInput {
+            color: #ddd;
+        }
+
+        .searchIcon {
+            cursor: pointer;
+        }
+
+        .limitedOffer {
+            background-color: var(--accent-color-light);
+            padding: 5px 15px;
+            border-radius: 30px;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 12px;
+            color: white;
+            user-select: none;
+            transition: background-color 0.3s ease;
+        }
+
+        body.dark-theme .limitedOffer {
+            background-color: var(--accent-color-dark);
+        }
+
+        button#themeToggle {
+            background-color: transparent;
+            border: 2px solid var(--accent-color-light);
+            color: var(--accent-color-light);
+            padding: 6px 15px;
+            border-radius: 30px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+
+        button#themeToggle:hover {
+            background-color: var(--accent-hover-light);
+            color: white;
+            border-color: var(--accent-hover-light);
+        }
+
+        body.dark-theme button#themeToggle {
+            border-color: var(--accent-color-dark);
+            color: var(--accent-color-dark);
+        }
+
+        body.dark-theme button#themeToggle:hover {
+            background-color: var(--accent-hover-dark);
+            color: white;
+            border-color: var(--accent-hover-dark);
+        }
+
+        .navBottom {
+            display: flex;
+            justify-content: center;
+            padding: 15px 0;
+        }
+
+        .menuItem {
+            margin: 0 25px;
+            cursor: pointer;
+            font-weight: 400;
+            color: #aaa;
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+
+        .menuItem:hover {
+            color: white;
+        }
+
+        header.faq-header {
+            text-align: center;
+            padding: 3rem 1rem 2rem 1rem;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--nav-bg-light);
+            letter-spacing: 2px;
+            user-select: none;
+            transition: color 0.3s ease;
+        }
+
+        body.dark-theme header.faq-header {
+            color: var(--text-color-dark);
+        }
+
+        main.faq-main {
+            max-width: 900px;
+            margin: 0 auto 4rem;
+            padding: 0 1rem;
+        }
+
+        .search-container {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .search-container input[type="text"] {
+            width: 90%;
+            max-width: 400px;
+            padding: 0.75rem 1.25rem;
+            font-size: 1.1rem;
+            border: 2px solid var(--accent-color-light);
+            border-radius: 30px;
+            outline: none;
+            box-shadow: 0 2px 6px rgba(74, 144, 226, 0.4);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            color: var(--text-color-light);
+        }
+
+        body.dark-theme .search-container input[type="text"] {
+            border-color: var(--accent-color-dark);
+            box-shadow: 0 2px 6px rgba(74, 144, 226, 0.8);
+            color: var(--text-color-dark);
+            background-color: #333;
+        }
+
+        .faq-categories {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .category-btn {
+            padding: 0.5rem 1.5rem;
+            background-color: var(--card-bg-light);
+            border: 2px solid var(--accent-color-light);
+            color: var(--accent-color-light);
+            border-radius: 30px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-theme .category-btn {
+            background-color: var(--card-bg-dark);
+            border-color: var(--accent-color-dark);
+            color: var(--accent-color-dark);
+        }
+
+        .category-btn:hover, .category-btn.active {
+            background-color: var(--accent-color-light);
+            color: white;
+        }
+
+        body.dark-theme .category-btn:hover, 
+        body.dark-theme .category-btn.active {
+            background-color: var(--accent-color-dark);
+            color: white;
+        }
+
+        .faq-section {
+            margin-bottom: 3rem;
+        }
+
+        .faq-section h2 {
+            font-size: 1.5rem;
+            color: var(--accent-color-light);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-color-light);
+        }
+
+        body.dark-theme .faq-section h2 {
+            color: var(--accent-color-dark);
+            border-bottom-color: var(--accent-color-dark);
+        }
+
+        .faq-item {
+            background: var(--card-bg-light);
+            border-radius: 10px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-theme .faq-item {
+            background: var(--card-bg-dark);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.6);
+        }
+
+        .faq-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+        }
+
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--text-color-light);
+        }
+
+        body.dark-theme .faq-question {
+            color: var(--text-color-dark);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            color: #666;
+            line-height: 1.6;
+            margin-top: 0;
+        }
+
+        body.dark-theme .faq-answer {
+            color: #aaa;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+            margin-top: 1rem;
+        }
+
+        .faq-toggle {
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(45deg);
+        }
+
+        footer {
+            display: flex;
+            padding: 50px;
+            background-color: var(--footer-bg-light);
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 2rem;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        body.dark-theme footer {
+            background-color: var(--footer-bg-dark);
+            color: var(--footer-text-dark);
+        }
+
+        .footerLeft {
+            flex: 2;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .footerRight {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .footerMenu {
+            min-width: 150px;
+        }
+
+        .fMenuTitle {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--text-color-light);
+        }
+
+        body.dark-theme .fMenuTitle {
+            color: var(--footer-text-dark);
+        }
+
+        .fList {
+            list-style: none;
+        }
+
+        .fListItem {
+            margin-bottom: 10px;
+            color: #555;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-theme .fListItem {
+            color: #aaa;
+        }
+
+        .fListItem:hover {
+            color: var(--accent-color-light);
+        }
+
+        body.dark-theme .fListItem:hover {
+            color: var(--accent-hover-dark);
+        }
+
+        .fInput {
+            padding: 10px;
+            border: 1px solid #ddd;
+            width: 70%;
+            margin-right: 10px;
+            border-radius: 5px;
+        }
+
+        body.dark-theme .fInput {
+            background-color: #333;
+            border-color: #555;
+            color: #ddd;
+        }
+
+        .fButton {
+            padding: 10px 20px;
+            background-color: var(--accent-color-light);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-theme .fButton {
+            background-color: var(--accent-color-dark);
+        }
+
+        .fButton:hover {
+            background-color: var(--accent-hover-light);
+        }
+
+        body.dark-theme .fButton:hover {
+            background-color: var(--accent-hover-dark);
+        }
+
+        .fIcons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .fIcon {
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .fIcon:hover {
+            transform: scale(1.2);
+        }
+
+        .copyright {
+            color: #777;
+            font-size: 14px;
+            margin-top: 20px;
+        }
+
+        body.dark-theme .copyright {
+            color: #aaa;
+        }
+
+        @media screen and (max-width: 768px) {
+            #nav {
+                padding: 10px 20px;
+            }
+
+            .navTop {
+                flex-direction: row;
+                padding: 10px 0;
+                justify-content: space-between;
+            }
+
+            .navItem {
+                margin: 0 10px;
+            }
+
+            .navBottom {
+                flex-wrap: wrap;
+            }
+
+            .menuItem {
+                margin: 10px;
+            }
+
+            main.faq-main {
+                padding: 0 10px;
+            }
+
+            footer {
+                flex-direction: column;
+                padding: 30px 10px;
+            }
+
+            .footerLeft {
+                flex-direction: column;
+                margin-bottom: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav id="nav" role="navigation" aria-label="Primary Navigation">
+        <div class="navTop">
+            <div class="navItem">
+                <!-- Logo removed as per user request -->
+            </div>
+            <div class="navItem">
+                <div class="search" role="search">
+                    <input type="text" placeholder="Search scans..." class="searchInput" aria-label="Search scans" />
+                    <img src="https://cdn-icons-png.flaticon.com/512/149/149852.png" width="20" height="20" alt="Search Icon" class="searchIcon" />
+                </div>
+            </div>
+            <div class="navItem">
+                <span class="limitedOffer">FREE SCAN!</span>
+            </div>
+            <div class="navItem">
+                <button id="themeToggle" aria-label="Toggle light and dark theme">Toggle Theme</button>
+            </div>
+            <div>
+                <button onclick="window.location.href='combined ui/combined_login_signup.html'" style="background-color: var(--accent-color-light); color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">Sign Up</button>
+            </div>
+        </div>
+        <div class="navBottom" role="menubar" aria-label="Secondary Navigation">
+            <h3 class="menuItem" role="menuitem" tabindex="0">QUICK SCAN</h3>
+            <h3 class="menuItem" role="menuitem" tabindex="0">DEEP SCAN</h3>
+            <h3 class="menuItem" role="menuitem" tabindex="0">CUSTOM SCAN</h3>
+            <h3 class="menuItem" role="menuitem" tabindex="0">REALTIME PROTECTION</h3>
+            <h3 class="menuItem" role="menuitem" tabindex="0">FIREWALL</h3>
+        </div>
+    </nav>
+
+    <header class="faq-header" role="banner" aria-label="FAQ Page Header">
+        Frequently Asked Questions
+    </header>
+
+    <main class="faq-main">
+        <div class="search-container">
+            <input type="text" id="faqSearch" placeholder="Search FAQs..." aria-label="Search FAQs" />
+        </div>
+
+        <div class="faq-categories">
+            <button class="category-btn active" data-category="all">All Questions</button>
+            <button class="category-btn" data-category="general">General</button>
+            <button class="category-btn" data-category="scanning">Scanning</button>
+            <button class="category-btn" data-category="account">Account</button>
+            <button class="category-btn" data-category="security">Security</button>
+        </div>
+
+        <div class="faq-section">
+            <h2>General Questions</h2>
+            <div class="faq-list" id="general-questions">
+                <!-- FAQ items will be inserted here -->
+            </div>
+        </div>
+
+        <div class="faq-section">
+            <h2>Scanning Questions</h2>
+            <div class="faq-list" id="scanning-questions">
+                <!-- FAQ items will be inserted here -->
+            </div>
+        </div>
+
+        <div class="faq-section">
+            <h2>Account Questions</h2>
+            <div class="faq-list" id="account-questions">
+                <!-- FAQ items will be inserted here -->
+            </div>
+        </div>
+
+        <div class="faq-section">
+            <h2>Security Questions</h2>
+            <div class="faq-list" id="security-questions">
+                <!-- FAQ items will be inserted here -->
+            </div>
+        </div>
+    </main>
+
+    <footer role="contentinfo">
+        <div class="footerLeft">
+            <div class="footerMenu">
+                <h1 class="fMenuTitle">About Us</h1>
+                <ul class="fList">
+                    <li class="fListItem">Company</li>
+                    <li class="fListItem">Security Team</li>
+                    <li class="fListItem">Careers</li>
+                    <li class="fListItem">Partners</li>
+                    <li class="fListItem">Press</li>
+                </ul>
+            </div>
+            <div class="footerMenu">
+                <h1 class="fMenuTitle">Support</h1>
+                <ul class="fList">
+                    <li class="fListItem">Help Center</li>
+                    <li class="fListItem">Tutorials</li>
+                    <li class="fListItem">FAQ</li>
+                    <li class="fListItem">Contact</li>
+                    <li class="fListItem">Blog</li>
+                </ul>
+            </div>
+            <div class="footerMenu">
+                <h1 class="fMenuTitle">Products</h1>
+                <ul class="fList">
+                    <li class="fListItem">Binoculars Basic</li>
+                    <li class="fListItem">Binoculars Pro</li>
+                    <li class="fListItem">Enterprise Suite</li>
+                    <li class="fListItem">Mobile Security</li>
+                    <li class="fListItem">VPN Service</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footerRight">
+            <div class="footerRightMenu">
+                <h1 class="fMenuTitle">Subscribe to our newsletter</h1>
+                <div class="fMail">
+                    <input type="text" placeholder="your@email.com" class="fInput" aria-label="Email address" />
+                    <button class="fButton" aria-label="Subscribe to newsletter">SUBSCRIBE</button>
+                </div>
+            </div>
+            <div class="footerRightMenu">
+                <h1 class="fMenuTitle">Follow Us</h1>
+                <div class="fIcons">
+                    <img src="https://cdn-icons-png.flaticon.com/512/124/124010.png" alt="Facebook" class="fIcon" />
+                    <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter" class="fIcon" />
+                    <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram" class="fIcon" />
+                    <img src="https://cdn-icons-png.flaticon.com/512/1384/1384023.png" alt="YouTube" class="fIcon" />
+                </div>
+            </div>
+            <div class="footerRightMenu">
+                <span class="copyright">© 2023 Binoculars Security. All rights reserved.</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Embedded JavaScript for FAQ functionality and theme toggle
+        const faqData = [
+            {
+                question: "What is Binoculars Security?",
+                answer: "Binoculars Security is a comprehensive cybersecurity solution that protects your devices from viruses, malware, and other online threats. Our software includes real-time protection, firewall, and advanced scanning options to keep your data safe.",
+                category: "general"
+            },
+            {
+                question: "How do I install Binoculars Security?",
+                answer: "You can download the installer from our website and follow the step-by-step instructions. The installation process is simple and typically takes less than 5 minutes to complete.",
+                category: "general"
+            },
+            {
+                question: "Is Binoculars Security free?",
+                answer: "We offer both free and premium versions. The free version includes basic protection, while the premium version offers advanced features like real-time protection, firewall, and priority support.",
+                category: "general"
+            },
+            {
+                question: "What's the difference between Quick Scan and Deep Scan?",
+                answer: "Quick Scan checks the most vulnerable areas of your system for threats and takes only a few minutes. Deep Scan performs a thorough examination of all files and system areas, which takes longer but provides more comprehensive protection.",
+                category: "scanning"
+            },
+            {
+                question: "How often should I run virus scans?",
+                answer: "We recommend running a Quick Scan at least once a week and a Deep Scan once a month. If you frequently download files or visit unfamiliar websites, you may want to scan more often.",
+                category: "scanning"
+            },
+            {
+                question: "Can Binoculars Security detect all types of malware?",
+                answer: "Our software uses advanced heuristics and signature-based detection to identify and remove most known malware. We continuously update our threat database to protect against new and emerging threats.",
+                category: "scanning"
+            },
+            {
+                question: "How do I create an account?",
+                answer: "Click the 'Sign Up' button in the top right corner of our website and follow the registration process. You'll need to provide an email address and create a password.",
+                category: "account"
+            },
+            {
+                question: "I forgot my password. How can I reset it?",
+                answer: "Click 'Forgot Password' on the login page and enter your email address. You'll receive instructions to reset your password.",
+                category: "account"
+            },
+            {
+                question: "Can I use my subscription on multiple devices?",
+                answer: "Yes, depending on your subscription plan. Our basic plan covers 3 devices, while our family plan covers up to 10 devices. Check your account settings for details.",
+                category: "account"
+            },
+            {
+                question: "How does Binoculars Security protect my privacy?",
+                answer: "We use advanced encryption and never sell or share your personal data. Our firewall and real-time protection block unauthorized access attempts to keep your information secure.",
+                category: "security"
+            },
+            {
+                question: "What should I do if I detect a virus?",
+                answer: "Run a full system scan immediately. If Binoculars detects a threat, follow the recommended actions to quarantine or remove the infected files. For persistent threats, contact our support team.",
+                category: "security"
+            },
+            {
+                question: "Does Binoculars Security include a VPN?",
+                answer: "Yes, our premium plans include VPN service to encrypt your internet connection and protect your online activities from prying eyes.",
+                category: "security"
+            }
+        ];
+
+        const themeToggleBtn = document.getElementById('themeToggle');
+        const faqSearch = document.getElementById('faqSearch');
+        const categoryBtns = document.querySelectorAll('.category-btn');
+        const faqLists = {
+            general: document.getElementById('general-questions'),
+            scanning: document.getElementById('scanning-questions'),
+            account: document.getElementById('account-questions'),
+            security: document.getElementById('security-questions')
+        };
+
+        function createFAQItem(faq) {
+            const item = document.createElement('div');
+            item.className = 'faq-item';
+            item.dataset.category = faq.category;
+            
+            item.innerHTML = `
+                <div class="faq-question">
+                    <span>${faq.question}</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>${faq.answer}</p>
+                </div>
+            `;
+            
+            const question = item.querySelector('.faq-question');
+            question.addEventListener('click', () => {
+                item.classList.toggle('active');
+            });
+            
+            // Make FAQ items keyboard accessible
+            item.tabIndex = 0;
+            item.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    item.classList.toggle('active');
+                }
+            });
+            
+            return item;
+        }
+
+        function renderFAQs(filter = '', category = 'all') {
+            // Clear all FAQ lists
+            Object.values(faqLists).forEach(list => {
+                list.innerHTML = '';
+            });
+            
+            // Filter and sort FAQs
+            const filteredFAQs = faqData.filter(faq => {
+                const matchesSearch = faq.question.toLowerCase().includes(filter.toLowerCase()) || 
+                                     faq.answer.toLowerCase().includes(filter.toLowerCase());
+                const matchesCategory = category === 'all' || faq.category === category;
+                return matchesSearch && matchesCategory;
+            });
+            
+            // Group by category and render
+            filteredFAQs.forEach(faq => {
+                const faqItem = createFAQItem(faq);
+                faqLists[faq.category].appendChild(faqItem);
+            });
+        }
+
+        // Search functionality
+        faqSearch.addEventListener('input', () => {
+            const searchTerm = faqSearch.value;
+            const activeCategory = document.querySelector('.category-btn.active').dataset.category;
+            renderFAQs(searchTerm, activeCategory);
+        });
+
+        // Category filter
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                categoryBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const searchTerm = faqSearch.value;
+                renderFAQs(searchTerm, btn.dataset.category);
+            });
+        });
+
+        // Theme toggle functionality
+        themeToggleBtn.addEventListener('click', () => {
+            document.body.classList.toggle('dark-theme');
+            // Save preference to localStorage
+            if(document.body.classList.contains('dark-theme')) {
+                localStorage.setItem('theme', 'dark');
+            } else {
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        // Load theme preference and FAQs on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme');
+            if(savedTheme === 'dark') {
+                document.body.classList.add('dark-theme');
+            }
+            renderFAQs();
+        });
+    </script>
+</body>
+</html>
