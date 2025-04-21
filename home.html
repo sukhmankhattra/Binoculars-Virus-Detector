@@ -933,116 +933,132 @@ footer {
     </footer>
     
     <script>
-        // Simple slider functionality
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.sliderItem');
-        const totalSlides = slides.length;
-        
-        // Initialize first slide as active
-        slides[0].classList.add('active');
-        
-        // Initialize first slide as active
-        slides[0].classList.add('active');
-        
-        function showSlide(index) {
-            if (index >= totalSlides) currentSlide = 0;
-            if (index < 0) currentSlide = totalSlides - 1;
-            
-            document.querySelector('.sliderWrapper').style.transform = 
-                `translateX(-${currentSlide * 100}%)`;
+        // Security-related search functionality
+const searchInput = document.querySelector('.searchInput');
+const searchIcon = document.querySelector('.searchIcon');
+const searchResults = document.createElement('div');
+searchResults.className = 'searchResults';
+searchResults.style.display = 'none';
+document.querySelector('.navTop').appendChild(searchResults);
+
+// Security-related search terms and their corresponding actions
+const securityKeywords = {
+    'scan': { action: () => scrollToSection('nav'), type: 'action' },
+    'quick scan': { action: () => scrollToMenuItem(0), type: 'scan' },
+    'deep scan': { action: () => scrollToMenuItem(1), type: 'scan' },
+    'custom scan': { action: () => scrollToMenuItem(2), type: 'scan' },
+    'realtime protection': { action: () => scrollToMenuItem(3), type: 'protection' },
+    'firewall': { action: () => scrollToMenuItem(4), type: 'protection' },
+    'pricing': { action: () => window.location.href = 'pricing.html', type: 'info' },
+    'support': { action: () => window.location.href = 'support.html', type: 'info' },
+    'pro': { action: () => scrollToSection('product'), type: 'product' },
+    'basic': { action: () => window.location.href = 'products.html#basic', type: 'product' },
+    'enterprise': { action: () => window.location.href = 'products.html#enterprise', type: 'product' },
+    'mobile': { action: () => window.location.href = 'products.html#mobile', type: 'product' },
+    'vpn': { action: () => window.location.href = 'products.html#vpn', type: 'product' },
+    'threat': { action: () => showInfoModal('Threat Detection'), type: 'info' },
+    'virus': { action: () => showInfoModal('Virus Protection'), type: 'info' },
+    'malware': { action: () => showInfoModal('Malware Removal'), type: 'info' },
+    'sign up': { action: () => window.location.href = 'signup.html', type: 'action' },
+    'login': { action: () => window.location.href = 'login.html', type: 'action' }
+};
+
+// Helper functions
+function scrollToSection(sectionId) {
+    const section = document.getElementById(sectionId);
+    if (section) {
+        window.scrollTo({
+            top: section.offsetTop - 80,
+            behavior: 'smooth'
+        });
+    }
+}
+
+function scrollToMenuItem(index) {
+    const menuItems = document.querySelectorAll('.menuItem');
+    if (menuItems[index]) {
+        window.scrollTo({
+            top: menuItems[index].offsetTop - 80,
+            behavior: 'smooth'
+        });
+    }
+}
+
+function showInfoModal(title) {
+    // In a real implementation, this would show a modal with information
+    alert(`Showing information about: ${title}`);
+    // For a complete implementation, you would create a modal element
+    // and populate it with relevant security information
+}
+
+// Search functionality
+function performSearch(query) {
+    query = query.toLowerCase().trim();
+    searchResults.innerHTML = '';
+    searchResults.style.display = 'none';
+    
+    if (!query) return;
+    
+    const matches = [];
+    
+    // Check for exact matches first
+    for (const [keyword, data] of Object.entries(securityKeywords)) {
+        if (query === keyword.toLowerCase()) {
+            data.action();
+            return;
         }
+    }
+    
+    // Check for partial matches
+    for (const [keyword, data] of Object.entries(securityKeywords)) {
+        if (keyword.toLowerCase().includes(query)) {
+            matches.push({ keyword, data });
+        }
+    }
+    
+    // Display results if no exact match
+    if (matches.length > 0) {
+        searchResults.innerHTML = matches.map(match => `
+            <div class="searchResultItem" data-type="${match.data.type}">
+                <span>${match.keyword}</span>
+                <small>${match.data.type}</small>
+            </div>
+        `).join('');
         
-        // Auto slide change every 5 seconds with smoother transition
-        setInterval(() => {
-            currentSlide++;
-            showSlide(currentSlide);
-        }, 5000);
+        searchResults.style.display = 'block';
         
-        // Buy Now button click handler with smooth feedback
-        document.getElementById('BuyNow').addEventListener('click', () => {
-            const btn = document.getElementById('BuyNow');
-            btn.innerHTML = 'Processing...';
-            btn.style.backgroundColor = '#2ecc71';
-            
-            setTimeout(() => {
-                alert('Thank you for choosing Binoculars Security! Redirecting to checkout...');
-                window.location.href = 'checkout.html';
-            }, 800);
-        });
-        
-        // Scroll progress indicator
-        window.addEventListener('scroll', () => {
-            const scrollProgress = document.querySelector('.scroll-progress');
-            const scrollPosition = window.scrollY;
-            const windowHeight = window.innerHeight;
-            const documentHeight = document.documentElement.scrollHeight;
-            const scrollPercent = (scrollPosition / (documentHeight - windowHeight)) * 100;
-            scrollProgress.style.width = scrollPercent + '%';
-            
-            // Back to top button visibility
-            const backToTop = document.querySelector('.back-to-top');
-            if (scrollPosition > 300) {
-                backToTop.classList.add('visible');
-            } else {
-                backToTop.classList.remove('visible');
-            }
-        });
-        
-        // Back to top functionality
-        document.querySelector('.back-to-top').addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
+        // Add click handlers to result items
+        document.querySelectorAll('.searchResultItem').forEach((item, index) => {
+            item.addEventListener('click', () => {
+                matches[index].data.action();
+                searchResults.style.display = 'none';
             });
         });
-        
-        // Intersection Observer for scroll animations
-        const observerOptions = {
-            threshold: 0.1
-        };
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
-        
-        // Observe elements that should animate on scroll
-        const productSection = document.querySelector('.product');
-        observer.observe(productSection);
-        
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-        
-        // Hover effect for menu items with delay
-        const menuItems = document.querySelectorAll('.menuItem');
-        menuItems.forEach(item => {
-            item.addEventListener('mouseenter', () => {
-                item.style.transitionDelay = '0s';
-            });
-            
-            item.addEventListener('mouseleave', () => {
-                item.style.transitionDelay = '0.1s';
-            });
-        });
+    } else {
+        searchResults.innerHTML = '<div class="noResults">No security-related results found</div>';
+        searchResults.style.display = 'block';
+    }
+}
+
+// Event listeners
+searchIcon.addEventListener('click', () => {
+    performSearch(searchInput.value);
+});
+
+searchInput.addEventListener('keyup', (e) => {
+    if (e.key === 'Enter') {
+        performSearch(searchInput.value);
+    } else {
+        performSearch(searchInput.value);
+    }
+});
+
+// Hide results when clicking elsewhere
+document.addEventListener('click', (e) => {
+    if (!e.target.closest('.search') && !e.target.closest('.searchResults')) {
+        searchResults.style.display = 'none';
+    }
+});
     </script>
 
 </body>
