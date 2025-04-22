@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Binoculars Basic | Basic Version with Essential Features</title>
+  <style>
+    :root {
+      --primary: #3a7bd5;
+      --primary-dark: #2b5ca8;
+      --danger: #e74c3c;
+      --success: #2ecc71;
+      --warning: #f39c12;
+      --bg-light: #f4f6fa;
+      --bg-dark: #121212;
+      --card-bg-light: rgba(255, 255, 255, 0.9);
+      --card-bg-dark: rgba(30, 30, 30, 0.9);
+      --border-radius: 16px;
+      --text-light: #333;
+      --text-dark: #f0f0f0;
+      --shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #667eea, #764ba2, #4ca1af);
+      background-size: 400% 400%;
+      animation: gradientAnimation 15s ease infinite;
+      display: flex;
+      flex-direction: column;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      color: var(--text-light);
+    }
+
+    @keyframes gradientAnimation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    nav {
+      background-color: var(--card-bg-light);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: var(--shadow);
+      border-radius: var(--border-radius);
+      margin: 1rem 2rem 0 2rem;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    nav.dark {
+      background-color: var(--card-bg-dark);
+      color: var(--text-dark);
+    }
+
+    nav .logo {
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: var(--primary);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    nav ul li {
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--text-light);
+      transition: color 0.3s ease;
+    }
+
+    nav.dark ul li {
+      color: var(--text-dark);
+    }
+
+    nav ul li:hover {
+      color: var(--primary-dark);
+    }
+
+    .container {
+      backdrop-filter: blur(16px) saturate(180%);
+      background-color: var(--card-bg-light);
+      padding: 2.5rem;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      width: 90%;
+      max-width: 900px;
+      margin: 2rem auto 4rem auto;
+      transition: all 0.4s ease;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-light);
+    }
+
+    .container.dark {
+      background-color: var(--card-bg-dark);
+      color: var(--text-dark);
+    }
+
+    h1 {
+      margin-bottom: 1rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-align: center;
+    }
+
+    p.description {
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+      text-align: center;
+      opacity: 0.9;
+    }
+
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+      margin-bottom: 3rem;
+    }
+
+    .feature-item {
+      background-color: var(--bg-light);
+      border-radius: 12px;
+      padding: 1.5rem;
+      width: 250px;
+      box-shadow: var(--shadow);
+      text-align: center;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      cursor: default;
+    }
+
+    .container.dark .feature-item {
+      background-color: #222;
+      color: var(--text-dark);
+    }
+
+    .feature-item i {
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+
+    .feature-item h3 {
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+    }
+
+    .feature-item p {
+      font-size: 0.95rem;
+      opacity: 0.85;
+    }
+
+    .cta {
+      text-align: center;
+    }
+
+    .cta button {
+      background: linear-gradient(135deg, var(--primary), #3498db);
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      font-size: 1.1rem;
+      font-weight: 700;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+      margin: 0 1rem;
+    }
+
+    .cta button:hover {
+      background: linear-gradient(135deg, #5db4d4, #2980b9);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .toggle-theme {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 100;
+    }
+
+    .theme-label-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      padding: 8px 12px;
+      background-color: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 8px;
+      color: #333333;
+      font-size: 0.85rem;
+      font-weight: 500;
+      text-align: center;
+      transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+
+    .theme-label-box:hover {
+      box-shadow: 0 0 15px rgba(58, 123, 213, 0.8), 0 0 30px rgba(58, 123, 213, 0.5);
+    }
+
+    .container.dark .theme-label-box {
+      background-color: rgba(0, 0, 0, 0.5);
+      color: var(--text-dark);
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 24px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(255, 255, 255, 0.3);
+      border-radius: 24px;
+      transition: 0.4s;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      border-radius: 50%;
+      transition: 0.4s;
+    }
+
+    .slider i {
+      font-size: 12px;
+      transition: opacity 0.3s ease, color 0.3s ease;
+    }
+
+    input:checked + .slider {
+      background-color: var(--primary);
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
+
+    input:checked + .slider #moonIcon {
+      opacity: 0;
+    }
+
+    input:checked + .slider #sunIcon {
+      opacity: 1;
+    }
+
+    .footer {
+      background-color: var(--card-bg-light);
+      padding: 2rem;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      margin: 0 2rem 2rem 2rem;
+      color: var(--text-light);
+      transition: background-color 0.3s ease, color 0.3s ease;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .footer.dark {
+      background-color: var(--card-bg-dark);
+      color: var(--text-dark);
+    }
+
+    .footer-section {
+      flex: 1 1 200px;
+      min-width: 200px;
+    }
+
+    .footer-section h3 {
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    .footer-section ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-section ul li {
+      margin-bottom: 0.5rem;
+      cursor: pointer;
+      color: var(--text-light);
+      transition: color 0.3s ease;
+    }
+
+    .footer.dark .footer-section ul li {
+      color: var(--text-dark);
+    }
+
+    .footer-section ul li:hover {
+      color: var(--primary-dark);
+    }
+
+    @media (max-width: 768px) {
+      .features {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      nav, .container, .footer {
+        margin: 1rem;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+
+  <nav id="mainNav">
+    <div class="logo" tabindex="0" role="link" aria-label="Binoculars Home" onclick="location.href='../index.html'">Binoculars</div>
+    <ul>
+      <li tabindex="0" role="link" onclick="location.href='../index.html'">Home</li>
+      <li tabindex="0" role="link" onclick="location.href='binoculars-basic.html'">Binoculars Basic</li>
+      <li tabindex="0" role="link" onclick="location.href='enterprise-suite.html'">Enterprise Suite</li>
+      <li tabindex="0" role="link" onclick="location.href='mobile-security.html'">Mobile Security</li>
+      <li tabindex="0" role="link" onclick="location.href='vpn.html'">VPN Service</li>
+    </ul>
+  </nav>
+
+  <div class="container" id="basicContainer">
+    <h1><i class="fa-solid fa-binoculars"></i> Binoculars Basic</h1>
+    <p class="description">The basic version of Binoculars with essential features</p>
+    <p style="text-align:center; font-style: italic; margin-bottom: 1.5rem;">
+      For more advanced features, please consider upgrading to <a href="binoculars-pro.html" style="color: var(--primary); font-weight: 700;">Binoculars Pro</a>.
+    </p>
+
+    <section class="features" aria-label="Binoculars Basic Features">
+      <article class="feature-item" tabindex="0">
+        <i class="fa-solid fa-robot"></i>
+        <h3>AI Virus Detection</h3>
+        <p>Reliable AI algorithms for effective malware detection.</p>
+      </article>
+      <article class="feature-item" tabindex="0">
+        <i class="fa-solid fa-shield-virus"></i>
+        <h3>Threat Removal</h3>
+        <p>Detects and removes common threats to keep your system safe.</p>
+      </article>
+      <article class="feature-item" tabindex="0">
+        <i class="fa-solid fa-calendar-check"></i>
+        <h3>Scan Scheduling</h3>
+        <p>Set up automatic scans at convenient times.</p>
+      </article>
+      <article class="feature-item" tabindex="0">
+        <i class="fa-solid fa-headset"></i>
+        <h3>Customer Support</h3>
+        <p>Access to support for assistance and troubleshooting.</p>
+      </article>
+    </section>
+
+    <div class="cta">
+      <button id="buyNowBtn">Buy Now</button>
+      <button id="learnMoreBtn">Learn More</button>
+    </div>
+  </div>
+
+  <div class="toggle-theme" role="region" aria-label="Toggle dark and light theme">
+    <div class="theme-label-box" tabindex="0" role="button" aria-pressed="false" onclick="toggleTheme()">
+      <i class="fas fa-moon" id="moonIcon"></i>
+      <span>Dark Mode</span>
+      <label class="switch">
+        <input type="checkbox" id="themeToggleSwitch" aria-label="Toggle dark mode" />
+        <span class="slider"></span>
+      </label>
+      <i class="fas fa-sun" id="sunIcon"></i>
+    </div>
+  </div>
+
+  <footer class="footer" role="contentinfo" aria-label="Site Footer">
+    <section class="footer-section" aria-label="About Us">
+      <h3>About Us</h3>
+      <ul>
+        <li tabindex="0" role="link" onclick="location.href='../aboutus/aboutus-mainpage.html'">Company</li>
+        <li tabindex="0" role="link">Security Team</li>
+        <li tabindex="0" role="link">Careers</li>
+        <li tabindex="0" role="link">Partners</li>
+        <li tabindex="0" role="link">Press</li>
+      </ul>
+    </section>
+    <section class="footer-section" aria-label="Support">
+      <h3>Support</h3>
+      <ul>
+        <li tabindex="0" role="link" onclick="location.href='../support/help center.html'">Help Center</li>
+        <li tabindex="0" role="link" onclick="location.href='../support/tutorials.html'">Tutorials</li>
+        <li tabindex="0" role="link" onclick="location.href='../support/FAQ.html'">FAQ</li>
+        <li tabindex="0" role="link" onclick="location.href='../support/contact us.html'">Contact</li>
+        <li tabindex="0" role="link" onclick="location.href='../support/blog.html'">Blog</li>
+      </ul>
+    </section>
+    <section class="footer-section" aria-label="Products">
+      <h3>Products</h3>
+      <ul>
+        <li tabindex="0" role="link" onclick="location.href='../FreeScan.html'">Binoculars Basic</li>
+        <li tabindex="0" role="link" onclick="location.href='binoculars-pro.html'">Binoculars Pro</li>
+        <li tabindex="0" role="link" onclick="location.href='enterprise-suite.html'">Enterprise Suite</li>
+        <li tabindex="0" role="link" onclick="location.href='mobile-security.html'">Mobile Security</li>
+        <li tabindex="0" role="link" onclick="location.href='vpn.html'">VPN Service</li>
+      </ul>
+    </section>
+  </footer>
+
+  <script>
+    // JavaScript for Binoculars Basic page
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const themeToggleSwitch = document.getElementById('themeToggleSwitch');
+      const body = document.body;
+      const container = document.querySelector('.container');
+      const nav = document.getElementById('mainNav');
+      const footer = document.querySelector('.footer');
+      const themeLabelBox = document.querySelector('.theme-label-box');
+
+      function toggleTheme() {
+        const isDark = themeToggleSwitch.checked;
+        if (isDark) {
+          body.style.background = 'linear-gradient(135deg, #121212, #2b2b2b, #121212)';
+          body.style.color = 'var(--text-dark)';
+          container.classList.add('dark');
+          nav.classList.add('dark');
+          footer.classList.add('dark');
+          themeLabelBox.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+          themeLabelBox.style.color = 'var(--text-dark)';
+          themeLabelBox.setAttribute('aria-pressed', 'true');
+        } else {
+          body.style.background = 'linear-gradient(135deg, #667eea, #764ba2, #4ca1af)';
+          body.style.color = 'var(--text-light)';
+          container.classList.remove('dark');
+          nav.classList.remove('dark');
+          footer.classList.remove('dark');
+          themeLabelBox.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
+          themeLabelBox.style.color = '#333333';
+          themeLabelBox.setAttribute('aria-pressed', 'false');
+        }
+      }
+
+      themeToggleSwitch.addEventListener('change', toggleTheme);
+
+      // Load saved theme preference
+      const savedTheme = localStorage.getItem('themePreference');
+      if (savedTheme === 'dark') {
+        themeToggleSwitch.checked = true;
+        toggleTheme();
+      }
+
+      // Save theme preference on toggle
+      themeToggleSwitch.addEventListener('change', () => {
+        localStorage.setItem('themePreference', themeToggleSwitch.checked ? 'dark' : 'light');
+      });
+
+      const buyNowBtn = document.getElementById('buyNowBtn');
+      const learnMoreBtn = document.getElementById('learnMoreBtn');
+
+      buyNowBtn.addEventListener('click', () => {
+        alert('Thank you for your interest! The purchase feature will be available soon.');
+      });
+
+      learnMoreBtn.addEventListener('click', () => {
+        alert('Binoculars Basic offers essential virus detection and protection features. Stay tuned for more updates!');
+      });
+    });
+  </script>
+</body>
+</html>
