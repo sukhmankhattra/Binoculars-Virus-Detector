@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>VirusGuard Security - Press</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet" />
+    <style>
+        /* [Previous CSS remains exactly the same until .press-contact] */
+
+        /* New Security Team Styles */
+        .team-section {
+            margin-top: 4rem;
+            text-align: center;
+        }
+
+        .team-section h2 {
+            font-size: 2rem;
+            color: var(--accent-color-light);
+            margin-bottom: 2rem;
+            font-weight: 900;
+        }
+
+        body.dark-theme .team-section h2 {
+            color: var(--accent-color-dark);
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .team-member {
+            background: var(--card-bg-light);
+            border-radius: 10px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+            padding: 1.5rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+
+        body.dark-theme .team-member {
+            background: var(--card-bg-dark);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.6);
+        }
+
+        .team-member:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+        }
+
+        .member-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 1rem;
+            border: 3px solid var(--accent-color-light);
+        }
+
+        body.dark-theme .member-photo {
+            border-color: var(--accent-color-dark);
+        }
+
+        .member-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-color-light);
+        }
+
+        body.dark-theme .member-name {
+            color: var(--text-color-dark);
+        }
+
+        .member-title {
+            color: var(--accent-color-light);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        body.dark-theme .member-title {
+            color: var(--accent-color-dark);
+        }
+
+        .member-bio {
+            font-size: 0.9rem;
+            color: var(--text-color-light);
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        body.dark-theme .member-bio {
+            color: var(--text-color-dark);
+        }
+
+        .member-expertise {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .expertise-tag {
+            background-color: var(--accent-color-light);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        body.dark-theme .expertise-tag {
+            background-color: var(--accent-color-dark);
+        }
+
+        /* [Rest of the existing CSS remains the same] */
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- [Navigation remains exactly the same] -->
+
+    <header class="press-header" role="banner" aria-label="Press Page Header">
+        Press & Media
+    </header>
+
+    <main class="press-main">
+        <div class="press-container">
+            <!-- [Existing press releases remain the same] -->
+
+            <!-- New Security Team Section -->
+            <div class="team-section">
+                <h2>Our Security Experts</h2>
+                <p>Meet the world-class team of cybersecurity professionals who keep VirusGuard at the forefront of digital protection.</p>
+                
+                <div class="team-grid">
+                    <div class="team-member">
+                        <img src="" alt="Sukhman Singh" class="member-photo">
+                        <h3 class="member-name">Sukhman Singh</h3>
+                        <p class="member-title">Chief Executive Officer</p>
+                        <p class="member-bio">Former NSA cybersecurity specialist with 20+ years in threat intelligence and enterprise security architecture.</p>
+                        <div class="member-expertise">
+                            <span class="expertise-tag">Threat Intelligence</span>
+                            <span class="expertise-tag">Enterprise Security</span>
+                            <span class="expertise-tag">AI Defense</span>
+                        </div>
+                    </div>
+                    
+                    <div class="team-member">
+                        <img src="" alt="umesh Sharma" class="member-photo">
+                        <h3 class="member-name">umesh Sharma</h3>
+                        <p class="member-title">Chief Technology Officer</p>
+                        <p class="member-bio">Lead architect of VirusGuard's core detection engine with patents in behavioral malware analysis.</p>
+                        <div class="member-expertise">
+                            <span class="expertise-tag">Malware Research</span>
+                            <span class="expertise-tag">Machine Learning</span>
+                            <span class="expertise-tag">System Architecture</span>
+                        </div>
+                    </div>
+                    
+                    <div class="team-member">
+                        <img src="" alt="Sam Verma" class="member-photo">
+                        <h3 class="member-name">Sam Verma</h3>
+                        <p class="member-title">Director of Threat Research</p>
+                        <p class="member-bio">Head of our global threat research team tracking emerging malware families and attack vectors.</p>
+                        <div class="member-expertise">
+                            <span class="expertise-tag">Malware Analysis</span>
+                            <span class="expertise-tag">Reverse Engineering</span>
+                            <span class="expertise-tag">Zero-Day Threats</span>
+                        </div>
+                    </div>
+                    
+                    <div class="team-member">
+                        <img src="" alt="Keshav Dhiman" class="member-photo">
+                        <h3 class="member-name">Keshav Dhiman</h3>
+                        <p class="member-title">Mobile Security Lead</p>
+                        <p class="member-bio">Specialist in mobile platform vulnerabilities and creator of our award-winning mobile security suite.</p>
+                        <div class="member-expertise">
+                            <span class="expertise-tag">iOS Security</span>
+                            <span class="expertise-tag">Android Protection</span>
+                            <span class="expertise-tag">App Sandboxing</span>
+                        </div>
+                    <div class="team-member">
+                        <img src="" alt="Shivansh pathania" class="member-photo">
+                        <h3 class="member-name">Shivansh pathania</h3>
+                        <p class="member-title">expert macos</p>
+                        <p class="member-bio">Specialist in mobile platform vulnerabilities and creator of our award-winning macos suite.</p>
+                        <div class="member-expertise">
+                            <span class="expertise-tag">iOS Security</span>
+                            <span class="expertise-tag">Android Protection</span>
+                            <span class="expertise-tag">App Sandboxing</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- [Existing press contact section remains the same] -->
+        </div>
+    </main>
+
+    <!-- [Footer remains exactly the same] -->
+
+    <!-- [JavaScript remains exactly the same] -->
+</body>
+</html>
