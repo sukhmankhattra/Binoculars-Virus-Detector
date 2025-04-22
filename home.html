@@ -1074,6 +1074,16 @@ document.addEventListener('click', (e) => {
         searchResults.style.display = 'none';
     }
 });
+// Select all elements with the class 'buy-now-button'
+const productButton = document.querySelectorAll('.productButton');
+
+// Add a click event listener to each button found
+productButton.forEach(button => {
+    button.addEventListener('click', function() {
+        // Redirect the user to checkout.html when the button is clicked
+        window.location.href = 'checkout.html';
+    });
+});
     </script>
 
 </body>
