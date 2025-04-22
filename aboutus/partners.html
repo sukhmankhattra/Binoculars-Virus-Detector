@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>VirusGuard Security - Partners</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet" />
+    <style>
+        /* Embedded CSS to match existing style with theme support */
+        :root {
+            --bg-color-light: #f5f5f5;
+            --text-color-light: #333;
+            --nav-bg-light: #121212;
+            --nav-text-light: white;
+            --accent-color-light: #e74c3c;
+            --accent-hover-light: #c0392b;
+            --footer-bg-light: white;
+            --footer-text-light: #555;
+            --card-bg-light: white;
+            --input-bg-light: white;
+            --input-border-light: #ddd;
+
+            --bg-color-dark: #121212;
+            --text-color-dark: #ddd;
+            --nav-bg-dark: #1e1e1e;
+            --nav-text-dark: #ddd;
+            --accent-color-dark: #e74c3c;
+            --accent-hover-dark: #c0392b;
+            --footer-bg-dark: #1e1e1e;
+            --footer-text-dark: #aaa;
+            --card-bg-dark: #222;
+            --input-bg-dark: #333;
+            --input-border-dark: #555;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Lato', sans-serif;
+            background-color: var(--bg-color-light);
+            color: var(--text-color-light);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        body.dark-theme {
+            background-color: var(--bg-color-dark);
+            color: var(--text-color-dark);
+        }
+
+        #nav {
+            display: flex;
+            flex-direction: column;
+            background-color: var(--nav-bg-light);
+            color: var(--nav-text-light);
+            padding: 10px 50px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        body.dark-theme #nav {
+            background-color: var(--nav-bg-dark);
+            color: var(--nav-text-dark);
+        }
+
+        .navTop {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 20px 0;
+        }
+
+        .navItem {
+            display: flex;
+            align-items: center;
+            margin-left: 20px;
+        }
+
+        .search {
+            display: flex;
+            align-items: center;
+            background-color: white;
+            padding: 10px 15px;
+            border-radius: 30px;
+            margin: 0 20px;
+            flex-grow: 1;
+            max-width: 400px;
+        }
+
+        body.dark-theme .search {
+            background-color: #333;
+        }
+
+        .searchInput {
+            border: none;
+            outline: none;
+            background: transparent;
+            width: 100%;
+            font-size: 1rem;
+            color: #333;
+        }
+
+        body.dark-theme .searchInput {
+            color: #ddd;
+        }
+
+        .searchIcon {
+            cursor: pointer;
+        }
+
+        .limitedOffer {
+            background-color: var(--accent-color-light);
+            padding: 5px 15px;
+            border-radius: 30px;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 12px;
+            color: white;
+            user-select: none;
+            transition: background-color 0.3s ease;
+        }
+
+        body.dark-theme .limitedOffer {
+            background-color: var(--accent-color-dark);
+        }
+
+        button#themeToggle {
+            background-color: transparent;
+            border: 2px solid var(--accent-color-light);
+            color: var(--accent-color-light);
+            padding: 6px 15px;
+            border-radius: 30px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+
+        button#themeToggle:hover {
+            background-color: var(--accent-hover-light);
+            color: white;
+            border-color: var(--accent-hover-light);
+        }
+
+        body.dark-theme button#themeToggle {
+            border-color: var(--accent-color-dark);
+            color: var(--accent-color-dark);
+        }
+
+        body.dark-theme button#themeToggle:hover {
+            background-color: var(--accent-hover-dark);
+            color: white;
+            border-color: var(--accent-hover-dark);
+        }
+
+        .navBottom {
+            display: flex;
+            justify-content: center;
+            padding: 15px 0;
+        }
+
+        .menuItem {
+            margin: 0 25px;
+            cursor: pointer;
+            font-weight: 400;
+            color: #aaa;
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+
+        .menuItem:hover {
+            color: white;
+        }
+
+        header.partners-header {
+            text-align: center;
+            padding: 3rem 1rem 2rem 1rem;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--nav-bg-light);
+            letter-spacing: 2px;
+            user-select: none;
+            transition: color 0.3s ease;
+        }
+
+        body.dark-theme header.partners-header {
+            color: var(--text-color-dark);
+        }
+
+        main.partners-main {
+            max-width: 1200px;
+            margin: 0 auto 4rem;
+            padding: 0 1rem;
+        }
+
+        .partners-hero {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .partners-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent-color-light);
+        }
+
+        body.dark-theme .partners-hero h1 {
+            color: var(--accent-color-dark);
+        }
+
+        .partners-hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+        }
+
+        .partner-btn {
+            background-color: var(--accent-color-light);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            margin: 0 10px;
+        }
+
+        body.dark-theme .partner-btn {
+            background-color: var(--accent-color-dark);
+        }
+
+        .partner-btn:hover {
+            background-color: var(--accent-hover-light);
+        }
+
+        body.dark-theme .partner-btn:hover {
+            background-color: var(--accent-hover-dark);
+        }
+
+        .partner-btn.secondary {
+            background-color: transparent;
+            border: 2px solid var(--accent-color-light);
+            color: var(--accent-color-light);
+        }
+
+        body.dark-theme .partner-btn.secondary {
+            border-color: var(--accent-color-dark);
+            color: var(--accent-color-dark);
+        }
+
+        .partner-btn.secondary:hover {
+            background-color: var(--accent-hover-light);
+            color: white;
+        }
+
+        body.dark-theme .partner-btn.secondary:hover {
+            background-color: var(--accent-hover-dark);
+            color: white;
+        }
+
+        .partner-types {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .partner-card {
+            background: var(--card-bg-light);
+            border-radius: 10px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+            padding: 2rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+
+        body.dark-theme .partner-card {
+            background: var(--card-bg-dark);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.6);
+        }
+
+        .partner-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+        }
+
+        .partner-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent-color-light);
+        }
+
+        body.dark-theme .partner-card h3 {
+            color: var(--accent-color-dark);
+        }
+
+        .partner-card p {
+            margin-bottom: 1.5rem;
+            color: var(--text-color-light);
+        }
+
+        body.dark-theme .partner-card p {
+            color: var(--text-color-dark);
+        }
+
+        .partner-icon {
+            font-size: 3rem;
+            color: var(--accent-color-light);
+            margin-bottom: 1rem;
+        }
+
+        body.dark-theme .partner-icon {
+            color: var(--accent-color-dark);
+        }
+
+        .current-partners {
+            margin: 4rem 0;
+        }
+
+        .partner-logos {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .partner-logo {
+            max-width: 150px;
+            height: auto;
+            filter: grayscale(100%);
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+
+        .partner-logo:hover {
+            filter: grayscale(0%);
+            opacity: 1;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            color: var(--accent-color-light);
+        }
+
+        body.dark-theme .section-title {
+            color: var(--accent-color-dark);
+        }
+
+        .testimonials {
+            margin: 4rem 0;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .testimonial-card {
+            background: var(--card-bg-light);
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        body.dark-theme .testimonial-card {
+            background: var(--card-bg-dark);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            font-size: 4rem;
+            color: var(--accent-color-light);
+            opacity: 0.2;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+
+        body.dark-theme .testimonial-card::before {
+            color: var(--accent-color-dark);
+        }
+
+        .testimonial-content {
+            margin-top: 1.5rem;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            margin-top: 1rem;
+            font-weight: 700;
+            text-align: right;
+        }
+
+        footer {
+            display: flex;
+            padding: 50px;
+            background-color: var(--footer-bg-light);
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 2rem;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        body.dark-theme footer {
+            background-color: var(--footer-bg-dark);
+            color: var(--footer-text-dark);
+        }
+
+        .footerLeft {
+            flex: 2;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .footerRight {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .footerMenu {
+            min-width: 150px;
+        }
+
+        .fMenuTitle {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--text-color-light);
+        }
+
+        body.dark-theme .fMenuTitle {
+            color: var(--footer-text-dark);
+        }
+
+        .fList {
+            list-style: none;
+        }
+
+        .fListItem {
+            margin-bottom: 10px;
+            color: #555;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-theme .fListItem {
+            color: #aaa;
+        }
+
+        .fListItem:hover {
+            color: var(--accent-color-light);
+        }
+
+        body.dark-theme .fListItem:hover {
+            color: var(--accent-hover-dark);
+        }
+
+        .fInput {
+            padding: 10px;
+            border: 1px solid #ddd;
+            width: 70%;
+            margin-right: 10px;
+            border-radius: 5px;
+        }
+
+        body.dark-theme .fInput {
+            background-color: #333;
+            border-color: #555;
+            color: #ddd;
+        }
+
+        .fButton {
+            padding: 10px 20px;
+            background-color: var(--accent-color-light);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-theme .fButton {
+            background-color: var(--accent-color-dark);
+        }
+
+        .fButton:hover {
+            background-color: var(--accent-hover-light);
+        }
+
+        body.dark-theme .fButton:hover {
+            background-color: var(--accent-hover-dark);
+        }
+
+        .fIcons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .fIcon {
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .fIcon:hover {
+            transform: scale(1.2);
+        }
+
+        .copyright {
+            color: #777;
+            font-size: 14px;
+            margin-top: 20px;
+        }
+
+        body.dark-theme .copyright {
+            color: #aaa;
+        }
+
+        @media screen and (max-width: 768px) {
+            #nav {
+                padding: 10px 20px;
+            }
+
+            .navTop {
+                flex-direction: row;
+                padding: 10px 0;
+                justify-content: space-between;
+            }
+
+            .navItem {
+                margin: 0 10px;
+            }
+
+            .navBottom {
+                flex-wrap: wrap;
+            }
+
+            .menuItem {
+                margin: 10px;
+            }
+
+            .partner-types {
+                grid-template-columns: 1fr;
+            }
+
+            .partner-btn {
+                display: block;
+                margin: 10px auto;
+                width: 80%;
+            }
+
+            footer {
+                flex-direction: column;
+                padding: 30px 10px;
+            }
+
+            .footerLeft {
+                flex-direction: column;
+                margin-bottom: 30px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <nav id="nav" role="navigation" aria-label="Primary Navigation">
+        <div class="navTop">
+            <div class="navItem">
+                <!-- Logo removed as per user request -->
+            </div>
+            <div class="navItem">
+                <div class="search" role="search">
+                    <input type="text" placeholder="Search partners..." class="searchInput" aria-label="Search partners" />
+                    <img src="https://cdn-icons-png.flaticon.com/512/149/149852.png" width="20" height="20" alt="Search Icon" class="searchIcon" />
+                </div>
+            </div>
+            <div class="navItem">
+                <span class="limitedOffer">PARTNER PROGRAM!</span>
+            </div>
+            <div class="navItem">
+                <button id="themeToggle" aria-label="Toggle light and dark theme">Toggle Theme</button>
+            </div>
+            <div>
+                <button onclick="window.location.href='login.html'" style="background-color: var(--accent-color-light); color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">Sign Up</button>
+            </div>
+        </div>
+        <div class="navBottom" role="menubar" aria-label="Secondary Navigation">
+            <h3 class="menuItem" role="menuitem" tabindex="0">QUICK SCAN</h3>
+            <h3 class="menuItem" role="menuitem" tabindex="0">DEEP SCAN</h3>
+            <h3 class="menuItem" role="menuitem" tabindex="0">CUSTOM SCAN</h3>
+            <h3 class="menuItem" role="menuitem" tabindex="0">REALTIME PROTECTION</h3>
+            <h3 class="menuItem" role="menuitem" tabindex="0">FIREWALL</h3>
+        </div>
+    </nav>
+
+    <header class="partners-header" role="banner" aria-label="Partners Page Header">
+        VirusGuard Security Partners
+    </header>
+
+    <main class="partners-main">
+        <section class="partners-hero">
+            <h1>Powerful Partnerships for a Safer Digital World</h1>
+            <p>Join forces with VirusGuard Security to deliver comprehensive cybersecurity solutions to your customers. Together, we can build a more secure future.</p>
+            <div>
+                <button class="partner-btn" onclick="window.location.href='#partner-types'">Become a Partner</button>
+                <button class="partner-btn secondary" onclick="window.location.href='#current-partners'">See Our Partners</button>
+            </div>
+        </section>
+
+        <section id="partner-types" class="partner-programs">
+            <h2 class="section-title">Partner Programs</h2>
+            <div class="partner-types">
+                <div class="partner-card">
+                    <div class="partner-icon">
+                        <i class="fas fa-store"></i>
+                    </div>
+                    <h3>Reseller Partners</h3>
+                    <p>Expand your security offerings by reselling VirusGuard products. Earn competitive margins and benefit from our marketing support.</p>
+                    <button class="partner-btn">Learn More</button>
+                </div>
+                <div class="partner-card">
+                    <div class="partner-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3>Technology Partners</h3>
+                    <p>Integrate VirusGuard security with your solutions. We offer APIs and SDKs for seamless integration.</p>
+                    <button class="partner-btn">Learn More</button>
+                </div>
+                <div class="partner-card">
+                    <div class="partner-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>MSSP Partners</h3>
+                    <p>Managed Security Service Providers can leverage our platform to deliver superior protection to their clients.</p>
+                    <button class="partner-btn">Learn More</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="current-partners" class="current-partners">
+            <h2 class="section-title">Our Trusted Partners</h2>
+            <div class="partner-logos">
+                <img src="https://via.placeholder.com/150x60?text=TechCorp" alt="TechCorp" class="partner-logo" />
+                <img src="https://via.placeholder.com/150x60?text=SecureNet" alt="SecureNet" class="partner-logo" />
+                <img src="https://via.placeholder.com/150x60?text=DataShield" alt="DataShield" class="partner-logo" />
+                <img src="https://via.placeholder.com/150x60?text=CloudSafe" alt="CloudSafe" class="partner-logo" />
+                <img src="https://via.placeholder.com/150x60?text=NetDefend" alt="NetDefend" class="partner-logo" />
+                <img src="https://via.placeholder.com/150x60?text=CyberArmor" alt="CyberArmor" class="partner-logo" />
+            </div>
+        </section>
+
+        <section class="testimonials">
+            <h2 class="section-title">What Our Partners Say</h2>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        "Partnering with VirusGuard has allowed us to offer enterprise-grade security to our SMB clients at an affordable price point. Their support team is exceptional."
+                    </div>
+                    <div class="testimonial-author">
+                        — Umesh Sharma
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        "The integration process was smooth and well-documented. Our joint customers appreciate the seamless experience between our platforms."
+                    </div>
+                    <div class="testimonial-author">
+                        — Sukhman Singh
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        "VirusGuard's partner program offers some of the best margins in the industry. Their marketing materials and sales enablement tools are top-notch."
+                    </div>
+                    <div class="testimonial-author">
+                        — Keshav Dhiman , Sam Verma
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section" style="text-align: center; margin: 4rem 0;">
+            <h2 style="font-size: 1.8rem; margin-bottom: 1.5rem;">Ready to Partner With Us?</h2>
+            <button class="partner-btn" style="padding: 15px 30px; font-size: 1.2rem;">Contact Our Partnerships Team</button>
+        </section>
+    </main>
+
+    <footer role="contentinfo">
+        <div class="footerLeft">
+            <div class="footerMenu">
+                <h1 class="fMenuTitle">About Us</h1>
+                <ul class="fList">
+                    <li class="fListItem">Company</li>
+                    <li class="fListItem">Security Experts</li>
+                    <li class="fListItem">Careers</li>
+                    <li class="fListItem">Partners</li>
+                    <li class="fListItem">Press</li>
+                </ul>
+            </div>
+            <div class="footerMenu">
+                <h1 class="fMenuTitle">Support</h1>
+                <ul class="fList">
+                    <li class="fListItem">Help Center</li>
+                    <li class="fListItem">Virus Removal Guides</li>
+                    <li class="fListItem">FAQ</li>
+                    <li class="fListItem">Contact</li>
+                    <li class="fListItem">Security Blog</li>
+                </ul>
+            </div>
+            <div class="footerMenu">
+                <h1 class="fMenuTitle">Products</h1>
+                <ul class="fList">
+                    <li class="fListItem">VirusGuard Home</li>
+                    <li class="fListItem">VirusGuard Pro</li>
+                    <li class="fListItem">Enterprise Protection</li>
+                    <li class="fListItem">Mobile Security</li>
+                    <li class="fListItem">VPN Service</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footerRight">
+            <div class="footerRightMenu">
+                <h1 class="fMenuTitle">Subscribe to our newsletter</h1>
+                <div class="fMail">
+                    <input type="text" placeholder="your@email.com" class="fInput" aria-label="Email address" />
+                    <button class="fButton" aria-label="Subscribe to newsletter">SUBSCRIBE</button>
+                </div>
+            </div>
+            <div class="footerRightMenu">
+                <h1 class="fMenuTitle">Follow Us</h1>
+                <div class="fIcons">
+                    <img src="https://cdn-icons-png.flaticon.com/512/124/124010.png" alt="Facebook" class="fIcon" />
+                    <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter" class="fIcon" />
+                    <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram" class="fIcon" />
+                    <img src="https://cdn-icons-png.flaticon.com/512/1384/1384023.png" alt="YouTube" class="fIcon" />
+                </div>
+            </div>
+            <div class="footerRightMenu">
+                <span class="copyright">© 2025 VirusGuard Security. All rights reserved.</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Embedded JavaScript for theme toggle and form handling
+        const themeToggleBtn = document.getElementById('themeToggle');
+
+        // Theme toggle functionality
+        themeToggleBtn.addEventListener('click', () => {
+            document.body.classList.toggle('dark-theme');
+            // Save preference to localStorage
+            if(document.body.classList.contains('dark-theme')) {
+                localStorage.setItem('theme', 'dark');
+            } else {
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        // Load theme preference on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme');
+            if(savedTheme === 'dark') {
+                document.body.classList.add('dark-theme');
+            }
+        });
+    </script>
+</body>
+</html>
