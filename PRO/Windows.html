@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binoculars Security - Windows Scanner Demo</title>
+    <style>
+        :root {
+            --windows-blue: #0078d7;
+            --windows-dark: #171717;
+            --windows-light: #f3f3f3;
+            --windows-text: #333;
+            --windows-text-light: #fff;
+            --danger-red: #e81123;
+            --warning-yellow: #ffb900;
+            --success-green: #107c10;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--windows-light);
+            color: var(--windows-text);
+        }
+
+        .windows-frame {
+            width: 800px;
+            margin: 30px auto;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .title-bar {
+            background-color: var(--windows-dark);
+            color: var(--windows-text-light);
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .title-bar img {
+            height: 24px;
+            margin-right: 12px;
+        }
+
+        .title-bar h1 {
+            margin: 0;
+            font-size: 16px;
+            font-weight: 400;
+            flex-grow: 1;
+        }
+
+        .window-controls {
+            display: flex;
+            gap: 12px;
+        }
+
+        .window-control {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #888;
+            cursor: pointer;
+        }
+
+        .window-control.close {
+            background-color: var(--danger-red);
+        }
+
+        .window-body {
+            background-color: white;
+            padding: 20px;
+        }
+
+        .status-card {
+            background-color: #f9f9f9;
+            border-left: 4px solid var(--windows-blue);
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .status-card h2 {
+            margin-top: 0;
+            color: var(--windows-blue);
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .status-card p {
+            margin: 8px 0;
+        }
+
+        .scan-options {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .scan-btn {
+            background-color: var(--windows-blue);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            transition: background-color 0.2s;
+        }
+
+        .scan-btn i {
+            margin-right: 8px;
+        }
+
+        .scan-btn:hover {
+            background-color: #106ebe;
+        }
+
+        .scan-progress {
+            margin-top: 20px;
+            display: none;
+        }
+
+        .progress-container {
+            margin-bottom: 15px;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+
+        .progress-bar {
+            height: 20px;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: var(--windows-blue);
+            width: 0%;
+            transition: width 0.5s;
+        }
+
+        .scan-results {
+            margin-top: 20px;
+            display: none;
+        }
+
+        .threat-list {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .threat-item {
+            padding: 12px 15px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .threat-item:last-child {
+            border-bottom: none;
+        }
+
+        .threat-severe {
+            background-color: #fde7e9;
+            color: #a4262c;
+        }
+
+        .threat-moderate {
+            background-color: #fff4ce;
+            color: #8a5000;
+        }
+
+        .action-btn {
+            background-color: var(--windows-blue);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.2s;
+        }
+
+        .action-btn:hover {
+            background-color: #106ebe;
+        }
+
+        .scan-stats {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            flex: 1;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+            padding: 15px;
+        }
+
+        .stat-card h3 {
+            margin-top: 0;
+            color: var(--windows-blue);
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            margin: 10px 0;
+        }
+
+        .windows-taskbar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: var(--windows-dark);
+            color: var(--windows-text-light);
+            height: 40px;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .start-button {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .start-button img {
+            height: 20px;
+        }
+
+        .taskbar-icons {
+            display: flex;
+            gap: 15px;
+            margin-left: 20px;
+        }
+
+        .taskbar-icon {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="windows-frame">
+        <div class="title-bar">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/8/87/Windows_logo_-_2021.svg" alt="Windows Logo">
+            <h1>Binoculars Security Scanner</h1>
+            <div class="window-controls">
+                <div class="window-control minimize"></div>
+                <div class="window-control maximize"></div>
+                <div class="window-control close"></div>
+            </div>
+        </div>
+        
+        <div class="window-body">
+            <div class="status-card">
+                <h2>Protection Status</h2>
+                <p><strong>Virus & threat protection:</strong> Active</p>
+                <p><strong>Last scan:</strong> Today, 10:30 AM</p>
+                <p><strong>Threats found:</strong> 0</p>
+                <p><strong>Real-time protection:</strong> On</p>
+            </div>
+            
+            <h2>Scan Options</h2>
+            <div class="scan-options">
+                <button class="scan-btn" onclick="startScan('quick')">
+                    <i class="fas fa-bolt"></i> Quick Scan
+                </button>
+                <button class="scan-btn" onclick="startScan('full')">
+                    <i class="fas fa-search"></i> Full Scan
+                </button>
+                <button class="scan-btn" onclick="startScan('custom')">
+                    <i class="fas fa-folder-open"></i> Custom Scan
+                </button>
+            </div>
+            
+            <div class="scan-stats">
+                <div class="stat-card">
+                    <h3>Scan History</h3>
+                    <div class="stat-value">24</div>
+                    <p>Scans performed this month</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Threats Blocked</h3>
+                    <div class="stat-value">142</div>
+                    <p>Total threats blocked</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Protection</h3>
+                    <div class="stat-value">100%</div>
+                    <p>Real-time protection active</p>
+                </div>
+            </div>
+            
+            <div id="scan-progress" class="scan-progress">
+                <h3>Scanning your device...</h3>
+                <div class="progress-container">
+                    <div class="progress-header">
+                        <span>Scan progress</span>
+                        <span id="progress-percent">0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div id="progress-fill" class="progress-fill"></div>
+                    </div>
+                </div>
+                <p id="scan-status">Initializing scan engine...</p>
+                <p id="files-scanned">Files scanned: 0</p>
+                <p id="threats-found">Threats found: 0</p>
+            </div>
+            
+            <div id="scan-results" class="scan-results">
+                <h3>Scan Results</h3>
+                <div id="threat-count" style="margin-bottom: 15px; font-weight: bold;"></div>
+                
+                <div id="threat-list" class="threat-list" style="display: none;">
+                    <!-- Threats will be added here dynamically -->
+                </div>
+                
+                <button id="action-btn" class="action-btn" onclick="removeThreats()" style="display: none;">
+                    <i class="fas fa-trash"></i> Remove all threats
+                </button>
+                
+                <div id="scan-summary" style="margin-top: 20px;">
+                    <h4>Scan Summary</h4>
+                    <p id="scan-time">Scan duration: --</p>
+                    <p id="scan-date">Scan completed: --</p>
+                    <p id="scan-type">Scan type: --</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="windows-taskbar">
+        <div class="start-button">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/8/87/Windows_logo_-_2021.svg" alt="Windows Logo">
+            <span>Start</span>
+        </div>
+        <div class="taskbar-icons">
+            <img src="https://cdn-icons-png.flaticon.com/512/2965/2965300.png" alt="File Explorer" class="taskbar-icon">
+            <img src="https://cdn-icons-png.flaticon.com/512/888/888882.png" alt="Edge" class="taskbar-icon">
+            <img src="https://cdn-icons-png.flaticon.com/512/732/732220.png" alt="Store" class="taskbar-icon">
+        </div>
+    </div>
+
+    <script>
+        // Scanner functionality
+        function startScan(type) {
+            const scanProgress = document.getElementById('scan-progress');
+            const scanResults = document.getElementById('scan-results');
+            const threatList = document.getElementById('threat-list');
+            const actionBtn = document.getElementById('action-btn');
+            
+            // Reset UI
+            scanProgress.style.display = 'block';
+            scanResults.style.display = 'none';
+            threatList.style.display = 'none';
+            actionBtn.style.display = 'none';
+            document.getElementById('progress-fill').style.width = '0%';
+            document.getElementById('progress-percent').textContent = '0%';
+            document.getElementById('files-scanned').textContent = 'Files scanned: 0';
+            document.getElementById('threats-found').textContent = 'Threats found: 0';
+            
+            // Set scan parameters based on type
+            let scanTime, totalFiles;
+            switch(type) {
+                case 'quick':
+                    scanTime = 15;
+                    totalFiles = 5000;
+                    break;
+                case 'full':
+                    scanTime = 60;
+                    totalFiles = 50000;
+                    break;
+                case 'custom':
+                    scanTime = 30;
+                    totalFiles = 15000;
+                    break;
+                default:
+                    scanTime = 20;
+                    totalFiles = 10000;
+            }
+            
+            // Update scan type in summary
+            document.getElementById('scan-type').textContent = `Scan type: ${type.charAt(0).toUpperCase() + type.slice(1)} Scan`;
+            
+            // Simulate scan progress
+            let progress = 0;
+            let filesScanned = 0;
+            let threatsFound = 0;
+            let interval = setInterval(() => {
+                progress += 1;
+                filesScanned += Math.floor(totalFiles / scanTime);
+                
+                if (filesScanned > totalFiles) filesScanned = totalFiles;
+                
+                document.getElementById('progress-fill').style.width = progress + '%';
+                document.getElementById('progress-percent').textContent = progress + '%';
+                document.getElementById('files-scanned').textContent = `Files scanned: ${filesScanned}`;
+                
+                // Randomly find threats (for demo purposes)
+                if (progress > 30 && progress < 90 && Math.random() > 0.7) {
+                    threatsFound += Math.floor(Math.random() * 3) + 1;
+                    document.getElementById('threats-found').textContent = `Threats found: ${threatsFound}`;
+                }
+                
+                // Update status message periodically
+                if (progress % 10 === 0) {
+                    document.getElementById('scan-status').textContent = getRandomScanStatus();
+                }
+                
+                // Complete the scan
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    completeScan(type, threatsFound, totalFiles);
+                }
+            }, 50);
+        }
+        
+        function getRandomScanStatus() {
+            const statuses = [
+                "Scanning system files...",
+                "Checking running processes...",
+                "Analyzing startup programs...",
+                "Verifying security definitions...",
+                "Inspecting registry entries...",
+                "Reviewing browser extensions...",
+                "Examining downloaded files...",
+                "Scanning memory for malicious code...",
+                "Checking network connections...",
+                "Validating system integrity..."
+            ];
+            return statuses[Math.floor(Math.random() * statuses.length)];
+        }
+        
+        function completeScan(type, threatsFound, totalFiles) {
+            const scanProgress = document.getElementById('scan-progress');
+            const scanResults = document.getElementById('scan-results');
+            const threatList = document.getElementById('threat-list');
+            const actionBtn = document.getElementById('action-btn');
+            const threatCount = document.getElementById('threat-count');
+            
+            scanProgress.style.display = 'none';
+            scanResults.style.display = 'block';
+            
+            // Set scan completion time
+            const now = new Date();
+            document.getElementById('scan-date').textContent = `Scan completed: ${now.toLocaleString()}`;
+            
+            // Calculate fake scan duration based on scan type
+            let duration;
+            switch(type) {
+                case 'quick': duration = '15-30 seconds'; break;
+                case 'full': duration = '45-60 seconds'; break;
+                case 'custom': duration = '25-40 seconds'; break;
+                default: duration = '20-35 seconds';
+            }
+            document.getElementById('scan-time').textContent = `Scan duration: ${duration}`;
+            
+            if (threatsFound === 0) {
+                threatCount.textContent = "No threats found! Your device is secure.";
+                threatCount.style.color = 'var(--success-green)';
+                threatList.style.display = 'none';
+                actionBtn.style.display = 'none';
+            } else {
+                threatCount.textContent = `${threatsFound} threat${threatsFound > 1 ? 's' : ''} found`;
+                threatCount.style.color = 'var(--danger-red)';
+                threatList.style.display = 'block';
+                actionBtn.style.display = 'block';
+                
+                // Generate random threats for demo
+                const threatTypes = [
+                    {name: "Trojan:Win32/Wacatac.B!ml", severity: "severe"},
+                    {name: "PUA:Win32/Puamson.A!rfn", severity: "moderate"},
+                    {name: "Exploit:Java/CVE-2013-0422.A", severity: "severe"},
+                    {name: "HackTool:Win32/Keygen", severity: "moderate"},
+                    {name: "Adware:Win32/Crossrider", severity: "moderate"},
+                    {name: "Ransomware:Win32/WannaCrypt", severity: "severe"}
+                ];
+                
+                let threatListHTML = "";
+                for (let i = 0; i < threatsFound; i++) {
+                    const threat = threatTypes[Math.floor(Math.random() * threatTypes.length)];
+                    threatListHTML += `
+                        <div class="threat-item threat-${threat.severity}">
+                            <span>${threat.name}</span>
+                            <span>${threat.severity === 'severe' ? 'Severe' : 'Moderate'}</span>
+                        </div>
+                    `;
+                }
+                threatList.innerHTML = threatListHTML;
+            }
+        }
+        
+        function removeThreats() {
+            alert("All threats have been successfully removed!");
+            document.getElementById('threat-count').textContent = "No threats found! Your device is secure.";
+            document.getElementById('threat-count').style.color = 'var(--success-green)';
+            document.getElementById('threat-list').style.display = 'none';
+            document.getElementById('action-btn').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

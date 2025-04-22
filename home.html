@@ -127,7 +127,7 @@ button:hover {
 }
 
 .navItem img { /* Logo */
-    height: 40px;
+    height: 22px;
     width: auto;
 }
 
@@ -136,8 +136,8 @@ button:hover {
     align-items: center;
     background-color: #f8f9fa;
     padding: 5px 10px;
-    border-radius: 20px;
-    border: 1px solid #dee2e6;
+    border-radius: 10px;
+    border: 2px solid #dee2e6;
 }
 
 .searchInput {
@@ -145,7 +145,7 @@ button:hover {
     background: transparent;
     outline: none;
     padding: 5px;
-    width: 150px; /* Adjust as needed */
+    width: 300px; /* Adjust as needed */
 }
 
 .searchIcon {
@@ -697,7 +697,7 @@ footer {
 }
 
 /* Smaller Mobile phones */
-@media (max-width: 480px) {
+@media (max-width: 500px) {
      .navTop .navItem:not(:first-child) { /* Maybe hide search or offer on smallest screens */
         display: none; 
      }
@@ -742,15 +742,15 @@ footer {
             </div>
             <div class="navItem">
                 <div class="search">
-                    <input type="text" placeholder="Search scans..." class="searchInput">
+                    <input type="text" placeholder="Search Scans..." class="searchInput">
                     <img src="https://cdn-icons-png.flaticon.com/512/149/149852.png" width="20" height="20" alt="" class="searchIcon">
                 </div>
             </div>
             <div class="navItem">
-                <span class="limitedOffer">FREE SCAN!</span>
+                <span class="limitedOffer" onclick="window.location.href='FreeScan.html'">FREE SCAN!</span>
             </div>
             <div>
-                <button onclick="window.location.href='signup.html'" class="signup-btn">Sign In / Sign Up</button>
+                <button onclick="window.location.href='combined ui/combined_login_signup.html'" class="signup-btn">Sign In / Sign Up</button>
             </div>
         </div>
         <div class="navBottom">
