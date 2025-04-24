@@ -1,372 +1,342 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>VirusGuard Security - Careers</title>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet" />
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <title>Careers at Binoculars Security</title>
     <style>
-        /* Embedded CSS to match existing style with theme support */
-        :root {
-            --bg-color-light: #f5f5f5;
-            --text-color-light: #333;
-            --nav-bg-light: #121212;
-            --nav-text-light: white;
-            --accent-color-light: #e74c3c;
-            --accent-hover-light: #c0392b;
-            --footer-bg-light: white;
-            --footer-text-light: #555;
-            --card-bg-light: white;
-            --input-bg-light: white;
-            --input-border-light: #ddd;
-
-            --bg-color-dark: #121212;
-            --text-color-dark: #ddd;
-            --nav-bg-dark: #1e1e1e;
-            --nav-text-dark: #ddd;
-            --accent-color-dark: #e74c3c;
-            --accent-hover-dark: #c0392b;
-            --footer-bg-dark: #1e1e1e;
-            --footer-text-dark: #aaa;
-            --card-bg-dark: #222;
-            --input-bg-dark: #333;
-            --input-border-dark: #555;
-        }
-
-        body {
+        * {
             margin: 0;
+            padding: 0;
             font-family: 'Lato', sans-serif;
-            background-color: var(--bg-color-light);
-            color: var(--text-color-light);
-            transition: background-color 0.3s ease, color 0.3s ease;
+            box-sizing: border-box;
         }
 
-        body.dark-theme {
-            background-color: var(--bg-color-dark);
-            color: var(--text-color-dark);
+        /* Reusing the existing styles from main page */
+        body {
+            font-family: 'Lato', sans-serif;
+            color: #343A40;
+            line-height: 1.6;
+            background-color: #FFFFFF;
+            overflow-x: hidden;
         }
 
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            color: #0A4A7B;
+            margin-bottom: 0.8em;
+        }
+
+        a {
+            text-decoration: none;
+            color: #0A4A7B;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #2ECC71;
+        }
+
+        button {
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Navigation - Same as main page */
         #nav {
-            display: flex;
-            flex-direction: column;
-            background-color: var(--nav-bg-light);
-            color: var(--nav-text-light);
-            padding: 10px 50px;
+            background-color: #FFFFFF;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             position: sticky;
             top: 0;
-            z-index: 1000;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-
-        body.dark-theme #nav {
-            background-color: var(--nav-bg-dark);
-            color: var(--nav-text-dark);
+            z-index: 998;
         }
 
         .navTop {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: flex-end;
-            padding: 20px 0;
+            padding: 10px 30px;
+            border-bottom: 1px solid #e9ecef;
         }
 
-        .navItem {
-            display: flex;
-            align-items: center;
-            margin-left: 20px;
+        .navItem img {
+            height: 22px;
+            width: auto;
         }
 
         .search {
             display: flex;
             align-items: center;
-            background-color: white;
-            padding: 10px 15px;
-            border-radius: 30px;
-            margin: 0 20px;
-            flex-grow: 1;
-            max-width: 400px;
-        }
-
-        body.dark-theme .search {
-            background-color: #333;
+            background-color: #f8f9fa;
+            padding: 5px 10px;
+            border-radius: 10px;
+            border: 2px solid #dee2e6;
         }
 
         .searchInput {
             border: none;
-            outline: none;
             background: transparent;
-            width: 100%;
-            font-size: 1rem;
-            color: #333;
-        }
-
-        body.dark-theme .searchInput {
-            color: #ddd;
+            outline: none;
+            padding: 5px;
+            width: 300px;
         }
 
         .searchIcon {
             cursor: pointer;
+            margin-left: 5px;
         }
 
         .limitedOffer {
-            background-color: var(--accent-color-light);
+            background-color: #2ECC71;
+            color: white;
             padding: 5px 15px;
-            border-radius: 30px;
-            font-weight: 700;
-            text-transform: uppercase;
-            font-size: 12px;
+            border-radius: 15px;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        .signup-btn {
+            background-color: #0A4A7B;
             color: white;
-            user-select: none;
-            transition: background-color 0.3s ease;
         }
 
-        body.dark-theme .limitedOffer {
-            background-color: var(--accent-color-dark);
-        }
-
-        button#themeToggle {
-            background-color: transparent;
-            border: 2px solid var(--accent-color-light);
-            color: var(--accent-color-light);
-            padding: 6px 15px;
-            border-radius: 30px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            user-select: none;
-        }
-
-        button#themeToggle:hover {
-            background-color: var(--accent-hover-light);
-            color: white;
-            border-color: var(--accent-hover-light);
-        }
-
-        body.dark-theme button#themeToggle {
-            border-color: var(--accent-color-dark);
-            color: var(--accent-color-dark);
-        }
-
-        body.dark-theme button#themeToggle:hover {
-            background-color: var(--accent-hover-dark);
-            color: white;
-            border-color: var(--accent-hover-dark);
+        .signup-btn:hover {
+            background-color: #083b61;
         }
 
         .navBottom {
             display: flex;
             justify-content: center;
-            padding: 15px 0;
+            align-items: center;
+            padding: 15px 30px;
+            gap: 30px;
         }
 
         .menuItem {
-            margin: 0 25px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 1em;
+            color: #343A40;
             cursor: pointer;
-            font-weight: 400;
-            color: #aaa;
-            transition: all 0.3s ease;
-            user-select: none;
+            transition: color 0.3s ease;
+            margin-bottom: 0;
         }
 
         .menuItem:hover {
+            color: #2ECC71;
+        }
+
+        /* Careers Page Specific Styles */
+        .careers-hero {
+            background-color: #0A4A7B;
             color: white;
-        }
-
-        header.career-header {
+            padding: 80px 0;
             text-align: center;
-            padding: 3rem 1rem 2rem 1rem;
-            font-size: 2.5rem;
-            font-weight: 900;
-            color: var(--nav-bg-light);
-            letter-spacing: 2px;
-            user-select: none;
-            transition: color 0.3s ease;
         }
 
-        body.dark-theme header.career-header {
-            color: var(--text-color-dark);
+        .careers-hero h1 {
+            font-size: 3em;
+            color: white;
+            margin-bottom: 20px;
         }
 
-        main.career-main {
-            max-width: 1200px;
-            margin: 0 auto 4rem;
-            padding: 0 1rem;
-        }
-
-        .career-hero {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .career-hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: var(--accent-color-light);
-        }
-
-        body.dark-theme .career-hero h1 {
-            color: var(--accent-color-dark);
-        }
-
-        .career-hero p {
-            font-size: 1.2rem;
+        .careers-hero p {
+            font-size: 1.2em;
             max-width: 800px;
-            margin: 0 auto 2rem;
+            margin: 0 auto 30px;
         }
 
-        .job-openings {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .job-card {
-            background: var(--card-bg-light);
-            border-radius: 10px;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
-            padding: 2rem;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        body.dark-theme .job-card {
-            background: var(--card-bg-dark);
-            box-shadow: 0 6px 15px rgba(0,0,0,0.6);
-        }
-
-        .job-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 25px rgba(0,0,0,0.15);
-        }
-
-        .job-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-            color: var(--accent-color-light);
-        }
-
-        body.dark-theme .job-card h3 {
-            color: var(--accent-color-dark);
-        }
-
-        .job-meta {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1rem;
-            color: #777;
-            font-size: 0.9rem;
-        }
-
-        body.dark-theme .job-meta {
-            color: #aaa;
-        }
-
-        .job-description {
-            margin-bottom: 1.5rem;
-        }
-
-        .apply-btn {
-            background-color: var(--accent-color-light);
+        .hero-button {
+            background-color: #2ECC71;
             color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: 700;
-            transition: all 0.3s ease;
+            font-size: 1.1em;
+            padding: 15px 35px;
         }
 
-        body.dark-theme .apply-btn {
-            background-color: var(--accent-color-dark);
-        }
-
-        .apply-btn:hover {
-            background-color: var(--accent-hover-light);
-        }
-
-        body.dark-theme .apply-btn:hover {
-            background-color: var(--accent-hover-dark);
+        .hero-button:hover {
+            background-color: #25a25a;
         }
 
         .benefits-section {
-            margin: 4rem 0;
+            padding: 60px 0;
+            background-color: #f8f9fa;
         }
 
         .benefits-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
         }
 
         .benefit-card {
-            background: var(--card-bg-light);
+            background-color: white;
             border-radius: 10px;
-            padding: 1.5rem;
-            text-align: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
         }
 
-        body.dark-theme .benefit-card {
-            background: var(--card-bg-dark);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+        .benefit-card:hover {
+            transform: translateY(-5px);
         }
 
         .benefit-icon {
-            font-size: 2.5rem;
-            color: var(--accent-color-light);
-            margin-bottom: 1rem;
+            width: 60px;
+            height: 60px;
+            margin-bottom: 20px;
         }
 
-        body.dark-theme .benefit-icon {
-            color: var(--accent-color-dark);
+        .benefit-title {
+            font-size: 1.3em;
+            margin-bottom: 15px;
         }
 
-        .benefit-card h4 {
-            margin-bottom: 0.5rem;
-            font-size: 1.2rem;
+        .openings-section {
+            padding: 60px 0;
         }
 
-        .section-title {
-            text-align: center;
-            margin-bottom: 2rem;
-            font-size: 2rem;
-            color: var(--accent-color-light);
-        }
-
-        body.dark-theme .section-title {
-            color: var(--accent-color-dark);
-        }
-
-        footer {
+        .job-filters {
             display: flex;
-            padding: 50px;
-            background-color: var(--footer-bg-light);
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .filter-button {
+            background-color: #e9ecef;
+            color: #343A40;
+            padding: 8px 20px;
+        }
+
+        .filter-button.active {
+            background-color: #0A4A7B;
+            color: white;
+        }
+
+        .job-listings {
+            display: grid;
+            gap: 20px;
+        }
+
+        .job-card {
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 25px;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .job-card:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .job-title {
+            font-size: 1.4em;
+            margin-bottom: 5px;
+        }
+
+        .job-meta {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+            color: #6C757D;
+        }
+
+        .job-department {
+            display: inline-block;
+            background-color: #e9f5ff;
+            color: #0A4A7B;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+
+        .apply-button {
+            background-color: #2ECC71;
+            color: white;
+        }
+
+        .culture-section {
+            padding: 60px 0;
+            background-color: #f8f9fa;
+            text-align: center;
+        }
+
+        .culture-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .culture-card {
+            padding: 20px;
+        }
+
+        .culture-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+        }
+
+        .testimonials-section {
+            padding: 60px 0;
+        }
+
+        .testimonial-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            margin: 20px;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-author {
+            font-weight: bold;
+        }
+
+        .testimonial-role {
+            color: #6C757D;
+        }
+
+        /* Footer - Same as main page */
+        footer {
+            background-color: #343A40;
+            color: #f8f9fa;
+            padding: 50px 30px 20px 30px;
+            display: flex;
             justify-content: space-between;
             flex-wrap: wrap;
-            gap: 2rem;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-
-        body.dark-theme footer {
-            background-color: var(--footer-bg-dark);
-            color: var(--footer-text-dark);
+            gap: 40px;
         }
 
         .footerLeft {
-            flex: 2;
             display: flex;
-            justify-content: space-between;
+            gap: 50px;
             flex-wrap: wrap;
-            gap: 2rem;
-        }
-
-        .footerRight {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
         }
 
         .footerMenu {
@@ -374,297 +344,356 @@
         }
 
         .fMenuTitle {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 20px;
-            color: var(--text-color-light);
-        }
-
-        body.dark-theme .fMenuTitle {
-            color: var(--footer-text-dark);
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            color: #FFFFFF;
         }
 
         .fList {
             list-style: none;
+            padding: 0;
         }
 
         .fListItem {
             margin-bottom: 10px;
-            color: #555;
+            color: #adb5bd;
             cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        body.dark-theme .fListItem {
-            color: #aaa;
+            transition: color 0.3s ease;
         }
 
         .fListItem:hover {
-            color: var(--accent-color-light);
+            color: #FFFFFF;
         }
 
-        body.dark-theme .fListItem:hover {
-            color: var(--accent-hover-dark);
+        .footerRight {
+            min-width: 250px;
+        }
+
+        .footerRightMenu {
+            margin-bottom: 30px;
+        }
+
+        .fMail {
+            display: flex;
+            margin-top: 15px;
         }
 
         .fInput {
             padding: 10px;
-            border: 1px solid #ddd;
-            width: 70%;
-            margin-right: 10px;
-            border-radius: 5px;
-        }
-
-        body.dark-theme .fInput {
-            background-color: #333;
-            border-color: #555;
-            color: #ddd;
+            border: 1px solid #6C757D;
+            border-radius: 5px 0 0 5px;
+            background-color: #495057;
+            color: white;
+            outline: none;
+            flex-grow: 1;
         }
 
         .fButton {
             padding: 10px 20px;
-            background-color: var(--accent-color-light);
-            color: white;
             border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        body.dark-theme .fButton {
-            background-color: var(--accent-color-dark);
+            background-color: #0A4A7B;
+            color: white;
+            border-radius: 0 5px 5px 0;
         }
 
         .fButton:hover {
-            background-color: var(--accent-hover-light);
-        }
-
-        body.dark-theme .fButton:hover {
-            background-color: var(--accent-hover-dark);
+            background-color: #083b61;
         }
 
         .fIcons {
             display: flex;
             gap: 15px;
+            margin-top: 15px;
         }
 
         .fIcon {
             width: 30px;
             height: 30px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            filter: grayscale(100%) brightness(150%);
+            transition: filter 0.3s ease;
         }
 
         .fIcon:hover {
-            transform: scale(1.2);
+            filter: none;
         }
 
         .copyright {
-            color: #777;
-            font-size: 14px;
-            margin-top: 20px;
+            font-size: 0.9em;
+            color: #adb5bd;
+            margin-top: 30px;
+            display: block;
         }
 
-        body.dark-theme .copyright {
-            color: #aaa;
-        }
-
-        @media screen and (max-width: 768px) {
-            #nav {
-                padding: 10px 20px;
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .navTop, .navBottom {
+                padding-left: 20px;
+                padding-right: 20px;
             }
+            .navBottom {
+                gap: 20px;
+                font-size: 0.9em;
+            }
+            .careers-hero h1 {
+                font-size: 2.5em;
+            }
+        }
 
+        @media (max-width: 768px) {
             .navTop {
-                flex-direction: row;
-                padding: 10px 0;
-                justify-content: space-between;
+                flex-direction: column;
+                gap: 10px;
+                padding: 15px;
             }
-
-            .navItem {
-                margin: 0 10px;
-            }
-
             .navBottom {
                 flex-wrap: wrap;
+                justify-content: center;
+                padding: 10px;
+                gap: 15px;
             }
-
             .menuItem {
-                margin: 10px;
+                font-size: 0.9em;
             }
-
-            .job-openings {
-                grid-template-columns: 1fr;
+            .careers-hero h1 {
+                font-size: 2em;
             }
+            .careers-hero p {
+                font-size: 1em;
+            }
+        }
 
-            footer {
+        @media (max-width: 500px) {
+            .navTop .navItem:not(:first-child) {
+                display: none;
+            }
+            .navBottom {
+                gap: 10px;
+            }
+            .menuItem {
+                font-size: 0.8em;
+            }
+            .careers-hero h1 {
+                font-size: 1.8em;
+            }
+            .job-meta {
                 flex-direction: column;
-                padding: 30px 10px;
-            }
-
-            .footerLeft {
-                flex-direction: column;
-                margin-bottom: 30px;
+                gap: 5px;
             }
         }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <nav id="nav" role="navigation" aria-label="Primary Navigation">
+    <nav id="nav">
         <div class="navTop">
             <div class="navItem">
-                <!-- Logo removed as per user request -->
+                <img src="https://thumbs.dreamstime.com/b/shield-anti-virus-logo-vector-image-virus-shield-antibacterial-protection-antiviral-drug-logo-design-antibacterial-protection-340608516.jpg" alt="Binoculars Security Logo">
             </div>
             <div class="navItem">
-                <div class="search" role="search">
-                    <input type="text" placeholder="Search jobs..." class="searchInput" aria-label="Search jobs" />
-                    <img src="https://cdn-icons-png.flaticon.com/512/149/149852.png" width="20" height="20" alt="Search Icon" class="searchIcon" />
+                <div class="search">
+                    <input type="text" placeholder="Search jobs..." class="searchInput">
+                    <img src="https://cdn-icons-png.flaticon.com/512/149/149852.png" width="20" height="20" alt="" class="searchIcon">
                 </div>
             </div>
             <div class="navItem">
-                <span class="limitedOffer">WE'RE HIRING!</span>
-            </div>
-            <div class="navItem">
-                <button id="themeToggle" aria-label="Toggle light and dark theme">Toggle Theme</button>
+                <span class="limitedOffer" onclick="window.location.href='FreeScan.html'">FREE SCAN!</span>
             </div>
             <div>
-                <button onclick="window.location.href='login.html'" style="background-color: var(--accent-color-light); color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">Sign Up</button>
+                <button onclick="window.location.href='combined ui/combined_login_signup.html'" class="signup-btn">Sign In / Sign Up</button>
             </div>
         </div>
-        <div class="navBottom" role="menubar" aria-label="Secondary Navigation">
-            <h3 class="menuItem" role="menuitem" tabindex="0">QUICK SCAN</h3>
-            <h3 class="menuItem" role="menuitem" tabindex="0">DEEP SCAN</h3>
-            <h3 class="menuItem" role="menuitem" tabindex="0">CUSTOM SCAN</h3>
-            <h3 class="menuItem" role="menuitem" tabindex="0">REALTIME PROTECTION</h3>
-            <h3 class="menuItem" role="menuitem" tabindex="0">FIREWALL</h3>
+        <div class="navBottom">
+            <h3 class="menuItem" onclick="window.location.href='index.html'">HOME</h3>
+            <h3 class="menuItem" onclick="window.location.href='careers.html'">CAREERS</h3>
+            <h3 class="menuItem" onclick="window.location.href='products.html'">PRODUCTS</h3>
+            <h3 class="menuItem" onclick="window.location.href='about.html'">ABOUT</h3>
+            <h3 class="menuItem" onclick="window.location.href='contact.html'">CONTACT</h3>
         </div>
     </nav>
 
-    <header class="career-header" role="banner" aria-label="Careers Page Header">
-        Join Our Security Team
-    </header>
+    <section class="careers-hero">
+        <div class="container">
+            <h1>Join Our Security Mission</h1>
+            <p>At Binoculars Security, we're building the future of digital protection. Join our team of passionate security experts and help make the internet safer for everyone.</p>
+            <button class="hero-button" onclick="window.location.href='#openings'">View Open Positions</button>
+        </div>
+    </section>
 
-    <main class="career-main">
-        <section class="career-hero">
-            <h1>Protect the Digital World With Us</h1>
-            <p>At VirusGuard Security, we're building the next generation of cybersecurity solutions. Join our team of passionate security experts and help us create a safer internet for everyone.</p>
-            <button class="apply-btn" onclick="window.location.href='#openings'">View Open Positions</button>
-        </section>
-
-        <section class="benefits-section">
-            <h2 class="section-title">Why Work With Us</h2>
+    <section class="benefits-section">
+        <div class="container">
+            <h2>Why Work With Us</h2>
+            <p>We offer competitive benefits and a culture that values innovation, collaboration, and work-life balance.</p>
+            
             <div class="benefits-grid">
                 <div class="benefit-card">
-                    <div class="benefit-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h4>Cutting-Edge Security</h4>
-                    <p>Work with the latest technologies and tackle the most challenging security problems.</p>
+                    <img src="https://cdn-icons-png.flaticon.com/512/2491/2491935.png" alt="Health Benefits" class="benefit-icon">
+                    <h3 class="benefit-title">Comprehensive Health Coverage</h3>
+                    <p>Medical, dental, and vision insurance for you and your family.</p>
                 </div>
+                
                 <div class="benefit-card">
-                    <div class="benefit-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <h4>Great Team</h4>
-                    <p>Collaborate with some of the brightest minds in cybersecurity.</p>
+                    <img src="https://cdn-icons-png.flaticon.com/512/3572/3572738.png" alt="Flexible Work" class="benefit-icon">
+                    <h3 class="benefit-title">Flexible Work Options</h3>
+                    <p>Remote, hybrid, or in-office - work how you work best.</p>
                 </div>
+                
                 <div class="benefit-card">
-                    <div class="benefit-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h4>Growth Opportunities</h4>
-                    <p>Continuous learning and career advancement in a fast-growing company.</p>
+                    <img src="https://cdn-icons-png.flaticon.com/512/2936/2936886.png" alt="Learning" class="benefit-icon">
+                    <h3 class="benefit-title">Continuous Learning</h3>
+                    <p>Annual education budget and conference opportunities.</p>
                 </div>
+                
                 <div class="benefit-card">
-                    <div class="benefit-icon">
-                        <i class="fas fa-heart"></i>
-                    </div>
-                    <h4>Work-Life Balance</h4>
-                    <p>Flexible schedules and remote work options to fit your lifestyle.</p>
+                    <img src="https://cdn-icons-png.flaticon.com/512/3220/3220315.png" alt="Time Off" class="benefit-icon">
+                    <h3 class="benefit-title">Generous Time Off</h3>
+                    <p>Unlimited PTO and paid parental leave for all employees.</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3132/3132693.png" alt="Retirement" class="benefit-icon">
+                    <h3 class="benefit-title">Retirement Planning</h3>
+                    <p>401(k) matching to help you prepare for the future.</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3081/3081160.png" alt="Wellness" class="benefit-icon">
+                    <h3 class="benefit-title">Wellness Programs</h3>
+                    <p>Gym reimbursements and mental health resources.</p>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="openings" class="job-openings-section">
-            <h2 class="section-title">Current Job Openings</h2>
-            <div class="job-openings">
+    <section class="openings-section" id="openings">
+        <div class="container">
+            <h2>Current Openings</h2>
+            <p>Find the perfect role for your skills and passion.</p>
+            
+            <div class="job-filters">
+                <button class="filter-button active">All Departments</button>
+                <button class="filter-button">Engineering</button>
+                <button class="filter-button">Research</button>
+                <button class="filter-button">Marketing</button>
+                <button class="filter-button">Operations</button>
+            </div>
+            
+            <div class="job-listings">
                 <div class="job-card">
-                    <h3>Senior Malware Analyst</h3>
+                    <span class="job-department">Engineering</span>
+                    <h3 class="job-title">Senior Security Engineer</h3>
                     <div class="job-meta">
-                        <span><i class="fas fa-map-marker-alt"></i> Remote</span>
-                        <span><i class="fas fa-briefcase"></i> Full-time</span>
+                        <span>Remote</span>
+                        <span>Full-time</span>
                     </div>
-                    <div class="job-description">
-                        <p>Analyze and reverse engineer sophisticated malware to improve our detection capabilities. Lead a team of junior analysts and develop new analysis tools.</p>
-                    </div>
-                    <button class="apply-btn">Apply Now</button>
+                    <p>Lead our efforts in developing cutting-edge security solutions to protect against emerging threats.</p>
+                    <button class="apply-button" onclick="window.location.href='apply.html?position=senior-security-engineer'">Apply Now</button>
                 </div>
+                
                 <div class="job-card">
-                    <h3>Security Software Engineer</h3>
+                    <span class="job-department">Research</span>
+                    <h3 class="job-title">Threat Intelligence Analyst</h3>
                     <div class="job-meta">
-                        <span><i class="fas fa-map-marker-alt"></i> San Francisco</span>
-                        <span><i class="fas fa-briefcase"></i> Full-time</span>
+                        <span>San Francisco, CA</span>
+                        <span>Full-time</span>
                     </div>
-                    <div class="job-description">
-                        <p>Design and implement security features for our flagship products. Work on low-level system security and vulnerability research.</p>
-                    </div>
-                    <button class="apply-btn">Apply Now</button>
+                    <p>Research and analyze emerging cyber threats to keep our products ahead of attackers.</p>
+                    <button class="apply-button" onclick="window.location.href='apply.html?position=threat-intelligence-analyst'">Apply Now</button>
                 </div>
+                
                 <div class="job-card">
-                    <h3>Threat Intelligence Researcher</h3>
+                    <span class="job-department">Marketing</span>
+                    <h3 class="job-title">Security Content Writer</h3>
                     <div class="job-meta">
-                        <span><i class="fas fa-map-marker-alt"></i> Remote</span>
-                        <span><i class="fas fa-briefcase"></i> Full-time</span>
+                        <span>Remote</span>
+                        <span>Contract</span>
                     </div>
-                    <div class="job-description">
-                        <p>Track emerging cyber threats and develop detection methods. Publish research on new attack vectors and security trends.</p>
-                    </div>
-                    <button class="apply-btn">Apply Now</button>
+                    <p>Create compelling content that educates users about security best practices.</p>
+                    <button class="apply-button" onclick="window.location.href='apply.html?position=security-content-writer'">Apply Now</button>
                 </div>
+                
                 <div class="job-card">
-                    <h3>Frontend Developer</h3>
+                    <span class="job-department">Engineering</span>
+                    <h3 class="job-title">Frontend Developer</h3>
                     <div class="job-meta">
-                        <span><i class="fas fa-map-marker-alt"></i> New York</span>
-                        <span><i class="fas fa-briefcase"></i> Full-time</span>
+                        <span>New York, NY</span>
+                        <span>Full-time</span>
                     </div>
-                    <div class="job-description">
-                        <p>Build intuitive interfaces for our security products. Work closely with our design and security teams to create user-friendly experiences.</p>
-                    </div>
-                    <button class="apply-btn">Apply Now</button>
+                    <p>Build intuitive interfaces for our security products that make complex security simple.</p>
+                    <button class="apply-button" onclick="window.location.href='apply.html?position=frontend-developer'">Apply Now</button>
                 </div>
+                
                 <div class="job-card">
-                    <h3>Customer Security Advocate</h3>
+                    <span class="job-department">Operations</span>
+                    <h3 class="job-title">Customer Support Specialist</h3>
                     <div class="job-meta">
-                        <span><i class="fas fa-map-marker-alt"></i> Remote</span>
-                        <span><i class="fas fa-briefcase"></i> Full-time</span>
+                        <span>Remote</span>
+                        <span>Full-time</span>
                     </div>
-                    <div class="job-description">
-                        <p>Help customers implement security best practices. Be the bridge between our engineering team and end users.</p>
-                    </div>
-                    <button class="apply-btn">Apply Now</button>
-                </div>
-                <div class="job-card">
-                    <h3>DevOps Security Engineer</h3>
-                    <div class="job-meta">
-                        <span><i class="fas fa-map-marker-alt"></i> Austin</span>
-                        <span><i class="fas fa-briefcase"></i> Full-time</span>
-                    </div>
-                    <div class="job-description">
-                        <p>Secure our infrastructure and CI/CD pipelines. Implement security automation and monitoring solutions.</p>
-                    </div>
-                    <button class="apply-btn">Apply Now</button>
+                    <p>Help our customers get the most from our security products with exceptional support.</p>
+                    <button class="apply-button" onclick="window.location.href='apply.html?position=customer-support-specialist'">Apply Now</button>
                 </div>
             </div>
-        </section>
-    </main>
+        </div>
+    </section>
 
-    <footer role="contentinfo">
+    <section class="culture-section">
+        <div class="container">
+            <h2>Our Culture</h2>
+            <p>We believe security is a team sport, and our culture reflects that collaborative spirit.</p>
+            
+            <div class="culture-grid">
+                <div class="culture-card">
+                    <img src="https://cdn-icons-png.flaticon.com/512/4400/4400470.png" alt="Collaboration" class="culture-icon">
+                    <h3>Collaboration</h3>
+                    <p>We work together across disciplines to solve complex security challenges.</p>
+                </div>
+                
+                <div class="culture-card">
+                    <img src="https://cdn-icons-png.flaticon.com/512/4052/4052981.png" alt="Innovation" class="culture-icon">
+                    <h3>Innovation</h3>
+                    <p>We encourage creative thinking and experimentation to stay ahead of threats.</p>
+                </div>
+                
+                <div class="culture-card">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3588/3588656.png" alt="Transparency" class="culture-icon">
+                    <h3>Transparency</h3>
+                    <p>Open communication and honesty guide all our interactions.</p>
+                </div>
+                
+                <div class="culture-card">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3889/3889730.png" alt="Impact" class="culture-icon">
+                    <h3>Impact</h3>
+                    <p>We measure success by the security we provide to our customers.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials-section">
+        <div class="container">
+            <h2>Hear From Our Team</h2>
+            
+            <div class="testimonial-card">
+                <p class="testimonial-text">"What I love most about working at Binoculars is knowing that my work directly helps protect people from real threats. The team is incredibly supportive and the problems we solve are always challenging."</p>
+                <p class="testimonial-author"></p>
+                <p class="testimonial-role"></p>
+            </div>
+            
+            <div class="testimonial-card">
+                <p class="testimonial-text">"The culture here strikes the perfect balance between high expectations and genuine care for employees. I've grown more in my two years here than in my previous five at other companies."</p>
+                <p class="testimonial-author"></p>
+                <p class="testimonial-role"></p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
         <div class="footerLeft">
             <div class="footerMenu">
                 <h1 class="fMenuTitle">About Us</h1>
                 <ul class="fList">
                     <li class="fListItem">Company</li>
-                    <li class="fListItem">Security Experts</li>
+                    <li class="fListItem">Security Team</li>
                     <li class="fListItem">Careers</li>
                     <li class="fListItem">Partners</li>
                     <li class="fListItem">Press</li>
@@ -674,18 +703,18 @@
                 <h1 class="fMenuTitle">Support</h1>
                 <ul class="fList">
                     <li class="fListItem">Help Center</li>
-                    <li class="fListItem">Virus Removal Guides</li>
+                    <li class="fListItem">Tutorials</li>
                     <li class="fListItem">FAQ</li>
                     <li class="fListItem">Contact</li>
-                    <li class="fListItem">Security Blog</li>
+                    <li class="fListItem">Blog</li>
                 </ul>
             </div>
             <div class="footerMenu">
                 <h1 class="fMenuTitle">Products</h1>
                 <ul class="fList">
-                    <li class="fListItem">VirusGuard Home</li>
-                    <li class="fListItem">VirusGuard Pro</li>
-                    <li class="fListItem">Enterprise Protection</li>
+                    <li class="fListItem">Binoculars Basic</li>
+                    <li class="fListItem">Binoculars Pro</li>
+                    <li class="fListItem">Enterprise Suite</li>
                     <li class="fListItem">Mobile Security</li>
                     <li class="fListItem">VPN Service</li>
                 </ul>
@@ -695,64 +724,85 @@
             <div class="footerRightMenu">
                 <h1 class="fMenuTitle">Subscribe to our newsletter</h1>
                 <div class="fMail">
-                    <input type="text" placeholder="your@email.com" class="fInput" aria-label="Email address" />
-                    <button class="fButton" aria-label="Subscribe to newsletter">SUBSCRIBE</button>
+                    <input type="text" placeholder="your@email.com" class="fInput">
+                    <button class="fButton">SUBSCRIBE</button>
                 </div>
             </div>
             <div class="footerRightMenu">
                 <h1 class="fMenuTitle">Follow Us</h1>
                 <div class="fIcons">
-                    <img src="https://cdn-icons-png.flaticon.com/512/124/124010.png" alt="Facebook" class="fIcon" />
-                    <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter" class="fIcon" />
-                    <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram" class="fIcon" />
-                    <img src="https://cdn-icons-png.flaticon.com/512/1384/1384023.png" alt="YouTube" class="fIcon" />
+                    <a href="https://www.facebook.com/YourPage" target="_blank" rel="noopener noreferrer">
+                        <img src="https://cdn-icons-png.flaticon.com/512/124/124010.png" alt="Facebook" class="fIcon">
+                    </a>
+                    <a href="https://www.twitter.com/YourHandle" target="_blank" rel="noopener noreferrer">
+                        <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter" class="fIcon">
+                    </a>
+                    <a href="https://www.instagram.com/YourUsername" target="_blank" rel="noopener noreferrer">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram" class="fIcon">
+                    </a>
+                    <a href="https://www.youtube.com/YourChannel" target="_blank" rel="noopener noreferrer">
+                        <img src="https://cdn-icons-png.flaticon.com/512/1384/1384023.png" alt="YouTube" class="fIcon">
+                    </a>
                 </div>
             </div>
             <div class="footerRightMenu">
-                <span class="copyright">© 2025 VirusGuard Security. All rights reserved.</span>
+                <span class="copyright">© 2025 Binoculars Security. All rights reserved.</span>
             </div>
         </div>
     </footer>
 
     <script>
-        // Embedded JavaScript for theme toggle and form handling
-        const themeToggleBtn = document.getElementById('themeToggle');
-
-        // Theme toggle functionality
-        themeToggleBtn.addEventListener('click', () => {
-            document.body.classList.toggle('dark-theme');
-            // Save preference to localStorage
-            if(document.body.classList.contains('dark-theme')) {
-                localStorage.setItem('theme', 'dark');
-            } else {
-                localStorage.setItem('theme', 'light');
-            }
+        // Job filtering functionality
+        const filterButtons = document.querySelectorAll('.filter-button');
+        
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                button.classList.add('active');
+                
+                // In a real implementation, this would filter the job listings
+                // For now, we'll just log the filter
+                console.log(`Filtering by: ${button.textContent}`);
+            });
         });
 
-        // Load theme preference on page load
-        window.addEventListener('DOMContentLoaded', () => {
-            const savedTheme = localStorage.getItem('theme');
-            if(savedTheme === 'dark') {
-                document.body.classList.add('dark-theme');
+        // Careers search functionality
+        const careersSearchInput = document.querySelector('.searchInput');
+        const careersSearchIcon = document.querySelector('.searchIcon');
+        
+        careersSearchIcon.addEventListener('click', () => {
+            performCareersSearch(careersSearchInput.value);
+        });
+        
+        careersSearchInput.addEventListener('keyup', (e) => {
+            if (e.key === 'Enter') {
+                performCareersSearch(careersSearchInput.value);
             }
-            
-            // Simple job search functionality
-            const searchInput = document.querySelector('.searchInput');
-            const jobCards = document.querySelectorAll('.job-card');
-            
-            searchInput.addEventListener('input', (e) => {
-                const searchTerm = e.target.value.toLowerCase();
+        });
+        
+        function performCareersSearch(query) {
+            query = query.toLowerCase().trim();
+            console.log(`Searching careers for: ${query}`);
+            // In a real implementation, this would filter job listings
+            // or redirect to search results
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
                 
-                jobCards.forEach(card => {
-                    const title = card.querySelector('h3').textContent.toLowerCase();
-                    const description = card.querySelector('.job-description p').textContent.toLowerCase();
-                    
-                    if(title.includes(searchTerm) || description.includes(searchTerm)) {
-                        card.style.display = 'block';
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
             });
         });
     </script>
