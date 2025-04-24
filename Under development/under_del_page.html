@@ -6,38 +6,74 @@
   <title>Under Development</title>
   <style>
     body {
-      background-color: #f5f7fa;
+      background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
       margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Poppins', sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
       color: #333;
-    }
-    .container {
       text-align: center;
+      transition: background 0.5s ease;
     }
+
+    .container {
+      padding: 2rem;
+      background-color: white;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      width: 100%;
+      max-width: 400px;
+    }
+
     h1 {
-      font-size: 3rem;
-      margin-bottom: 1rem;
+      font-size: 2.5rem;
+      color: #2d3a3f;
+      margin-bottom: 1.5rem;
+      font-weight: 700;
     }
+
     p {
       font-size: 1.2rem;
       color: #666;
+      margin-bottom: 2rem;
     }
+
     .spinner {
       margin: 2rem auto;
-      border: 6px solid #ddd;
-      border-top: 6px solid #3498db;
+      border: 8px solid #f3f3f3;
+      border-top: 8px solid #3498db;
       border-radius: 50%;
       width: 60px;
       height: 60px;
-      animation: spin 1s linear infinite;
+      animation: spin 1.5s ease-in-out infinite;
     }
+
     @keyframes spin {
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
+    }
+
+    .cta-button {
+      padding: 0.8rem 2rem;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 30px;
+      font-size: 1rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .cta-button:hover {
+      background-color: #2980b9;
+    }
+
+    .cta-button:focus {
+      outline: none;
     }
   </style>
 </head>
@@ -45,7 +81,8 @@
   <div class="container">
     <div class="spinner"></div>
     <h1>Page Under Development</h1>
-    <p>We’re working hard to bring something awesome. Stay tuned!</p>
+    <p>We're working hard to bring something awesome. Stay tuned!</p>
+    <button class="cta-button" onclick="window.location.href='mailto:contact@yourdomain.com'">Contact Us</button>
   </div>
 </body>
 </html>
