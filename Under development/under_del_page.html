@@ -91,72 +91,340 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Under Development</title>
-  
+  <title>Under Development | Coming Soon</title>
+  <meta name="description" content="Our website is under development. Stay tuned for something amazing!" />
+
   <!-- Favicon -->
   <link rel="icon" href="https://example.com/favicon.ico" type="image/x-icon" />
-  
-  <!-- Google Fonts: Poppins -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
   <style>
-    body {
-      background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+    :root {
+      --primary-color: #4361ee;
+      --secondary-color: #3f37c9;
+      --accent-color: #4cc9f0;
+      --text-light: #f8f9fa;
+      --text-dark: #212529;
+      --shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
       margin: 0;
+      padding: 0;
+    }
+
+    body {
       font-family: 'Poppins', sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      color: #333;
-      text-align: center;
-      transition: background 0.5s ease;
+      min-height: 100vh;
+      background: linear-gradient(-45deg, #4361ee, #3f37c9, #4cc9f0, #4895ef);
+      background-size: 400% 400%;
+      animation: gradientBG 12s ease infinite;
+      color: var(--text-light);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
     .container {
-      padding: 2rem;
-      background-color: white;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-      border-radius: 10px;
-      width: 100%;
-      max-width: 400px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      background-color: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      box-shadow: var(--shadow);
+      padding: 3rem;
+      border-radius: 24px;
+      text-align: center;
+      max-width: 500px;
+      width: 90%;
+      transform-style: preserve-3d;
+      transition: all 0.5s ease;
+      z-index: 10;
     }
 
-    h1 {
+    .container:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    }
+
+    .logo {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 1.5rem;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-size: 2.5rem;
-      color: #2d3a3f;
-      margin-bottom: 1.5rem;
-      font-weight: 700;
+      color: white;
     }
 
-    p {
-      font-size: 1.2rem;
-      color: #666;
-      margin-bottom: 2rem;
+    .spinner-container {
+      position: relative;
+      width: 100px;
+      height: 100px;
+      margin: 2rem auto;
     }
 
     .spinner {
-      margin: 2rem auto;
-      border: 8px solid #f3f3f3;
-      border-top: 8px solid #3498db;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border: 8px solid transparent;
+      border-top-color: var(--accent-color);
       border-radius: 50%;
-      width: 60px;
-      height: 60px;
-      animation: spin 1.5s ease-in-out infinite;
+      animation: spin 1.5s linear infinite;
+    }
+
+    .spinner:nth-child(2) {
+      border: 8px solid transparent;
+      border-bottom-color: var(--accent-color);
+      animation: spinReverse 1.8s linear infinite;
     }
 
     @keyframes spin {
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
     }
+
+    @keyframes spinReverse {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(-360deg); }
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      font-weight: 700;
+      background: linear-gradient(to right, #fff, #c9d6ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      line-height: 1.2;
+    }
+
+    p {
+      font-size: 1.15rem;
+      margin-bottom: 2rem;
+      font-weight: 300;
+      opacity: 0.9;
+    }
+
+    .progress-container {
+      width: 100%;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 10px;
+      margin: 2rem 0;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 65%;
+      background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+      border-radius: 10px;
+      animation: progressAnimation 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes progressAnimation {
+      0% { width: 65%; }
+      100% { width: 75%; }
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .social-links a {
+      color: var(--text-light);
+      font-size: 1.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .social-links a:hover {
+      color: var(--accent-color);
+      transform: translateY(-3px);
+    }
+
+    .countdown {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+
+    .countdown-item {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 0.8rem;
+      border-radius: 10px;
+      min-width: 70px;
+    }
+
+    .countdown-value {
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
+
+    .countdown-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      opacity: 0.7;
+    }
+
+    .floating-elements {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: -1;
+    }
+
+    .floating-element {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 50%;
+      animation: float 15s linear infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0) rotate(0deg); }
+      100% { transform: translateY(-1000px) rotate(720deg); }
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 2rem 1.5rem;
+      }
+      
+      h1 {
+        font-size: 2rem;
+      }
+      
+      p {
+        font-size: 1rem;
+      }
+      
+      .countdown {
+        gap: 0.5rem;
+      }
+      
+      .countdown-item {
+        min-width: 60px;
+        padding: 0.6rem;
+      }
+      
+      .countdown-value {
+        font-size: 1.5rem;
+      }
+    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="spinner"></div>
-    <h1>Page Under Development</h1>
-    <p>We're working hard to bring something awesome. Stay tuned!</p>
+  <div class="floating-elements">
+    <!-- Floating background elements -->
+    <div class="floating-element" style="width: 30px; height: 30px; left: 10%; animation-delay: 0s;"></div>
+    <div class="floating-element" style="width: 20px; height: 20px; left: 25%; animation-delay: 2s; animation-duration: 12s;"></div>
+    <div class="floating-element" style="width: 40px; height: 40px; left: 45%; animation-delay: 4s;"></div>
+    <div class="floating-element" style="width: 25px; height: 25px; left: 65%; animation-delay: 1s; animation-duration: 18s;"></div>
+    <div class="floating-element" style="width: 35px; height: 35px; left: 85%; animation-delay: 3s; animation-duration: 14s;"></div>
   </div>
+
+  <div class="container">
+    <div class="logo">
+      <i class="fas fa-code"></i>
+    </div>
+    
+    <h1>Under Development</h1>
+    <p>We're crafting something extraordinary for you. Stay tuned for our grand launch!</p>
+    
+    <div class="spinner-container">
+      <div class="spinner"></div>
+      <div class="spinner"></div>
+    </div>
+    
+    <div class="progress-container">
+      <div class="progress-bar"></div>
+    </div>
+    
+    <div class="countdown">
+      <div class="countdown-item">
+        <div class="countdown-value">14</div>
+        <div class="countdown-label">Days</div>
+      </div>
+      <div class="countdown-item">
+        <div class="countdown-value">08</div>
+        <div class="countdown-label">Hours</div>
+      </div>
+      <div class="countdown-item">
+        <div class="countdown-value">42</div>
+        <div class="countdown-label">Mins</div>
+      </div>
+    </div>
+    
+    <div class="social-links">
+      <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+      <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+      <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+    </div>
+  </div>
+
+  <script>
+    // Simple countdown timer (for demo purposes)
+    function updateCountdown() {
+      // This is just a demo - replace with your actual launch date
+      const launchDate = new Date();
+      launchDate.setDate(launchDate.getDate() + 14);
+      
+      const now = new Date();
+      const diff = launchDate - now;
+      
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      
+      document.querySelector('.countdown-value:nth-child(1)').textContent = days.toString().padStart(2, '0');
+      document.querySelector('.countdown-value:nth-child(2)').textContent = hours.toString().padStart(2, '0');
+      document.querySelector('.countdown-value:nth-child(3)').textContent = minutes.toString().padStart(2, '0');
+    }
+    
+    // Update countdown every minute
+    updateCountdown();
+    setInterval(updateCountdown, 60000);
+    
+    // Create floating elements dynamically
+    document.addEventListener('DOMContentLoaded', function() {
+      const floatingContainer = document.querySelector('.floating-elements');
+      for (let i = 0; i < 10; i++) {
+        const element = document.createElement('div');
+        element.className = 'floating-element';
+        element.style.width = ${Math.random() * 30 + 10}px;
+        element.style.height = element.style.width;
+        element.style.left = ${Math.random() * 100}%;
+        element.style.animationDelay = ${Math.random() * 5}s;
+        element.style.animationDuration = ${Math.random() * 10 + 10}s;
+        floatingContainer.appendChild(element);
+      }
+    });
+  </script>
 </body>
 </html>
 
