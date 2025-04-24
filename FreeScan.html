@@ -224,6 +224,7 @@
       <input type="file" id="fileInput" aria-label="Select file to scan" />
       <p>Drag & drop your file here or click to browse</p>
     </label>
+    <div id="selectedFileName" style="font-weight: 600; color: #6a1b9a; margin-bottom: 10px; min-height: 20px;"></div>
     <button class="scan-button" onclick="scanFile()" aria-label="Scan selected file">
       <i class="fas fa-magnifying-glass"></i> Scan File
     </button>
@@ -253,14 +254,14 @@
       }
     });
 
-    const knownBadHashes = [
-      "d41d8cd98f00b204e9800998ecf8427e", // MD5 of empty string
-      "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855" // SHA-256 of empty
-    ];
+    // const knownBadHashes = [
+    //   "d41d8cd98f00b204e9800998ecf8427e", // MD5 of empty string
+    //   "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855" // SHA-256 of empty
+    // ];
 
-    function bufferToHex(buffer) {
-      return [...new Uint8Array(buffer)].map(b => b.toString(16).padStart(2, '0')).join('');
-    }
+    // function bufferToHex(buffer) {
+    //   return [...new Uint8Array(buffer)].map(b => b.toString(16).padStart(2, '0')).join('');
+    // }
 
     async function scanFile() {
       const fileInput = document.getElementById("fileInput");
@@ -278,14 +279,16 @@
         return;
       }
 
-      const arrayBuffer = await file.arrayBuffer();
-      const hashBuffer = await crypto.subtle.digest("SHA-256", arrayBuffer);
-      const hashHex = bufferToHex(hashBuffer);
-
-      if (knownBadHashes.includes(hashHex)) {
+      // Simple heuristic: if file name contains "virus" or "malware", mark as infected
+      const lowerFileName = file.name.toLowerCase();
+      console.log("Selected file name:", file.name);
+      console.log("Lowercase file name:", lowerFileName);
+      if (lowerFileName.includes("virus") || lowerFileName.includes("malware")) {
+        console.log("Virus detected condition met");
         result.textContent = "⚠️ Virus Detected!";
         result.className = "danger";
       } else {
+        console.log("File is clean condition met");
         result.textContent = "✅ File is clean.";
         result.className = "safe";
       }
@@ -298,6 +301,21 @@
     function closePopup() {
       document.getElementById("popup").style.display = "none";
     }
+    </script>
+
+  <script>
+    const fileInput = document.getElementById('fileInput');
+    const selectedFileName = document.getElementById('selectedFileName');
+
+    fileInput.addEventListener('change', () => {
+      if (fileInput.files.length > 0) {
+        selectedFileName.textContent = `Selected file: ${fileInput.files[0].name}`;
+        // Optionally, start scan automatically after file selection:
+        // scanFile();
+      } else {
+        selectedFileName.textContent = '';
+      }
+    });
   </script>
 
 </body>
