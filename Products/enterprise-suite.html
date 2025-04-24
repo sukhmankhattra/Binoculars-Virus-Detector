@@ -1,521 +1,667 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Binoculars Enterprise Suite | Integrated Enterprise Security Solutions</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <style>
-    :root {
-      --primary: #3a7bd5;
-      --primary-dark: #2b5ca8;
-      --danger: #e74c3c;
-      --success: #2ecc71;
-      --warning: #f39c12;
-      --bg-light: #f4f6fa;
-      --bg-dark: #121212;
-      --card-bg-light: rgba(255, 255, 255, 0.95);
-      --card-bg-dark: rgba(30, 30, 30, 0.95);
-      --border-radius: 16px;
-      --text-light: #333;
-      --text-dark: #f0f0f0;
-      --shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
-    }
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Binoculars Security - Enterprise Suite</title>
+    <meta name="description" content="Secure your mobile devices with Binoculars Security's comprehensive protection for Android and iOS.">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet" />
+    <style>
+        :root {
+            --bg-color-light: #f5f5f5;
+            --text-color-light: #333;
+            --nav-bg-light: #121212;
+            --nav-text-light: white;
+            --accent-color-light: #4a90e2;
+            --accent-hover-light: #3a7bc8;
+            --footer-bg-light: white;
+            --footer-text-light: #555;
+            --card-bg-light: white;
+            --success-color: #34a853;
+            --warning-color: #fbbc05;
+            --danger-color: #ea4335;
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+            --bg-color-dark: #121212;
+            --text-color-dark: #ddd;
+            --nav-bg-dark: #1e1e1e;
+            --nav-text-dark: #ddd;
+            --accent-color-dark: #4a90e2;
+            --accent-hover-dark: #3a7bc8;
+            --footer-bg-dark: #1e1e1e;
+            --card-bg-dark: #222;
+        }
 
-    body {
-      font-family: 'Segoe UI', 'Roboto', sans-serif;
-      margin: 0;
-      padding: 0;
-      min-height: 100vh;
-      background: linear-gradient(135deg, #667eea, #764ba2, #4ca1af);
-      background-size: 400% 400%;
-      animation: gradientAnimation 15s ease infinite;
-      display: flex;
-      flex-direction: column;
-      transition: background-color 0.3s ease, color 0.3s ease;
-      color: var(--text-light);
-    }
+        body {
+            margin: 0;
+            font-family: 'Lato', sans-serif;
+            background-color: var(--bg-color-light);
+            color: var(--text-color-light);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
 
-    @keyframes gradientAnimation {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
+        body.dark-theme {
+            background-color: var(--bg-color-dark);
+            color: var(--text-color-dark);
+        }
 
-    nav {
-      background-color: var(--card-bg-light);
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: var(--shadow);
-      border-radius: var(--border-radius);
-      margin: 1rem 2rem 0 2rem;
-      transition: background-color 0.3s ease, color 0.3s ease;
-    }
+        #nav {
+            display: flex;
+            flex-direction: column;
+            background-color: var(--nav-bg-light);
+            color: var(--nav-text-light);
+            padding: 10px 50px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
 
-    nav.dark {
-      background-color: var(--card-bg-dark);
-      color: var(--text-dark);
-    }
+        body.dark-theme #nav {
+            background-color: var(--nav-bg-dark);
+            color: var(--nav-text-dark);
+        }
 
-    nav .logo {
-      font-weight: 700;
-      font-size: 1.5rem;
-      color: var(--primary);
-      cursor: pointer;
-      user-select: none;
-    }
+        .navTop {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 20px 0;
+        }
 
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 1.5rem;
-    }
+        .navItem {
+            display: flex;
+            align-items: center;
+            margin-left: 20px;
+        }
 
-    nav ul li {
-      cursor: pointer;
-      font-weight: 600;
-      color: var(--text-light);
-      transition: color 0.3s ease;
-    }
+        .limitedOffer {
+            background-color: var(--accent-color-light);
+            padding: 5px 15px;
+            border-radius: 30px;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 12px;
+            color: white;
+            transition: background-color 0.3s ease;
+        }
 
-    nav.dark ul li {
-      color: var(--text-dark);
-    }
+        body.dark-theme .limitedOffer {
+            background-color: var(--accent-color-dark);
+        }
 
-    nav ul li:hover {
-      color: var(--primary-dark);
-    }
+        button#themeToggle {
+            background-color: transparent;
+            border: 2px solid var(--accent-color-light);
+            color: var(--accent-color-light);
+            padding: 6px 15px;
+            border-radius: 30px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
 
-    .container {
-      backdrop-filter: blur(16px) saturate(180%);
-      background-color: var(--card-bg-light);
-      padding: 2.5rem 3rem;
-      border-radius: var(--border-radius);
-      box-shadow: var(--shadow);
-      width: 90%;
-      max-width: 1000px;
-      margin: 2rem auto 4rem auto;
-      transition: all 0.4s ease;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      color: var(--text-light);
-    }
+        button#themeToggle:hover {
+            background-color: var(--accent-hover-light);
+            color: white;
+            border-color: var(--accent-hover-light);
+        }
 
-    .container.dark {
-      background-color: var(--card-bg-dark);
-      color: var(--text-dark);
-    }
+        body.dark-theme button#themeToggle {
+            border-color: var(--accent-color-dark);
+            color: var(--accent-color-dark);
+        }
 
-    h1 {
-      margin-bottom: 1rem;
-      font-weight: 800;
-      color: var(--primary);
-      text-align: center;
-      font-size: 2.5rem;
-    }
+        body.dark-theme button#themeToggle:hover {
+            background-color: var(--accent-hover-dark);
+            color: white;
+            border-color: var(--accent-hover-dark);
+        }
 
-    p.description {
-      font-size: 1.2rem;
-      margin-bottom: 3rem;
-      text-align: center;
-      opacity: 0.9;
-      max-width: 700px;
-      margin-left: auto;
-      margin-right: auto;
-    }
+        .navBottom {
+            display: flex;
+            justify-content: center;
+            padding: 15px 0;
+        }
 
-    .features {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 2.5rem;
-      justify-content: center;
-      margin-bottom: 3rem;
-    }
+        .menuItem {
+            margin: 0 25px;
+            cursor: pointer;
+            font-weight: 400;
+            color: #aaa;
+            transition: all 0.3s ease;
+        }
 
-    .feature-item {
-      background-color: var(--bg-light);
-      border-radius: 14px;
-      padding: 2rem 1.5rem;
-      width: 280px;
-      box-shadow: var(--shadow);
-      text-align: center;
-      transition: background-color 0.3s ease, color 0.3s ease;
-      cursor: default;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1rem;
-    }
+        .menuItem:hover {
+            color: white;
+        }
 
-    .container.dark .feature-item {
-      background-color: #222;
-      color: var(--text-dark);
-    }
+        header.mobile-header {
+            text-align: center;
+            padding: 3rem 1rem;
+            background: linear-gradient(135deg, var(--accent-color-light), #2a5298);
+            color: white;
+        }
 
-    .feature-item i {
-      font-size: 3rem;
-      color: var(--primary);
-      margin-bottom: 0.5rem;
-    }
+        body.dark-theme header.mobile-header {
+            background: linear-gradient(135deg, var(--accent-color-dark), #1a3a72);
+        }
 
-    .feature-item h3 {
-      margin-bottom: 0.5rem;
-      font-weight: 700;
-      font-size: 1.25rem;
-    }
+        header.mobile-header h1 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+        }
 
-    .feature-item p {
-      font-size: 1rem;
-      opacity: 0.85;
-      flex-grow: 1;
-    }
+        header.mobile-header p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
 
-    .benefits {
-      max-width: 800px;
-      margin: 0 auto 3rem auto;
-      font-size: 1.1rem;
-      line-height: 1.5;
-      text-align: center;
-      opacity: 0.9;
-    }
+        main.mobile-main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
 
-    .cta {
-      text-align: center;
-    }
+        .protection-status {
+            background: var(--card-bg-light);
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: background-color 0.3s ease;
+        }
 
-    .cta button {
-      background: linear-gradient(135deg, #4ca1af, #3498db);
-      color: white;
-      border: none;
-      padding: 1.2rem 3rem;
-      font-size: 1.2rem;
-      font-weight: 700;
-      border-radius: 14px;
-      cursor: pointer;
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
-      transition: all 0.3s ease;
-    }
+        body.dark-theme .protection-status {
+            background: var(--card-bg-dark);
+        }
 
-    .cta button:hover {
-      background: linear-gradient(135deg, #5db4d4, #2980b9);
-      transform: translateY(-4px);
-      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
-    }
+        .status-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
 
-    .toggle-theme {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      z-index: 100;
-    }
+        .status-icon {
+            font-size: 2rem;
+            margin-right: 1rem;
+            color: var(--success-color);
+        }
 
-    .theme-label-box {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 0.5rem;
-      padding: 8px 12px;
-      background-color: rgba(255, 255, 255, 0.2);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      border-radius: 8px;
-      color: #333333;
-      font-size: 0.85rem;
-      font-weight: 500;
-      text-align: center;
-      transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
-      cursor: pointer;
-    }
+        .status-warning .status-icon {
+            color: var(--warning-color);
+        }
 
-    .theme-label-box:hover {
-      box-shadow: 0 0 15px rgba(58, 123, 213, 0.8), 0 0 30px rgba(58, 123, 213, 0.5);
-    }
+        .status-danger .status-icon {
+            color: var(--danger-color);
+        }
 
-    .container.dark .theme-label-box {
-      background-color: rgba(0, 0, 0, 0.5);
-      color: var(--text-dark);
-    }
+        .status-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0;
+        }
 
-    .switch {
-      position: relative;
-      display: inline-block;
-      width: 50px;
-      height: 24px;
-    }
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
 
-    .switch input {
-      opacity: 0;
-      width: 0;
-      height: 0;
-    }
+        .status-item {
+            display: flex;
+            align-items: center;
+        }
 
-    .slider {
-      position: absolute;
-      cursor: pointer;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: rgba(255, 255, 255, 0.3);
-      border-radius: 24px;
-      transition: 0.4s;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 5px;
-    }
+        .status-item i {
+            font-size: 1.2rem;
+            margin-right: 0.8rem;
+            color: var(--accent-color-light);
+        }
 
-    .slider:before {
-      position: absolute;
-      content: "";
-      height: 18px;
-      width: 18px;
-      left: 3px;
-      bottom: 3px;
-      background-color: white;
-      border-radius: 50%;
-      transition: 0.4s;
-    }
+        body.dark-theme .status-item i {
+            color: var(--accent-color-dark);
+        }
 
-    .slider i {
-      font-size: 12px;
-      transition: opacity 0.3s ease, color 0.3s ease;
-    }
+        .mobile-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
 
-    input:checked + .slider {
-      background-color: var(--primary);
-    }
+        .feature-card {
+            background: var(--card-bg-light);
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
 
-    input:checked + .slider:before {
-      transform: translateX(26px);
-    }
+        body.dark-theme .feature-card {
+            background: var(--card-bg-dark);
+        }
 
-    input:checked + .slider #moonIcon {
-      opacity: 0;
-    }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
 
-    input:checked + .slider #sunIcon {
-      opacity: 1;
-    }
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--accent-color-light);
+            margin-bottom: 1rem;
+        }
 
-    .footer {
-      background-color: var(--card-bg-light);
-      padding: 2rem;
-      border-radius: var(--border-radius);
-      box-shadow: var(--shadow);
-      margin: 0 2rem 2rem 2rem;
-      color: var(--text-light);
-      transition: background-color 0.3s ease, color 0.3s ease;
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 2rem;
-    }
+        body.dark-theme .feature-icon {
+            color: var(--accent-color-dark);
+        }
 
-    .footer.dark {
-      background-color: var(--card-bg-dark);
-      color: var(--text-dark);
-    }
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin: 0 0 1rem 0;
+        }
 
-    .footer-section {
-      flex: 1 1 200px;
-      min-width: 200px;
-    }
+        .feature-card p {
+            margin: 0;
+            color: var(--text-color-light);
+        }
 
-    .footer-section h3 {
-      margin-bottom: 1rem;
-      color: var(--primary);
-    }
+        body.dark-theme .feature-card p {
+            color: var(--text-color-dark);
+        }
 
-    .footer-section ul {
-      list-style: none;
-      padding: 0;
-    }
+        .download-section {
+            text-align: center;
+            margin: 4rem 0;
+        }
 
-    .footer-section ul li {
-      margin-bottom: 0.5rem;
-      cursor: pointer;
-      color: var(--text-light);
-      transition: color 0.3s ease;
-    }
+        .download-section h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
 
-    .footer.dark .footer-section ul li {
-      color: var(--text-dark);
-    }
+        .download-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
 
-    .footer-section ul li:hover {
-      color: var(--primary-dark);
-    }
+        .download-btn {
+            display: flex;
+            align-items: center;
+            background-color: var(--accent-color-light);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
 
-    @media (max-width: 768px) {
-      .features {
-        flex-direction: column;
-        align-items: center;
-      }
+        body.dark-theme .download-btn {
+            background-color: var(--accent-color-dark);
+        }
 
-      nav, .container, .footer {
-        margin: 1rem;
-      }
-    }
-  </style>
+        .download-btn:hover {
+            background-color: var(--accent-hover-light);
+            transform: translateY(-2px);
+        }
+
+        body.dark-theme .download-btn:hover {
+            background-color: var(--accent-hover-dark);
+        }
+
+        .download-btn i {
+            font-size: 1.8rem;
+            margin-right: 1rem;
+        }
+
+        footer {
+            display: flex;
+            padding: 50px;
+            background-color: var(--footer-bg-light);
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 2rem;
+            transition: background-color 0.3s ease;
+        }
+
+        body.dark-theme footer {
+            background-color: var(--footer-bg-dark);
+        }
+
+        .footerLeft {
+            flex: 2;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .footerRight {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .footerMenu {
+            min-width: 150px;
+        }
+
+        .fMenuTitle {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--text-color-light);
+        }
+
+        body.dark-theme .fMenuTitle {
+            color: var(--text-color-dark);
+        }
+
+        .fList {
+            list-style: none;
+        }
+
+        .fListItem {
+            margin-bottom: 10px;
+            color: #555;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-theme .fListItem {
+            color: #aaa;
+        }
+
+        .fListItem:hover {
+            color: var(--accent-color-light);
+        }
+
+        body.dark-theme .fListItem:hover {
+            color: var(--accent-color-dark);
+        }
+
+        .fIcons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .fIcon {
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .fIcon:hover {
+            transform: scale(1.2);
+        }
+
+        .copyright {
+            color: #777;
+            font-size: 14px;
+            margin-top: 20px;
+        }
+
+        body.dark-theme .copyright {
+            color: #aaa;
+        }
+
+        @media screen and (max-width: 768px) {
+            #nav {
+                padding: 10px 20px;
+            }
+
+            .navTop {
+                flex-direction: column;
+                align-items: flex-end;
+                gap: 10px;
+            }
+
+            .navItem {
+                margin: 0;
+            }
+
+            .navBottom {
+                flex-wrap: wrap;
+            }
+
+            .menuItem {
+                margin: 10px;
+                font-size: 0.9rem;
+            }
+
+            .mobile-features {
+                grid-template-columns: 1fr;
+            }
+
+            .status-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .download-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            footer {
+                flex-direction: column;
+                padding: 30px 20px;
+            }
+
+            .footerLeft {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
+    <nav id="nav" role="navigation" aria-label="Primary Navigation">
+        <div class="navTop">
+            <div class="navItem">
+                <span class="limitedOffer">FREE TRIAL</span>
+            </div>
+            <div class="navItem">
+                <button id="themeToggle" aria-label="Toggle light and dark theme">Toggle Theme</button>
+            </div>
+            <div class="navItem">
+                <button onclick="window.location.href='login.html'" style="background-color: var(--accent-color-light); color: white; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer;">Sign In</button>
+            </div>
+        </div>
+        <div class="navBottom" role="menubar" aria-label="Secondary Navigation">
+            <h3 class="menuItem" role="menuitem" tabindex="0">PROTECTION</h3>
+            <h3 class="menuItem" role="menuitem" tabindex="0">ANTI-THEFT</h3>
+            <h3 class="menuItem" role="menuitem" tabindex="0">PRIVACY</h3>
+            <h3 class="menuItem" role="menuitem" tabindex="0">PERFORMANCE</h3>
+            <h3 class="menuItem" role="menuitem" tabindex="0">SETTINGS</h3>
+        </div>
+    </nav>
 
-  <nav id="mainNav">
-    <div class="logo" tabindex="0" role="link" aria-label="Binoculars Home" onclick="location.href='index.html'">Binoculars</div>
-    <ul>
-      <li tabindex="0" role="link" onclick="location.href='index.html'">Home</li>
-      <li tabindex="0" role="link" onclick="location.href='Products/vpn.html'">VPN Service</li>
-      <li tabindex="0" role="link" onclick="location.href='FreeScan.html'">Free Scan</li>
-      <li tabindex="0" role="link" onclick="location.href='support/blog.html'">Blog</li>
-      <li tabindex="0" role="link" onclick="location.href='aboutus/aboutus-mainpage.html'">About Us</li>
-    </ul>
-  </nav>
+    <header class="mobile-header" role="banner">
+        <h1>Mobile Security</h1>
+        <p>Comprehensive protection for your Android and iOS devices against malware, theft, and privacy threats</p>
+    </header>
 
-  <div class="container" id="enterpriseSuiteContainer">
-    <h1><i class="fa-solid fa-building-columns"></i> Binoculars Enterprise Suite</h1>
-    <p class="description">An integrated suite of enterprise-grade security and management tools designed to protect, monitor, and optimize your organization's IT infrastructure.</p>
+    <main class="mobile-main">
+        <div class="protection-status">
+            <div class="status-header">
+                <i class="fas fa-shield-alt status-icon"></i>
+                <h2 class="status-title">Your Protection Status</h2>
+            </div>
+            <div class="status-grid">
+                <div class="status-item">
+                    <i class="fas fa-shield-virus"></i>
+                    <div>
+                        <div>Real-Time Protection</div>
+                        <span>Active</span>
+                    </div>
+                </div>
+                <div class="status-item">
+                    <i class="fas fa-clock"></i>
+                    <div>
+                        <div>Last Scan</div>
+                        <span>Today, 11:24 AM</span>
+                    </div>
+                </div>
+                <div class="status-item">
+                    <i class="fas fa-bug"></i>
+                    <div>
+                        <div>Threats Blocked</div>
+                        <span>42 this week</span>
+                    </div>
+                </div>
+                <div class="status-item">
+                    <i class="fas fa-database"></i>
+                    <div>
+                        <div>Virus Database</div>
+                        <span>Up to date</span>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    <section class="features" aria-label="Enterprise Suite Modules">
-      <article class="feature-item" tabindex="0">
-        <i class="fa-solid fa-shield-virus"></i>
-        <h3>Unified Threat Management</h3>
-        <p>Comprehensive protection against malware, ransomware, phishing, and advanced persistent threats across all endpoints and networks.</p>
-      </article>
-      <article class="feature-item" tabindex="0">
-        <i class="fa-solid fa-network-wired"></i>
-        <h3>Network & Endpoint Security</h3>
-        <p>Robust firewall, intrusion detection, and endpoint protection to secure your entire IT environment.</p>
-      </article>
-      <article class="feature-item" tabindex="0">
-        <i class="fa-solid fa-cloud"></i>
-        <h3>Cloud Security & Compliance</h3>
-        <p>Ensure data protection and regulatory compliance across cloud platforms with encryption, monitoring, and audit capabilities.</p>
-      </article>
-      <article class="feature-item" tabindex="0">
-        <i class="fa-solid fa-chart-line"></i>
-        <h3>Advanced Analytics & Reporting</h3>
-        <p>Gain actionable insights with real-time dashboards, threat intelligence, and compliance reporting.</p>
-      </article>
-      <article class="feature-item" tabindex="0">
-        <i class="fa-solid fa-user-shield"></i>
-        <h3>Access & Identity Management</h3>
-        <p>Centralized control over user access, multi-factor authentication, and role-based permissions.</p>
-      </article>
-      <article class="feature-item" tabindex="0">
-        <i class="fa-solid fa-headset"></i>
-        <h3>24/7 Enterprise Support</h3>
-        <p>Dedicated support team available around the clock to assist with deployment, management, and incident response.</p>
-      </article>
-    </section>
+        <h2 style="text-align: center; margin-bottom: 1rem;">Key Security Features</h2>
+        <p style="text-align: center; max-width: 700px; margin: 0 auto 2rem; color: var(--text-color-light);">Our mobile security suite provides complete protection for your device and personal data</p>
 
-    <div class="benefits">
-      <p>Binoculars Enterprise Suite empowers your organization with scalable, integrated security solutions that simplify management, enhance protection, and ensure compliance across all your IT assets.</p>
-    </div>
+        <div class="mobile-features">
+            <div class="feature-card">
+                <i class="fas fa-shield-alt feature-icon"></i>
+                <h3>Malware Protection</h3>
+                <p>Real-time scanning for viruses, spyware, and other mobile threats with automatic updates.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-map-marker-alt feature-icon"></i>
+                <h3>Anti-Theft</h3>
+                <p>Locate, lock or wipe your lost device remotely to protect your personal information.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-lock feature-icon"></i>
+                <h3>App Privacy</h3>
+                <p>See which apps are accessing your data and block unnecessary permissions.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-wifi feature-icon"></i>
+                <h3>Wi-Fi Security</h3>
+                <p>Automatically detects unsafe networks and protects your connection.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-bolt feature-icon"></i>
+                <h3>Performance Boost</h3>
+                <p>Clean junk files and optimize memory to keep your device running smoothly.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-sms feature-icon"></i>
+                <h3>Call & SMS Filter</h3>
+                <p>Block unwanted calls and spam messages automatically.</p>
+            </div>
+        </div>
 
-    <div class="cta">
-      <button onclick="location.href='signup.html'">Contact Sales</button>
-    </div>
-  </div>
+        <div class="download-section">
+            <h2>Get Protected Today</h2>
+            <p>Download Binoculars Mobile Security for your device</p>
+            <div class="download-buttons">
+                <a href="#" class="download-btn">
+                    <i class="fab fa-google-play"></i>
+                    <div>
+                        <div style="font-size: 0.8rem;">GET IT ON</div>
+                        <div>Google Play</div>
+                    </div>
+                </a>
+                <a href="#" class="download-btn">
+                    <i class="fab fa-apple"></i>
+                    <div>
+                        <div style="font-size: 0.8rem;">Download on the</div>
+                        <div>App Store</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </main>
 
-  <div class="toggle-theme" role="region" aria-label="Toggle dark and light theme">
-    <div class="theme-label-box" tabindex="0" role="button" aria-pressed="false" onclick="toggleTheme()">
-      <i class="fas fa-moon" id="moonIcon"></i>
-      <span>Dark Mode</span>
-      <label class="switch">
-        <input type="checkbox" id="themeToggleSwitch" aria-label="Toggle dark mode" />
-        <span class="slider"></span>
-      </label>
-      <i class="fas fa-sun" id="sunIcon"></i>
-    </div>
-  </div>
+    <footer role="contentinfo">
+        <div class="footerLeft">
+            <div class="footerMenu">
+                <h1 class="fMenuTitle">Products</h1>
+                <ul class="fList">
+                    <li class="fListItem">Mobile Security</li>
+                    <li class="fListItem">VPN Service</li>
+                    <li class="fListItem">Password Manager</li>
+                    <li class="fListItem">Family Protection</li>
+                </ul>
+            </div>
+            <div class="footerMenu">
+                <h1 class="fMenuTitle">Support</h1>
+                <ul class="fList">
+                    <li class="fListItem">Help Center</li>
+                    <li class="fListItem">Contact Us</li>
+                    <li class="fListItem">FAQ</li>
+                    <li class="fListItem">System Requirements</li>
+                </ul>
+            </div>
+            <div class="footerMenu">
+                <h1 class="fMenuTitle">Company</h1>
+                <ul class="fList">
+                    <li class="fListItem">About Us</li>
+                    <li class="fListItem">Press</li>
+                    <li class="fListItem">Careers</li>
+                    <li class="fListItem">Partners</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footerRight">
+            <div class="footerMenu">
+                <h1 class="fMenuTitle">Follow Us</h1>
+                <div class="fIcons">
+                    <img src="https://cdn-icons-png.flaticon.com/512/124/124010.png" alt="Facebook" class="fIcon">
+                    <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter" class="fIcon">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram" class="fIcon">
+                </div>
+            </div>
+            <div class="copyright">
+                © 2025 Binoculars Security. All rights reserved.
+            </div>
+        </div>
+    </footer>
 
-  <footer class="footer" role="contentinfo" aria-label="Site Footer">
-    <section class="footer-section" aria-label="About Us">
-      <h3>About Us</h3>
-      <ul>
-        <li tabindex="0" role="link" onclick="location.href='aboutus/aboutus-mainpage.html'">Company</li>
-        <li tabindex="0" role="link" onclick="location.href='aboutus/securityteam.html'">Security Team</li>
-        <li tabindex="0" role="link" onclick="location.href='aboutus/Careers.html'">Careers</li>
-        <li tabindex="0" role="link" onclick="location.href='aboutus/partners.html'">Partners</li>
-        <li tabindex="0" role="link" onclick="location.href='aboutus/press.html'">Press</li>
-      </ul>
-    </section>
-    <section class="footer-section" aria-label="Support">
-      <h3>Support</h3>
-      <ul>
-        <li tabindex="0" role="link" onclick="location.href='support/help center.html'">Help Center</li>
-        <li tabindex="0" role="link" onclick="location.href='support/tutorials.html'">Tutorials</li>
-        <li tabindex="0" role="link" onclick="location.href='support/FAQ.html'">FAQ</li>
-        <li tabindex="0" role="link" onclick="location.href='support/contact us.html'">Contact</li>
-        <li tabindex="0" role="link" onclick="location.href='support/blog.html'">Blog</li>
-      </ul>
-    </section>
-    <section class="footer-section" aria-label="Products">
-      <h3>Products</h3>
-      <ul>
-        <li tabindex="0" role="link" onclick="location.href='FreeScan.html'">Binoculars Basic</li>
-        <li tabindex="0" role="link" onclick="location.href='PRO/Windows.html'">Binoculars Pro</li>
-        <li tabindex="0" role="link" onclick="location.href='PRO/Windows.html'">Enterprise Suite</li>
-        <li tabindex="0" role="link" onclick="location.href='Products/mobile-security.html'">Mobile Security</li>
-        <li tabindex="0" role="link" onclick="location.href='Products/vpn.html'">VPN Service</li>
-      </ul>
-    </section>
-  </footer>
+    <script>
+        // Theme toggle functionality
+        const themeToggleBtn = document.getElementById('themeToggle');
+        
+        themeToggleBtn.addEventListener('click', () => {
+            document.body.classList.toggle('dark-theme');
+            localStorage.setItem('theme', document.body.classList.contains('dark-theme') ? 'dark' : 'light');
+        });
 
-  <script>
-    const themeToggleSwitch = document.getElementById('themeToggleSwitch');
-    const body = document.body;
-    const container = document.querySelector('.container');
-    const nav = document.getElementById('mainNav');
-    const footer = document.querySelector('.footer');
-    const themeLabelBox = document.querySelector('.theme-label-box');
+        // Check for saved theme preference
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark-theme');
+        }
 
-    function toggleTheme() {
-      const isDark = themeToggleSwitch.checked;
-      if (isDark) {
-        body.style.background = 'linear-gradient(135deg, #121212, #2b2b2b, #121212)';
-        body.style.color = 'var(--text-dark)';
-        container.classList.add('dark');
-        nav.classList.add('dark');
-        footer.classList.add('dark');
-        themeLabelBox.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-        themeLabelBox.style.color = 'var(--text-dark)';
-        themeLabelBox.setAttribute('aria-pressed', 'true');
-      } else {
-        body.style.background = 'linear-gradient(135deg, #667eea, #764ba2, #4ca1af)';
-        body.style.color = 'var(--text-light)';
-        container.classList.remove('dark');
-        nav.classList.remove('dark');
-        footer.classList.remove('dark');
-        themeLabelBox.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
-        themeLabelBox.style.color = '#333333';
-        themeLabelBox.setAttribute('aria-pressed', 'false');
-      }
-    }
-
-    themeToggleSwitch.addEventListener('change', toggleTheme);
-
-    // Load saved theme preference
-    window.addEventListener('DOMContentLoaded', () => {
-      const savedTheme = localStorage.getItem('themePreference');
-      if (savedTheme === 'dark') {
-        themeToggleSwitch.checked = true;
-        toggleTheme();
-      }
-    });
-
-    // Save theme preference on toggle
-    themeToggleSwitch.addEventListener('change', () => {
-      localStorage.setItem('themePreference', themeToggleSwitch.checked ? 'dark' : 'light');
-    });
-  </script>
-
+        // Simulate changing protection status for demo
+        setInterval(() => {
+            const statusIcon = document.querySelector('.status-icon');
+            const statusTitle = document.querySelector('.status-title');
+            
+            // Randomly change status for demo
+            if (Math.random() > 0.8) {
+                statusIcon.className = 'fas fa-exclamation-triangle status-icon status-warning';
+                statusTitle.textContent = 'Security Warning';
+            } else if (Math.random() > 0.9) {
+                statusIcon.className = 'fas fa-times-circle status-icon status-danger';
+                statusTitle.textContent = 'Security Risk Detected';
+            } else {
+                statusIcon.className = 'fas fa-shield-alt status-icon';
+                statusTitle.textContent = 'Your Protection Status';
+            }
+        }, 5000);
+    </script>
 </body>
 </html>
