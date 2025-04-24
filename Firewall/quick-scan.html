@@ -6,7 +6,6 @@
   <title>Binoculars Quick Scan | Fast Threat Detection</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
-    /* Root variables for colors, shadows, and layout */
     :root {
       --primary: #3a7bd5;
       --primary-dark: #2b5ca8;
@@ -24,14 +23,12 @@
       --max-width: 1100px;
     }
 
-    /* Reset box sizing and margin/padding */
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
 
-    /* Body styles with animated gradient background */
     body {
       font-family: 'Segoe UI', 'Roboto', sans-serif;
       background: linear-gradient(135deg, #667eea, #764ba2, #4ca1af);
@@ -44,14 +41,12 @@
       transition: background-color 0.3s ease, color 0.3s ease;
     }
 
-    /* Gradient animation keyframes */
     @keyframes gradientAnimation {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
 
-    /* Navigation bar styles */
     nav {
       background-color: var(--card-bg-light);
       padding: 1rem 2rem;
@@ -64,13 +59,11 @@
       transition: background-color 0.3s ease, color 0.3s ease;
     }
 
-    /* Dark mode nav styles */
     nav.dark {
       background-color: var(--card-bg-dark);
       color: var(--text-dark);
     }
 
-    /* Logo styles */
     nav .logo {
       font-weight: 700;
       font-size: 1.5rem;
@@ -79,7 +72,6 @@
       user-select: none;
     }
 
-    /* Navigation list styles */
     nav ul {
       list-style: none;
       display: flex;
@@ -101,7 +93,6 @@
       color: var(--primary-dark);
     }
 
-    /* Main content container styles */
     main {
       flex: 1;
       max-width: var(--max-width);
@@ -115,13 +106,11 @@
       text-align: center;
     }
 
-    /* Dark mode main styles */
     main.dark {
       background-color: var(--card-bg-dark);
       color: var(--text-dark);
     }
 
-    /* Header styles */
     header {
       margin-bottom: 2rem;
     }
@@ -138,7 +127,6 @@
       animation: float 3s ease-in-out infinite;
     }
 
-    /* Floating animation for header icon */
     @keyframes float {
       0%, 100% {
         transform: translateY(0);
@@ -148,7 +136,6 @@
       }
     }
 
-    /* Header paragraph styles */
     header p {
       font-size: 1.2rem;
       opacity: 0.9;
@@ -156,7 +143,57 @@
       margin: 0 auto;
     }
 
-    /* Form styles */
+    .scan-options {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .scan-option {
+      background-color: var(--bg-light);
+      border-radius: 12px;
+      padding: 1.5rem;
+      width: 180px;
+      box-shadow: var(--shadow);
+      text-align: center;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border: 2px solid transparent;
+    }
+
+    main.dark .scan-option {
+      background-color: #222;
+      color: var(--text-dark);
+    }
+
+    .scan-option:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+      border-color: var(--primary);
+    }
+
+    .scan-option.active {
+      background-color: var(--primary);
+      color: white;
+    }
+
+    .scan-option i {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .scan-option h3 {
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+    }
+
+    .scan-option p {
+      font-size: 0.85rem;
+      opacity: 0.85;
+    }
+
     form {
       margin-top: 2rem;
       max-width: 600px;
@@ -172,12 +209,10 @@
       margin-bottom: 0.5rem;
     }
 
-    /* Hide default file input */
     input[type="file"] {
       display: none;
     }
 
-    /* Drop zone styles for drag and drop */
     .drop-zone {
       border: 2px dashed var(--primary);
       padding: 2rem;
@@ -197,26 +232,22 @@
       font-weight: 600;
     }
 
-    /* Highlight drop zone on drag */
     .drop-zone.highlight {
       border-color: var(--success);
       background-color: rgba(46, 204, 113, 0.1);
       transform: scale(1.01);
     }
 
-    /* Drop zone icon styles */
     .drop-zone i {
       font-size: 3rem;
       transition: transform 0.3s ease, color 0.3s ease;
     }
 
-    /* Drop zone icon hover effect */
     .drop-zone:hover i {
       transform: rotate(10deg) scale(1.2);
       color: #5db4d4;
     }
 
-    /* File info box hidden by default */
     .file-info {
       display: none;
       margin-top: 0.5rem;
@@ -227,13 +258,11 @@
       color: var(--text-light);
     }
 
-    /* Dark mode file info */
     main.dark .file-info {
       background-color: rgba(46, 204, 113, 0.2);
       color: var(--text-dark);
     }
 
-    /* Show file info when active */
     .file-info.show {
       display: block;
     }
@@ -249,7 +278,6 @@
       margin-bottom: 0.25rem;
     }
 
-    /* Scan button styles */
     button {
       width: 100%;
       padding: 1rem;
@@ -264,14 +292,12 @@
       transition: all 0.3s ease, transform 0.2s, box-shadow 0.3s;
     }
 
-    /* Scan button hover effect */
     button:hover {
       background: linear-gradient(135deg, #5db4d4, #2980b9);
       transform: translateY(-3px);
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
     }
 
-    /* Disabled scan button styles */
     button:disabled {
       background: #95a5a6;
       cursor: not-allowed;
@@ -279,7 +305,6 @@
       box-shadow: none;
     }
 
-    /* Result box styles */
     .result {
       margin-top: 1.5rem;
       padding: 1.25rem;
@@ -289,12 +314,10 @@
       text-align: left;
     }
 
-    /* Show result box */
     .result.show {
       display: block;
     }
 
-    /* Result types styles */
     .result.safe {
       background-color: rgba(46, 204, 113, 0.15);
       border: 1px solid var(--success);
@@ -313,7 +336,6 @@
       color: var(--danger);
     }
 
-    /* Result header styles */
     .result-header {
       display: flex;
       align-items: center;
@@ -327,7 +349,6 @@
       font-size: 1.5rem;
     }
 
-    /* Progress bar container hidden by default */
     .progress-container {
       width: 100%;
       background-color: rgba(0, 0, 0, 0.1);
@@ -336,12 +357,10 @@
       display: none;
     }
 
-    /* Show progress bar container */
     .progress-container.show {
       display: block;
     }
 
-    /* Progress bar styles */
     .progress-bar {
       height: 8px;
       border-radius: 8px;
@@ -350,12 +369,10 @@
       transition: width 0.3s ease, box-shadow 0.3s ease;
     }
 
-    /* Progress bar hover effect */
     .progress-bar:hover {
       box-shadow: 0 0 20px rgba(58, 123, 213, 1);
     }
 
-    /* Theme toggle container fixed position */
     .toggle-theme {
       position: fixed;
       top: 20px;
@@ -363,7 +380,6 @@
       z-index: 100;
     }
 
-    /* Theme label box styles */
     .theme-label-box {
       display: flex;
       align-items: center;
@@ -381,31 +397,28 @@
       cursor: pointer;
     }
 
-    /* Theme label box hover effect */
     .theme-label-box:hover {
       box-shadow: 0 0 15px rgba(58, 123, 213, 0.8), 0 0 30px rgba(58, 123, 213, 0.5);
     }
 
-    /* Dark mode theme label box */
     main.dark .theme-label-box {
       background-color: rgba(0, 0, 0, 0.5);
       color: var(--text-dark);
     }
-    
-    /* Switch styles for toggle */
+
     .switch {
       position: relative;
       display: inline-block;
       width: 50px;
       height: 24px;
     }
-    
+
     .switch input {
       opacity: 0;
       width: 0;
       height: 0;
     }
-    
+
     .slider {
       position: absolute;
       cursor: pointer;
@@ -421,7 +434,7 @@
       justify-content: space-between;
       padding: 0 5px;
     }
-    
+
     .slider:before {
       position: absolute;
       content: "";
@@ -433,39 +446,38 @@
       border-radius: 50%;
       transition: 0.4s;
     }
-    
+
     .slider i {
       font-size: 12px;
       transition: opacity 0.3s ease, color 0.3s ease;
     }
-    
+
     #moonIcon {
-      color: #4a90e2; /* Blue for moon */
+      color: #4a90e2;
       opacity: 1;
     }
-    
+
     #sunIcon {
-      color: #f1c40f; /* Yellow for sun */
+      color: #f1c40f;
       opacity: 0;
     }
-    
+
     input:checked + .slider {
       background-color: var(--primary);
     }
-    
+
     input:checked + .slider:before {
       transform: translateX(26px);
     }
-    
+
     input:checked + .slider #moonIcon {
       opacity: 0;
     }
-    
+
     input:checked + .slider #sunIcon {
       opacity: 1;
     }
-    
-    /* Footer styles */
+
     .footer {
       background-color: var(--card-bg-light);
       padding: 2rem;
@@ -479,55 +491,142 @@
       flex-wrap: wrap;
       gap: 2rem;
     }
-    
-    /* Dark mode footer */
+
     .footer.dark {
       background-color: var(--card-bg-dark);
       color: var(--text-dark);
     }
-    
-    /* Footer section styles */
+
     .footer-section {
       flex: 1 1 200px;
       min-width: 200px;
     }
-    
+
     .footer-section h3 {
       margin-bottom: 1rem;
       color: var(--primary);
     }
-    
+
     .footer-section ul {
       list-style: none;
       padding: 0;
     }
-    
+
     .footer-section ul li {
       margin-bottom: 0.5rem;
       cursor: pointer;
       color: var(--text-light);
       transition: color 0.3s ease;
     }
-    
+
     .footer.dark .footer-section ul li {
       color: var(--text-dark);
     }
-    
+
     .footer-section ul li:hover {
       color: var(--primary-dark);
+    }
+
+    .newsletter {
+      flex: 1 1 300px;
+      min-width: 300px;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .newsletter h3 {
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .newsletter p {
+      color: var(--text-light);
+      margin-bottom: 1rem;
+    }
+
+    .newsletter form {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .newsletter input[type="email"] {
+      flex: 1;
+      padding: 0.5rem;
+      border-radius: 8px;
+      border: 1px solid var(--primary);
+      font-size: 1rem;
+    }
+
+    .newsletter button {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 0 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 700;
+      transition: background-color 0.3s ease;
+    }
+
+    .newsletter button:hover {
+      background-color: var(--primary-dark);
+    }
+
+    .socialMedia {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .socialMedia a {
+      color: var(--text-light);
+      font-size: 1.5rem;
+      transition: color 0.3s ease;
+    }
+
+    .socialMedia a:hover {
+      color: var(--primary);
+    }
+
+    .copyright {
+      flex-basis: 100%;
+      text-align: center;
+      margin-top: 1rem;
+      color: var(--text-light);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      .footer {
+        flex-direction: column;
+        margin: 1rem;
+      }
+
+      .footer-section,
+      .newsletter {
+        min-width: 100%;
+      }
+
+      .socialMedia {
+        justify-content: center;
+      }
+
+      .scan-options {
+        flex-direction: column;
+        align-items: center;
+      }
     }
   </style>
 </head>
 <body>
-
-
 
   <nav id="mainNav">
     <div class="logo" tabindex="0" role="link" aria-label="Binoculars Home" onclick="location.href='index.html'">Binoculars</div>
     <ul>
       <li tabindex="0" role="link" onclick="location.href='index.html'">Home</li>
       <li tabindex="0" role="link" onclick="location.href='Products/vpn.html'">VPN Service</li>
-      <li tabindex="0" role="link" onclick="location.href='FreeScan.html'">Free Scan</li>
+      <li tabindex="0" role="link" onclick="location.href='FreeScan.html'" class="active">Free Scan</li>
       <li tabindex="0" role="link" onclick="location.href='support/blog.html'">Blog</li>
       <li tabindex="0" role="link" onclick="location.href='aboutus/aboutus-mainpage.html'">About Us</li>
     </ul>
@@ -536,63 +635,73 @@
   <main id="quickScanPage" role="main">
     <header>
       <h1><i class="fa-solid fa-bolt"></i> Binoculars Quick Scan</h1>
-      <p>Fast and efficient scanning technology to quickly detect common threats and vulnerabilities.</p>
+      <p>Fast scanning technology to detect common threats in seconds. Perfect for quick checks before opening files.</p>
     </header>
 
-    <!-- Features section describing key benefits -->
-    <section class="features" aria-label="Quick Scan Features">
-      <h2>Key Features</h2>
-      <article class="feature-item" tabindex="0">
-        <i class="fa-solid fa-bolt"></i>
-        <h3>Rapid Scanning</h3>
-        <p>Scan your system quickly to identify common threats in minimal time.</p>
-      </article>
-      <article class="feature-item" tabindex="0">
-        <i class="fa-solid fa-clock"></i>
-        <h3>Optimized Performance</h3>
-        <p>Designed to minimize system impact while scanning efficiently.</p>
-      </article>
-      <article class="feature-item" tabindex="0">
-        <i class="fa-solid fa-shield-check"></i>
-        <h3>Reliable Detection</h3>
-        <p>Detects common malware and vulnerabilities with high accuracy.</p>
-      </article>
-    </section>
-
-    <!-- Scan form with file input and drag-drop zone -->
-    <form id="quickScanForm" aria-label="Quick Scan Form">
-      <label for="fileInput">Select a file or folder to scan (Max 50MB)</label>
-      <input type="file" id="fileInput" webkitdirectory directory multiple aria-describedby="fileHelp" />
-      <div id="dropZone" class="drop-zone" tabindex="0" role="button" aria-label="Drag and drop files or folders here or click to browse">
-        <i class="fas fa-cloud-upload-alt"></i>
-        <p>Drag & drop your files or folders here or click to browse</p>
+    <div class="scan-options" aria-label="Scan Options">
+      <div class="scan-option active" id="fileScanOption" tabindex="0" role="button" aria-pressed="true" onclick="selectScanOption('file')">
+        <i class="fa-solid fa-file"></i>
+        <h3>File Scan</h3>
+        <p>Check individual files for malware</p>
       </div>
-      <div id="fileInfo" class="file-info" aria-live="polite" aria-atomic="true">
-        <strong>Selected item(s):</strong> <span id="fileName"></span>
-        <div class="file-details">
-          <div>
-            <span>Size:</span>
-            <span id="fileSize"></span>
-          </div>
-          <div>
-            <span>Type:</span>
-            <span id="fileType"></span>
+      <div class="scan-option" id="urlScanOption" tabindex="0" role="button" aria-pressed="false" onclick="selectScanOption('url')">
+        <i class="fa-solid fa-link"></i>
+        <h3>URL Scan</h3>
+        <p>Verify website safety</p>
+      </div>
+      <div class="scan-option" id="clipboardScanOption" tabindex="0" role="button" aria-pressed="false" onclick="selectScanOption('clipboard')">
+        <i class="fa-solid fa-paste"></i>
+        <h3>Clipboard</h3>
+        <p>Scan copied text/links</p>
+      </div>
+    </div>
+
+    <form id="quickScanForm" aria-label="Quick Scan Form">
+      <div id="fileScanSection">
+        <label for="fileInput">Select a file to scan (Max 100MB)</label>
+        <input type="file" id="fileInput" aria-describedby="fileHelp" />
+        <div id="dropZone" class="drop-zone" tabindex="0" role="button" aria-label="Drag and drop files here or click to browse">
+          <i class="fas fa-cloud-upload-alt"></i>
+          <p>Drag & drop your file here or click to browse</p>
+        </div>
+        <div id="fileInfo" class="file-info" aria-live="polite" aria-atomic="true">
+          <strong>Selected file:</strong> <span id="fileName"></span>
+          <div class="file-details">
+            <div>
+              <span>Size:</span>
+              <span id="fileSize"></span>
+            </div>
+            <div>
+              <span>Type:</span>
+              <span id="fileType"></span>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- Progress bar shown during scanning -->
+      <div id="urlScanSection" style="display: none;">
+        <label for="urlInput">Enter URL to scan</label>
+        <input type="url" id="urlInput" placeholder="https://example.com" class="drop-zone" style="text-align: center; color: var(--text-light);" />
+      </div>
+
+      <div id="clipboardScanSection" style="display: none;">
+        <label>Clipboard contents</label>
+        <div class="drop-zone" id="clipboardContent" tabindex="0" role="button" aria-label="Click to scan clipboard contents">
+          <i class="fas fa-clipboard"></i>
+          <p>Click to scan clipboard contents</p>
+          <small id="clipboardPreview"></small>
+        </div>
+      </div>
+
       <div class="progress-container" id="progressContainer" aria-hidden="true">
         <div class="progress-bar" id="progressBar"></div>
       </div>
 
-      <!-- Scan button, disabled until file selected -->
       <button type="button" id="scanButton" disabled aria-disabled="true" aria-live="polite" aria-label="Start quick scan">
-        <i class="fas fa-search"></i>
-        <span>Start Scan</span>
+        <i class="fas fa-bolt"></i>
+        <span>Start Quick Scan</span>
       </button>
 
-      <!-- Scan result display area -->
       <div id="result" class="result" role="region" aria-live="polite" aria-atomic="true">
         <div class="result-header">
           <i id="resultIcon"></i>
@@ -604,9 +713,6 @@
     </form>
   </main>
 
-
-
-  <!-- Theme toggle switch fixed at top right -->
   <div class="toggle-theme" role="region" aria-label="Toggle dark and light theme">
     <div class="theme-label-box" tabindex="0" role="button" aria-pressed="false" onclick="toggleTheme()">
       <i class="fas fa-moon" id="moonIcon"></i>
@@ -619,7 +725,6 @@
     </div>
   </div>
 
-  <!-- Footer with About Us, Support, and Products sections -->
   <footer class="footer" role="contentinfo" aria-label="Site Footer">
     <section class="footer-section" aria-label="About Us">
       <h3>About Us</h3>
@@ -651,12 +756,27 @@
         <li tabindex="0" role="link" onclick="location.href='Products/vpn.html'">VPN Service</li>
       </ul>
     </section>
+    <section class="footer-section" aria-label="Newsletter Subscription and Social Media">
+      <h3>Subscribe to our newsletter</h3>
+      <p>Get the latest updates and offers.</p>
+      <form>
+        <input type="email" placeholder="Your email address" aria-label="Email address" />
+        <button type="submit">Subscribe</button>
+      </form>
+      <div class="socialMedia">
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+      <div class="copyright">
+        &copy; 2024 Binoculars. All rights reserved.
+      </div>
+    </section>
   </footer>
 
-
-
   <script>
-    // Elements for theme toggle
+    // Theme toggle functionality
     const themeToggleSwitch = document.getElementById('themeToggleSwitch');
     const body = document.body;
     const main = document.querySelector('main');
@@ -664,7 +784,6 @@
     const footer = document.querySelector('footer');
     const themeLabelBox = document.querySelector('.theme-label-box');
 
-    // Toggle dark/light theme styles
     function toggleTheme() {
       const isDark = themeToggleSwitch.checked;
       if (isDark) {
@@ -688,10 +807,9 @@
       }
     }
 
-    // Listen for theme toggle switch changes
     themeToggleSwitch.addEventListener('change', toggleTheme);
 
-    // Load saved theme preference on page load
+    // Load saved theme preference
     window.addEventListener('DOMContentLoaded', () => {
       const savedTheme = localStorage.getItem('themePreference');
       if (savedTheme === 'dark') {
@@ -700,12 +818,31 @@
       }
     });
 
-    // Save theme preference when toggled
+    // Save theme preference on toggle
     themeToggleSwitch.addEventListener('change', () => {
       localStorage.setItem('themePreference', themeToggleSwitch.checked ? 'dark' : 'light');
     });
 
-    // File input and drag-drop elements
+    // Scan option selection
+    function selectScanOption(option) {
+      document.querySelectorAll('.scan-option').forEach(el => {
+        el.classList.remove('active');
+        el.setAttribute('aria-pressed', 'false');
+      });
+      
+      document.getElementById(`${option}ScanOption`).classList.add('active');
+      document.getElementById(`${option}ScanOption`).setAttribute('aria-pressed', 'true');
+      
+      document.querySelectorAll('#quickScanForm > div[id$="Section"]').forEach(el => {
+        el.style.display = 'none';
+      });
+      document.getElementById(`${option}ScanSection`).style.display = 'block';
+      
+      // Reset form state
+      resetScanForm();
+    }
+
+    // File input and drag-drop handling
     const fileInput = document.getElementById('fileInput');
     const dropZone = document.getElementById('dropZone');
     const scanButton = document.getElementById('scanButton');
@@ -720,13 +857,26 @@
     const scanDetails = document.getElementById('scanDetails');
     const progressContainer = document.getElementById('progressContainer');
     const progressBar = document.getElementById('progressBar');
+    const urlInput = document.getElementById('urlInput');
+    const clipboardContent = document.getElementById('clipboardContent');
+    const clipboardPreview = document.getElementById('clipboardPreview');
 
-    // Prevent default drag behaviors on drop zone
+    // Reset scan form
+    function resetScanForm() {
+      fileInput.value = '';
+      fileInfo.classList.remove('show');
+      urlInput.value = '';
+      clipboardPreview.textContent = '';
+      scanButton.disabled = true;
+      scanButton.setAttribute('aria-disabled', 'true');
+      result.className = 'result';
+    }
+
+    // Prevent default drag behaviors
     ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
       dropZone.addEventListener(eventName, preventDefaults, false);
     });
 
-    // Prevent default behavior helper
     function preventDefaults(e) {
       e.preventDefault();
       e.stopPropagation();
@@ -742,7 +892,7 @@
       dropZone.addEventListener(eventName, () => dropZone.classList.remove('highlight'), false);
     });
 
-    // Handle files dropped into drop zone
+    // Handle drop event
     dropZone.addEventListener('drop', handleDrop, false);
 
     // Open file dialog on drop zone click
@@ -757,20 +907,21 @@
       }
     }
 
-    // Handle file input change event
+    // Handle file input change
     fileInput.addEventListener('change', () => {
       if (fileInput.files.length) {
         handleFiles(fileInput.files);
       }
     });
 
-    // Process selected files (only first file/folder)
+    // Handle selected files
     function handleFiles(files) {
+      // For simplicity, only handle first file
       const file = files[0];
 
-      // Check file size limit (50MB)
-      if (file.size > 50 * 1024 * 1024) {
-        showResult('danger', 'File Too Large', 'Please select a file smaller than 50MB');
+      // Check file size (max 100MB for quick scan)
+      if (file.size > 100 * 1024 * 1024) {
+        showResult('danger', 'File Too Large', 'Quick Scan supports files up to 100MB. Use Deep Scan for larger files.');
         scanButton.disabled = true;
         scanButton.setAttribute('aria-disabled', 'true');
         return;
@@ -786,11 +937,11 @@
       scanButton.disabled = false;
       scanButton.setAttribute('aria-disabled', 'false');
 
-      // Store file for scanning
+      // Store the file for scanning
       scanButton.file = file;
     }
 
-    // Format file size helper function
+    // Format file size helper
     function formatFileSize(bytes) {
       if (bytes === 0) return '0 Bytes';
       const k = 1024;
@@ -799,12 +950,49 @@
       return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
     }
 
-    // Scan button click event handler
-    scanButton.addEventListener('click', () => {
-      const file = scanButton.file;
-      if (!file) return;
+    // URL input handling
+    urlInput.addEventListener('input', () => {
+      scanButton.disabled = !urlInput.value.trim();
+      scanButton.setAttribute('aria-disabled', !urlInput.value.trim() ? 'true' : 'false');
+    });
 
-      // Show progress bar and reset width
+    // Clipboard scan handling
+    clipboardContent.addEventListener('click', async () => {
+      try {
+        const text = await navigator.clipboard.readText();
+        if (text) {
+          clipboardPreview.textContent = text.length > 50 ? text.substring(0, 50) + '...' : text;
+          scanButton.disabled = false;
+          scanButton.setAttribute('aria-disabled', 'false');
+          scanButton.clipboardText = text;
+        } else {
+          clipboardPreview.textContent = 'No text found in clipboard';
+          scanButton.disabled = true;
+          scanButton.setAttribute('aria-disabled', 'true');
+        }
+      } catch (err) {
+        clipboardPreview.textContent = 'Could not access clipboard. Try pasting manually.';
+        scanButton.disabled = true;
+        scanButton.setAttribute('aria-disabled', 'true');
+      }
+    });
+
+    // Scan button click handler
+    scanButton.addEventListener('click', () => {
+      const activeOption = document.querySelector('.scan-option.active').id;
+      
+      if (activeOption === 'fileScanOption' && scanButton.file) {
+        startFileScan(scanButton.file);
+      } else if (activeOption === 'urlScanOption' && urlInput.value.trim()) {
+        startUrlScan(urlInput.value.trim());
+      } else if (activeOption === 'clipboardScanOption' && scanButton.clipboardText) {
+        startClipboardScan(scanButton.clipboardText);
+      }
+    });
+
+    // Start file scan
+    function startFileScan(file) {
+      // Show progress bar
       progressContainer.classList.add('show');
       progressBar.style.width = '0%';
 
@@ -813,70 +1001,36 @@
       scanButton.setAttribute('aria-disabled', 'true');
       scanButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Scanning...';
 
-      // Simulate scan process (replace with real API integration)
-      simulateScan(file);
-    });
+      // Simulate quick scan process (faster than deep scan)
+      simulateQuickScan(file, 'file');
+    }
 
-    // Simulate scanning process with progress updates
-    function simulateScan(file) {
+    // Start URL scan
+    function startUrlScan(url) {
+      progressContainer.classList.add('show');
+      progressBar.style.width = '0%';
+      scanButton.disabled = true;
+      scanButton.setAttribute('aria-disabled', 'true');
+      scanButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Scanning URL...';
+
+      // Simulate URL scan
+      simulateQuickScan(url, 'url');
+    }
+
+    // Start clipboard scan
+    function startClipboardScan(text) {
+      progressContainer.classList.add('show');
+      progressBar.style.width = '0%';
+      scanButton.disabled = true;
+      scanButton.setAttribute('aria-disabled', 'true');
+      scanButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Scanning Clipboard...';
+
+      // Simulate clipboard scan
+      simulateQuickScan(text, 'clipboard');
+    }
+
+    // Simulate quick scanning process (faster than deep scan)
+    function simulateQuickScan(item, type) {
       let progress = 0;
       const interval = setInterval(() => {
-        progress += Math.random() * 10;
-        if (progress > 100) progress = 100;
-        progressBar.style.width = progress + '%';
-
-        if (progress === 100) {
-          clearInterval(interval);
-          completeScan(file);
-        }
-      }, 200);
-    }
-
-    // Complete scan and show simulated results
-    function completeScan(file) {
-      // Randomly generate scan result for demo
-      const isSafe = Math.random() > 0.3;
-      const hasWarning = !isSafe && Math.random() > 0.5;
-
-      if (isSafe) {
-        showResult('safe', 'No Threats Found', 'Your selected item appears to be clean and safe to use.', file);
-      } else if (hasWarning) {
-        showResult('warning', 'Potential Risk Detected', 'This item contains elements that may be suspicious. Proceed with caution.', file);
-      } else {
-        showResult('danger', 'Threat Detected!', 'This item contains malicious code and should not be opened.', file);
-      }
-
-      // Reset scan button to initial state
-      scanButton.disabled = false;
-      scanButton.setAttribute('aria-disabled', 'false');
-      scanButton.innerHTML = '<i class="fas fa-search"></i> Start Scan';
-    }
-
-    // Display scan results in the result box
-    function showResult(type, title, message, file) {
-      result.className = 'result show pulse ' + type;
-      const iconClass = {
-        safe: 'fas fa-check-circle',
-        warning: 'fas fa-exclamation-triangle',
-        danger: 'fas fa-times-circle'
-      }[type];
-      resultIcon.className = iconClass;
-      resultTitle.textContent = title;
-      scanStatus.textContent = message;
-
-      if (file) {
-        scanDetails.innerHTML = `
-          <div><span>Item name:</span><span>${file.name}</span></div>
-          <div><span>Size:</span><span>${formatFileSize(file.size)}</span></div>
-          <div><span>Type:</span><span>${file.type || 'Unknown'}</span></div>
-          <div><span>Scan date:</span><span>${new Date().toLocaleString()}</span></div>
-        `;
-      }
-
-      // Scroll result into view smoothly
-      result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }
-  </script>
-
-</body>
-</html>
+        progress += Math.random
