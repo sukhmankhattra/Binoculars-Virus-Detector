@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -291,17 +290,6 @@
         font-size: 1.8rem;
       }
     }
-    /* <body>
-  <div class="container">
-    <div class="spinner"></div>
-    <h1>Page Under Development</h1>
-    <p>We're working hard to bring something awesome. Stay tuned!</p>
-    <button class="cta-button" onclick="window.location.href='mailto:contact@yourdomain.com'">Contact Us</button>
-  </div>
-</body>
-</html> --> */
-
-    
   </style>
 </head>
 <body>
@@ -319,23 +307,27 @@
     
     <div class="countdown">
       <div class="countdown-item">
-        <div class="countdown-value">14</div>
+        <div class="countdown-value" id="days">14</div>
         <div class="countdown-label">Days</div>
       </div>
       <div class="countdown-item">
-        <div class="countdown-value">08</div>
+        <div class="countdown-value" id="hours">08</div>
         <div class="countdown-label">Hours</div>
       </div>
       <div class="countdown-item">
-        <div class="countdown-value">42</div>
+        <div class="countdown-value" id="minutes">42</div>
         <div class="countdown-label">Minutes</div>
+      </div>
+      <div class="countdown-item">
+        <div class="countdown-value" id="seconds">00</div>
+        <div class="countdown-label">Seconds</div>
       </div>
     </div>
     
     <div class="subscribe">
       <p>Be the first to know when we launch</p>
       <div class="subscribe-input">
-        <input type="email" placeholder="Your email address">
+        <input type="email" placeholder="Your email address" />
         <button>Notify Me</button>
       </div>
     </div>
@@ -347,9 +339,7 @@
       <a href="#" aria-label="Behance"><i class="fab fa-behance"></i></a>
     </div>
     
-    <div class="signature">
-      — The Luxe Designs Team
-    </div>
+    <div class="signature">— The Luxe Designs Team</div>
   </div>
 
   <script>
@@ -357,22 +347,34 @@
     function updateCountdown() {
       const launchDate = new Date();
       launchDate.setDate(launchDate.getDate() + 14);
+      launchDate.setHours(0, 0, 0, 0); // Set to midnight
       
       const now = new Date();
       const diff = launchDate - now;
       
+      if (diff <= 0) {
+        document.getElementById('days').textContent = '00';
+        document.getElementById('hours').textContent = '00';
+        document.getElementById('minutes').textContent = '00';
+        document.getElementById('seconds').textContent = '00';
+        clearInterval(countdownInterval);
+        return;
+      }
+      
       const days = Math.floor(diff / (1000 * 60 * 60 * 24));
       const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
       
-      document.querySelectorAll('.countdown-value')[0].textContent = days.toString().padStart(2, '0');
-      document.querySelectorAll('.countdown-value')[1].textContent = hours.toString().padStart(2, '0');
-      document.querySelectorAll('.countdown-value')[2].textContent = minutes.toString().padStart(2, '0');
+      document.getElementById('days').textContent = days.toString().padStart(2, '0');
+      document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+      document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+      document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
     }
     
-    // Update countdown every minute
+    // Update countdown every second
     updateCountdown();
-    setInterval(updateCountdown, 60000);
+    const countdownInterval = setInterval(updateCountdown, 1000);
     
     // Email subscription handling
     document.querySelector('.subscribe-input button').addEventListener('click', function() {
@@ -385,14 +387,6 @@
       }
     });
 
-
-//     <!-- <!DOCTYPE html>
-// <html lang="en">
-// <head>
-//   <meta charset="UTF-8">
-//   <meta name="viewport" content="width=device-width, initial-scale=1">
-//   <title>Under Development</title>
-    
     // Allow Enter key to submit
     document.querySelector('.subscribe-input input').addEventListener('keypress', function(e) {
       if (e.key === 'Enter') {
@@ -402,78 +396,3 @@
   </script>
 </body>
 </html>
-
-  <!-- <style>
-    body {
-      background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      color: #333;
-      text-align: center;
-      transition: background 0.5s ease;
-    }
-
-    .container {
-      padding: 2rem;
-      background-color: white;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-      border-radius: 10px;
-      width: 100%;
-      max-width: 400px;
-    }
-
-    h1 {
-      font-size: 2.5rem;
-      color: #2d3a3f;
-      margin-bottom: 1.5rem;
-      font-weight: 700;
-    }
-
-    p {
-      font-size: 1.2rem;
-      color: #666;
-      margin-bottom: 2rem;
-    }
-
-    .spinner {
-      margin: 2rem auto;
-      border: 8px solid #f3f3f3;
-      border-top: 8px solid #3498db;
-      border-radius: 50%;
-      width: 60px;
-      height: 60px;
-      animation: spin 1.5s ease-in-out infinite;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    .cta-button {
-      padding: 0.8rem 2rem;
-      background-color: #3498db;
-      color: white;
-      border: none;
-      border-radius: 30px;
-      font-size: 1rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-
-    .cta-button:hover {
-      background-color: #2980b9;
-    }
-
-    .cta-button:focus {
-      outline: none;
-    }
-  </style>
-</head> -->
-
