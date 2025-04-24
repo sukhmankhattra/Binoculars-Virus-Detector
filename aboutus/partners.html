@@ -2,723 +2,787 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Join Binoculars Security's partner program to deliver comprehensive cybersecurity solutions">
-    <title>Binoculars - Partners Program</title>
-    
-    <!-- Preload critical resources -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" as="style">
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" as="style">
-    
-    <!-- Load fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>Partners | Binoculars Security</title>
     <style>
-        :root {
-            /* Color scheme */
-            --primary: #2f28b6;
-            --primary-dark: #2e1ba8;
-            --text: #333;
-            --text-light: #777;
-            --text-dark: #ddd;
-            --bg: #f5f5f5;
-            --bg-dark: #121212;
-            --card: white;
-            --card-dark: #222;
-            --nav: #121212;
-            --nav-dark: #1e1e1e;
-            --footer: white;
-            --footer-dark: #1e1e1e;
-            
-            /* Spacing */
-            --space-xs: 0.5rem;
-            --space-sm: 1rem;
-            --space-md: 2rem;
-            --space-lg: 3rem;
-            --space-xl: 4rem;
-            
-            /* Shadows */
-            --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
-            --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
-            --shadow-lg: 0 10px 25px rgba(0,0,0,0.1);
-            
-            /* Transitions */
-            --transition-fast: 0.15s ease;
-            --transition-normal: 0.3s ease;
-            --transition-slow: 0.5s ease;
-        }
-
-        /* Dark mode variables */
-        [data-theme="dark"] {
-            --primary: #2918ad;
-            --primary-dark: #1f0e9c;
-            --text: #ddd;
-            --text-light: #aaa;
-            --bg: #121212;
-            --card: #222;
-            --nav: #1e1e1e;
-            --footer: #1e1e1e;
-            --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
-            --shadow-md: 0 4px 6px rgba(0,0,0,0.3);
-            --shadow-lg: 0 10px 25px rgba(0,0,0,0.3);
-        }
-
-        /* Base styles */
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
-        }
-
-        html {
-            scroll-behavior: smooth;
+            box-sizing: border-box;
         }
 
         body {
             font-family: 'Lato', sans-serif;
+            color: #343A40;
             line-height: 1.6;
-            background-color: var(--bg);
-            color: var(--text);
-            transition: background-color var(--transition-normal), color var(--transition-normal);
+            background-color: #FFFFFF;
+            overflow-x: hidden;
         }
 
-        /* Accessibility */
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border: 0;
-        }
-
-        .skip-link {
-            position: absolute;
-            top: -40px;
-            left: 0;
-            background: var(--primary);
-            color: white;
-            padding: var(--space-xs) var(--space-sm);
-            z-index: 100;
-            transition: top var(--transition-fast);
-        }
-
-        .skip-link:focus {
-            top: 0;
-        }
-
-        /* Typography */
-        h1, h2, h3 {
-            line-height: 1.2;
-            font-weight: 900;
-        }
-
-        h1 {
-            font-size: 2.5rem;
-        }
-
-        h2 {
-            font-size: 2rem;
-        }
-
-        h3 {
-            font-size: 1.5rem;
-        }
-
-        p {
-            margin-bottom: var(--space-sm);
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            color: #0A4A7B;
+            margin-bottom: 0.8em;
         }
 
         a {
-            color: var(--primary);
             text-decoration: none;
-            transition: color var(--transition-fast);
+            color: #0A4A7B;
+            transition: color 0.3s ease;
         }
 
         a:hover {
-            color: var(--primary-dark);
+            color: #2ECC71;
         }
 
-        /* Buttons */
-        .btn {
-            display: inline-block;
-            padding: 0.75rem 1.5rem;
-            border-radius: 5px;
-            font-weight: 700;
-            text-align: center;
-            cursor: pointer;
-            transition: all var(--transition-fast);
-            border: none;
-        }
-
-        .btn-primary {
-            background-color: var(--primary);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background-color: var(--primary-dark);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
-        }
-
-        .btn-secondary {
-            background-color: transparent;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-        }
-
-        .btn-secondary:hover {
-            background-color: var(--primary);
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
-        }
-
-        /* Layout */
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 var(--space-md);
-        }
-
-        .section {
-            padding: var(--space-xl) 0;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: var(--space-lg);
-            color: var(--primary);
-        }
-
-        /* Navigation */
-        .navbar {
+        /* Navigation - Matches existing site */
+        #nav {
+            background-color: #FFFFFF;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             position: sticky;
             top: 0;
-            z-index: 1000;
-            background-color: var(--nav);
-            color: white;
-            padding: var(--space-sm) var(--space-md);
-            box-shadow: var(--shadow-md);
-            transition: background-color var(--transition-normal);
+            z-index: 998;
         }
 
-        .navbar-container {
+        .navTop {
             display: flex;
-            flex-wrap: wrap;
             justify-content: space-between;
             align-items: center;
-            gap: var(--space-md);
+            padding: 10px 30px;
+            border-bottom: 1px solid #e9ecef;
         }
 
-        .navbar-top {
-            display: flex;
-            align-items: center;
-            gap: var(--space-md);
-            width: 100%;
-            justify-content: flex-end;
-        }
-
-        .navbar-bottom {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: var(--space-md);
-            width: 100%;
-        }
-
-        .nav-item {
-            color: #aaa;
-            font-weight: 400;
-            cursor: pointer;
-            transition: color var(--transition-fast);
-        }
-
-        .nav-item:hover {
-            color: white;
-        }
-
-        .badge {
-            display: inline-block;
-            padding: 0.25rem 0.75rem;
-            border-radius: 1rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            font-size: 0.75rem;
-            background-color: var(--primary);
-            color: white;
+        .navItem img {
+            height: 22px;
+            width: auto;
         }
 
         .search {
             display: flex;
             align-items: center;
-            background-color: var(--card);
-            padding: 0.5rem 1rem;
-            border-radius: 1.5rem;
-            max-width: 400px;
+            background-color: #f8f9fa;
+            padding: 5px 10px;
+            border-radius: 10px;
+            border: 2px solid #dee2e6;
+        }
+
+        .searchInput {
+            border: none;
+            background: transparent;
+            outline: none;
+            padding: 5px;
+            width: 300px;
+        }
+
+        .searchIcon {
+            cursor: pointer;
+            margin-left: 5px;
+        }
+
+        .limitedOffer {
+            background-color: #2ECC71;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        .signup-btn {
+            background-color: #0A4A7B;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .signup-btn:hover {
+            background-color: #083b61;
+        }
+
+        .navBottom {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px 30px;
+            gap: 30px;
+        }
+
+        .menuItem {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 1em;
+            color: #343A40;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .menuItem:hover {
+            color: #2ECC71;
+        }
+
+        /* Partners Hero Section */
+        .partnersHero {
+            background: linear-gradient(rgba(10, 74, 123, 0.9), rgba(10, 74, 123, 0.9)), 
+                        url('https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 100px 20px;
+        }
+
+        .partnersHero h1 {
+            font-size: 3em;
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .partnersHero p {
+            font-size: 1.2em;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+
+        .partnerCta {
+            background-color: #2ECC71;
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .partnerCta:hover {
+            background-color: #25a25a;
+        }
+
+        /* Partners Programs Section */
+        .partnerPrograms {
+            padding: 80px 30px;
+            text-align: center;
+        }
+
+        .partnerPrograms h2 {
+            font-size: 2.5em;
+            margin-bottom: 50px;
+        }
+
+        .programsContainer {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .programCard {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 40px 30px;
+            flex: 1;
+            min-width: 300px;
+            max-width: 350px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .programCard:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .programIcon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 25px;
+            display: block;
+        }
+
+        .programTitle {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            color: #0A4A7B;
+        }
+
+        .programDesc {
+            color: #6C757D;
+            margin-bottom: 25px;
+        }
+
+        .programButton {
+            background-color: #0A4A7B;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .programButton:hover {
+            background-color: #083b61;
+        }
+
+        /* Current Partners Section */
+        .currentPartners {
+            background-color: #f8f9fa;
+            padding: 80px 30px;
+            text-align: center;
+        }
+
+        .currentPartners h2 {
+            font-size: 2.5em;
+            margin-bottom: 50px;
+        }
+
+        .partnersGrid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            align-items: center;
+        }
+
+        .partnerLogo {
+            max-width: 180px;
+            height: auto;
+            margin: 0 auto;
+            filter: grayscale(100%) opacity(80%);
+            transition: filter 0.3s ease;
+        }
+
+        .partnerLogo:hover {
+            filter: grayscale(0%) opacity(100%);
+        }
+
+        /* Benefits Section */
+        .partnerBenefits {
+            padding: 80px 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .partnerBenefits h2 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 50px;
+        }
+
+        .benefitsContainer {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+
+        .benefitCard {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            gap: 20px;
+        }
+
+        .benefitIcon {
+            width: 50px;
+            height: 50px;
+            flex-shrink: 0;
+        }
+
+        .benefitContent h3 {
+            margin-bottom: 10px;
+        }
+
+        .benefitContent p {
+            color: #6C757D;
+        }
+
+        /* CTA Section */
+        .partnerCtaSection {
+            background-color: #0A4A7B;
+            color: white;
+            text-align: center;
+            padding: 80px 30px;
+        }
+
+        .partnerCtaSection h2 {
+            color: white;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .partnerCtaSection p {
+            max-width: 700px;
+            margin: 0 auto 30px;
+            font-size: 1.1em;
+        }
+
+        /* Footer - Matches existing site */
+        footer {
+            background-color: #343A40;
+            color: #f8f9fa;
+            padding: 50px 30px 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+
+        .footerLeft {
+            display: flex;
+            gap: 50px;
+            flex-wrap: wrap;
+        }
+
+        .footerMenu {
+            min-width: 150px;
+        }
+
+        .fMenuTitle {
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            color: #FFFFFF;
+        }
+
+        .fList {
+            list-style: none;
+            padding: 0;
+        }
+
+        .fListItem {
+            margin-bottom: 10px;
+            color: #adb5bd;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .fListItem:hover {
+            color: #FFFFFF;
+        }
+
+        .footerRight {
+            min-width: 250px;
+        }
+
+        .footerRightMenu {
+            margin-bottom: 30px;
+        }
+
+        .fMail {
+            display: flex;
+            margin-top: 15px;
+        }
+
+        .fInput {
+            padding: 10px;
+            border: 1px solid #6C757D;
+            border-radius: 5px 0 0 5px;
+            background-color: #495057;
+            color: white;
+            outline: none;
             flex-grow: 1;
         }
 
-        .search-input {
+        .fButton {
+            padding: 10px 20px;
             border: none;
-            outline: none;
-            background: transparent;
-            width: 100%;
-            color: var(--text);
+            background-color: #0A4A7B;
+            color: white;
+            border-radius: 0 5px 5px 0;
         }
 
-        /* Hero section */
-        .hero {
-            text-align: center;
-            padding: var(--space-xl) var(--space-md);
+        .fButton:hover {
+            background-color: #083b61;
         }
 
-        .hero-title {
-            margin-bottom: var(--space-md);
-            color: var(--primary);
-        }
-
-        .hero-text {
-            max-width: 800px;
-            margin: 0 auto var(--space-lg);
-            font-size: 1.2rem;
-        }
-
-        .btn-group {
+        .fIcons {
             display: flex;
-            gap: var(--space-sm);
-            justify-content: center;
-            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 15px;
         }
 
-        /* Cards */
-        .card-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: var(--space-md);
-            margin: var(--space-lg) 0;
-        }
-
-        .card {
-            background: var(--card);
-            border-radius: 10px;
-            padding: var(--space-lg);
-            box-shadow: var(--shadow-sm);
-            transition: transform var(--transition-normal), box-shadow var(--transition-normal);
-            text-align: center;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .card-icon {
-            font-size: 3rem;
-            color: var(--primary);
-            margin-bottom: var(--space-md);
-        }
-
-        /* Partners section */
-        .partners-grid {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
-            gap: var(--space-lg);
-            margin-top: var(--space-md);
-        }
-
-        .partner-logo {
-            max-width: 150px;
-            height: auto;
-            filter: grayscale(100%);
-            opacity: 0.8;
-            transition: all var(--transition-normal);
-        }
-
-        .partner-logo:hover {
-            filter: grayscale(0%);
-            opacity: 1;
-        }
-
-        /* Testimonials */
-        .testimonial-card {
-            position: relative;
-            padding: var(--space-lg);
-        }
-
-        .testimonial-card::before {
-            content: '"';
-            font-size: 4rem;
-            color: var(--primary);
-            opacity: 0.2;
-            position: absolute;
-            top: 10px;
-            left: 10px;
-        }
-
-        .testimonial-content {
-            margin-top: var(--space-lg);
-            font-style: italic;
-        }
-
-        .testimonial-author {
-            margin-top: var(--space-md);
-            font-weight: 700;
-            text-align: right;
-        }
-
-        /* Footer */
-        .footer {
-            background-color: var(--footer);
-            padding: var(--space-xl);
-            transition: background-color var(--transition-normal);
-        }
-
-        .footer-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: var(--space-xl);
-        }
-
-        .footer-col {
-            flex: 1;
-            min-width: 200px;
-        }
-
-        .footer-title {
-            font-size: 1.125rem;
-            font-weight: 700;
-            margin-bottom: var(--space-md);
-            color: var(--text);
-        }
-
-        .footer-list {
-            list-style: none;
-        }
-
-        .footer-item {
-            margin-bottom: var(--space-xs);
-        }
-
-        .footer-link {
-            color: var(--text-light);
-        }
-
-        .footer-link:hover {
-            color: var(--primary);
-        }
-
-        .newsletter-form {
-            display: flex;
-            gap: var(--space-xs);
-            margin-bottom: var(--space-md);
-        }
-
-        .newsletter-input {
-            flex: 1;
-            padding: 0.5rem;
-            border: 1px solid var(--text-light);
-            border-radius: 5px;
-            background-color: var(--card);
-            color: var(--text);
-        }
-
-        .social-links {
-            display: flex;
-            gap: var(--space-sm);
-        }
-
-        .social-icon {
+        .fIcon {
             width: 30px;
             height: 30px;
-            transition: transform var(--transition-fast);
+            cursor: pointer;
+            filter: grayscale(100%) brightness(150%);
+            transition: filter 0.3s ease;
         }
 
-        .social-icon:hover {
-            transform: scale(1.2);
+        .fIcon:hover {
+            filter: none;
         }
 
         .copyright {
-            color: var(--text-light);
-            font-size: 0.875rem;
-            margin-top: var(--space-lg);
+            font-size: 0.9em;
+            color: #adb5bd;
+            margin-top: 30px;
+            display: block;
         }
 
-        /* Responsive adjustments */
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .navTop, .navBottom {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+            .navBottom {
+                gap: 20px;
+                font-size: 0.9em;
+            }
+            .partnersHero h1 {
+                font-size: 2.5em;
+            }
+        }
+
         @media (max-width: 768px) {
-            .navbar-container {
+            .navTop {
                 flex-direction: column;
-                gap: var(--space-sm);
+                gap: 10px;
+                padding: 15px;
             }
-
-            .navbar-top {
-                justify-content: space-between;
+            .navBottom {
+                flex-wrap: wrap;
+                justify-content: center;
+                padding: 10px;
+                gap: 15px;
             }
-
-            .hero {
-                padding: var(--space-lg) var(--space-sm);
+            .menuItem {
+                font-size: 0.9em;
             }
-
-            .btn-group {
-                flex-direction: column;
-                align-items: center;
+            .partnersHero {
+                padding: 80px 20px;
             }
-
-            .btn {
-                width: 100%;
-                max-width: 300px;
+            .partnersHero h1 {
+                font-size: 2em;
             }
-
-            .footer-col {
-                flex: 100%;
+            .partnerPrograms h2, .currentPartners h2, .partnerBenefits h2, .partnerCtaSection h2 {
+                font-size: 2em;
             }
+        }
 
-            .newsletter-form {
-                flex-direction: column;
+        @media (max-width: 500px) {
+            .navTop .navItem:not(:first-child) {
+                display: none;
+            }
+            .navBottom {
+                gap: 10px;
+            }
+            .menuItem {
+                font-size: 0.8em;
+            }
+            .partnersHero h1 {
+                font-size: 1.8em;
+            }
+            .programCard {
+                min-width: 100%;
             }
         }
     </style>
 </head>
 <body>
-    <a href="#main-content" class="skip-link">Skip to main content</a>
-
-    <nav class="navbar" role="navigation" aria-label="Main navigation">
-        <div class="navbar-container container">
-            <div class="navbar-top">
+    <nav id="nav">
+        <div class="navTop">
+            <div class="navItem">
+                <img src="https://thumbs.dreamstime.com/b/shield-anti-virus-logo-vector-image-virus-shield-antibacterial-protection-antiviral-drug-logo-design-antibacterial-protection-340608516.jpg" alt="Binoculars Security Logo">
+            </div>
+            <div class="navItem">
                 <div class="search">
-                    <input type="text" placeholder="Search partners..." class="search-input" aria-label="Search partners">
-                    <i class="fas fa-search" aria-hidden="true"></i>
+                    <input type="text" placeholder="Search Partners..." class="searchInput">
+                    <img src="https://cdn-icons-png.flaticon.com/512/149/149852.png" width="20" height="20" alt="" class="searchIcon">
                 </div>
-                <span class="badge">Partner Program!</span>
-                <button id="themeToggle" class="btn btn-secondary" aria-label="Toggle dark mode">
-                    <i class="fas fa-moon"></i>
-                    <span class="sr-only">Toggle dark mode</span>
-                </button>
-                <button class="btn btn-primary" onclick="window.location.href='login.html'">Sign Up</button>
             </div>
-            <div class="navbar-bottom">
-                <a href="#" class="nav-item">Quick Scan</a>
-                <a href="#" class="nav-item">Deep Scan</a>
-                <a href="#" class="nav-item">Custom Scan</a>
-                <a href="#" class="nav-item">Realtime Protection</a>
-                <a href="#" class="nav-item">Firewall</a>
+            <div class="navItem">
+                <span class="limitedOffer" onclick="window.location.href='FreeScan.html'">FREE SCAN!</span>
             </div>
+            <div>
+                <button onclick="window.location.href='combined ui/combined_login_signup.html'" class="signup-btn">Sign In / Sign Up</button>
+            </div>
+        </div>
+        <div class="navBottom">
+            <h3 class="menuItem" onclick="window.location.href='index.html'">HOME</h3>
+            <h3 class="menuItem" onclick="window.location.href='products.html'">PRODUCTS</h3>
+            <h3 class="menuItem" onclick="window.location.href='solutions.html'">SOLUTIONS</h3>
+            <h3 class="menuItem" onclick="window.location.href='partners.html'">PARTNERS</h3>
+            <h3 class="menuItem" onclick="window.location.href='about.html'">ABOUT</h3>
         </div>
     </nav>
 
-    <header class="hero" role="banner">
-        <div class="container">
-            <h1 class="hero-title">Powerful Partnerships for a Safer Digital World</h1>
-            <p class="hero-text">Join forces with Binoculars Security to deliver comprehensive cybersecurity solutions to your customers. Together, we can build a more secure future.</p>
-            <div class="btn-group">
-                <a href="#partner-programs" class="btn btn-primary">Become a Partner</a>
-                <a href="#current-partners" class="btn btn-secondary">See Our Partners</a>
+    <section class="partnersHero">
+        <h1>Binoculars Security Partners</h1>
+        <p>Join our global network of technology partners and resellers to deliver industry-leading security solutions to your customers.</p>
+        <button class="partnerCta">Become a Partner</button>
+    </section>
+
+    <section class="partnerPrograms">
+        <h2>Partner Programs</h2>
+        <div class="programsContainer">
+            <div class="programCard">
+                <img src="https://cdn-icons-png.flaticon.com/512/3050/3050158.png" alt="Reseller Icon" class="programIcon">
+                <h3 class="programTitle">Reseller Program</h3>
+                <p class="programDesc">Sell Binoculars Security products and earn competitive margins while providing your customers with top-tier security solutions.</p>
+                <button class="programButton">Learn More</button>
+            </div>
+            <div class="programCard">
+                <img src="https://cdn-icons-png.flaticon.com/512/3053/3053991.png" alt="Technology Icon" class="programIcon">
+                <h3 class="programTitle">Technology Alliance</h3>
+                <p class="programDesc">Integrate our security solutions with your technology platform to create more powerful, comprehensive offerings.</p>
+                <button class="programButton">Learn More</button>
+            </div>
+            <div class="programCard">
+                <img src="https://cdn-icons-png.flaticon.com/512/3059/3059518.png" alt="Service Icon" class="programIcon">
+                <h3 class="programTitle">MSSP Program</h3>
+                <p class="programDesc">For Managed Security Service Providers looking to incorporate our solutions into their security service offerings.</p>
+                <button class="programButton">Learn More</button>
             </div>
         </div>
-    </header>
+    </section>
 
-    <main id="main-content" role="main">
-        <section id="partner-programs" class="section">
-            <div class="container">
-                <h2 class="section-title">Partner Programs</h2>
-                <div class="card-grid">
-                    <article class="card">
-                        <div class="card-icon">
-                            <i class="fas fa-store" aria-hidden="true"></i>
-                        </div>
-                        <h3>Reseller Partners</h3>
-                        <p>Expand your security offerings by reselling Binoculars products. Earn competitive margins and benefit from our marketing support.</p>
-                        <button class="btn btn-primary">Learn More</button>
-                    </article>
-                    <article class="card">
-                        <div class="card-icon">
-                            <i class="fas fa-handshake" aria-hidden="true"></i>
-                        </div>
-                        <h3>Technology Partners</h3>
-                        <p>Integrate Binoculars security with your solutions. We offer APIs and SDKs for seamless integration.</p>
-                        <button class="btn btn-primary">Learn More</button>
-                    </article>
-                    <article class="card">
-                        <div class="card-icon">
-                            <i class="fas fa-users" aria-hidden="true"></i>
-                        </div>
-                        <h3>MSSP Partners</h3>
-                        <p>Managed Security Service Providers can leverage our platform to deliver superior protection to their clients.</p>
-                        <button class="btn btn-primary">Learn More</button>
-                    </article>
-                </div>
-            </div
-        </section>
+    <section class="currentPartners">
+        <h2>Our Trusted Partners</h2>
+        <div class="partnersGrid">
+            <img src="https://via.placeholder.com/180x80?text=Tech+Corp" alt="Tech Corp" class="partnerLogo">
+            <img src="https://via.placeholder.com/180x80?text=SecureNet" alt="SecureNet" class="partnerLogo">
+            <img src="https://via.placeholder.com/180x80?text=DataShield" alt="DataShield" class="partnerLogo">
+            <img src="https://via.placeholder.com/180x80?text=CloudSafe" alt="CloudSafe" class="partnerLogo">
+            <img src="https://via.placeholder.com/180x80?text=CyberGuard" alt="CyberGuard" class="partnerLogo">
+            <img src="https://via.placeholder.com/180x80?text=NetProtect" alt="NetProtect" class="partnerLogo">
+        </div>
+    </section>
 
-        <section id="current-partners" class="section">
-            <div class="container">
-                <h2 class="section-title">Our Trusted Partners</h2>
-                <div class="partners-grid">
-                    <img src="https://via.placeholder.com/150x60?text=TechCorp" alt="TechCorp" class="partner-logo" loading="lazy">
-                    <img src="https://via.placeholder.com/150x60?text=SecureNet" alt="SecureNet" class="partner-logo" loading="lazy">
-                    <img src="https://via.placeholder.com/150x60?text=DataShield" alt="DataShield" class="partner-logo" loading="lazy">
-                    <img src="https://via.placeholder.com/150x60?text=CloudSafe" alt="CloudSafe" class="partner-logo" loading="lazy">
-                    <img src="https://via.placeholder.com/150x60?text=NetDefend" alt="NetDefend" class="partner-logo" loading="lazy">
-                    <img src="https://via.placeholder.com/150x60?text=CyberArmor" alt="CyberArmor" class="partner-logo" loading="lazy">
+    <section class="partnerBenefits">
+        <h2>Partner Benefits</h2>
+        <div class="benefitsContainer">
+            <div class="benefitCard">
+                <img src="https://cdn-icons-png.flaticon.com/512/3132/3132693.png" alt="Revenue Icon" class="benefitIcon">
+                <div class="benefitContent">
+                    <h3>Revenue Opportunities</h3>
+                    <p>Earn competitive margins and benefit from our partner incentive programs.</p>
                 </div>
             </div>
-        </section>
-
-        <section class="section">
-            <div class="container">
-                <h2 class="section-title">What Our Partners Say</h2>
-                <div class="card-grid">
-                    <blockquote class="card testimonial-card">
-                        <div class="testimonial-content">
-                            "Partnering with Binoculars has allowed us to offer enterprise-grade security to our SMB clients at an affordable price point. Their support team is exceptional."
-                        </div>
-                        <footer class="testimonial-author">— Umesh Sharma & Shivansh pathania</footer>
-                    </blockquote>
-                    <blockquote class="card testimonial-card">
-                        <div class="testimonial-content">
-                            "The integration process was smooth and well-documented. Our joint customers appreciate the seamless experience between our platforms."
-                        </div>
-                        <footer class="testimonial-author">— Sukhman Singh</footer>
-                    </blockquote>
-                    <blockquote class="card testimonial-card">
-                        <div class="testimonial-content">
-                            "Binoculars's partner program offers some of the best margins in the industry. Their marketing materials and sales enablement tools are top-notch."
-                        </div>
-                        <footer class="testimonial-author">— Keshav Dhiman & Sam Verma</footer>
-                    </blockquote>
+            <div class="benefitCard">
+                <img src="https://cdn-icons-png.flaticon.com/512/2933/2933245.png" alt="Training Icon" class="benefitIcon">
+                <div class="benefitContent">
+                    <h3>Training & Certification</h3>
+                    <p>Access to comprehensive training and certification programs for your team.</p>
                 </div>
             </div>
-        </section>
-
-        <section class="section">
-            <div class="container" style="text-align: center;">
-                <h2 class="section-title">Ready to Partner With Us?</h2>
-                <button class="btn btn-primary" style="padding: 1rem 2rem; font-size: 1.2rem;">Contact Our Partnerships Team</button>
+            <div class="benefitCard">
+                <img src="https://cdn-icons-png.flaticon.com/512/2936/2936886.png" alt="Marketing Icon" class="benefitIcon">
+                <div class="benefitContent">
+                    <h3>Marketing Support</h3>
+                    <p>Co-marketing funds, campaigns, and materials to help grow your business.</p>
+                </div>
             </div>
-        </section>
-    </main>
+            <div class="benefitCard">
+                <img src="https://cdn-icons-png.flaticon.com/512/3059/3059518.png" alt="Support Icon" class="benefitIcon">
+                <div class="benefitContent">
+                    <h3>Dedicated Support</h3>
+                    <p>Priority technical and sales support for all partner engagements.</p>
+                </div>
+            </div>
+            <div class="benefitCard">
+                <img src="https://cdn-icons-png.flaticon.com/512/1570/1570887.png" alt="Deals Icon" class="benefitIcon">
+                <div class="benefitContent">
+                    <h3>Deal Registration</h3>
+                    <p>Protect your opportunities and earn additional discounts through our deal registration program.</p>
+                </div>
+            </div>
+            <div class="benefitCard">
+                <img src="https://cdn-icons-png.flaticon.com/512/1570/1570939.png" alt="Roadmap Icon" class="benefitIcon">
+                <div class="benefitContent">
+                    <h3>Product Roadmap</h3>
+                    <p>Early access to product roadmaps and beta programs for strategic partners.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <footer class="footer" role="contentinfo">
-        <div class="container">
-            <div class="footer-container">
-                <div class="footer-col">
-                    <h3 class="footer-title">About Us</h3>
-                    <ul class="footer-list">
-                        <li class="footer-item"><a href="#" class="footer-link">Company</a></li>
-                        <li class="footer-item"><a href="#" class="footer-link">Security Experts</a></li>
-                        <li class="footer-item"><a href="#" class="footer-link">Careers</a></li>
-                        <li class="footer-item"><a href="#" class="footer-link">Partners</a></li>
-                        <li class="footer-item"><a href="#" class="footer-link">Press</a></li>
-                    </ul>
+    <section class="partnerCtaSection">
+        <h2>Ready to Partner With Us?</h2>
+        <p>Join our growing network of security partners and start delivering exceptional value to your customers today.</p>
+        <button class="partnerCta">Contact Our Partner Team</button>
+    </section>
+
+    <footer>
+        <div class="footerLeft">
+            <div class="footerMenu">
+                <h1 class="fMenuTitle">About Us</h1>
+                <ul class="fList">
+                    <li class="fListItem">Company</li>
+                    <li class="fListItem">Security Team</li>
+                    <li class="fListItem">Careers</li>
+                    <li class="fListItem">Partners</li>
+                    <li class="fListItem">Press</li>
+                </ul>
+            </div>
+            <div class="footerMenu">
+                <h1 class="fMenuTitle">Support</h1>
+                <ul class="fList">
+                    <li class="fListItem">Help Center</li>
+                    <li class="fListItem">Tutorials</li>
+                    <li class="fListItem">FAQ</li>
+                    <li class="fListItem">Contact</li>
+                    <li class="fListItem">Blog</li>
+                </ul>
+            </div>
+            <div class="footerMenu">
+                <h1 class="fMenuTitle">Products</h1>
+                <ul class="fList">
+                    <li class="fListItem">Binoculars Basic</li>
+                    <li class="fListItem">Binoculars Pro</li>
+                    <li class="fListItem">Enterprise Suite</li>
+                    <li class="fListItem">Mobile Security</li>
+                    <li class="fListItem">VPN Service</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footerRight">
+            <div class="footerRightMenu">
+                <h1 class="fMenuTitle">Subscribe to our newsletter</h1>
+                <div class="fMail">
+                    <input type="text" placeholder="your@email.com" class="fInput">
+                    <button class="fButton">SUBSCRIBE</button>
                 </div>
-                <div class="footer-col">
-                    <h3 class="footer-title">Support</h3>
-                    <ul class="footer-list">
-                        <li class="footer-item"><a href="#" class="footer-link">Help Center</a></li>
-                        <li class="footer-item"><a href="#" class="footer-link">Virus Removal Guides</a></li>
-                        <li class="footer-item"><a href="#" class="footer-link">FAQ</a></li>
-                        <li class="footer-item"><a href="#" class="footer-link">Contact</a></li>
-                        <li class="footer-item"><a href="#" class="footer-link">Security Blog</a></li>
-                    </ul>
+            </div>
+            <div class="footerRightMenu">
+                <h1 class="fMenuTitle">Follow Us</h1>
+                <div class="fIcons">
+                    <img src="https://cdn-icons-png.flaticon.com/512/124/124010.png" alt="Facebook" class="fIcon">
+                    <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter" class="fIcon">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram" class="fIcon">
+                    <img src="https://cdn-icons-png.flaticon.com/512/1384/1384023.png" alt="YouTube" class="fIcon">
                 </div>
-                <div class="footer-col">
-                    <h3 class="footer-title">Products</h3>
-                    <ul class="footer-list">
-                        <li class="footer-item"><a href="#" class="footer-link">Binoculars Home</a></li>
-                        <li class="footer-item"><a href="#" class="footer-link">Binoculars Pro</a></li>
-                        <li class="footer-item"><a href="#" class="footer-link">Enterprise Protection</a></li>
-                        <li class="footer-item"><a href="#" class="footer-link">Mobile Security</a></li>
-                        <li class="footer-item"><a href="#" class="footer-link">VPN Service</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h3 class="footer-title">Newsletter</h3>
-                    <form class="newsletter-form">
-                        <input type="email" placeholder="your@email.com" class="newsletter-input" required aria-label="Email address">
-                        <button type="submit" class="btn btn-primary">Subscribe</button>
-                    </form>
-                    <h3 class="footer-title">Follow Us</h3>
-                    <div class="social-links">
-                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook social-icon"></i></a>
-                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter social-icon"></i></a>
-                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram social-icon"></i></a>
-                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube social-icon"></i></a>
-                    </div>
-                    <p class="copyright">© 2025 Binoculars Security. All rights reserved.</p>
-                </div>
+            </div>
+            <div class="footerRightMenu">
+                <span class="copyright">© 2025 Binoculars Security. All rights reserved.</span>
             </div>
         </div>
     </footer>
 
     <script>
-        // Theme toggle functionality
-        const themeToggle = document.getElementById('themeToggle');
-        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
-        
-        // Check for saved theme preference or use system preference
-        const currentTheme = localStorage.getItem('theme') || 
-                            (prefersDarkScheme.matches ? 'dark' : 'light');
-        
-        if (currentTheme === 'dark') {
-            document.documentElement.setAttribute('data-theme', 'dark');
-            themeToggle.innerHTML = '<i class="fas fa-sun"></i><span class="sr-only">Toggle light mode</span>';
-        }
-        
-        themeToggle.addEventListener('click', () => {
-            let theme;
-            if (document.documentElement.getAttribute('data-theme') === 'dark') {
-                document.documentElement.removeAttribute('data-theme');
-                theme = 'light';
-                themeToggle.innerHTML = '<i class="fas fa-moon"></i><span class="sr-only">Toggle dark mode</span>';
-            } else {
-                document.documentElement.setAttribute('data-theme', 'dark');
-                theme = 'dark';
-                themeToggle.innerHTML = '<i class="fas fa-sun"></i><span class="sr-only">Toggle light mode</span>';
-            }
-            localStorage.setItem('theme', theme);
-        });
-        
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
+        // Search functionality similar to main site
+        const searchInput = document.querySelector('.searchInput');
+        const searchIcon = document.querySelector('.searchIcon');
+        const searchResults = document.createElement('div');
+        searchResults.className = 'searchResults';
+        searchResults.style.display = 'none';
+        document.querySelector('.navTop').appendChild(searchResults);
+
+        // Partner-related search terms
+        const partnerKeywords = {
+            'reseller': { action: () => scrollToProgram(0), type: 'program' },
+            'technology': { action: () => scrollToProgram(1), type: 'program' },
+            'mssp': { action: () => scrollToProgram(2), type: 'program' },
+            'benefits': { action: () => scrollToSection('partnerBenefits'), type: 'info' },
+            'current partners': { action: () => scrollToSection('currentPartners'), type: 'info' },
+            'contact': { action: () => scrollToSection('partnerCtaSection'), type: 'action' },
+            'sign up': { action: () => document.querySelector('.partnerCta').click(), type: 'action' }
+        };
+
+        function scrollToProgram(index) {
+            const programs = document.querySelectorAll('.programCard');
+            if (programs[index]) {
+                window.scrollTo({
+                    top: programs[index].offsetTop - 100,
                     behavior: 'smooth'
                 });
-            });
-        });
-        
-        // Lazy load images
-        if ('loading' in HTMLImageElement.prototype) {
-            // Native lazy loading is supported
-            const lazyImages = document.querySelectorAll('img[loading="lazy"]');
-            lazyImages.forEach(img => {
-                img.src = img.dataset.src;
-            });
-        } else {
-            // Fallback for browsers without native lazy loading
-            const lazyLoad = target => {
-                const io = new IntersectionObserver((entries, observer) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            const img = entry.target;
-                            img.src = img.dataset.src;
-                            observer.disconnect();
-                        }
+            }
+        }
+
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                window.scrollTo({
+                    top: section.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        function performSearch(query) {
+            query = query.toLowerCase().trim();
+            searchResults.innerHTML = '';
+            searchResults.style.display = 'none';
+            
+            if (!query) return;
+            
+            const matches = [];
+            
+            // Check for exact matches first
+            for (const [keyword, data] of Object.entries(partnerKeywords)) {
+                if (query === keyword.toLowerCase()) {
+                    data.action();
+                    return;
+                }
+            }
+            
+            // Check for partial matches
+            for (const [keyword, data] of Object.entries(partnerKeywords)) {
+                if (keyword.toLowerCase().includes(query)) {
+                    matches.push({ keyword, data });
+                }
+            }
+            
+            // Display results if no exact match
+            if (matches.length > 0) {
+                searchResults.innerHTML = matches.map(match => `
+                    <div class="searchResultItem" data-type="${match.data.type}">
+                        <span>${match.keyword}</span>
+                        <small>${match.data.type}</small>
+                    </div>
+                `).join('');
+                
+                searchResults.style.display = 'block';
+                
+                // Add click handlers to result items
+                document.querySelectorAll('.searchResultItem').forEach((item, index) => {
+                    item.addEventListener('click', () => {
+                        matches[index].data.action();
+                        searchResults.style.display = 'none';
                     });
                 });
-                io.observe(target);
-            };
-            document.querySelectorAll('img[loading="lazy"]').forEach(lazyLoad);
+            } else {
+                searchResults.innerHTML = '<div class="noResults">No partner-related results found</div>';
+                searchResults.style.display = 'block';
+            }
         }
+
+        // Event listeners
+        searchIcon.addEventListener('click', () => {
+            performSearch(searchInput.value);
+        });
+
+        searchInput.addEventListener('keyup', (e) => {
+            if (e.key === 'Enter') {
+                performSearch(searchInput.value);
+            } else {
+                performSearch(searchInput.value);
+            }
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.search') && !e.target.closest('.searchResults')) {
+                searchResults.style.display = 'none';
+            }
+        });
+
+        // Partner CTA buttons
+        document.querySelectorAll('.partnerCta, .programButton').forEach(button => {
+            button.addEventListener('click', function() {
+                // In a real implementation, this would open a contact form or partner registration
+                alert('Thank you for your interest in our Partner Program. Our team will contact you shortly.');
+                // window.location.href = 'partner-signup.html';
+            });
+        });
     </script>
 </body>
 </html>
