@@ -22,6 +22,7 @@
 
 body {
   font-family: 'Segoe UI', 'Roboto', sans-serif;
+  line-height: 1.6;
   margin: 0;
   padding: 0;
   min-height: 100vh;
@@ -82,8 +83,11 @@ nav.dark ul li {
   color: var(--text-dark);
 }
 
-nav ul li:hover {
+nav ul li:hover,
+nav ul li:focus {
   color: var(--primary-dark);
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
 }
 
 .container {
@@ -110,10 +114,11 @@ h1 {
   font-weight: 700;
   color: var(--primary);
   text-align: center;
+  font-size: clamp(1.5rem, 5vw, 2rem);
 }
 
 p.description {
-  font-size: 1.1rem;
+  font-size: clamp(1rem, 2vw, 1.25rem);
   margin-bottom: 2rem;
   text-align: center;
   opacity: 0.9;
@@ -181,6 +186,11 @@ p.description {
   background: linear-gradient(135deg, #5db4d4, #2980b9);
   transform: translateY(-3px);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.cta button:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
 }
 
 .toggle-theme {
@@ -323,8 +333,11 @@ input:checked + .slider #sunIcon {
   color: var(--text-dark);
 }
 
-.footer-section ul li:hover {
+.footer-section ul li:hover,
+.footer-section ul li:focus {
   color: var(--primary-dark);
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
 }
 
 @media (max-width: 768px) {
@@ -335,5 +348,13 @@ input:checked + .slider #sunIcon {
 
   nav, .container, .footer {
     margin: 1rem;
+  }
+
+  h1 {
+    font-size: 1.25rem;
+  }
+
+  p.description {
+    font-size: 1rem;
   }
 }
