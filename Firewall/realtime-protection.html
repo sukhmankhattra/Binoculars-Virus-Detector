@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Binoculars Real-Time Protection | Continuous Security Monitoring</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    :root {
+      --primary: #3a7bd5;
+      --primary-dark: #2b5ca8;
+      --danger: #e74c3c;
+      --success: #2ecc71;
+      --warning: #f39c12;
+      --bg-light: #f4f6fa;
+      --bg-dark: #121212;
+      --card-bg-light: rgba(255, 255, 255, 0.9);
+      --card-bg-dark: rgba(30, 30, 30, 0.9);
+      --border-radius: 16px;
+      --text-light: #333;
+      --text-dark: #f0f0f0;
+      --shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+      --max-width: 1100px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', 'Roboto', sans-serif;
+      background: linear-gradient(135deg, #667eea, #764ba2, #4ca1af);
+      background-size: 400% 400%;
+      animation: gradientAnimation 15s ease infinite;
+      color: var(--text-light);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    @keyframes gradientAnimation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    nav {
+      background-color: var(--card-bg-light);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: var(--shadow);
+      border-radius: var(--border-radius);
+      margin: 1rem 2rem 0 2rem;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    nav.dark {
+      background-color: var(--card-bg-dark);
+      color: var(--text-dark);
+    }
+
+    nav .logo {
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: var(--primary);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    nav ul li {
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--text-light);
+      transition: color 0.3s ease;
+    }
+
+    nav.dark ul li {
+      color: var(--text-dark);
+    }
+
+    nav ul li:hover {
+      color: var(--primary-dark);
+    }
+
+    main {
+      flex: 1;
+      max-width: var(--max-width);
+      margin: 2rem auto 4rem auto;
+      background-color: var(--card-bg-light);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      padding: 2.5rem 3rem;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      color: var(--text-light);
+      text-align: center;
+    }
+
+    main.dark {
+      background-color: var(--card-bg-dark);
+      color: var(--text-dark);
+    }
+
+    header {
+      margin-bottom: 2rem;
+    }
+
+    header h1 {
+      font-weight: 700;
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.75rem;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    header p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .protection-status {
+      background-color: var(--bg-light);
+      border-radius: var(--border-radius);
+      padding: 2rem;
+      margin: 2rem 0;
+      box-shadow: var(--shadow);
+      text-align: left;
+      transition: background-color 0.3s ease;
+    }
+
+    main.dark .protection-status {
+      background-color: #222;
+    }
+
+    .status-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .status-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .status-title i {
+      font-size: 1.75rem;
+    }
+
+    .status-active {
+      color: var(--success);
+    }
+
+    .status-inactive {
+      color: var(--danger);
+    }
+
+    .status-toggle {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 30px;
+    }
+
+    .status-toggle input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .status-slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      border-radius: 34px;
+      transition: .4s;
+    }
+
+    .status-slider:before {
+      position: absolute;
+      content: "";
+      height: 22px;
+      width: 22px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      border-radius: 50%;
+      transition: .4s;
+    }
+
+    input:checked + .status-slider {
+      background-color: var(--success);
+    }
+
+    input:checked + .status-slider:before {
+      transform: translateX(30px);
+    }
+
+    .protection-features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .feature-card {
+      background-color: var(--bg-light);
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+      text-align: left;
+      transition: all 0.3s ease;
+      border-left: 4px solid var(--primary);
+    }
+
+    main.dark .feature-card {
+      background-color: #222;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .feature-card i {
+      font-size: 1.75rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+
+    .feature-card h3 {
+      margin-bottom: 0.75rem;
+      font-weight: 700;
+    }
+
+    .feature-card p {
+      font-size: 0.95rem;
+      opacity: 0.85;
+      margin-bottom: 1rem;
+    }
+
+    .feature-toggle {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .toggle-switch {
+      position: relative;
+      display: inline-block;
+      width: 45px;
+      height: 22px;
+    }
+
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .toggle-slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      border-radius: 34px;
+      transition: .4s;
+    }
+
+    .toggle-slider:before {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      border-radius: 50%;
+      transition: .4s;
+    }
+
+    input:checked + .toggle-slider {
+      background-color: var(--success);
+    }
+
+    input:checked + .toggle-slider:before {
+      transform: translateX(23px);
+    }
+
+    .activity-log {
+      background-color: var(--bg-light);
+      border-radius: var(--border-radius);
+      padding: 1.5rem;
+      margin-top: 2rem;
+      box-shadow: var(--shadow);
+      text-align: left;
+      transition: background-color 0.3s ease;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    main.dark .activity-log {
+      background-color: #222;
+    }
+
+    .activity-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .activity-header h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    .activity-header button {
+      background: none;
+      border: none;
+      color: var(--primary);
+      font-weight: 600;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    .activity-header button:hover {
+      color: var(--primary-dark);
+    }
+
+    .log-entry {
+      padding: 0.75rem 0;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    main.dark .log-entry {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .log-entry:last-child {
+      border-bottom: none;
+    }
+
+    .log-icon {
+      font-size: 1.25rem;
+      width: 30px;
+      text-align: center;
+    }
+
+    .log-icon.safe {
+      color: var(--success);
+    }
+
+    .log-icon.warning {
+      color: var(--warning);
+    }
+
+    .log-icon.danger {
+      color: var(--danger);
+    }
+
+    .log-info {
+      flex: 1;
+    }
+
+    .log-time {
+      font-size: 0.8rem;
+      opacity: 0.7;
+      margin-top: 0.25rem;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .stat-card {
+      background-color: var(--bg-light);
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    main.dark .stat-card {
+      background-color: #222;
+    }
+
+    .stat-card i {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    .stat-card h3 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+
+    .stat-card p {
+      font-size: 0.9rem;
+      opacity: 0.85;
+    }
+
+    .toggle-theme {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 100;
+    }
+
+    .theme-label-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      padding: 8px 12px;
+      background-color: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 8px;
+      color: #333333;
+      font-size: 0.85rem;
+      font-weight: 500;
+      text-align: center;
+      transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+
+    .theme-label-box:hover {
+      box-shadow: 0 0 15px rgba(58, 123, 213, 0.8), 0 0 30px rgba(58, 123, 213, 0.5);
+    }
+
+    main.dark .theme-label-box {
+      background-color: rgba(0, 0, 0, 0.5);
+      color: var(--text-dark);
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 24px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(255, 255, 255, 0.3);
+      border-radius: 24px;
+      transition: 0.4s;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      border-radius: 50%;
+      transition: 0.4s;
+    }
+
+    .slider i {
+      font-size: 12px;
+      transition: opacity 0.3s ease, color 0.3s ease;
+    }
+
+    #moonIcon {
+      color: #4a90e2;
+      opacity: 1;
+    }
+
+    #sunIcon {
+      color: #f1c40f;
+      opacity: 0;
+    }
+
+    input:checked + .slider {
+      background-color: var(--primary);
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
+
+    input:checked + .slider #moonIcon {
+      opacity: 0;
+    }
+
+    input:checked + .slider #sunIcon {
+      opacity: 1;
+    }
+
+    .footer {
+      background-color: var(--card-bg-light);
+      padding: 2rem;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      margin: 0 2rem 2rem 2rem;
+      color: var(--text-light);
+      transition: background-color 0.3s ease, color 0.3s ease;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .footer.dark {
+      background-color: var(--card-bg-dark);
+      color: var(--text-dark);
+    }
+
+    .footer-section {
+      flex: 1 1 200px;
+      min-width: 200px;
+    }
+
+    .footer-section h3 {
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    .footer-section ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-section ul li {
+      margin-bottom: 0.5rem;
+      cursor: pointer;
+      color: var(--text-light);
+      transition: color 0.3s ease;
+    }
+
+    .footer.dark .footer-section ul li {
+      color: var(--text-dark);
+    }
+
+    .footer-section ul li:hover {
+      color: var(--primary-dark);
+    }
+
+    .newsletter {
+      flex: 1 1 300px;
+      min-width: 300px;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .newsletter h3 {
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .newsletter p {
+      color: var(--text-light);
+      margin-bottom: 1rem;
+    }
+
+    .newsletter form {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .newsletter input[type="email"] {
+      flex: 1;
+      padding: 0.5rem;
+      border-radius: 8px;
+      border: 1px solid var(--primary);
+      font-size: 1rem;
+    }
+
+    .newsletter button {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 0 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 700;
+      transition: background-color 0.3s ease;
+    }
+
+    .newsletter button:hover {
+      background-color: var(--primary-dark);
+    }
+
+    .socialMedia {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .socialMedia a {
+      color: var(--text-light);
+      font-size: 1.5rem;
+      transition: color 0.3s ease;
+    }
+
+    .socialMedia a:hover {
+      color: var(--primary);
+    }
+
+    .copyright {
+      flex-basis: 100%;
+      text-align: center;
+      margin-top: 1rem;
+      color: var(--text-light);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      .footer {
+        flex-direction: column;
+        margin: 1rem;
+      }
+
+      .footer-section,
+      .newsletter {
+        min-width: 100%;
+      }
+
+      .socialMedia {
+        justify-content: center;
+      }
+
+      .protection-features {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav id="mainNav">
+    <div class="logo" tabindex="0" role="link" aria-label="Binoculars Home" onclick="location.href='index.html'">Binoculars</div>
+    <ul>
+      <li tabindex="0" role="link" onclick="location.href='index.html'">Home</li>
+      <li tabindex="0" role="link" onclick="location.href='Products/vpn.html'">VPN Service</li>
+      <li tabindex="0" role="link" onclick="location.href='FreeScan.html'">Free Scan</li>
+      <li tabindex="0" role="link" onclick="location.href='support/blog.html'">Blog</li>
+      <li tabindex="0" role="link" onclick="location.href='aboutus/aboutus-mainpage.html'" class="active">Real-Time Protection</li>
+    </ul>
+  </nav>
+
+  <main id="realTimeProtectionPage" role="main">
+    <header>
+      <h1><i class="fa-solid fa-shield-halved"></i> Real-Time Protection</h1>
+      <p>Continuous monitoring that keeps your system safe from threats as they emerge, without slowing you down.</p>
+    </header>
+
+    <div class="protection-status">
+      <div class="status-header">
+        <div class="status-title">
+          <i id="protectionIcon" class="fas fa-shield-alt"></i>
+          <span id="protectionStatusText">Real-Time Protection</span>
+        </div>
+        <label class="status-toggle">
+          <input type="checkbox" id="protectionToggle" checked>
+          <span class="status-slider"></span>
+        </label>
+      </div>
+      <p id="protectionDescription">Real-time protection is actively monitoring your system for threats. All security features are enabled and running.</p>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <i class="fas fa-clock"></i>
+        <h3 id="uptimeDays">7</h3>
+        <p>Days of continuous protection</p>
+      </div>
+      <div class="stat-card">
+        <i class="fas fa-shield-virus"></i>
+        <h3 id="threatsBlocked">42</h3>
+        <p>Threats blocked this week</p>
+      </div>
+      <div class="stat-card">
+        <i class="fas fa-file-shield"></i>
+        <h3 id="filesScanned">1,248</h3>
+        <p>Files scanned today</p>
+      </div>
+      <div class="stat-card">
+        <i class="fas fa-network-wired"></i>
+        <h3 id="connectionsMonitored">576</h3>
+        <p>Network connections monitored</p>
+      </div>
+    </div>
+
+    <div class="protection-features">
+      <div class="feature-card">
+        <i class="fas fa-virus"></i>
+        <h3>Malware Protection</h3>
+        <p>Blocks viruses, ransomware, spyware and other malicious software before they can infect your system.</p>
+        <div class="feature-toggle">
+          <span>Enabled</span>
+          <label class="toggle-switch">
+            <input type="checkbox" class="feature-toggle-input" data-feature="malware" checked>
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-globe"></i>
+        <h3>Web Protection</h3>
+        <p>Warns you about dangerous websites and blocks phishing attempts in your browser.</p>
+        <div class="feature-toggle">
+          <span>Enabled</span>
+          <label class="toggle-switch">
+            <input type="checkbox" class="feature-toggle-input" data-feature="web" checked>
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-envelope"></i>
+        <h3>Email Protection</h3>
+        <p>Scans incoming emails and attachments for malicious content and phishing attempts.</p>
+        <div class="feature-toggle">
+          <span>Enabled</span>
+          <label class="toggle-switch">
+            <input type="checkbox" class="feature-toggle-input" data-feature="email" checked>
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-network-wired"></i>
+        <h3>Firewall</h3>
+        <p>Monitors network traffic and blocks unauthorized access to your computer.</p>
+        <div class="feature-toggle">
+          <span>Enabled</span>
+          <label class="toggle-switch">
+            <input type="checkbox" class="feature-toggle-input" data-feature="firewall" checked>
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-usb"></i>
+        <h3>Device Control</h3>
+        <p>Protects against malware spread through USB drives and other removable devices.</p>
+        <div class="feature-toggle">
+          <span>Enabled</span>
+          <label class="toggle-switch">
+            <input type="checkbox" class="feature-toggle-input" data-feature="device" checked>
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-lock"></i>
+        <h3>Ransomware Protection</h3>
+        <p>Specialized defense against ransomware attacks that encrypt your files.</p>
+        <div class="feature-toggle">
+          <span>Enabled</span>
+          <label class="toggle-switch">
+            <input type="checkbox" class="feature-toggle-input" data-feature="ransomware" checked>
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="activity-log">
+      <div class="activity-header">
+        <h3><i class="fas fa-history"></i> Protection Activity</h3>
+        <button id="clearLogs" aria-label="Clear activity log">Clear Log</button>
+      </div>
+      <div id="logEntries">
+        <!-- Log entries will be added here dynamically -->
+      </div>
+    </div>
+  </main>
+
+  <div class="toggle-theme" role="region" aria-label="Toggle dark and light theme">
+    <div class="theme-label-box" tabindex="0" role="button" aria-pressed="false" onclick="toggleTheme()">
+      <i class="fas fa-moon" id="moonIcon"></i>
+      <span>Dark Mode</span>
+      <label class="switch">
+        <input type="checkbox" id="themeToggleSwitch" aria-label="Toggle dark mode" />
+        <span class="slider"></span>
+      </label>
+      <i class="fas fa-sun" id="sunIcon"></i>
+    </div>
+  </div>
+
+  <footer class="footer" role="contentinfo" aria-label="Site Footer">
+    <section class="footer-section" aria-label="About Us">
+      <h3>About Us</h3>
+      <ul>
+        <li tabindex="0" role="link" onclick="location.href='aboutus/aboutus-mainpage.html'">Company</li>
+        <li tabindex="0" role="link">Security Team</li>
+        <li tabindex="0" role="link">Careers</li>
+        <li tabindex="0" role="link">Partners</li>
+        <li tabindex="0" role="link">Press</li>
+      </ul>
+    </section>
+    <section class="footer-section" aria-label="Support">
+      <h3>Support</h3>
+      <ul>
+        <li tabindex="0" role="link" onclick="location.href='support/help center.html'">Help Center</li>
+        <li tabindex="0" role="link" onclick="location.href='support/tutorials.html'">Tutorials</li>
+        <li tabindex="0" role="link" onclick="location.href='support/FAQ.html'">FAQ</li>
+        <li tabindex="0" role="link" onclick="location.href='support/contact us.html'">Contact</li>
+        <li tabindex="0" role="link" onclick="location.href='support/blog.html'">Blog</li>
+      </ul>
+    </section>
+    <section class="footer-section" aria-label="Products">
+      <h3>Products</h3>
+      <ul>
+        <li tabindex="0" role="link" onclick="location.href='FreeScan.html'">Binoculars Basic</li>
+        <li tabindex="0" role="link">Binoculars Pro</li>
+        <li tabindex="0" role="link">Enterprise Suite</li>
+        <li tabindex="0" role="link">Mobile Security</li>
+        <li tabindex="0" role="link" onclick="location.href='Products/vpn.html'">VPN Service</li>
+      </ul>
+    </section>
+    <section class="footer-section" aria-label="Newsletter Subscription and Social Media">
+      <h3>Subscribe to our newsletter</h3>
+      <p>Get the latest updates and offers.</p>
+      <form>
+        <input type="email" placeholder="Your email address" aria-label="Email address" />
+        <button type="submit">Subscribe</button>
+      </form>
+      <div class="socialMedia">
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+      <div class="copyright">
+        &copy; 2025 Binoculars. All rights reserved.
+      </div>
+    </section>
+  </footer>
+
+  <script>
+    // Theme toggle functionality
+    const themeToggleSwitch = document.getElementById('themeToggleSwitch');
+    const body = document.body;
+    const main = document.querySelector('main');
+    const nav = document.getElementById('mainNav');
+    const footer = document.querySelector('footer');
+    const themeLabelBox = document.querySelector('.theme-label-box');
+
+    function toggleTheme() {
+      const isDark = themeToggleSwitch.checked;
+      if (isDark) {
+        body.style.background = 'linear-gradient(135deg, #121212, #2b2b2b, #121212)';
+        body.style.color = 'var(--text-dark)';
+        main.classList.add('dark');
+        nav.classList.add('dark');
+        footer.classList.add('dark');
+        themeLabelBox.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+        themeLabelBox.style.color = 'var(--text-dark)';
+        themeLabelBox.setAttribute('aria-pressed', 'true');
+      } else {
+        body.style.background = 'linear-gradient(135deg, #667eea, #764ba2, #4ca1af)';
+        body.style.color = 'var(--text-light)';
+        main.classList.remove('dark');
+        nav.classList.remove('dark');
+        footer.classList.remove('dark');
+        themeLabelBox.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
+        themeLabelBox.style.color = '#333333';
+        themeLabelBox.setAttribute('aria-pressed', 'false');
+      }
+    }
+
+    themeToggleSwitch.addEventListener('change', toggleTheme);
+
+    // Load saved theme preference
+    window.addEventListener('DOMContentLoaded', () => {
+      const savedTheme = localStorage.getItem('themePreference');
+      if (savedTheme === 'dark') {
+        themeToggleSwitch.checked = true;
+        toggleTheme();
+      }
+    });
+
+    // Save theme preference on toggle
+    themeToggleSwitch.addEventListener('change', () => {
+      localStorage.setItem('themePreference', themeToggleSwitch.checked ? 'dark' : 'light');
+    });
+
+    // Real-time protection functionality
+    const protectionToggle = document.getElementById('protectionToggle');
+    const protectionIcon = document.getElementById('protectionIcon');
+    const protectionStatusText = document.getElementById('protectionStatusText');
+    const protectionDescription = document.getElementById('protectionDescription');
+    const featureToggles = document.querySelectorAll('.feature-toggle-input');
+    const clearLogsButton = document.getElementById('clearLogs');
+    const logEntries = document.getElementById('logEntries');
+    const uptimeDays = document.getElementById('uptimeDays');
+    const threatsBlocked = document.getElementById('threatsBlocked');
+    const filesScanned = document.getElementById('filesScanned');
+    const connectionsMonitored = document.getElementById('connectionsMonitored');
+
+    // Sample log entries data
+    const sampleLogEntries = [
+      { type: 'safe', message: 'Scanned file "document.pdf" - No threats found', time: '2 minutes ago' },
+      { type: 'warning', message: 'Blocked connection to potentially risky website', time: '15 minutes ago' },
+      { type: 'danger', message: 'Blocked malware "Trojan.GenericKD.123456" from executing', time: '1 hour ago' },
+      { type: 'safe', message: 'Updated virus definitions to latest version', time: '3 hours ago' },
+      { type: 'warning', message: 'Detected suspicious behavior from USB device', time: '5 hours ago' },
+      { type: 'safe', message: 'Completed scheduled quick scan - No threats found', time: 'Yesterday' },
+      { type: 'danger', message: 'Blocked ransomware attempt on Documents folder', time: '2 days ago' }
+    ];
+
+    // Initialize log entries
+    function initializeLogEntries() {
+      sampleLogEntries.forEach(entry => {
+        addLogEntry(entry.type, entry.message, entry.time);
+      });
+    }
+
+    // Add a new log entry
+    function addLogEntry(type, message, time) {
+      const logEntry = document.createElement('div');
+      logEntry.className = 'log-entry';
+      
+      let iconClass = '';
+      if (type === 'safe') iconClass = 'fas fa-check-circle log-icon safe';
+      else if (type === 'warning') iconClass = 'fas fa-exclamation-triangle log-icon warning';
+      else iconClass = 'fas fa-times-circle log-icon danger';
+      
+      logEntry.innerHTML = `
+        <i class="${iconClass}"></i>
+        <div class="log-info">
+          <div>${message}</div>
+          <div class="log-time">${time}</div>
+        </div>
+      `;
+      
+      logEntries.prepend(logEntry);
+    }
+
+    // Clear all log entries
+    clearLogsButton.addEventListener('click', () => {
+      logEntries.innerHTML = '';
+      addLogEntry('safe', 'Cleared protection activity log', 'Just now');
+    });
+
+    // Toggle main protection
+    protectionToggle.addEventListener('change', function() {
+      if (this.checked) {
+        protectionIcon.className = 'fas fa-shield-alt status-active';
+        protectionStatusText.textContent = 'Real-Time Protection';
+        protectionDescription.textContent = 'Real-time protection is actively monitoring your system for threats. All security features are enabled and running.';
+        
+        // Enable all features
+        featureToggles.forEach(toggle => {
+          toggle.checked = true;
+        });
+        
+        addLogEntry('safe', 'Real-time protection enabled', 'Just now');
+      } else {
+        protectionIcon.className = 'fas fa-shield-alt status-inactive';
+        protectionStatusText.textContent = 'Protection Disabled';
+        protectionDescription.textContent = 'Real-time protection is turned off. Your system is not protected against threats.';
+        
+        // Disable all features
+        featureToggles.forEach(toggle => {
+          toggle.checked = false;
+        });
+        
+        addLogEntry('danger', 'Real-time protection disabled', 'Just now');
+      }
+    });
+
+    // Toggle individual features
+    featureToggles.forEach(toggle => {
+      toggle.addEventListener('change', function() {
+        const feature = this.getAttribute('data-feature');
+        const isEnabled = this.checked;
+        
+        if (isEnabled) {
+          addLogEntry('safe', `Enabled ${feature} protection`, 'Just now');
+        } else {
+          addLogEntry('warning', `Disabled ${feature} protection`, 'Just now');
+        }
+      });
+    });
+
+    // Simulate random protection events
+    function simulateProtectionEvents() {
+      const events = [
+        { type: 'safe', message: 'Scanned startup applications - No threats found', time: 'Just now' },
+        { type: 'safe', message: 'Checked system integrity - No issues detected', time: 'Just now' },
+        { type: 'warning', message: 'Detected potentially unwanted program', time: 'Just now' },
+        { type: 'danger', message: 'Blocked phishing attempt from email', time: 'Just now' }
+      ];
+      
+      const randomEvent = events[Math.floor(Math.random() * events.length)];
+      addLogEntry(randomEvent.type, randomEvent.message, randomEvent.time);
+      
+      // Update stats
+      if (randomEvent.type === 'danger' || randomEvent.type === 'warning') {
+        threatsBlocked.textContent = parseInt(threatsBlocked.textContent) + 1;
+      }
+      filesScanned.textContent = parseInt(filesScanned.textContent) + Math.floor(Math.random() * 50) + 10;
+      connectionsMonitored.textContent = parseInt(connectionsMonitored.textContent) + Math.floor(Math.random() * 20) + 5;
+      
+      // Schedule next event
+      setTimeout(simulateProtectionEvents, Math.random() * 10000 + 5000);
+    }
+
+    // Initialize the page
+    window.addEventListener('DOMContentLoaded', () => {
+      initializeLogEntries();
+      simulateProtectionEvents();
+      
+      // Initialize stats with random values
+      uptimeDays.textContent = Math.floor(Math.random()

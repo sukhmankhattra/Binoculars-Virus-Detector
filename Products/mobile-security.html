@@ -1,0 +1,1906 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Binoculars Security - Mobile Protection</title>
+    <meta name="description" content="Secure your mobile devices with Binoculars Security's comprehensive protection for Android and iOS.">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet" />
+    <style>
+        /* Embedded CSS to match existing style with theme support */
+        :root {
+            --bg-color-light: #f5f5f5;
+            --text-color-light: #333;
+            --nav-bg-light: #121212;
+            --nav-text-light: white;
+            --accent-color-light: #4a90e2;
+            --accent-hover-light: #3a7bc8;
+            --footer-bg-light: white;
+            --footer-text-light: #555;
+            --card-bg-light: white;
+            --input-bg-light: white;
+            --input-border-light: #ddd;
+            --success-color: #34a853;
+            --danger-color: #ea4335;
+
+            --bg-color-dark: #121212;
+            --text-color-dark: #ddd;
+            --nav-bg-dark: #1e1e1e;
+            --nav-text-dark: #ddd;
+            --accent-color-dark: #4a90e2;
+            --accent-hover-dark: #3a7bc8;
+            --footer-bg-dark: #1e1e1e;
+            --footer-text-dark: #aaa;
+            --card-bg-dark: #222;
+            --input-bg-dark: #333;
+            --input-border-dark: #555;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Lato', sans-serif;
+            background-color: var(--bg-color-light);
+            color: var(--text-color-light);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        body.dark-theme {
+            background-color: var(--bg-color-dark);
+            color: var(--text-color-dark);
+        }
+
+        #nav {
+            display: flex;
+            flex-direction: column;
+            background-color: var(--nav-bg-light);
+            color: var(--nav-text-light);
+            padding: 10px 50px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        body.dark-theme #nav {
+            background-color: var(--nav-bg-dark);
+            color: var(--nav-text-dark);
+        }
+
+        .navTop {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 20px 0;
+        }
+
+        .navItem {
+            display: flex;
+            align-items: center;
+            margin-left: 20px;
+        }
+
+        .search {
+            display: flex;
+            align-items: center;
+            background-color: white;
+            padding: 10px 15px;
+            border-radius: 30px;
+            margin: 0 20px;
+            flex-grow: 1;
+            max-width: 400px;
+        }
+
+        body.dark-theme .search {
+            background-color: #333;
+        }
+
+        .searchInput {
+            border: none;
+            outline: none;
+            background: transparent;
+            width: 100%;
+            font-size: 1rem;
+            color: #333;
+        }
+
+        body.dark-theme .searchInput {
+            color: #ddd;
+        }
+
+        .searchIcon {
+            cursor: pointer;
+        }
+
+        .limitedOffer {
+            background-color: var(--accent-color-light);
+            padding: 5px 15px;
+            border-radius: 30px;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 12px;
+            color: white;
+            user-select: none;
+            transition: background-color 0.3s ease;
+        }
+
+        body.dark-theme .limitedOffer {
+            background-color: var(--accent-color-dark);
+        }
+
+        button#themeToggle {
+            background-color: transparent;
+            border: 2px solid var(--accent-color-light);
+            color: var(--accent-color-light);
+            padding: 6px 15px;
+            border-radius: 30px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+
+        button#themeToggle:hover {
+            background-color: var(--accent-hover-light);
+            color: white;
+            border-color: var(--accent-hover-light);
+        }
+
+        body.dark-theme button#themeToggle {
+            border-color: var(--accent-color-dark);
+            color: var(--accent-color-dark);
+        }
+
+        body.dark-theme button#themeToggle:hover {
+            background-color: var(--accent-hover-dark);
+            color: white;
+            border-color: var(--accent-hover-dark);
+        }
+
+        .navBottom {
+            display: flex;
+            justify-content: center;
+            padding: 15px 0;
+        }
+
+        .menuItem {
+            margin: 0 25px;
+            cursor: pointer;
+            font-weight: 400;
+            color: #aaa;
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+
+        .menuItem:hover {
+            color: white;
+        }
+
+        header.mobile-header {
+            text-align: center;
+            padding: 3rem 1rem 2rem 1rem;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--nav-bg-light);
+            letter-spacing: 2px;
+            user-select: none;
+            transition: color 0.3s ease;
+        }
+
+        body.dark-theme header.mobile-header {
+            color: var(--text-color-dark);
+        }
+
+        main.mobile-main {
+            max-width: 1200px;
+            margin: 0 auto 4rem;
+            padding: 0 1rem;
+        }
+
+        .mobile-intro {
+            text-align: center;
+            margin-bottom: 3rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .mobile-intro p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: var(--text-color-light);
+        }
+
+        body.dark-theme .mobile-intro p {
+            color: var(--text-color-dark);
+        }
+
+        .mobile-devices {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .device-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            padding: 1rem;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .device-option:hover {
+            background-color: rgba(74, 144, 226, 0.1);
+        }
+
+        body.dark-theme .device-option:hover {
+            background-color: rgba(74, 144, 226, 0.2);
+        }
+
+        .device-option.active {
+            background-color: rgba(74, 144, 226, 0.2);
+            border: 2px solid var(--accent-color-light);
+        }
+
+        body.dark-theme .device-option.active {
+            background-color: rgba(74, 144, 226, 0.3);
+            border-color: var(--accent-color-dark);
+        }
+
+        .device-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--accent-color-light);
+        }
+
+        body.dark-theme .device-icon {
+            color: var(--accent-color-dark);
+        }
+
+        .device-name {
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .mobile-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .feature-card {
+            background: var(--card-bg-light);
+            border-radius: 10px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+            padding: 2rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        body.dark-theme .feature-card {
+            background: var(--card-bg-dark);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.6);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--accent-color-light);
+            margin-bottom: 1.5rem;
+        }
+
+        body.dark-theme .feature-icon {
+            color: var(--accent-color-dark);
+        }
+
+        .feature-card h3 {
+            margin-top: 0;
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+
+        .feature-card p {
+            margin-bottom: 1.5rem;
+            color: var(--text-color-light);
+            line-height: 1.5;
+        }
+
+        body.dark-theme .feature-card p {
+            color: var(--text-color-dark);
+        }
+
+        .download-section {
+            background: var(--card-bg-light);
+            border-radius: 10px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        body.dark-theme .download-section {
+            background: var(--card-bg-dark);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.6);
+        }
+
+        .download-section h2 {
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            color: var(--accent-color-light);
+        }
+
+        body.dark-theme .download-section h2 {
+            color: var(--accent-color-dark);
+        }
+
+        .download-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .download-btn {
+            display: flex;
+            align-items: center;
+            background-color: var(--accent-color-light);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-theme .download-btn {
+            background-color: var(--accent-color-dark);
+        }
+
+        .download-btn:hover {
+            background-color: var(--accent-hover-light);
+            transform: translateY(-2px);
+        }
+
+        body.dark-theme .download-btn:hover {
+            background-color: var(--accent-hover-dark);
+        }
+
+        .download-btn i {
+            font-size: 1.5rem;
+            margin-right: 0.8rem;
+        }
+
+        .security-status {
+            background: var(--card-bg-light);
+            border-radius: 10px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+            padding: 2rem;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        body.dark-theme .security-status {
+            background: var(--card-bg-dark);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.6);
+        }
+
+        .status-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .status-icon {
+            font-size: 2rem;
+            margin-right: 1rem;
+            color: var(--success-color);
+        }
+
+        .status-danger {
+            color: var(--danger-color) !important;
+        }
+
+        .status-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .status-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+        }
+
+        .status-item i {
+            font-size: 1.2rem;
+            margin-right: 0.8rem;
+            color: var(--accent-color-light);
+        }
+
+        body.dark-theme .status-item i {
+            color: var(--accent-color-dark);
+        }
+
+        .status-item span {
+            font-weight: 700;
+        }
+
+        footer {
+            display: flex;
+            padding: 50px;
+            background-color: var(--footer-bg-light);
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 2rem;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        body.dark-theme footer {
+            background-color: var(--footer-bg-dark);
+            color: var(--footer-text-dark);
+        }
+
+        .footerLeft {
+            flex: 2;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .footerRight {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .footerMenu {
+            min-width: 150px;
+        }
+
+        .fMenuTitle {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--text-color-light);
+        }
+
+        body.dark-theme .fMenuTitle {
+            color: var(--footer-text-dark);
+        }
+
+        .fList {
+            list-style: none;
+        }
+
+        .fListItem {
+            margin-bottom: 10px;
+            color: #555;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-theme .fListItem {
+            color: #aaa;
+        }
+
+        .fListItem:hover {
+            color: var(--accent-color-light);
+        }
+
+        body.dark-theme .fListItem:hover {
+            color: var(--accent-hover-dark);
+        }
+
+        .fInput {
+            padding: 10px;
+            border: 1px solid #ddd;
+            width: 70%;
+            margin-right: 10px;
+            border-radius: 5px;
+        }
+
+        body.dark-theme .fInput {
+            background-color: #333;
+            border-color: #555;
+            color: #ddd;
+        }
+
+        .fButton {
+            padding: 10px 20px;
+            background-color: var(--accent-color-light);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-theme .fButton {
+            background-color: var(--accent-color-dark);
+        }
+
+        .fButton:hover {
+            background-color: var(--accent-hover-light);
+        }
+
+        body.dark-theme .fButton:hover {
+            background-color: var(--accent-hover-dark);
+        }
+
+        .fIcons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .fIcon {
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .fIcon:hover {
+            transform: scale(1.2);
+        }
+
+        .copyright {
+            color: #777;
+            font-size: 14px;
+            margin-top: 20px;
+        }
+
+        body.dark-theme .copyright {
+            color: #aaa;
+        }
+
+        @media screen and (max-width: 768px) {
+            #nav {
+                padding: 10px 20px;
+            }
+
+            .navTop {
+                flex-direction: row;
+                padding: 10px 0;
+                justify-content: space-between;
+            }
+
+            .navItem {
+                margin: 0 10px;
+            }
+
+            .navBottom {
+                flex-wrap: wrap;
+            }
+
+            .menuItem {
+                margin: 10px;
+            }
+
+            .mobile-features {
+                grid-template-columns: 1fr;
+            }
+
+            .download-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .download-btn {
+                width: 100%;
+                max-width: 250px;
+                justify-content: center;
+            }
+
+            footer {
+                flex-direction: column;
+                padding: 30px 10px;
+            }
+
+            .footerLeft {
+                flex-direction: column;
+                margin-bottom: 30px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <nav id="nav" role="navigation" aria-label="Primary Navigation">
+        <div class="navTop">
+            <div class="navItem">
+                <!-- Logo removed as per user request 
+            </div>
+            <div class="navItem">
+                <div class="search" role="search">
+                    <input type="text" placeholder="Search..." class="searchInput" aria-label="Search" />
+                    <img src="https://cdn-icons-png.flaticon.com/512/149/149852.png" width="20" height="20" alt="Search Icon" class="searchIcon" />
+                </div>
+            </div>
+            <div class="navItem">
+                <span class="limitedOffer">FREE TRIAL!</span>
+            </div>
+            <div class="navItem">
+                <button id="themeToggle" aria-label="Toggle light and dark theme">Toggle Theme</button>
+            </div>
+            <div>
+                <button onclick="window.location.href='combined ui/combined_login_signup.html'" style="background-color: var(--accent-color-light); color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">Sign Up</button>
+            </div>
+        </div>
+        <div class="navBottom" role="menubar" aria-label="Secondary Navigation">
+            <h3 class="menuItem" role="menuitem" tabindex="0">PROTECTION</h3>
+            <h3 class="menuItem" role="menuitem" tabindex="0">ANTI-THEFT</h3>
+            <h3 class="menuItem" role="menuitem" tabindex="0">PRIVACY</h3>
+            <h3 class="menuItem" role="menuitem" tabindex="0">PERFORMANCE</h3>
+            <h3 class="menuItem" role="menuitem" tabindex="0">SETTINGS</h3>
+        </div>
+    </nav>
+
+    <header class="mobile-header" role="banner" aria-label="Mobile Security Page Header">
+        Mobile Security
+    </header>
+
+    <main class="mobile-main">
+        <div class="mobile-intro">
+            <p>Comprehensive protection for your Android and iOS devices. Secure your mobile life with real-time scanning, anti-theft features, and privacy tools.</p>
+            
+            <div class="mobile-devices">
+                <div class="device-option active" data-device="android">
+                    <i class="fab fa-android device-icon"></i>
+                    <span class="device-name">Android</span>
+                </div>
+                <div class="device-option" data-device="ios">
+                    <i class="fab fa-apple device-icon"></i>
+                    <span class="device-name">iOS</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="mobile-features">
+            <!-- Feature Card 1 
+            <div class="feature-card">
+                <i class="fas fa-shield-alt feature-icon"></i>
+                <h3>Real-Time Protection</h3>
+                <p>Continuous scanning for malware, spyware, and other threats as you download and install apps.</p>
+            </div>
+
+            <!-- Feature Card 2 
+            <div class="feature-card">
+                <i class="fas fa-search feature-icon"></i>
+                <h3>App Scanner</h3>
+                <p>Analyze installed apps for suspicious behavior and privacy risks before they can harm your device.</p>
+            </div>
+
+            <!-- Feature Card 3 
+            <div class="feature-card">
+                <i class="fas fa-lock feature-icon"></i>
+                <h3>Privacy Advisor</h3>
+                <p>See which apps are accessing your personal data and restrict unnecessary permissions.</p>
+            </div>
+
+            <!-- Feature Card 4 
+            <div class="feature-card">
+                <i class="fas fa-map-marker-alt feature-icon"></i>
+                <h3>Anti-Theft</h3>
+                <p>Locate, lock, or wipe your lost or stolen device remotely to protect your data.</p>
+            </div>
+
+            <!-- Feature Card 5 
+            <div class="feature-card">
+                <i class="fas fa-wifi feature-icon"></i>
+                <h3>Wi-Fi Security</h3>
+                <p>Automatically detect unsafe networks and protect your data from snoopers on public Wi-Fi.</p>
+            </div>
+
+            <!-- Feature Card 6 
+            <div class="feature-card">
+                <i class="fas fa-bolt feature-icon"></i>
+                <h3>Performance Boost</h3>
+                <p>Clean junk files, optimize memory, and extend battery life with our smart maintenance tools.</p>
+            </div>
+        </div>
+
+        <div class="download-section">
+            <h2>Get Protected Today</h2>
+            <p>Download Binoculars Mobile Security for your device:</p>
+            <div class="download-buttons">
+                <a href="#" class="download-btn">
+                    <i class="fab fa-google-play"></i>
+                    <span>Google Play</span>
+                </a>
+                <a href="#" class="download-btn">
+                    <i class="fab fa-app-store"></i>
+                    <span>App Store</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="security-status">
+            <div class="status-header">
+                <i class="fas fa-check-circle status-icon"></i>
+                <h3 class="status-title">Your Mobile Security Status</h3>
+            </div>
+            <div class="status-details">
+                <div class="status-item">
+                    <i class="fas fa-shield-alt"></i>
+                    <div>
+                        <div>Protection</div>
+                        <span>Active</span>
+                    </div>
+                </div>
+                <div class="status-item">
+                    <i class="fas fa-clock"></i>
+                    <div>
+                        <div>Last Scan</div>
+                        <span>Today, 10:42 AM</span>
+                    </div>
+                </div>
+                <div class="status-item">
+                    <i class="fas fa-virus"></i>
+                    <div>
+                        <div>Threats Blocked</div>
+                        <span>24 this week</span>
+                    </div>
+                </div>
+                <div class="status-item">
+                    <i class="fas fa-database"></i>
+                    <div>
+                        <div>Virus Database</div>
+                        <span>Up to date</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer role="contentinfo">
+        <div class="footerLeft">
+            <div class="footerMenu">
+                <h1 class="fMenuTitle">About Us</h1>
+                <ul class="fList">
+                    <li class="fListItem">Company</li>
+                    <li class="fListItem">Security Team</li>
+                    <li class="fListItem">Careers</li>
+                    <li class="fListItem">Partners</li>
+                    <li class="fListItem">Press</li>
+                </ul>
+            </div>
+            <div class="footerMenu">
+                <h1 class="fMenuTitle">Support</h1>
+                <ul class="fList">
+                    <li class="fListItem">Help Center</li>
+                    <li class="fListItem">Tutorials</li>
+                    <li class="fListItem">FAQ</li>
+                    <li class="fListItem">Contact</li>
+                    <li class="fListItem">Blog</li>
+                </ul>
+            </div>
+            <div class="footerMenu">
+                <h1 class="fMenuTitle">Products</h1>
+                <ul class="fList">
+                    <li class="fListItem">Binoculars Basic</li>
+                    <li class="fListItem">Binoculars Pro</li>
+                    <li class="fListItem">Enterprise Suite</li>
+                    <li class="fListItem">Mobile Security</li>
+                    <li class="fListItem">VPN Service</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footerRight">
+            <div class="footerRightMenu">
+                <h1 class="fMenuTitle">Subscribe to our newsletter</h1>
+                <div class="fMail">
+                    <input type="text" placeholder="your@email.com" class="fInput" aria-label="Email address" />
+                    <button class="fButton" aria-label="Subscribe to newsletter">SUBSCRIBE</button>
+                </div>
+            </div>
+            <div class="footerRightMenu">
+                <h1 class="fMenuTitle">Follow Us</h1>
+                <div class="fIcons">
+                    <img src="https://cdn-icons-png.flaticon.com/512/124/124010.png" alt="Facebook" class="fIcon" />
+                    <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter" class="fIcon" />
+                    <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram" class="fIcon" />
+                    <img src="https://cdn-icons-png.flaticon.com/512/1384/1384023.png" alt="YouTube" class="fIcon" />
+                </div>
+            </div>
+            <div class="footerRightMenu">
+                <span class="copyright">© 2025 Binoculars Security. All rights reserved.</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Embedded JavaScript for theme toggle and mobile functionality
+        const themeToggleBtn = document.getElementById('themeToggle');
+        const deviceOptions = document.querySelectorAll('.device-option');
+
+        // Theme toggle functionality
+        themeToggleBtn.addEventListener('click', () => {
+            document.body.classList.toggle('dark-theme');
+            // Save preference to localStorage
+            if(document.body.classList.contains('dark-theme')) {
+                localStorage.setItem('theme', 'dark');
+            } else {
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        // Device selection functionality
+        deviceOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                deviceOptions.forEach(opt => opt.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Here you would typically update the content based on selected device
+                // For this demo, we're just toggling the active state
+            });
+        });
+
+        // Simulate security status check
+        function updateSecurityStatus() {
+            const statusIcon = document.querySelector('.status-icon');
+            const statusTitle = document.querySelector('.status-title');
+            
+            // Randomly change status for demo purposes
+            if(Math.random() > 0.7) {
+                statusIcon.classList.remove('fa-check-circle');
+                statusIcon.classList.add('fa-exclamation-triangle', 'status-danger');
+                statusTitle.textContent = 'Security Issues Found';
+            } else {
+                statusIcon.classList.remove('fa-exclamation-triangle', 'status-danger');
+                statusIcon.classList.add('fa-check-circle');
+                statusTitle.textContent = 'Your Mobile Security Status';
+            }
+        }
+
+        // Load theme preference on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme');
+            if(savedTheme === 'dark') {
+                document.body.classList.add('dark-theme');
+            }
+            
+            // Update security status periodically for demo
+            setInterval(updateSecurityStatus, 5000);
+        });
+    </script>
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Binoculars Security - Mobile Protection</title>
+    <meta name="description" content="Secure your mobile devices with Binoculars Security's comprehensive protection for Android and iOS.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Improved CSS with better organization and performance optimizations */
+        :root {
+            /* Light theme colors */
+            --bg-color-light: #f5f5f5;
+            --text-color-light: #333;
+            --nav-bg-light: #121212;
+            --nav-text-light: white;
+            --accent-color-light: #4a90e2;
+            --accent-hover-light: #3a7bc8;
+            --footer-bg-light: white;
+            --footer-text-light: #555;
+            --card-bg-light: white;
+            --input-bg-light: white;
+            --input-border-light: #ddd;
+            --success-color: #34a853;
+            --warning-color: #fbbc05;
+            --danger-color: #ea4335;
+            --info-color: #4285f4;
+
+            /* Dark theme colors */
+            --bg-color-dark: #121212;
+            --text-color-dark: #e0e0e0;
+            --nav-bg-dark: #1e1e1e;
+            --nav-text-dark: #e0e0e0;
+            --accent-color-dark: #5a9ae6;
+            --accent-hover-dark: #4a8ad6;
+            --footer-bg-dark: #1e1e1e;
+            --footer-text-dark: #aaa;
+            --card-bg-dark: #222;
+            --input-bg-dark: #333;
+            --input-border-dark: #555;
+            
+            /* Animation variables */
+            --transition-fast: 0.2s ease;
+            --transition-medium: 0.3s ease;
+            --transition-slow: 0.5s ease;
+            
+            /* Spacing variables */
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 1.5rem;
+            --space-lg: 2rem;
+            --space-xl: 3rem;
+        }
+
+        /* Base styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: var(--bg-color-light);
+            color: var(--text-color-light);
+            line-height: 1.6;
+            transition: background-color var(--transition-medium), color var(--transition-medium);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        body.dark-theme {
+            background-color: var(--bg-color-dark);
+            color: var(--text-color-dark);
+        }
+
+        /* Focus styles for accessibility */
+        a:focus,
+        button:focus,
+        input:focus,
+        [tabindex="0"]:focus {
+            outline: 2px solid var(--accent-color-light);
+            outline-offset: 2px;
+        }
+
+        body.dark-theme a:focus,
+        body.dark-theme button:focus,
+        body.dark-theme input:focus,
+        body.dark-theme [tabindex="0"]:focus {
+            outline-color: var(--accent-color-dark);
+        }
+
+        /* Navigation styles */
+        #nav {
+            display: flex;
+            flex-direction: column;
+            background-color: var(--nav-bg-light);
+            color: var(--nav-text-light);
+            padding: 10px clamp(1rem, 5vw, 3rem);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: background-color var(--transition-medium), color var(--transition-medium);
+        }
+
+        body.dark-theme #nav {
+            background-color: var(--nav-bg-dark);
+            color: var(--nav-text-dark);
+        }
+
+        .navTop {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding: var(--space-sm) 0;
+            gap: var(--space-md);
+            flex-wrap: wrap;
+        }
+
+        .navItem {
+            display: flex;
+            align-items: center;
+        }
+
+        .search {
+            display: flex;
+            align-items: center;
+            background-color: white;
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: 30px;
+            flex-grow: 1;
+            max-width: 400px;
+            transition: background-color var(--transition-medium);
+        }
+
+        body.dark-theme .search {
+            background-color: #333;
+        }
+
+        .searchInput {
+            border: none;
+            outline: none;
+            background: transparent;
+            width: 100%;
+            font-size: 1rem;
+            color: var(--text-color-light);
+            transition: color var(--transition-medium);
+        }
+
+        body.dark-theme .searchInput {
+            color: var(--text-color-dark);
+        }
+
+        .searchIcon {
+            cursor: pointer;
+            width: 20px;
+            height: 20px;
+        }
+
+        .limitedOffer {
+            background-color: var(--accent-color-light);
+            padding: 5px 15px;
+            border-radius: 30px;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 12px;
+            color: white;
+            user-select: none;
+            transition: background-color var(--transition-medium);
+            white-space: nowrap;
+        }
+
+        body.dark-theme .limitedOffer {
+            background-color: var(--accent-color-dark);
+        }
+
+        button#themeToggle {
+            background-color: transparent;
+            border: 2px solid var(--accent-color-light);
+            color: var(--accent-color-light);
+            padding: 6px 15px;
+            border-radius: 30px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all var(--transition-medium);
+            user-select: none;
+        }
+
+        button#themeToggle:hover {
+            background-color: var(--accent-hover-light);
+            color: white;
+            border-color: var(--accent-hover-light);
+        }
+
+        body.dark-theme button#themeToggle {
+            border-color: var(--accent-color-dark);
+            color: var(--accent-color-dark);
+        }
+
+        body.dark-theme button#themeToggle:hover {
+            background-color: var(--accent-hover-dark);
+            color: white;
+            border-color: var(--accent-hover-dark);
+        }
+
+        .navBottom {
+            display: flex;
+            justify-content: center;
+            padding: var(--space-sm) 0;
+            flex-wrap: wrap;
+            gap: var(--space-md);
+        }
+
+        .menuItem {
+            cursor: pointer;
+            font-weight: 400;
+            color: #aaa;
+            transition: all var(--transition-medium);
+            user-select: none;
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: 4px;
+        }
+
+        .menuItem:hover, .menuItem:focus {
+            color: white;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Header styles */
+        header.mobile-header {
+            text-align: center;
+            padding: var(--space-xl) var(--space-md) var(--space-lg);
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+            font-weight: 900;
+            color: var(--nav-bg-light);
+            letter-spacing: 1px;
+            user-select: none;
+            transition: color var(--transition-medium);
+        }
+
+        body.dark-theme header.mobile-header {
+            color: var(--text-color-dark);
+        }
+
+        /* Main content styles */
+        main.mobile-main {
+            max-width: 1200px;
+            margin: 0 auto var(--space-xl);
+            padding: 0 var(--space-md);
+            flex: 1;
+        }
+
+        .mobile-intro {
+            text-align: center;
+            margin-bottom: var(--space-xl);
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .mobile-intro p {
+            font-size: clamp(1rem, 2vw, 1.1rem);
+            line-height: 1.6;
+            color: var(--text-color-light);
+            margin-bottom: var(--space-lg);
+        }
+
+        body.dark-theme .mobile-intro p {
+            color: var(--text-color-dark);
+        }
+
+        .mobile-devices {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-lg);
+            margin-bottom: var(--space-xl);
+            flex-wrap: wrap;
+        }
+
+        .device-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            padding: var(--space-md);
+            border-radius: 10px;
+            transition: all var(--transition-medium);
+            min-width: 120px;
+            border: 2px solid transparent;
+        }
+
+        .device-option:hover, .device-option:focus {
+            transform: translateY(-5px);
+            background-color: rgba(74, 144, 226, 0.1);
+        }
+
+        body.dark-theme .device-option:hover, 
+        body.dark-theme .device-option:focus {
+            background-color: rgba(74, 144, 226, 0.2);
+        }
+
+        .device-option.active {
+            background-color: rgba(74, 144, 226, 0.2);
+            border-color: var(--accent-color-light);
+            transform: translateY(-5px);
+        }
+
+        body.dark-theme .device-option.active {
+            background-color: rgba(74, 144, 226, 0.3);
+            border-color: var(--accent-color-dark);
+        }
+
+        .device-icon {
+            font-size: 3rem;
+            margin-bottom: var(--space-sm);
+            color: var(--accent-color-light);
+            transition: color var(--transition-medium);
+        }
+
+        body.dark-theme .device-icon {
+            color: var(--accent-color-dark);
+        }
+
+        .device-name {
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        /* Features grid */
+        .mobile-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(min(350px, 100%), 1fr));
+            gap: var(--space-lg);
+            margin-bottom: var(--space-xl);
+        }
+
+        .feature-card {
+            background: var(--card-bg-light);
+            border-radius: 10px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+            padding: var(--space-lg);
+            transition: transform var(--transition-medium), box-shadow var(--transition-medium), background-color var(--transition-medium);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        body.dark-theme .feature-card {
+            background: var(--card-bg-dark);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--accent-color-light);
+            margin-bottom: var(--space-md);
+            transition: color var(--transition-medium);
+        }
+
+        body.dark-theme .feature-icon {
+            color: var(--accent-color-dark);
+        }
+
+        .feature-card h3 {
+            margin-top: 0;
+            margin-bottom: var(--space-sm);
+            font-size: 1.4rem;
+            color: var(--accent-color-light);
+        }
+
+        body.dark-theme .feature-card h3 {
+            color: var(--accent-color-dark);
+        }
+
+        .feature-card p {
+            margin-bottom: var(--space-md);
+            color: var(--text-color-light);
+            line-height: 1.5;
+            flex-grow: 1;
+        }
+
+        body.dark-theme .feature-card p {
+            color: var(--text-color-dark);
+        }
+
+        /* Download section */
+        .download-section {
+            background: var(--card-bg-light);
+            border-radius: 10px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+            padding: var(--space-lg);
+            text-align: center;
+            margin-bottom: var(--space-xl);
+            transition: background-color var(--transition-medium), box-shadow var(--transition-medium);
+        }
+
+        body.dark-theme .download-section {
+            background: var(--card-bg-dark);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+        }
+
+        .download-section h2 {
+            margin-top: 0;
+            margin-bottom: var(--space-md);
+            color: var(--accent-color-light);
+            font-size: 1.8rem;
+        }
+
+        body.dark-theme .download-section h2 {
+            color: var(--accent-color-dark);
+        }
+
+        .download-section p {
+            margin-bottom: var(--space-lg);
+        }
+
+        .download-buttons {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-md);
+            flex-wrap: wrap;
+        }
+
+        .download-btn {
+            display: flex;
+            align-items: center;
+            background-color: var(--accent-color-light);
+            color: white;
+            padding: var(--space-sm) var(--space-md);
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all var(--transition-medium);
+            min-width: 180px;
+            justify-content: center;
+        }
+
+        body.dark-theme .download-btn {
+            background-color: var(--accent-color-dark);
+        }
+
+        .download-btn:hover, .download-btn:focus {
+            background-color: var(--accent-hover-light);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        body.dark-theme .download-btn:hover,
+        body.dark-theme .download-btn:focus {
+            background-color: var(--accent-hover-dark);
+        }
+
+        .download-btn i {
+            font-size: 1.5rem;
+            margin-right: var(--space-xs);
+        }
+
+        /* Security status */
+        .security-status {
+            background: var(--card-bg-light);
+            border-radius: 10px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+            padding: var(--space-lg);
+            transition: background-color var(--transition-medium), box-shadow var(--transition-medium);
+        }
+
+        body.dark-theme .security-status {
+            background: var(--card-bg-dark);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+        }
+
+        .status-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: var(--space-md);
+        }
+
+        .status-icon {
+            font-size: 2rem;
+            margin-right: var(--space-sm);
+            color: var(--success-color);
+            transition: color var(--transition-medium);
+        }
+
+        .status-danger {
+            color: var(--danger-color) !important;
+        }
+
+        .status-warning {
+            color: var(--warning-color) !important;
+        }
+
+        .status-info {
+            color: var(--info-color) !important;
+        }
+
+        .status-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .status-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: var(--space-md);
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+        }
+
+        .status-item i {
+            font-size: 1.2rem;
+            margin-right: var(--space-xs);
+            color: var(--accent-color-light);
+            transition: color var(--transition-medium);
+        }
+
+        body.dark-theme .status-item i {
+            color: var(--accent-color-dark);
+        }
+
+        .status-item span {
+            font-weight: 700;
+        }
+
+        /* Footer styles */
+        footer {
+            display: flex;
+            padding: var(--space-lg) clamp(var(--space-md), 5vw, 3rem);
+            background-color: var(--footer-bg-light);
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: var(--space-lg);
+            transition: background-color var(--transition-medium), color var(--transition-medium);
+        }
+
+        body.dark-theme footer {
+            background-color: var(--footer-bg-dark);
+            color: var(--footer-text-dark);
+        }
+
+        .footerLeft {
+            flex: 2;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: var(--space-lg);
+        }
+
+        .footerRight {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-width: 250px;
+        }
+
+        .footerMenu {
+            min-width: 150px;
+        }
+
+        .fMenuTitle {
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: var(--space-md);
+            color: var(--text-color-light);
+            transition: color var(--transition-medium);
+        }
+
+        body.dark-theme .fMenuTitle {
+            color: var(--footer-text-dark);
+        }
+
+        .fList {
+            list-style: none;
+        }
+
+        .fListItem {
+            margin-bottom: var(--space-xs);
+            color: #555;
+            cursor: pointer;
+            transition: all var(--transition-medium);
+            padding: 2px 0;
+        }
+
+        body.dark-theme .fListItem {
+            color: #aaa;
+        }
+
+        .fListItem:hover, .fListItem:focus {
+            color: var(--accent-color-light);
+            transform: translateX(3px);
+        }
+
+        body.dark-theme .fListItem:hover,
+        body.dark-theme .fListItem:focus {
+            color: var(--accent-hover-dark);
+        }
+
+        .fInput {
+            padding: var(--space-xs);
+            border: 1px solid var(--input-border-light);
+            background-color: var(--input-bg-light);
+            width: 70%;
+            margin-right: var(--space-xs);
+            border-radius: 5px;
+            transition: all var(--transition-medium);
+            color: var(--text-color-light);
+        }
+
+        body.dark-theme .fInput {
+            background-color: var(--input-bg-dark);
+            border-color: var(--input-border-dark);
+            color: var(--text-color-dark);
+        }
+
+        .fButton {
+            padding: var(--space-xs) var(--space-sm);
+            background-color: var(--accent-color-light);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all var(--transition-medium);
+        }
+
+        body.dark-theme .fButton {
+            background-color: var(--accent-color-dark);
+        }
+
+        .fButton:hover, .fButton:focus {
+            background-color: var(--accent-hover-light);
+            transform: translateY(-2px);
+        }
+
+        body.dark-theme .fButton:hover,
+        body.dark-theme .fButton:focus {
+            background-color: var(--accent-hover-dark);
+        }
+
+        .fIcons {
+            display: flex;
+            gap: var(--space-sm);
+            margin-top: var(--space-md);
+        }
+
+        .fIcon {
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            transition: all var(--transition-medium);
+            filter: brightness(0.8);
+        }
+
+        .fIcon:hover, .fIcon:focus {
+            transform: scale(1.2);
+            filter: brightness(1);
+        }
+
+        .copyright {
+            color: #777;
+            font-size: 0.875rem;
+            margin-top: var(--space-lg);
+            transition: color var(--transition-medium);
+        }
+
+        body.dark-theme .copyright {
+            color: #aaa;
+        }
+
+        /* Utility classes */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+
+        /* Responsive adjustments */
+        @media screen and (max-width: 768px) {
+            #nav {
+                padding: 10px var(--space-md);
+            }
+
+            .navTop {
+                flex-direction: row;
+                padding: var(--space-xs) 0;
+                justify-content: space-between;
+                gap: var(--space-sm);
+            }
+
+            .navItem {
+                margin: 0;
+            }
+
+            .search {
+                order: 1;
+                max-width: 100%;
+                margin: var(--space-sm) 0;
+            }
+
+            .navBottom {
+                gap: var(--space-sm);
+            }
+
+            .menuItem {
+                margin: 0;
+                padding: var(--space-xs);
+            }
+
+            .mobile-features {
+                grid-template-columns: 1fr;
+            }
+
+            .download-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .download-btn {
+                width: 100%;
+                max-width: 250px;
+            }
+
+            footer {
+                flex-direction: column;
+                padding: var(--space-md) var(--space-sm);
+            }
+
+            .footerLeft {
+                flex-direction: column;
+                margin-bottom: var(--space-md);
+            }
+
+            .footerMenu {
+                margin-bottom: var(--space-lg);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav id="nav" role="navigation" aria-label="Primary Navigation">
+        <div class="navTop">
+            <div class="navItem">
+                <!-- Logo removed as per user request -->
+            </div>
+            <div class="navItem search-container">
+                <div class="search" role="search">
+                    <label for="searchInput" class="sr-only">Search</label>
+                    <input type="text" id="searchInput" placeholder="Search..." class="searchInput" aria-label="Search" />
+                    <img src="https://cdn-icons-png.flaticon.com/512/149/149852.png" width="20" height="20" alt="" class="searchIcon" aria-hidden="true" />
+                </div>
+            </div>
+            <div class="navItem">
+                <span class="limitedOffer" aria-label="Limited time free trial offer">FREE TRIAL!</span>
+            </div>
+            <div class="navItem">
+                <button id="themeToggle" aria-label="Toggle light and dark theme">
+                    <span class="theme-icon-light" aria-hidden="true">☀️</span>
+                    <span class="theme-icon-dark sr-only">🌙</span>
+                </button>
+            </div>
+            <div class="navItem">
+                <button onclick="window.location.href='combined ui/combined_login_signup.html'" style="background-color: var(--accent-color-light); color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; transition: background-color var(--transition-medium);" aria-label="Sign up for Binoculars Security">
+                    Sign Up
+                </button>
+            </div>
+        </div>
+        <div class="navBottom" role="menubar" aria-label="Secondary Navigation">
+            <h3 class="menuItem" role="menuitem" tabindex="0">PROTECTION</h3>
+            <h3 class="menuItem" role="menuitem" tabindex="0">ANTI-THEFT</h3>
+            <h3 class="menuItem" role="menuitem" tabindex="0">PRIVACY</h3>
+            <h3 class="menuItem" role="menuitem" tabindex="0">PERFORMANCE</h3>
+            <h3 class="menuItem" role="menuitem" tabindex="0">SETTINGS</h3>
+        </div>
+    </nav>
+
+    <header class="mobile-header" role="banner" aria-label="Mobile Security Page Header">
+        <h1>Mobile Security</h1>
+    </header>
+
+    <main class="mobile-main">
+        <section class="mobile-intro" aria-labelledby="mobile-intro-heading">
+            <h2 id="mobile-intro-heading" class="sr-only">Mobile Security Introduction</h2>
+            <p>Comprehensive protection for your Android and iOS devices. Secure your mobile life with real-time scanning, anti-theft features, and privacy tools.</p>
+            
+            <div class="mobile-devices" role="radiogroup" aria-labelledby="device-selection-label">
+                <p id="device-selection-label" class="sr-only">Select your device type</p>
+                <div class="device-option active" data-device="android" role="radio" aria-checked="true" tabindex="0" aria-label="Android protection">
+                    <i class="fab fa-android device-icon" aria-hidden="true"></i>
+                    <span class="device-name">Android</span>
+                </div>
+                <div class="device-option" data-device="ios" role="radio" aria-checked="false" tabindex="0" aria-label="iOS protection">
+                    <i class="fab fa-apple device-icon" aria-hidden="true"></i>
+                    <span class="device-name">iOS</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="mobile-features" aria-label="Mobile security features">
+            <!-- Feature Card 1 -->
+            <article class="feature-card">
+                <i class="fas fa-shield-alt feature-icon" aria-hidden="true"></i>
+                <h3>Real-Time Protection</h3>
+                <p>Continuous scanning for malware, spyware, and other threats as you download and install apps, with instant alerts for suspicious activity.</p>
+                <button class="learn-more-btn" aria-label="Learn more about Real-Time Protection">Learn More</button>
+            </article>
+
+            <!-- Feature Card 2 -->
+            <article class="feature-card">
+                <i class="fas fa-search feature-icon" aria-hidden="true"></i>
+                <h3>App Scanner</h3>
+                <p>Analyze installed apps for suspicious behavior and privacy risks before they can harm your device. Get detailed privacy reports.</p>
+                <button class="learn-more-btn" aria-label="Learn more about App Scanner">Learn More</button>
+            </article>
+
+            <!-- Feature Card 3 -->
+            <article class="feature-card">
+                <i class="fas fa-lock feature-icon" aria-hidden="true"></i>
+                <h3>Privacy Advisor</h3>
+                <p>See which apps are accessing your personal data and restrict unnecessary permissions. Control your digital footprint.</p>
+                <button class="learn-more-btn" aria-label="Learn more about Privacy Advisor">Learn More</button>
+            </article>
+
+            <!-- Feature Card 4 -->
+            <article class="feature-card">
+                <i class="fas fa-map-marker-alt feature-icon" aria-hidden="true"></i>
+                <h3>Anti-Theft</h3>
+                <p>Locate, lock, or wipe your lost or stolen device remotely to protect your data. Includes stealth camera capture feature.</p>
+                <button class="learn-more-btn" aria-label="Learn more about Anti-Theft">Learn More</button>
+            </article>
+
+            <!-- Feature Card 5 -->
+            <article class="feature-card">
+                <i class="fas fa-wifi feature-icon" aria-hidden="true"></i>
+                <h3>Wi-Fi Security</h3>
+                <p>Automatically detect unsafe networks and protect your data from snoopers on public Wi-Fi with our secure VPN technology.</p>
+                <button class="learn-more-btn" aria-label="Learn more about Wi-Fi Security">Learn More</button>
+            </article>
+
+            <!-- Feature Card 6 -->
+            <article class="feature-card">
+                <i class="fas fa-bolt feature-icon" aria-hidden="true"></i>
+                <h3>Performance Boost</h3>
+                <p>Clean junk files, optimize memory, and extend battery life with our smart maintenance tools. Get up to 30% faster performance.</p>
+                <button class="learn-more-btn" aria-label="Learn more about Performance Boost">Learn More</button>
+            </article>
+        </section>
+
+        <section class="download-section" aria-labelledby="download-heading">
+            <h2 id="download-heading">Get Protected Today</h2>
+            <p>Download Binoculars Mobile Security for your device and enjoy 30 days free trial with all premium features.</p>
+            <div class="download-buttons">
+                <a href="#" class="download-btn" aria-label="Download from Google Play">
+                    <i class="fab fa-google-play" aria-hidden="true"></i>
+                    <span>Google Play</span>
+                </a>
+                <a href="#" class="download-btn" aria-label="Download from App Store">
+                    <i class="fab fa-app-store" aria-hidden="true"></i>
+                    <span>App Store</span>
+                </a>
+            </div>
+        </section>
+
+        <section class="security-status" aria-labelledby="security-status-heading">
+            <div class="status-header">
+                <i class="fas fa-check-circle status-icon" aria-hidden="true"></i>
+                <h3 id="security-status-heading" class="status-title">Your Mobile Security Status</h3>
+            </div>
+            <div class="status-details">
+                <div class="status-item">
+                    <i class="fas fa-shield-alt" aria-hidden="true"></i>
+                    <div>
+                        <div>Protection</div>
+                        <span>Active</span>
+                    </div>
+                </div>
+                <div class="status-item">
+                    <i class="fas fa-clock" aria-hidden="true"></i>
+                    <div>
+                        <div>Last Scan</div>
+                        <span>Today, 10:42 AM</span>
+                    </div>
+                </div>
+                <div class="status-item">
+                    <i class="fas fa-virus" aria-hidden="true"></i>
+                    <div>
+                        <div>Threats Blocked</div>
+                        <span>24 this week</span>
+                    </div>
+                </div>
+                <div class="status-item">
+                    <i class="fas fa-database" aria-hidden="true"></i>
+                    <div>
+                        <div>Virus Database</div>
+                        <span>Up to date</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer role="contentinfo">
+        <div class="footerLeft">
+            <div class="footerMenu">
+                <h2 class="fMenuTitle">About Us</h2>
+                <ul class="fList">
+                    <li class="fListItem" tabindex="0">Company</li>
+                    <li class="fListItem" tabindex="0">Security Team</li>
+                    <li class="fListItem" tabindex="0">Careers</li>
+                    <li class="fListItem" tabindex="0">Partners</li>
+                    <li class="fListItem" tabindex="0">Press</li>
+                </ul>
+            </div>
+            <div class="footerMenu">
+                <h2 class="fMenuTitle">Support</h2>
+                <ul class="fList">
+                    <li class="fListItem" tabindex="0">Help Center</li>
+                    <li class="fListItem" tabindex="0">Tutorials</li>
+                    <li class="fListItem" tabindex="0">FAQ</li>
+                    <li class="fListItem" tabindex="0">Contact</li>
+                    <li class="fListItem" tabindex="0">Blog</li>
+                </ul>
+            </div>
+            <div class="footerMenu">
+                <h2 class="fMenuTitle">Products</h2>
+                <ul class="fList">
+                    <li class="fListItem" tabindex="0">Binoculars Basic</li>
+                    <li class="fListItem" tabindex="0">Binoculars Pro</li>
+                    <li class="fListItem" tabindex="0">Enterprise Suite</li>
+                    <li class="fListItem" tabindex="0">Mobile Security</li>
+                    <li class="fListItem" tabindex="0">VPN Service</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footerRight">
+            <div class="footerRightMenu">
+                <h2 class="fMenuTitle">Subscribe to our newsletter</h2>
+                <div class="fMail">
+                    <label for="newsletterEmail" class="sr-only">Email address</label>
+                    <input type="email" id="newsletterEmail" placeholder="your@email.com" class="fInput" required />
+                    <button class="fButton" aria-label="Subscribe to newsletter">SUBSCRIBE</button>
+                </div>
+            </div>
+            <div class="footerRightMenu">
+                <h2 class="fMenuTitle">Follow Us</h2>
+                <div class="fIcons">
+                    <img src="https://cdn-icons-png.flaticon.com/512/124/124010.png" alt="Facebook" class="fIcon" tabindex="0" />
+                    <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter" class="fIcon" tabindex="0" />
+                    <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram" class="fIcon" tabindex="0" />
+                    <img src="https://cdn-icons-png.flaticon.com/512/1384/1384023.png" alt="YouTube" class="fIcon" tabindex="0" />
+                </div>
+            </div>
+            <div class="footerRightMenu">
+                <span class="copyright">© 2025 Binoculars Security. All rights reserved.</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Improved JavaScript with better organization and performance
+        document.addEventListener('DOMContentLoaded', function() {
+            // Theme toggle functionality
+            const themeToggleBtn = document.getElementById('themeToggle');
+            const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+            
+            // Check for saved theme preference or use system preference
+            const currentTheme = localStorage.getItem('theme');
+            if (currentTheme === 'dark' || (!currentTheme && prefersDarkScheme.matches)) {
+                document.body.classList.add('dark-theme');
+                themeToggleBtn.setAttribute('aria-pressed', 'true');
+                themeToggleBtn.querySelector('.theme-icon-light').classList.add('sr-only');
+                themeToggleBtn.querySelector('.theme-icon-dark').classList.remove('sr-only');
+            }
+            
+            // Theme toggle button click handler
+            themeToggleBtn.addEventListener('click', function() {
+                const isDark = document.body.classList.toggle('dark-theme');
+                const themeIconLight = this.querySelector('.theme-icon-light');
+                const themeIconDark = this.querySelector('.theme-icon-dark');
+                
+                if (isDark) {
+                    localStorage.setItem('theme', 'dark');
+                    this.setAttribute('aria-pressed', 'true');
+                    themeIconLight.classList.add('sr-only');
+                    themeIconDark.classList.remove('sr-only');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                    this.setAttribute('aria-pressed', 'false');
+                    themeIconDark.classList.add('sr-only');
+                    themeIconLight.classList.remove('sr-only');
+                }
+            });
+            
+            // Listen for system theme changes
+            prefersDarkScheme.addEventListener

@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <title>Careers at Binoculars Security</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: 'Lato', sans-serif;
+            box-sizing: border-box;
+        }
+
+        /* Reusing the existing styles from main page */
+        body {
+            font-family: 'Lato', sans-serif;
+            color: #343A40;
+            line-height: 1.6;
+            background-color: #FFFFFF;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            color: #0A4A7B;
+            margin-bottom: 0.8em;
+        }
+
+        a {
+            text-decoration: none;
+            color: #0A4A7B;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #2ECC71;
+        }
+
+        button {
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Navigation - Same as main page */
+        #nav {
+            background-color: #FFFFFF;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 998;
+        }
+
+        .navTop {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 30px;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .navItem img {
+            height: 22px;
+            width: auto;
+        }
+
+        .search {
+            display: flex;
+            align-items: center;
+            background-color: #f8f9fa;
+            padding: 5px 10px;
+            border-radius: 10px;
+            border: 2px solid #dee2e6;
+        }
+
+        .searchInput {
+            border: none;
+            background: transparent;
+            outline: none;
+            padding: 5px;
+            width: 300px;
+        }
+
+        .searchIcon {
+            cursor: pointer;
+            margin-left: 5px;
+        }
+
+        .limitedOffer {
+            background-color: #2ECC71;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        .signup-btn {
+            background-color: #0A4A7B;
+            color: white;
+        }
+
+        .signup-btn:hover {
+            background-color: #083b61;
+        }
+
+        .navBottom {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px 30px;
+            gap: 30px;
+        }
+
+        .menuItem {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 1em;
+            color: #343A40;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            margin-bottom: 0;
+        }
+
+        .menuItem:hover {
+            color: #2ECC71;
+        }
+
+        /* Careers Page Specific Styles */
+        .careers-hero {
+            background-color: #0A4A7B;
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .careers-hero h1 {
+            font-size: 3em;
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .careers-hero p {
+            font-size: 1.2em;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+
+        .hero-button {
+            background-color: #2ECC71;
+            color: white;
+            font-size: 1.1em;
+            padding: 15px 35px;
+        }
+
+        .hero-button:hover {
+            background-color: #25a25a;
+        }
+
+        .benefits-section {
+            padding: 60px 0;
+            background-color: #f8f9fa;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .benefit-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .benefit-icon {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 20px;
+        }
+
+        .benefit-title {
+            font-size: 1.3em;
+            margin-bottom: 15px;
+        }
+
+        .openings-section {
+            padding: 60px 0;
+        }
+
+        .job-filters {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .filter-button {
+            background-color: #e9ecef;
+            color: #343A40;
+            padding: 8px 20px;
+        }
+
+        .filter-button.active {
+            background-color: #0A4A7B;
+            color: white;
+        }
+
+        .job-listings {
+            display: grid;
+            gap: 20px;
+        }
+
+        .job-card {
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 25px;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .job-card:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .job-title {
+            font-size: 1.4em;
+            margin-bottom: 5px;
+        }
+
+        .job-meta {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+            color: #6C757D;
+        }
+
+        .job-department {
+            display: inline-block;
+            background-color: #e9f5ff;
+            color: #0A4A7B;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+
+        .apply-button {
+            background-color: #2ECC71;
+            color: white;
+        }
+
+        .culture-section {
+            padding: 60px 0;
+            background-color: #f8f9fa;
+            text-align: center;
+        }
+
+        .culture-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .culture-card {
+            padding: 20px;
+        }
+
+        .culture-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+        }
+
+        .testimonials-section {
+            padding: 60px 0;
+        }
+
+        .testimonial-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            margin: 20px;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-author {
+            font-weight: bold;
+        }
+
+        .testimonial-role {
+            color: #6C757D;
+        }
+
+        /* Footer - Same as main page */
+        footer {
+            background-color: #343A40;
+            color: #f8f9fa;
+            padding: 50px 30px 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+
+        .footerLeft {
+            display: flex;
+            gap: 50px;
+            flex-wrap: wrap;
+        }
+
+        .footerMenu {
+            min-width: 150px;
+        }
+
+        .fMenuTitle {
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            color: #FFFFFF;
+        }
+
+        .fList {
+            list-style: none;
+            padding: 0;
+        }
+
+        .fListItem {
+            margin-bottom: 10px;
+            color: #adb5bd;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .fListItem:hover {
+            color: #FFFFFF;
+        }
+
+        .footerRight {
+            min-width: 250px;
+        }
+
+        .footerRightMenu {
+            margin-bottom: 30px;
+        }
+
+        .fMail {
+            display: flex;
+            margin-top: 15px;
+        }
+
+        .fInput {
+            padding: 10px;
+            border: 1px solid #6C757D;
+            border-radius: 5px 0 0 5px;
+            background-color: #495057;
+            color: white;
+            outline: none;
+            flex-grow: 1;
+        }
+
+        .fButton {
+            padding: 10px 20px;
+            border: none;
+            background-color: #0A4A7B;
+            color: white;
+            border-radius: 0 5px 5px 0;
+        }
+
+        .fButton:hover {
+            background-color: #083b61;
+        }
+
+        .fIcons {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .fIcon {
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            filter: grayscale(100%) brightness(150%);
+            transition: filter 0.3s ease;
+        }
+
+        .fIcon:hover {
+            filter: none;
+        }
+
+        .copyright {
+            font-size: 0.9em;
+            color: #adb5bd;
+            margin-top: 30px;
+            display: block;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .navTop, .navBottom {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+            .navBottom {
+                gap: 20px;
+                font-size: 0.9em;
+            }
+            .careers-hero h1 {
+                font-size: 2.5em;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navTop {
+                flex-direction: column;
+                gap: 10px;
+                padding: 15px;
+            }
+            .navBottom {
+                flex-wrap: wrap;
+                justify-content: center;
+                padding: 10px;
+                gap: 15px;
+            }
+            .menuItem {
+                font-size: 0.9em;
+            }
+            .careers-hero h1 {
+                font-size: 2em;
+            }
+            .careers-hero p {
+                font-size: 1em;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .navTop .navItem:not(:first-child) {
+                display: none;
+            }
+            .navBottom {
+                gap: 10px;
+            }
+            .menuItem {
+                font-size: 0.8em;
+            }
+            .careers-hero h1 {
+                font-size: 1.8em;
+            }
+            .job-meta {
+                flex-direction: column;
+                gap: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav id="nav">
+        <div class="navTop">
+            <div class="navItem">
+                <img src="https://thumbs.dreamstime.com/b/shield-anti-virus-logo-vector-image-virus-shield-antibacterial-protection-antiviral-drug-logo-design-antibacterial-protection-340608516.jpg" alt="Binoculars Security Logo">
+            </div>
+            <div class="navItem">
+                <div class="search">
+                    <input type="text" placeholder="Search jobs..." class="searchInput">
+                    <img src="https://cdn-icons-png.flaticon.com/512/149/149852.png" width="20" height="20" alt="" class="searchIcon">
+                </div>
+            </div>
+            <div class="navItem">
+                <span class="limitedOffer" onclick="window.location.href='FreeScan.html'">FREE SCAN!</span>
+            </div>
+            <div>
+                <button onclick="window.location.href='combined ui/combined_login_signup.html'" class="signup-btn">Sign In / Sign Up</button>
+            </div>
+        </div>
+        <div class="navBottom">
+            <h3 class="menuItem" onclick="window.location.href='index.html'">HOME</h3>
+            <h3 class="menuItem" onclick="window.location.href='careers.html'">CAREERS</h3>
+            <h3 class="menuItem" onclick="window.location.href='products.html'">PRODUCTS</h3>
+            <h3 class="menuItem" onclick="window.location.href='about.html'">ABOUT</h3>
+            <h3 class="menuItem" onclick="window.location.href='contact.html'">CONTACT</h3>
+        </div>
+    </nav>
+
+    <section class="careers-hero">
+        <div class="container">
+            <h1>Join Our Security Mission</h1>
+            <p>At Binoculars Security, we're building the future of digital protection. Join our team of passionate security experts and help make the internet safer for everyone.</p>
+            <button class="hero-button" onclick="window.location.href='#openings'">View Open Positions</button>
+        </div>
+    </section>
+
+    <section class="benefits-section">
+        <div class="container">
+            <h2>Why Work With Us</h2>
+            <p>We offer competitive benefits and a culture that values innovation, collaboration, and work-life balance.</p>
+            
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2491/2491935.png" alt="Health Benefits" class="benefit-icon">
+                    <h3 class="benefit-title">Comprehensive Health Coverage</h3>
+                    <p>Medical, dental, and vision insurance for you and your family.</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3572/3572738.png" alt="Flexible Work" class="benefit-icon">
+                    <h3 class="benefit-title">Flexible Work Options</h3>
+                    <p>Remote, hybrid, or in-office - work how you work best.</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2936/2936886.png" alt="Learning" class="benefit-icon">
+                    <h3 class="benefit-title">Continuous Learning</h3>
+                    <p>Annual education budget and conference opportunities.</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3220/3220315.png" alt="Time Off" class="benefit-icon">
+                    <h3 class="benefit-title">Generous Time Off</h3>
+                    <p>Unlimited PTO and paid parental leave for all employees.</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3132/3132693.png" alt="Retirement" class="benefit-icon">
+                    <h3 class="benefit-title">Retirement Planning</h3>
+                    <p>401(k) matching to help you prepare for the future.</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3081/3081160.png" alt="Wellness" class="benefit-icon">
+                    <h3 class="benefit-title">Wellness Programs</h3>
+                    <p>Gym reimbursements and mental health resources.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="openings-section" id="openings">
+        <div class="container">
+            <h2>Current Openings</h2>
+            <p>Find the perfect role for your skills and passion.</p>
+            
+            <div class="job-filters">
+                <button class="filter-button active">All Departments</button>
+                <button class="filter-button">Engineering</button>
+                <button class="filter-button">Research</button>
+                <button class="filter-button">Marketing</button>
+                <button class="filter-button">Operations</button>
+            </div>
+            
+            <div class="job-listings">
+                <div class="job-card">
+                    <span class="job-department">Engineering</span>
+                    <h3 class="job-title">Senior Security Engineer</h3>
+                    <div class="job-meta">
+                        <span>Remote</span>
+                        <span>Full-time</span>
+                    </div>
+                    <p>Lead our efforts in developing cutting-edge security solutions to protect against emerging threats.</p>
+                    <button class="apply-button" onclick="window.location.href='apply.html?position=senior-security-engineer'">Apply Now</button>
+                </div>
+                
+                <div class="job-card">
+                    <span class="job-department">Research</span>
+                    <h3 class="job-title">Threat Intelligence Analyst</h3>
+                    <div class="job-meta">
+                        <span>San Francisco, CA</span>
+                        <span>Full-time</span>
+                    </div>
+                    <p>Research and analyze emerging cyber threats to keep our products ahead of attackers.</p>
+                    <button class="apply-button" onclick="window.location.href='apply.html?position=threat-intelligence-analyst'">Apply Now</button>
+                </div>
+                
+                <div class="job-card">
+                    <span class="job-department">Marketing</span>
+                    <h3 class="job-title">Security Content Writer</h3>
+                    <div class="job-meta">
+                        <span>Remote</span>
+                        <span>Contract</span>
+                    </div>
+                    <p>Create compelling content that educates users about security best practices.</p>
+                    <button class="apply-button" onclick="window.location.href='apply.html?position=security-content-writer'">Apply Now</button>
+                </div>
+                
+                <div class="job-card">
+                    <span class="job-department">Engineering</span>
+                    <h3 class="job-title">Frontend Developer</h3>
+                    <div class="job-meta">
+                        <span>New York, NY</span>
+                        <span>Full-time</span>
+                    </div>
+                    <p>Build intuitive interfaces for our security products that make complex security simple.</p>
+                    <button class="apply-button" onclick="window.location.href='apply.html?position=frontend-developer'">Apply Now</button>
+                </div>
+                
+                <div class="job-card">
+                    <span class="job-department">Operations</span>
+                    <h3 class="job-title">Customer Support Specialist</h3>
+                    <div class="job-meta">
+                        <span>Remote</span>
+                        <span>Full-time</span>
+                    </div>
+                    <p>Help our customers get the most from our security products with exceptional support.</p>
+                    <button class="apply-button" onclick="window.location.href='apply.html?position=customer-support-specialist'">Apply Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="culture-section">
+        <div class="container">
+            <h2>Our Culture</h2>
+            <p>We believe security is a team sport, and our culture reflects that collaborative spirit.</p>
+            
+            <div class="culture-grid">
+                <div class="culture-card">
+                    <img src="https://cdn-icons-png.flaticon.com/512/4400/4400470.png" alt="Collaboration" class="culture-icon">
+                    <h3>Collaboration</h3>
+                    <p>We work together across disciplines to solve complex security challenges.</p>
+                </div>
+                
+                <div class="culture-card">
+                    <img src="https://cdn-icons-png.flaticon.com/512/4052/4052981.png" alt="Innovation" class="culture-icon">
+                    <h3>Innovation</h3>
+                    <p>We encourage creative thinking and experimentation to stay ahead of threats.</p>
+                </div>
+                
+                <div class="culture-card">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3588/3588656.png" alt="Transparency" class="culture-icon">
+                    <h3>Transparency</h3>
+                    <p>Open communication and honesty guide all our interactions.</p>
+                </div>
+                
+                <div class="culture-card">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3889/3889730.png" alt="Impact" class="culture-icon">
+                    <h3>Impact</h3>
+                    <p>We measure success by the security we provide to our customers.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials-section">
+        <div class="container">
+            <h2>Hear From Our Team</h2>
+            
+            <div class="testimonial-card">
+                <p class="testimonial-text">"What I love most about working at Binoculars is knowing that my work directly helps protect people from real threats. The team is incredibly supportive and the problems we solve are always challenging."</p>
+                <p class="testimonial-author"></p>
+                <p class="testimonial-role"></p>
+            </div>
+            
+            <div class="testimonial-card">
+                <p class="testimonial-text">"The culture here strikes the perfect balance between high expectations and genuine care for employees. I've grown more in my two years here than in my previous five at other companies."</p>
+                <p class="testimonial-author"></p>
+                <p class="testimonial-role"></p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footerLeft">
+            <div class="footerMenu">
+                <h1 class="fMenuTitle">About Us</h1>
+                <ul class="fList">
+                    <li class="fListItem">Company</li>
+                    <li class="fListItem">Security Team</li>
+                    <li class="fListItem">Careers</li>
+                    <li class="fListItem">Partners</li>
+                    <li class="fListItem">Press</li>
+                </ul>
+            </div>
+            <div class="footerMenu">
+                <h1 class="fMenuTitle">Support</h1>
+                <ul class="fList">
+                    <li class="fListItem">Help Center</li>
+                    <li class="fListItem">Tutorials</li>
+                    <li class="fListItem">FAQ</li>
+                    <li class="fListItem">Contact</li>
+                    <li class="fListItem">Blog</li>
+                </ul>
+            </div>
+            <div class="footerMenu">
+                <h1 class="fMenuTitle">Products</h1>
+                <ul class="fList">
+                    <li class="fListItem">Binoculars Basic</li>
+                    <li class="fListItem">Binoculars Pro</li>
+                    <li class="fListItem">Enterprise Suite</li>
+                    <li class="fListItem">Mobile Security</li>
+                    <li class="fListItem">VPN Service</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footerRight">
+            <div class="footerRightMenu">
+                <h1 class="fMenuTitle">Subscribe to our newsletter</h1>
+                <div class="fMail">
+                    <input type="text" placeholder="your@email.com" class="fInput">
+                    <button class="fButton">SUBSCRIBE</button>
+                </div>
+            </div>
+            <div class="footerRightMenu">
+                <h1 class="fMenuTitle">Follow Us</h1>
+                <div class="fIcons">
+                    <a href="https://www.facebook.com/YourPage" target="_blank" rel="noopener noreferrer">
+                        <img src="https://cdn-icons-png.flaticon.com/512/124/124010.png" alt="Facebook" class="fIcon">
+                    </a>
+                    <a href="https://www.twitter.com/YourHandle" target="_blank" rel="noopener noreferrer">
+                        <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter" class="fIcon">
+                    </a>
+                    <a href="https://www.instagram.com/YourUsername" target="_blank" rel="noopener noreferrer">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram" class="fIcon">
+                    </a>
+                    <a href="https://www.youtube.com/YourChannel" target="_blank" rel="noopener noreferrer">
+                        <img src="https://cdn-icons-png.flaticon.com/512/1384/1384023.png" alt="YouTube" class="fIcon">
+                    </a>
+                </div>
+            </div>
+            <div class="footerRightMenu">
+                <span class="copyright">© 2025 Binoculars Security. All rights reserved.</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Job filtering functionality
+        const filterButtons = document.querySelectorAll('.filter-button');
+        
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                button.classList.add('active');
+                
+                // In a real implementation, this would filter the job listings
+                // For now, we'll just log the filter
+                console.log(`Filtering by: ${button.textContent}`);
+            });
+        });
+
+        // Careers search functionality
+        const careersSearchInput = document.querySelector('.searchInput');
+        const careersSearchIcon = document.querySelector('.searchIcon');
+        
+        careersSearchIcon.addEventListener('click', () => {
+            performCareersSearch(careersSearchInput.value);
+        });
+        
+        careersSearchInput.addEventListener('keyup', (e) => {
+            if (e.key === 'Enter') {
+                performCareersSearch(careersSearchInput.value);
+            }
+        });
+        
+        function performCareersSearch(query) {
+            query = query.toLowerCase().trim();
+            console.log(`Searching careers for: ${query}`);
+            // In a real implementation, this would filter job listings
+            // or redirect to search results
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

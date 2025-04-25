@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Binoculars Quick Scan | Fast Threat Detection</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    :root {
+      --primary: #3a7bd5;
+      --primary-dark: #2b5ca8;
+      --danger: #e74c3c;
+      --success: #2ecc71;
+      --warning: #f39c12;
+      --bg-light: #f4f6fa;
+      --bg-dark: #121212;
+      --card-bg-light: rgba(255, 255, 255, 0.9);
+      --card-bg-dark: rgba(30, 30, 30, 0.9);
+      --border-radius: 16px;
+      --text-light: #333;
+      --text-dark: #f0f0f0;
+      --shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+      --max-width: 1100px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', 'Roboto', sans-serif;
+      background: linear-gradient(135deg, #667eea, #764ba2, #4ca1af);
+      background-size: 400% 400%;
+      animation: gradientAnimation 15s ease infinite;
+      color: var(--text-light);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    @keyframes gradientAnimation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    nav {
+      background-color: var(--card-bg-light);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: var(--shadow);
+      border-radius: var(--border-radius);
+      margin: 1rem 2rem 0 2rem;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    nav.dark {
+      background-color: var(--card-bg-dark);
+      color: var(--text-dark);
+    }
+
+    nav .logo {
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: var(--primary);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    nav ul li {
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--text-light);
+      transition: color 0.3s ease;
+    }
+
+    nav.dark ul li {
+      color: var(--text-dark);
+    }
+
+    nav ul li:hover {
+      color: var(--primary-dark);
+    }
+
+    main {
+      flex: 1;
+      max-width: var(--max-width);
+      margin: 2rem auto 4rem auto;
+      background-color: var(--card-bg-light);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      padding: 2.5rem 3rem;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      color: var(--text-light);
+      text-align: center;
+    }
+
+    main.dark {
+      background-color: var(--card-bg-dark);
+      color: var(--text-dark);
+    }
+
+    header {
+      margin-bottom: 2rem;
+    }
+
+    header h1 {
+      font-weight: 700;
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.75rem;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    header p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .scan-options {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .scan-option {
+      background-color: var(--bg-light);
+      border-radius: 12px;
+      padding: 1.5rem;
+      width: 180px;
+      box-shadow: var(--shadow);
+      text-align: center;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border: 2px solid transparent;
+    }
+
+    main.dark .scan-option {
+      background-color: #222;
+      color: var(--text-dark);
+    }
+
+    .scan-option:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+      border-color: var(--primary);
+    }
+
+    .scan-option.active {
+      background-color: var(--primary);
+      color: white;
+    }
+
+    .scan-option i {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .scan-option h3 {
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+    }
+
+    .scan-option p {
+      font-size: 0.85rem;
+      opacity: 0.85;
+    }
+
+    form {
+      margin-top: 2rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: left;
+    }
+
+    label {
+      font-size: 1rem;
+      font-weight: 600;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+
+    .drop-zone {
+      border: 2px dashed var(--primary);
+      padding: 2rem;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-bottom: 1.5rem;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      min-height: 150px;
+      background-color: rgba(58, 123, 213, 0.05);
+      text-align: center;
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .drop-zone.highlight {
+      border-color: var(--success);
+      background-color: rgba(46, 204, 113, 0.1);
+      transform: scale(1.01);
+    }
+
+    .drop-zone i {
+      font-size: 3rem;
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    .drop-zone:hover i {
+      transform: rotate(10deg) scale(1.2);
+      color: #5db4d4;
+    }
+
+    .file-info {
+      display: none;
+      margin-top: 0.5rem;
+      padding: 0.75rem;
+      background-color: rgba(46, 204, 113, 0.15);
+      border-radius: 8px;
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+
+    main.dark .file-info {
+      background-color: rgba(46, 204, 113, 0.2);
+      color: var(--text-dark);
+    }
+
+    .file-info.show {
+      display: block;
+    }
+
+    .file-info strong {
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+
+    .file-info div {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.25rem;
+    }
+
+    button {
+      width: 100%;
+      padding: 1rem;
+      background: linear-gradient(135deg, #4ca1af, #3498db);
+      color: #fff;
+      font-weight: 700;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      font-size: 1.1rem;
+      transition: all 0.3s ease, transform 0.2s, box-shadow 0.3s;
+    }
+
+    button:hover {
+      background: linear-gradient(135deg, #5db4d4, #2980b9);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    button:disabled {
+      background: #95a5a6;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .result {
+      margin-top: 1.5rem;
+      padding: 1.25rem;
+      border-radius: 10px;
+      display: none;
+      animation: fadeIn 0.5s ease;
+      text-align: left;
+    }
+
+    .result.show {
+      display: block;
+    }
+
+    .result.safe {
+      background-color: rgba(46, 204, 113, 0.15);
+      border: 1px solid var(--success);
+      color: var(--success);
+    }
+
+    .result.warning {
+      background-color: rgba(243, 156, 18, 0.15);
+      border: 1px solid var(--warning);
+      color: var(--warning);
+    }
+
+    .result.danger {
+      background-color: rgba(231, 76, 60, 0.15);
+      border: 1px solid var(--danger);
+      color: var(--danger);
+    }
+
+    .result-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .result-header i {
+      font-size: 1.5rem;
+    }
+
+    .progress-container {
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin: 1rem 0;
+      display: none;
+    }
+
+    .progress-container.show {
+      display: block;
+    }
+
+    .progress-bar {
+      height: 8px;
+      border-radius: 8px;
+      background: linear-gradient(90deg, #4ca1af, #3498db);
+      box-shadow: 0 0 10px rgba(58, 123, 213, 0.8);
+      transition: width 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .progress-bar:hover {
+      box-shadow: 0 0 20px rgba(58, 123, 213, 1);
+    }
+
+    .toggle-theme {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 100;
+    }
+
+    .theme-label-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      padding: 8px 12px;
+      background-color: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 8px;
+      color: #333333;
+      font-size: 0.85rem;
+      font-weight: 500;
+      text-align: center;
+      transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+
+    .theme-label-box:hover {
+      box-shadow: 0 0 15px rgba(58, 123, 213, 0.8), 0 0 30px rgba(58, 123, 213, 0.5);
+    }
+
+    main.dark .theme-label-box {
+      background-color: rgba(0, 0, 0, 0.5);
+      color: var(--text-dark);
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 24px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(255, 255, 255, 0.3);
+      border-radius: 24px;
+      transition: 0.4s;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      border-radius: 50%;
+      transition: 0.4s;
+    }
+
+    .slider i {
+      font-size: 12px;
+      transition: opacity 0.3s ease, color 0.3s ease;
+    }
+
+    #moonIcon {
+      color: #4a90e2;
+      opacity: 1;
+    }
+
+    #sunIcon {
+      color: #f1c40f;
+      opacity: 0;
+    }
+
+    input:checked + .slider {
+      background-color: var(--primary);
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
+
+    input:checked + .slider #moonIcon {
+      opacity: 0;
+    }
+
+    input:checked + .slider #sunIcon {
+      opacity: 1;
+    }
+
+    .footer {
+      background-color: var(--card-bg-light);
+      padding: 2rem;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      margin: 0 2rem 2rem 2rem;
+      color: var(--text-light);
+      transition: background-color 0.3s ease, color 0.3s ease;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .footer.dark {
+      background-color: var(--card-bg-dark);
+      color: var(--text-dark);
+    }
+
+    .footer-section {
+      flex: 1 1 200px;
+      min-width: 200px;
+    }
+
+    .footer-section h3 {
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    .footer-section ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-section ul li {
+      margin-bottom: 0.5rem;
+      cursor: pointer;
+      color: var(--text-light);
+      transition: color 0.3s ease;
+    }
+
+    .footer.dark .footer-section ul li {
+      color: var(--text-dark);
+    }
+
+    .footer-section ul li:hover {
+      color: var(--primary-dark);
+    }
+
+    .newsletter {
+      flex: 1 1 300px;
+      min-width: 300px;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .newsletter h3 {
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .newsletter p {
+      color: var(--text-light);
+      margin-bottom: 1rem;
+    }
+
+    .newsletter form {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .newsletter input[type="email"] {
+      flex: 1;
+      padding: 0.5rem;
+      border-radius: 8px;
+      border: 1px solid var(--primary);
+      font-size: 1rem;
+    }
+
+    .newsletter button {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 0 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 700;
+      transition: background-color 0.3s ease;
+    }
+
+    .newsletter button:hover {
+      background-color: var(--primary-dark);
+    }
+
+    .socialMedia {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .socialMedia a {
+      color: var(--text-light);
+      font-size: 1.5rem;
+      transition: color 0.3s ease;
+    }
+
+    .socialMedia a:hover {
+      color: var(--primary);
+    }
+
+    .copyright {
+      flex-basis: 100%;
+      text-align: center;
+      margin-top: 1rem;
+      color: var(--text-light);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      .footer {
+        flex-direction: column;
+        margin: 1rem;
+      }
+
+      .footer-section,
+      .newsletter {
+        min-width: 100%;
+      }
+
+      .socialMedia {
+        justify-content: center;
+      }
+
+      .scan-options {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav id="mainNav">
+    <div class="logo" tabindex="0" role="link" aria-label="Binoculars Home" onclick="location.href='index.html'">Binoculars</div>
+    <ul>
+      <li tabindex="0" role="link" onclick="location.href='index.html'">Home</li>
+      <li tabindex="0" role="link" onclick="location.href='Products/vpn.html'">VPN Service</li>
+      <li tabindex="0" role="link" onclick="location.href='FreeScan.html'" class="active">Free Scan</li>
+      <li tabindex="0" role="link" onclick="location.href='support/blog.html'">Blog</li>
+      <li tabindex="0" role="link" onclick="location.href='aboutus/aboutus-mainpage.html'">About Us</li>
+    </ul>
+  </nav>
+
+  <main id="quickScanPage" role="main">
+    <header>
+      <h1><i class="fa-solid fa-bolt"></i> Binoculars Quick Scan</h1>
+      <p>Fast scanning technology to detect common threats in seconds. Perfect for quick checks before opening files.</p>
+    </header>
+
+    <div class="scan-options" aria-label="Scan Options">
+      <div class="scan-option active" id="fileScanOption" tabindex="0" role="button" aria-pressed="true" onclick="selectScanOption('file')">
+        <i class="fa-solid fa-file"></i>
+        <h3>File Scan</h3>
+        <p>Check individual files for malware</p>
+      </div>
+      <div class="scan-option" id="urlScanOption" tabindex="0" role="button" aria-pressed="false" onclick="selectScanOption('url')">
+        <i class="fa-solid fa-link"></i>
+        <h3>URL Scan</h3>
+        <p>Verify website safety</p>
+      </div>
+      <div class="scan-option" id="clipboardScanOption" tabindex="0" role="button" aria-pressed="false" onclick="selectScanOption('clipboard')">
+        <i class="fa-solid fa-paste"></i>
+        <h3>Clipboard</h3>
+        <p>Scan copied text/links</p>
+      </div>
+    </div>
+
+    <form id="quickScanForm" aria-label="Quick Scan Form">
+      <div id="fileScanSection">
+        <label for="fileInput">Select a file to scan (Max 100MB)</label>
+        <input type="file" id="fileInput" aria-describedby="fileHelp" />
+        <div id="dropZone" class="drop-zone" tabindex="0" role="button" aria-label="Drag and drop files here or click to browse">
+          <i class="fas fa-cloud-upload-alt"></i>
+          <p>Drag & drop your file here or click to browse</p>
+        </div>
+        <div id="fileInfo" class="file-info" aria-live="polite" aria-atomic="true">
+          <strong>Selected file:</strong> <span id="fileName"></span>
+          <div class="file-details">
+            <div>
+              <span>Size:</span>
+              <span id="fileSize"></span>
+            </div>
+            <div>
+              <span>Type:</span>
+              <span id="fileType"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="urlScanSection" style="display: none;">
+        <label for="urlInput">Enter URL to scan</label>
+        <input type="url" id="urlInput" placeholder="https://example.com" class="drop-zone" style="text-align: center; color: var(--text-light);" />
+      </div>
+
+      <div id="clipboardScanSection" style="display: none;">
+        <label>Clipboard contents</label>
+        <div class="drop-zone" id="clipboardContent" tabindex="0" role="button" aria-label="Click to scan clipboard contents">
+          <i class="fas fa-clipboard"></i>
+          <p>Click to scan clipboard contents</p>
+          <small id="clipboardPreview"></small>
+        </div>
+      </div>
+
+      <div class="progress-container" id="progressContainer" aria-hidden="true">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+
+      <button type="button" id="scanButton" disabled aria-disabled="true" aria-live="polite" aria-label="Start quick scan">
+        <i class="fas fa-bolt"></i>
+        <span>Start Quick Scan</span>
+      </button>
+
+      <div id="result" class="result" role="region" aria-live="polite" aria-atomic="true">
+        <div class="result-header">
+          <i id="resultIcon"></i>
+          <span id="resultTitle"></span>
+        </div>
+        <p id="scanStatus"></p>
+        <div id="scanDetails" class="file-details"></div>
+      </div>
+    </form>
+  </main>
+
+  <div class="toggle-theme" role="region" aria-label="Toggle dark and light theme">
+    <div class="theme-label-box" tabindex="0" role="button" aria-pressed="false" onclick="toggleTheme()">
+      <i class="fas fa-moon" id="moonIcon"></i>
+      <span>Dark Mode</span>
+      <label class="switch">
+        <input type="checkbox" id="themeToggleSwitch" aria-label="Toggle dark mode" />
+        <span class="slider"></span>
+      </label>
+      <i class="fas fa-sun" id="sunIcon"></i>
+    </div>
+  </div>
+
+  <footer class="footer" role="contentinfo" aria-label="Site Footer">
+    <section class="footer-section" aria-label="About Us">
+      <h3>About Us</h3>
+      <ul>
+        <li tabindex="0" role="link" onclick="location.href='aboutus/aboutus-mainpage.html'">Company</li>
+        <li tabindex="0" role="link">Security Team</li>
+        <li tabindex="0" role="link">Careers</li>
+        <li tabindex="0" role="link">Partners</li>
+        <li tabindex="0" role="link">Press</li>
+      </ul>
+    </section>
+    <section class="footer-section" aria-label="Support">
+      <h3>Support</h3>
+      <ul>
+        <li tabindex="0" role="link" onclick="location.href='support/help center.html'">Help Center</li>
+        <li tabindex="0" role="link" onclick="location.href='support/tutorials.html'">Tutorials</li>
+        <li tabindex="0" role="link" onclick="location.href='support/FAQ.html'">FAQ</li>
+        <li tabindex="0" role="link" onclick="location.href='support/contact us.html'">Contact</li>
+        <li tabindex="0" role="link" onclick="location.href='support/blog.html'">Blog</li>
+      </ul>
+    </section>
+    <section class="footer-section" aria-label="Products">
+      <h3>Products</h3>
+      <ul>
+        <li tabindex="0" role="link" onclick="location.href='FreeScan.html'">Binoculars Basic</li>
+        <li tabindex="0" role="link">Binoculars Pro</li>
+        <li tabindex="0" role="link">Enterprise Suite</li>
+        <li tabindex="0" role="link">Mobile Security</li>
+        <li tabindex="0" role="link" onclick="location.href='Products/vpn.html'">VPN Service</li>
+      </ul>
+    </section>
+    <section class="footer-section" aria-label="Newsletter Subscription and Social Media">
+      <h3>Subscribe to our newsletter</h3>
+      <p>Get the latest updates and offers.</p>
+      <form>
+        <input type="email" placeholder="Your email address" aria-label="Email address" />
+        <button type="submit">Subscribe</button>
+      </form>
+      <div class="socialMedia">
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+      <div class="copyright">
+        &copy; 2024 Binoculars. All rights reserved.
+      </div>
+    </section>
+  </footer>
+
+  <script>
+    // Theme toggle functionality
+    const themeToggleSwitch = document.getElementById('themeToggleSwitch');
+    const body = document.body;
+    const main = document.querySelector('main');
+    const nav = document.getElementById('mainNav');
+    const footer = document.querySelector('footer');
+    const themeLabelBox = document.querySelector('.theme-label-box');
+
+    function toggleTheme() {
+      const isDark = themeToggleSwitch.checked;
+      if (isDark) {
+        body.style.background = 'linear-gradient(135deg, #121212, #2b2b2b, #121212)';
+        body.style.color = 'var(--text-dark)';
+        main.classList.add('dark');
+        nav.classList.add('dark');
+        footer.classList.add('dark');
+        themeLabelBox.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+        themeLabelBox.style.color = 'var(--text-dark)';
+        themeLabelBox.setAttribute('aria-pressed', 'true');
+      } else {
+        body.style.background = 'linear-gradient(135deg, #667eea, #764ba2, #4ca1af)';
+        body.style.color = 'var(--text-light)';
+        main.classList.remove('dark');
+        nav.classList.remove('dark');
+        footer.classList.remove('dark');
+        themeLabelBox.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
+        themeLabelBox.style.color = '#333333';
+        themeLabelBox.setAttribute('aria-pressed', 'false');
+      }
+    }
+
+    themeToggleSwitch.addEventListener('change', toggleTheme);
+
+    // Load saved theme preference
+    window.addEventListener('DOMContentLoaded', () => {
+      const savedTheme = localStorage.getItem('themePreference');
+      if (savedTheme === 'dark') {
+        themeToggleSwitch.checked = true;
+        toggleTheme();
+      }
+    });
+
+    // Save theme preference on toggle
+    themeToggleSwitch.addEventListener('change', () => {
+      localStorage.setItem('themePreference', themeToggleSwitch.checked ? 'dark' : 'light');
+    });
+
+    // Scan option selection
+    function selectScanOption(option) {
+      document.querySelectorAll('.scan-option').forEach(el => {
+        el.classList.remove('active');
+        el.setAttribute('aria-pressed', 'false');
+      });
+      
+      document.getElementById(`${option}ScanOption`).classList.add('active');
+      document.getElementById(`${option}ScanOption`).setAttribute('aria-pressed', 'true');
+      
+      document.querySelectorAll('#quickScanForm > div[id$="Section"]').forEach(el => {
+        el.style.display = 'none';
+      });
+      document.getElementById(`${option}ScanSection`).style.display = 'block';
+      
+      // Reset form state
+      resetScanForm();
+    }
+
+    // File input and drag-drop handling
+    const fileInput = document.getElementById('fileInput');
+    const dropZone = document.getElementById('dropZone');
+    const scanButton = document.getElementById('scanButton');
+    const fileInfo = document.getElementById('fileInfo');
+    const fileName = document.getElementById('fileName');
+    const fileSize = document.getElementById('fileSize');
+    const fileType = document.getElementById('fileType');
+    const result = document.getElementById('result');
+    const resultIcon = document.getElementById('resultIcon');
+    const resultTitle = document.getElementById('resultTitle');
+    const scanStatus = document.getElementById('scanStatus');
+    const scanDetails = document.getElementById('scanDetails');
+    const progressContainer = document.getElementById('progressContainer');
+    const progressBar = document.getElementById('progressBar');
+    const urlInput = document.getElementById('urlInput');
+    const clipboardContent = document.getElementById('clipboardContent');
+    const clipboardPreview = document.getElementById('clipboardPreview');
+
+    // Reset scan form
+    function resetScanForm() {
+      fileInput.value = '';
+      fileInfo.classList.remove('show');
+      urlInput.value = '';
+      clipboardPreview.textContent = '';
+      scanButton.disabled = true;
+      scanButton.setAttribute('aria-disabled', 'true');
+      result.className = 'result';
+    }
+
+    // Prevent default drag behaviors
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+      dropZone.addEventListener(eventName, preventDefaults, false);
+    });
+
+    function preventDefaults(e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    // Highlight drop zone on dragenter and dragover
+    ['dragenter', 'dragover'].forEach(eventName => {
+      dropZone.addEventListener(eventName, () => dropZone.classList.add('highlight'), false);
+    });
+
+    // Remove highlight on dragleave and drop
+    ['dragleave', 'drop'].forEach(eventName => {
+      dropZone.addEventListener(eventName, () => dropZone.classList.remove('highlight'), false);
+    });
+
+    // Handle drop event
+    dropZone.addEventListener('drop', handleDrop, false);
+
+    // Open file dialog on drop zone click
+    dropZone.addEventListener('click', () => fileInput.click());
+
+    // Handle dropped files
+    function handleDrop(e) {
+      const dt = e.dataTransfer;
+      const files = dt.files;
+      if (files.length) {
+        handleFiles(files);
+      }
+    }
+
+    // Handle file input change
+    fileInput.addEventListener('change', () => {
+      if (fileInput.files.length) {
+        handleFiles(fileInput.files);
+      }
+    });
+
+    // Handle selected files
+    function handleFiles(files) {
+      // For simplicity, only handle first file
+      const file = files[0];
+
+      // Check file size (max 100MB for quick scan)
+      if (file.size > 100 * 1024 * 1024) {
+        showResult('danger', 'File Too Large', 'Quick Scan supports files up to 100MB. Use Deep Scan for larger files.');
+        scanButton.disabled = true;
+        scanButton.setAttribute('aria-disabled', 'true');
+        return;
+      }
+
+      // Update file info display
+      fileName.textContent = file.name;
+      fileSize.textContent = formatFileSize(file.size);
+      fileType.textContent = file.type || 'Unknown';
+      fileInfo.classList.add('show');
+
+      // Enable scan button
+      scanButton.disabled = false;
+      scanButton.setAttribute('aria-disabled', 'false');
+
+      // Store the file for scanning
+      scanButton.file = file;
+    }
+
+    // Format file size helper
+    function formatFileSize(bytes) {
+      if (bytes === 0) return '0 Bytes';
+      const k = 1024;
+      const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+      const i = Math.floor(Math.log(bytes) / Math.log(k));
+      return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    }
+
+    // URL input handling
+    urlInput.addEventListener('input', () => {
+      scanButton.disabled = !urlInput.value.trim();
+      scanButton.setAttribute('aria-disabled', !urlInput.value.trim() ? 'true' : 'false');
+    });
+
+    // Clipboard scan handling
+    clipboardContent.addEventListener('click', async () => {
+      try {
+        const text = await navigator.clipboard.readText();
+        if (text) {
+          clipboardPreview.textContent = text.length > 50 ? text.substring(0, 50) + '...' : text;
+          scanButton.disabled = false;
+          scanButton.setAttribute('aria-disabled', 'false');
+          scanButton.clipboardText = text;
+        } else {
+          clipboardPreview.textContent = 'No text found in clipboard';
+          scanButton.disabled = true;
+          scanButton.setAttribute('aria-disabled', 'true');
+        }
+      } catch (err) {
+        clipboardPreview.textContent = 'Could not access clipboard. Try pasting manually.';
+        scanButton.disabled = true;
+        scanButton.setAttribute('aria-disabled', 'true');
+      }
+    });
+
+    // Scan button click handler
+    scanButton.addEventListener('click', () => {
+      const activeOption = document.querySelector('.scan-option.active').id;
+      
+      if (activeOption === 'fileScanOption' && scanButton.file) {
+        startFileScan(scanButton.file);
+      } else if (activeOption === 'urlScanOption' && urlInput.value.trim()) {
+        startUrlScan(urlInput.value.trim());
+      } else if (activeOption === 'clipboardScanOption' && scanButton.clipboardText) {
+        startClipboardScan(scanButton.clipboardText);
+      }
+    });
+
+    // Start file scan
+    function startFileScan(file) {
+      // Show progress bar
+      progressContainer.classList.add('show');
+      progressBar.style.width = '0%';
+
+      // Disable scan button during scan
+      scanButton.disabled = true;
+      scanButton.setAttribute('aria-disabled', 'true');
+      scanButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Scanning...';
+
+      // Simulate quick scan process (faster than deep scan)
+      simulateQuickScan(file, 'file');
+    }
+
+    // Start URL scan
+    function startUrlScan(url) {
+      progressContainer.classList.add('show');
+      progressBar.style.width = '0%';
+      scanButton.disabled = true;
+      scanButton.setAttribute('aria-disabled', 'true');
+      scanButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Scanning URL...';
+
+      // Simulate URL scan
+      simulateQuickScan(url, 'url');
+    }
+
+    // Start clipboard scan
+    function startClipboardScan(text) {
+      progressContainer.classList.add('show');
+      progressBar.style.width = '0%';
+      scanButton.disabled = true;
+      scanButton.setAttribute('aria-disabled', 'true');
+      scanButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Scanning Clipboard...';
+
+      // Simulate clipboard scan
+      simulateQuickScan(text, 'clipboard');
+    }
+
+    // Simulate quick scanning process (faster than deep scan)
+    function simulateQuickScan(item, type) {
+      let progress = 0;
+      const interval = setInterval(() => {
+        progress += Math.random

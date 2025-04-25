@@ -1,119 +1,475 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Forgot Password</title>
-    <link rel="stylesheet" href="combined ui/combined_css.css" />
-    <style>
-        body {
-            background: linear-gradient(to right, #4db2ec, #c4364e);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-        }
-        .forgot-container {
-            background: #fff;
-            border-radius: 10px;
-            box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
-                        0 10px 10px rgba(0,0,0,0.22);
-            width: 400px;
-            padding: 40px 50px;
-            text-align: center;
-        }
-        .forgot-container h1 {
-            margin-bottom: 20px;
-            font-weight: bold;
-            color: #333;
-        }
-        .forgot-container form {
-            display: flex;
-            flex-direction: column;
-        }
-        .forgot-container input {
-            background: #eee;
-            border: none;
-            padding: 12px 15px;
-            margin: 8px 0;
-            width: 100%;
-            border-radius: 4px;
-            font-size: 14px;
-        }
-        .forgot-container button {
-            border: none;
-            padding: 12px 45px;
-            margin-top: 20px;
-            background-color: #4db2ec;
-            color: #fff;
-            font-size: 14px;
-            font-weight: bold;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            cursor: pointer;
-            border-radius: 4px;
-            transition: background-color 0.3s ease;
-        }
-        .forgot-container button:hover {
-            background-color: #3a94d8;
-        }
-        .back-link {
-            margin-top: 20px;
-            display: inline-block;
-            color: #4db2ec;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: bold;
-            transition: color 0.3s ease;
-        }
-        .back-link:hover {
-            color: #3a94d8;
-        }
-        .message {
-            margin-top: 15px;
-            font-size: 14px;
-            min-height: 18px;
-            color: green;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Forgot Password - Binoculars Security</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --primary: #FF3B30;
+      --primary-hover: #E5352B;
+      --secondary: #007AFF;
+      --dark: #1C1C1E;
+      --darker: #121212;
+      --light: #F2F2F7;
+      --lighter: #FFFFFF;
+      --border: rgba(120, 120, 128, 0.2);
+      --text-primary: #1C1C1E;
+      --text-secondary: #636366;
+      --text-light: #F2F2F7;
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12);
+      --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--light);
+      color: var(--text-primary);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 24px;
+      transition: var(--transition);
+      line-height: 1.5;
+    }
+
+    body.dark-mode {
+      background-color: var(--darker);
+      color: var(--text-light);
+    }
+
+    .container {
+      width: 100%;
+      max-width: 440px;
+      background: var(--lighter);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      padding: 48px;
+      position: relative;
+      overflow: hidden;
+      transition: var(--transition);
+    }
+
+    body.dark-mode .container {
+      background: var(--dark);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 32px;
+    }
+
+    .logo-icon {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 12px;
+      color: white;
+      font-weight: 700;
+      font-size: 20px;
+    }
+
+    .logo-text {
+      font-size: 24px;
+      font-weight: 700;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      color: var(--text-secondary);
+      margin-bottom: 32px;
+      font-size: 16px;
+    }
+
+    body.dark-mode .subtitle {
+      color: rgba(229, 229, 234, 0.6);
+    }
+
+    .form-group {
+      margin-bottom: 24px;
+      position: relative;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+
+    body.dark-mode label {
+      color: var(--text-light);
+    }
+
+    input {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 16px;
+      transition: var(--transition);
+      background-color: var(--lighter);
+      color: var(--text-primary);
+    }
+
+    body.dark-mode input {
+      background-color: rgba(120, 120, 128, 0.12);
+      border-color: rgba(120, 120, 128, 0.24);
+      color: var(--text-light);
+    }
+
+    input:focus {
+      outline: none;
+      border-color: var(--secondary);
+      box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+    }
+
+    body.dark-mode input:focus {
+      box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.2);
+    }
+
+    button {
+      width: 100%;
+      padding: 16px;
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      margin-top: 8px;
+    }
+
+    button:hover {
+      background-color: var(--primary-hover);
+      transform: translateY(-1px);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      color: var(--secondary);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      margin-top: 24px;
+      transition: var(--transition);
+    }
+
+    .back-link:hover {
+      color: var(--primary);
+    }
+
+    .back-link svg {
+      margin-right: 6px;
+    }
+
+    .message {
+      padding: 12px 16px;
+      border-radius: var(--radius-sm);
+      margin-top: 16px;
+      font-size: 14px;
+      display: none;
+    }
+
+    .success {
+      background-color: rgba(52, 199, 89, 0.1);
+      color: #34C759;
+      display: block;
+    }
+
+    .error {
+      background-color: rgba(255, 59, 48, 0.1);
+      color: var(--primary);
+      display: block;
+    }
+
+    .loading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 16px;
+      color: var(--secondary);
+      font-size: 14px;
+      display: none;
+    }
+
+    .spinner {
+      width: 18px;
+      height: 18px;
+      border: 3px solid rgba(0, 122, 255, 0.2);
+      border-radius: 50%;
+      border-top-color: var(--secondary);
+      animation: spin 1s linear infinite;
+      margin-right: 8px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .toggle-theme {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 48px;
+      height: 48px;
+      background-color: var(--lighter);
+      border: none;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: var(--shadow-md);
+      transition: var(--transition);
+      z-index: 100;
+    }
+
+    body.dark-mode .toggle-theme {
+      background-color: rgba(120, 120, 128, 0.18);
+    }
+
+    .toggle-theme:hover {
+      transform: scale(1.05);
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 32px 24px;
+      }
+      
+      h1 {
+        font-size: 24px;
+      }
+      
+      .logo-text {
+        font-size: 20px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="forgot-container">
-        <h1>Forgot Password</h1>
-        <form id="forgotPasswordForm">
-            <input type="email" id="email" placeholder="Enter your email" required />
-            <button type="submit">Send Reset Link</button>
-            <div class="message" id="resetMessage"></div>
-        </form>
-        <a href="combined ui/combined_login_signup.html" class="back-link">Back to Login/Signup</a>
+  <div class="container">
+    <div class="logo">
+      <div class="logo-icon">VG</div>
+      <div class="logo-text">Binoculars</div>
     </div>
+    
+    <h1>Reset Password</h1>
+    <p class="subtitle">Enter your email to receive a password reset link</p>
+    
+    <form id="forgotPasswordForm" novalidate>
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input 
+          type="email" 
+          id="email" 
+          placeholder="your@email.com" 
+          required
+          aria-describedby="emailHelp"
+        />
+      </div>
+      
+      <button type="submit" id="submitBtn">
+        Send Reset Link
+      </button>
+      
+      <div id="resetMessage" class="message" aria-live="polite"></div>
+      <div id="loadingIndicator" class="loading">
+        <span class="spinner" aria-hidden="true"></span>
+        Sending reset link...
+      </div>
+    </form>
+    
+    <a href="login.html" class="back-link">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="19" y1="12" x2="5" y2="12"></line>
+        <polyline points="12 19 5 12 12 5"></polyline>
+      </svg>
+      Back to Login
+    </a>
+  </div>
 
-    <script>
-        const form = document.getElementById('forgotPasswordForm');
-        const emailInput = document.getElementById('email');
-        const messageDiv = document.getElementById('resetMessage');
+  <button class="toggle-theme" id="themeToggle" aria-label="Toggle dark mode">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </button>
 
-        form.addEventListener('submit', function (e) {
-            e.preventDefault();
-            const email = emailInput.value.trim();
+  <script>
+    // DOM Elements
+    const form = document.getElementById('forgotPasswordForm');
+    const emailInput = document.getElementById('email');
+    const messageDiv = document.getElementById('resetMessage');
+    const loadingIndicator = document.getElementById('loadingIndicator');
+    const submitBtn = document.getElementById('submitBtn');
+    const themeToggle = document.getElementById('themeToggle');
+    const body = document.body;
 
-            const emailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;
-            if (!emailRegex.test(email)) {
-                messageDiv.textContent = '⚠️ Please enter a valid email address.';
-                messageDiv.style.color = 'orangered';
-                return;
-            }
-
-            messageDiv.textContent = '';
-            setTimeout(() => {
-                messageDiv.textContent = `✅ A password reset link has been sent to ${email}`;
-                messageDiv.style.color = 'green';
-                emailInput.value = '';
-                // In a real app, send reset link via API here
-            }, 1500);
-        });
-    </script>
+    // Form submission
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const email = emailInput.value.trim();
+      messageDiv.textContent = '';
+      messageDiv.className = 'message';
+      
+      // Validate email
+      if (!email) {
+        showMessage('Please enter your email address', 'error');
+        emailInput.focus();
+        return;
+      }
+      
+      if (!validateEmail(email)) {
+        showMessage('Please enter a valid email address', 'error');
+        emailInput.focus();
+        return;
+      }
+      
+      // Show loading state
+      submitBtn.disabled = true;
+      loadingIndicator.style.display = 'flex';
+      
+      // Simulate API call
+      try {
+        await sendResetLink(email);
+        showMessage(`Password reset link sent to ${email}`, 'success');
+        form.reset();
+        
+        // Hide success message after 5 seconds
+        setTimeout(() => {
+          messageDiv.textContent = '';
+          messageDiv.className = 'message';
+        }, 5000);
+      } catch (error) {
+        showMessage('Failed to send reset link. Please try again.', 'error');
+      } finally {
+        submitBtn.disabled = false;
+        loadingIndicator.style.display = 'none';
+      }
+    });
+    
+    // Email validation
+    function validateEmail(email) {
+      const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return re.test(String(email).toLowerCase());
+    }
+    
+    // Show message
+    function showMessage(message, type) {
+      messageDiv.textContent = message;
+      messageDiv.className = type;
+      messageDiv.setAttribute('role', 'alert');
+    }
+    
+    // Simulate API call
+    function sendResetLink(email) {
+      return new Promise((resolve) => {
+        setTimeout(() => resolve(), 1500);
+      });
+    }
+    
+    // Theme toggle
+    function setTheme(theme) {
+      if (theme === 'dark') {
+        body.classList.add('dark-mode');
+        localStorage.setItem('theme', 'dark');
+        themeToggle.innerHTML = `
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        `;
+      } else {
+        body.classList.remove('dark-mode');
+        localStorage.setItem('theme', 'light');
+        themeToggle.innerHTML = `
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+        `;
+      }
+    }
+    
+    // Initialize theme
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    setTheme(savedTheme);
+    
+    // Toggle theme
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = body.classList.contains('dark-mode') ? 'dark' : 'light';
+      setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+    });
+    
+    // Focus email input on load
+    window.addEventListener('DOMContentLoaded', () => {
+      emailInput.focus();
+    });
+  </script>
 </body>
 </html>

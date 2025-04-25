@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Binoculars Security - VPN</title>
+    <meta name="description" content="Secure your internet connection with Binoculars VPN for private and unrestricted browsing.">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet" />
+    <style>
+        /* Embedded CSS to match existing style with theme support */
+        :root {
+            --bg-color-light: #f5f5f5;
+            --text-color-light: #333;
+            --nav-bg-light: #121212;
+            --nav-text-light: white;
+            --accent-color-light: #4a90e2;
+            --accent-hover-light: #3a7bc8;
+            --footer-bg-light: white;
+            --footer-text-light: #555;
+            --card-bg-light: white;
+            --input-bg-light: white;
+            --input-border-light: #ddd;
+            --success-color: #34a853;
+            --warning-color: #fbbc05;
+
+            --bg-color-dark: #121212;
+            --text-color-dark: #ddd;
+            --nav-bg-dark: #1e1e1e;
+            --nav-text-dark: #ddd;
+            --accent-color-dark: #4a90e2;
+            --accent-hover-dark: #3a7bc8;
+            --footer-bg-dark: #1e1e1e;
+            --footer-text-dark: #aaa;
+            --card-bg-dark: #222;
+            --input-bg-dark: #333;
+            --input-border-dark: #555;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Lato', sans-serif;
+            background-color: var(--bg-color-light);
+            color: var(--text-color-light);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        body.dark-theme {
+            background-color: var(--bg-color-dark);
+            color: var(--text-color-dark);
+        }
+
+        #nav {
+            display: flex;
+            flex-direction: column;
+            background-color: var(--nav-bg-light);
+            color: var(--nav-text-light);
+            padding: 10px 50px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        body.dark-theme #nav {
+            background-color: var(--nav-bg-dark);
+            color: var(--nav-text-dark);
+        }
+
+        .navTop {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 20px 0;
+        }
+
+        .navItem {
+            display: flex;
+            align-items: center;
+            margin-left: 20px;
+        }
+
+        .search {
+            display: flex;
+            align-items: center;
+            background-color: white;
+            padding: 10px 15px;
+            border-radius: 30px;
+            margin: 0 20px;
+            flex-grow: 1;
+            max-width: 400px;
+        }
+
+        body.dark-theme .search {
+            background-color: #333;
+        }
+
+        .searchInput {
+            border: none;
+            outline: none;
+            background: transparent;
+            width: 100%;
+            font-size: 1rem;
+            color: #333;
+        }
+
+        body.dark-theme .searchInput {
+            color: #ddd;
+        }
+
+        .searchIcon {
+            cursor: pointer;
+        }
+
+        .limitedOffer {
+            background-color: var(--accent-color-light);
+            padding: 5px 15px;
+            border-radius: 30px;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 12px;
+            color: white;
+            user-select: none;
+            transition: background-color 0.3s ease;
+        }
+
+        body.dark-theme .limitedOffer {
+            background-color: var(--accent-color-dark);
+        }
+
+        button#themeToggle {
+            background-color: transparent;
+            border: 2px solid var(--accent-color-light);
+            color: var(--accent-color-light);
+            padding: 6px 15px;
+            border-radius: 30px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+
+        button#themeToggle:hover {
+            background-color: var(--accent-hover-light);
+            color: white;
+            border-color: var(--accent-hover-light);
+        }
+
+        body.dark-theme button#themeToggle {
+            border-color: var(--accent-color-dark);
+            color: var(--accent-color-dark);
+        }
+
+        body.dark-theme button#themeToggle:hover {
+            background-color: var(--accent-hover-dark);
+            color: white;
+            border-color: var(--accent-hover-dark);
+        }
+
+        .navBottom {
+            display: flex;
+            justify-content: center;
+            padding: 15px 0;
+        }
+
+        .menuItem {
+            margin: 0 25px;
+            cursor: pointer;
+            font-weight: 400;
+            color: #aaa;
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+
+        .menuItem:hover {
+            color: white;
+        }
+
+        header.vpn-header {
+            text-align: center;
+            padding: 3rem 1rem 2rem 1rem;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--nav-bg-light);
+            letter-spacing: 2px;
+            user-select: none;
+            transition: color 0.3s ease;
+        }
+
+        body.dark-theme header.vpn-header {
+            color: var(--text-color-dark);
+        }
+
+        main.vpn-main {
+            max-width: 1200px;
+            margin: 0 auto 4rem;
+            padding: 0 1rem;
+        }
+
+        .vpn-intro {
+            text-align: center;
+            margin-bottom: 3rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .vpn-intro p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: var(--text-color-light);
+        }
+
+        body.dark-theme .vpn-intro p {
+            color: var(--text-color-dark);
+        }
+
+        .vpn-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .vpn-card {
+            background: var(--card-bg-light);
+            border-radius: 10px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+
+        body.dark-theme .vpn-card {
+            background: var(--card-bg-dark);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.6);
+        }
+
+        .vpn-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+        }
+
+        .vpn-status {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .status-connected {
+            background-color: var(--success-color);
+            color: white;
+        }
+
+        .status-disconnected {
+            background-color: var(--warning-color);
+            color: #333;
+        }
+
+        .vpn-image {
+            height: 200px;
+            background-color: var(--accent-color-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        body.dark-theme .vpn-image {
+            background-color: var(--accent-color-dark);
+        }
+
+        .vpn-content {
+            padding: 1.5rem;
+        }
+
+        .vpn-content h3 {
+            margin-top: 0;
+            margin-bottom: 0.75rem;
+            font-size: 1.4rem;
+            color: var(--accent-color-light);
+        }
+
+        body.dark-theme .vpn-content h3 {
+            color: var(--accent-color-dark);
+        }
+
+        .vpn-content p {
+            margin-bottom: 1.5rem;
+            color: var(--text-color-light);
+            line-height: 1.5;
+        }
+
+        body.dark-theme .vpn-content p {
+            color: var(--text-color-dark);
+        }
+
+        .vpn-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        body.dark-theme .vpn-meta {
+            color: #aaa;
+        }
+
+        .vpn-ping {
+            display: flex;
+            align-items: center;
+        }
+
+        .vpn-ping i {
+            margin-right: 5px;
+        }
+
+        .btn-vpn {
+            background-color: var(--accent-color-light);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        body.dark-theme .btn-vpn {
+            background-color: var(--accent-color-dark);
+        }
+
+        .btn-vpn:hover {
+            background-color: var(--accent-hover-light);
+        }
+
+        body.dark-theme .btn-vpn:hover {
+            background-color: var(--accent-hover-dark);
+        }
+
+        .btn-vpn.disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .vpn-features {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .feature-btn {
+            padding: 0.5rem 1.5rem;
+            border-radius: 30px;
+            background-color: var(--card-bg-light);
+            border: 1px solid var(--accent-color-light);
+            color: var(--accent-color-light);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-theme .feature-btn {
+            background-color: var(--card-bg-dark);
+            border-color: var(--accent-color-dark);
+            color: var(--accent-color-dark);
+        }
+
+        .feature-btn:hover, .feature-btn.active {
+            background-color: var(--accent-color-light);
+            color: white;
+        }
+
+        body.dark-theme .feature-btn:hover, 
+        body.dark-theme .feature-btn.active {
+            background-color: var(--accent-color-dark);
+            color: white;
+        }
+
+        .vpn-globe {
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            position: relative;
+            height: 400px;
+            background-image: url('https://cdn-icons-png.flaticon.com/512/44/44386.png');
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0.7;
+        }
+
+        .connection-line {
+            position: absolute;
+            height: 2px;
+            background-color: var(--accent-color-light);
+            transform-origin: left center;
+            top: 50%;
+            left: 50%;
+            z-index: 1;
+        }
+
+        body.dark-theme .connection-line {
+            background-color: var(--accent-color-dark);
+        }
+
+        .connection-dot {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--accent-color-light);
+            transform: translate(-50%, -50%);
+            z-index: 2;
+        }
+
+        body.dark-theme .connection-dot {
+            background-color: var(--accent-color-dark);
+        }
+
+        footer {
+            display: flex;
+            padding: 50px;
+            background-color: var(--footer-bg-light);
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 2rem;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        body.dark-theme footer {
+            background-color: var(--footer-bg-dark);
+            color: var(--footer-text-dark);
+        }
+
+        .footerLeft {
+            flex: 2;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .footerRight {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .footerMenu {
+            min-width: 150px;
+        }
+
+        .fMenuTitle {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--text-color-light);
+        }
+
+        body.dark-theme .fMenuTitle {
+            color: var(--footer-text-dark);
+        }
+
+        .fList {
+            list-style: none;
+        }
+
+        .fListItem {
+            margin-bottom: 10px;
+            color: #555;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-theme .fListItem {
+            color: #aaa;
+        }
+
+        .fListItem:hover {
+            color: var(--accent-color-light);
+        }
+
+        body.dark-theme .fListItem:hover {
+            color: var(--accent-hover-dark);
+        }
+
+        .fInput {
+            padding: 10px;
+            border: 1px solid #ddd;
+            width: 70%;
+            margin-right: 10px;
+            border-radius: 5px;
+        }
+
+        body.dark-theme .fInput {
+            background-color: #333;
+            border-color: #555;
+            color: #ddd;
+        }
+
+        .fButton {
+            padding: 10px 20px;
+            background-color: var(--accent-color-light);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-theme .fButton {
+            background-color: var(--accent-color-dark);
+        }
+
+        .fButton:hover {
+            background-color: var(--accent-hover-light);
+        }
+
+        body.dark-theme .fButton:hover {
+            background-color: var(--accent-hover-dark);
+        }
+
+        .fIcons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .fIcon {
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .fIcon:hover {
+            transform: scale(1.2);
+        }
+
+        .copyright {
+            color: #777;
+            font-size: 14px;
+            margin-top: 20px;
+        }
+
+        body.dark-theme .copyright {
+            color: #aaa;
+        }
+
+        @media screen and (max-width: 768px) {
+            #nav {
+                padding: 10px 20px;
+            }
+
+            .navTop {
+                flex-direction: row;
+                padding: 10px 0;
+                justify-content: space-between;
+            }
+
+            .navItem {
+                margin: 0 10px;
+            }
+
+            .navBottom {
+                flex-wrap: wrap;
+            }
+
+            .menuItem {
+                margin: 10px;
+            }
+
+            .vpn-container {
+                grid-template-columns: 1fr;
+            }
+
+            .vpn-globe {
+                height: 300px;
+            }
+
+            footer {
+                flex-direction: column;
+                padding: 30px 10px;
+            }
+
+            .footerLeft {
+                flex-direction: column;
+                margin-bottom: 30px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <nav id="nav" role="navigation" aria-label="Primary Navigation">
+        <div class="navTop">
+            <div class="navItem">
+                <!-- Logo removed as per user request -->
+            </div>
+            <div class="navItem">
+                <div class="search" role="search">
+                    <input type="text" placeholder="Search..." class="searchInput" aria-label="Search" />
+                    <img src="https://cdn-icons-png.flaticon.com/512/149/149852.png" width="20" height="20" alt="Search Icon" class="searchIcon" />
+                </div>
+            </div>
+            <div class="navItem">
+                <span class="limitedOffer">FREE TRIAL!</span>
+            </div>
+            <div class="navItem">
+                <button id="themeToggle" aria-label="Toggle light and dark theme">Toggle Theme</button>
+            </div>
+            <div>
+                <button onclick="window.location.href='combined ui/combined_login_signup.html'" style="background-color: var(--accent-color-light); color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">Sign Up</button>
+            </div>
+        </div>
+        <div class="navBottom" role="menubar" aria-label="Secondary Navigation">
+            <h3 class="menuItem" role="menuitem" tabindex="0">VPN SERVERS</h3>
+            <h3 class="menuItem" role="menuitem" tabindex="0">PROTECTION</h3>
+            <h3 class="menuItem" role="menuitem" tabindex="0">PRIVACY</h3>
+            <h3 class="menuItem" role="menuitem" tabindex="0">SETTINGS</h3>
+            <h3 class="menuItem" role="menuitem" tabindex="0">ACCOUNT</h3>
+        </div>
+    </nav>
+
+    <header class="vpn-header" role="banner" aria-label="VPN Page Header">
+        Secure VPN Service
+    </header>
+
+    <main class="vpn-main">
+        <div class="vpn-intro">
+            <p>Browse privately and securely with Binoculars VPN. Our global network of servers ensures fast, encrypted connections to protect your online activity from prying eyes.</p>
+            
+            <div class="vpn-features">
+                <button class="feature-btn active" data-feature="all">All Servers</button>
+                <button class="feature-btn" data-feature="fastest">Fastest</button>
+                <button class="feature-btn" data-feature="nearest">Nearest</button>
+                <button class="feature-btn" data-feature="streaming">Streaming</button>
+                <button class="feature-btn" data-feature="secure">Most Secure</button>
+            </div>
+        </div>
+
+        <div class="vpn-globe" id="vpnGlobe">
+            <!-- Connection lines and dots will be added dynamically -->
+        </div>
+
+        <div class="vpn-container">
+            <!-- VPN Server Card 1 -->
+            <div class="vpn-card" data-feature="fastest secure">
+                <div class="vpn-status status-connected">CONNECTED</div>
+                <div class="vpn-image">
+                    <i class="fas fa-flag-usa"></i>
+                </div>
+                <div class="vpn-content">
+                    <h3>United States #1</h3>
+                    <p>New York server with ultra-fast speeds optimized for streaming and gaming. Low latency with military-grade encryption.</p>
+                    <div class="vpn-meta">
+                        <span class="vpn-ping"><i class="fas fa-bolt"></i> 28ms</span>
+                        <button class="btn-vpn">Disconnect</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VPN Server Card 2 -->
+            <div class="vpn-card" data-feature="nearest">
+                <div class="vpn-status status-disconnected">DISCONNECTED</div>
+                <div class="vpn-image">
+                    <i class="fas fa-landmark"></i>
+                </div>
+                <div class="vpn-content">
+                    <h3>United Kingdom #3</h3>
+                    <p>London server with premium bandwidth for HD video streaming and secure browsing.</p>
+                    <div class="vpn-meta">
+                        <span class="vpn-ping"><i class="fas fa-bolt"></i> 42ms</span>
+                        <button class="btn-vpn">Connect</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VPN Server Card 3 -->
+            <div class="vpn-card" data-feature="streaming secure">
+                <div class="vpn-status status-disconnected">DISCONNECTED</div>
+                <div class="vpn-image">
+                    <i class="fas fa-torii-gate"></i>
+                </div>
+                <div class="vpn-content">
+                    <h3>Japan #2</h3>
+                    <p>Tokyo server optimized for bypassing geo-restrictions and accessing regional content.</p>
+                    <div class="vpn-meta">
+                        <span class="vpn-ping"><i class="fas fa-bolt"></i> 112ms</span>
+                        <button class="btn-vpn">Connect</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VPN Server Card 4 -->
+            <div class="vpn-card" data-feature="secure">
+                <div class="vpn-status status-disconnected">DISCONNECTED</div>
+                <div class="vpn-image">
+                    <i class="fas fa-lock"></i>
+                </div>
+                <div class="vpn-content">
+                    <h3>Privacy Haven #1</h3>
+                    <p>Special privacy-focused server with no-logs policy and double encryption for maximum security.</p>
+                    <div class="vpn-meta">
+                        <span class="vpn-ping"><i class="fas fa-bolt"></i> 86ms</span>
+                        <button class="btn-vpn">Connect</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VPN Server Card 5 -->
+            <div class="vpn-card" data-feature="streaming">
+                <div class="vpn-status status-disconnected">DISCONNECTED</div>
+                <div class="vpn-image">
+                    <i class="fas fa-film"></i>
+                </div>
+                <div class="vpn-content">
+                    <h3>Streaming #1</h3>
+                    <p>Optimized server for accessing popular streaming platforms with dedicated IP addresses.</p>
+                    <div class="vpn-meta">
+                        <span class="vpn-ping"><i class="fas fa-bolt"></i> 64ms</span>
+                        <button class="btn-vpn">Connect</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VPN Server Card 6 -->
+            <div class="vpn-card" data-feature="fastest">
+                <div class="vpn-status status-disconnected">DISCONNECTED</div>
+                <div class="vpn-image">
+                    <i class="fas fa-rocket"></i>
+                </div>
+                <div class="vpn-content">
+                    <h3>Speed Boost #1</h3>
+                    <p>Our fastest server with 10Gbps connection, perfect for competitive gaming and large downloads.</p>
+                    <div class="vpn-meta">
+                        <span class="vpn-ping"><i class="fas fa-bolt"></i> 22ms</span>
+                        <button class="btn-vpn">Connect</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer role="contentinfo">
+        <div class="footerLeft">
+            <div class="footerMenu">
+                <h1 class="fMenuTitle">About Us</h1>
+                <ul class="fList">
+                    <li class="fListItem">Company</li>
+                    <li class="fListItem">Security Team</li>
+                    <li class="fListItem">Careers</li>
+                    <li class="fListItem">Partners</li>
+                    <li class="fListItem">Press</li>
+                </ul>
+            </div>
+            <div class="footerMenu">
+                <h1 class="fMenuTitle">Support</h1>
+                <ul class="fList">
+                    <li class="fListItem">Help Center</li>
+                    <li class="fListItem">Tutorials</li>
+                    <li class="fListItem">FAQ</li>
+                    <li class="fListItem">Contact</li>
+                    <li class="fListItem">Blog</li>
+                </ul>
+            </div>
+            <div class="footerMenu">
+                <h1 class="fMenuTitle">Products</h1>
+                <ul class="fList">
+                    <li class="fListItem">Binoculars Basic</li>
+                    <li class="fListItem">Binoculars Pro</li>
+                    <li class="fListItem">Enterprise Suite</li>
+                    <li class="fListItem">Mobile Security</li>
+                    <li class="fListItem">VPN Service</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footerRight">
+            <div class="footerRightMenu">
+                <h1 class="fMenuTitle">Subscribe to our newsletter</h1>
+                <div class="fMail">
+                    <input type="text" placeholder="your@email.com" class="fInput" aria-label="Email address" />
+                    <button class="fButton" aria-label="Subscribe to newsletter">SUBSCRIBE</button>
+                </div>
+            </div>
+            <div class="footerRightMenu">
+                <h1 class="fMenuTitle">Follow Us</h1>
+                <div class="fIcons">
+                    <img src="https://cdn-icons-png.flaticon.com/512/124/124010.png" alt="Facebook" class="fIcon" />
+                    <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter" class="fIcon" />
+                    <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram" class="fIcon" />
+                    <img src="https://cdn-icons-png.flaticon.com/512/1384/1384023.png" alt="YouTube" class="fIcon" />
+                </div>
+            </div>
+            <div class="footerRightMenu">
+                <span class="copyright">© 2025 Binoculars Security. All rights reserved.</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Embedded JavaScript for theme toggle and VPN functionality
+        const themeToggleBtn = document.getElementById('themeToggle');
+        const featureBtns = document.querySelectorAll('.feature-btn');
+        const vpnCards = document.querySelectorAll('.vpn-card');
+        const vpnGlobe = document.getElementById('vpnGlobe');
+        const connectBtns = document.querySelectorAll('.btn-vpn');
+
+        // Theme toggle functionality
+        themeToggleBtn.addEventListener('click', () => {
+            document.body.classList.toggle('dark-theme');
+            // Save preference to localStorage
+            if(document.body.classList.contains('dark-theme')) {
+                localStorage.setItem('theme', 'dark');
+            } else {
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        // Feature filter functionality
+        featureBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                featureBtns.forEach(b => b.classList.remove('active'));
+                // Add active class to clicked button
+                btn.classList.add('active');
+                
+                const feature = btn.dataset.feature;
+                
+                // Filter VPN cards
+                vpnCards.forEach(card => {
+                    if (feature === 'all' || card.dataset.feature.includes(feature)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Create connection lines on the globe
+        function createConnections() {
+            const centerX = vpnGlobe.offsetWidth / 2;
+            const centerY = vpnGlobe.offsetHeight / 2;
+            const radius = Math.min(centerX, centerY) * 0.8;
+            
+            // Clear existing connections
+            vpnGlobe.innerHTML = '';
+            
+            // Add connection lines to 3 random locations
+            for (let i = 0; i < 3; i++) {
+                const angle = Math.random() * Math.PI * 2;
+                const x = centerX + radius * Math.cos(angle);
+                const y = centerY + radius * Math.sin(angle);
+                
+                // Calculate line length and angle
+                const dx = x - centerX;
+                const dy = y - centerY;
+                const length = Math.sqrt(dx * dx + dy * dy);
+                const lineAngle = Math.atan2(dy, dx);
+                
+                // Create connection line
+                const line = document.createElement('div');
+                line.className = 'connection-line';
+                line.style.width = `${length}px`;
+                line.style.left = `${centerX}px`;
+                line.style.top = `${centerY}px`;
+                line.style.transform = `rotate(${lineAngle}rad)`;
+                vpnGlobe.appendChild(line);
+                
+                // Create connection dot
+                const dot = document.createElement('div');
+                dot.className = 'connection-dot';
+                dot.style.left = `${x}px`;
+                dot.style.top = `${y}px`;
+                vpnGlobe.appendChild(dot);
+            }
+        }
+
+        // Connect button functionality
+        connectBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const card = this.closest('.vpn-card');
+                const status = card.querySelector('.vpn-status');
+                
+                if (this.textContent === 'Connect') {
+                    // Disconnect any currently connected servers
+                    document.querySelectorAll('.vpn-status.status-connected').forEach(el => {
+                        el.classList.remove('status-connected');
+                        el.classList.add('status-disconnected');
+                        el.textContent = 'DISCONNECTED';
+                    });
+                    document.querySelectorAll('.btn-vpn').forEach(el => {
+                        if (el.textContent === 'Disconnect') {
+                            el.textContent = 'Connect';
+                        }
+                    });
+                    
+                    // Connect this server
+                    status.classList.remove('status-disconnected');
+                    status.classList.add('status-connected');
+                    status.textContent = 'CONNECTED';
+                    this.textContent = 'Disconnect';
+                    
+                    // Update globe connections
+                    createConnections();
+                } else {
+                    // Disconnect this server
+                    status.classList.remove('status-connected');
+                    status.classList.add('status-disconnected');
+                    status.textContent = 'DISCONNECTED';
+                    this.textContent = 'Connect';
+                    
+                    // Clear globe connections
+                    vpnGlobe.innerHTML = '';
+                }
+            });
+        });
+
+        // Load theme preference on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme');
+            if(savedTheme === 'dark') {
+                document.body.classList.add('dark-theme');
+            }
+            
+            // Initialize globe connections
+            createConnections();
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', createConnections);
+    </script>
+</body>
+</html>

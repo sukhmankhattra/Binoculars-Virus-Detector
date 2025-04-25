@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
@@ -479,7 +479,7 @@
     <nav id="nav" role="navigation" aria-label="Primary Navigation">
         <div class="navTop">
             <div class="navItem">
-                <!-- Logo removed as per user request -->
+                <!-- Logo removed as per user request 
             </div>
             <div class="navItem">
                 <div class="search" role="search">
@@ -516,7 +516,7 @@
         </div>
 
         <section class="posts-grid" id="postsGrid" aria-live="polite" aria-relevant="additions removals">
-            <!-- Blog posts will be dynamically inserted here -->
+            <!-- Blog posts will be dynamically inserted here 
         </section>
     </main>
 
@@ -695,4 +695,966 @@
         });
     </script>
 </body>
-</html>
+</html> -->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Binoculars Security Blog - Latest cybersecurity news, tips, and best practices">
+    <title>Binoculars Security - Blog</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet" />
+    <style>
+        /* Improved CSS with better organization and performance optimizations */
+        :root {
+            --bg-color-light: #f5f5f5;
+            --text-color-light: #333;
+            --nav-bg-light: #121212;
+            --nav-text-light: white;
+            --accent-color-light: #4a90e2;
+            --accent-hover-light: #3a7bc8;
+            --footer-bg-light: white;
+            --footer-text-light: #555;
+            --card-bg-light: white;
+            --card-shadow-light: 0 6px 15px rgba(0,0,0,0.1);
+            --card-hover-shadow-light: 0 12px 25px rgba(0,0,0,0.15);
+            --border-color-light: #e0e0e0;
+
+            --bg-color-dark: #121212;
+            --text-color-dark: #ddd;
+            --nav-bg-dark: #1e1e1e;
+            --nav-text-dark: #ddd;
+            --accent-color-dark: #4a90e2;
+            --accent-hover-dark: #3a7bc8;
+            --footer-bg-dark: #1e1e1e;
+            --footer-text-dark: #aaa;
+            --card-bg-dark: #222;
+            --card-shadow-dark: 0 6px 15px rgba(0,0,0,0.6);
+            --card-hover-shadow-dark: 0 12px 25px rgba(0,0,0,0.8);
+            --border-color-dark: #444;
+        }
+
+        /* Base styles */
+        body {
+            margin: 0;
+            font-family: 'Lato', sans-serif;
+            background-color: var(--bg-color-light);
+            color: var(--text-color-light);
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        body.dark-theme {
+            background-color: var(--bg-color-dark);
+            color: var(--text-color-dark);
+        }
+
+        /* Skip link for accessibility */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--accent-color-light);
+            color: white;
+            padding: 8px;
+            z-index: 100;
+            transition: top 0.3s;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        body.dark-theme .skip-link {
+            background: var(--accent-color-dark);
+        }
+
+        /* Navigation */
+        #nav {
+            display: flex;
+            flex-direction: column;
+            background-color: var(--nav-bg-light);
+            color: var(--nav-text-light);
+            padding: 10px 50px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        body.dark-theme #nav {
+            background-color: var(--nav-bg-dark);
+            color: var(--nav-text-dark);
+        }
+
+        .navTop {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 20px 0;
+            gap: 20px;
+        }
+
+        .search {
+            display: flex;
+            align-items: center;
+            background-color: white;
+            padding: 10px 15px;
+            border-radius: 30px;
+            margin: 0 20px;
+            flex-grow: 1;
+            max-width: 400px;
+            border: 1px solid var(--border-color-light);
+        }
+
+        body.dark-theme .search {
+            background-color: #333;
+            border-color: var(--border-color-dark);
+        }
+
+        .searchInput {
+            border: none;
+            outline: none;
+            background: transparent;
+            width: 100%;
+            font-size: 1rem;
+            color: var(--text-color-light);
+        }
+
+        body.dark-theme .searchInput {
+            color: var(--text-color-dark);
+        }
+
+        .searchIcon {
+            cursor: pointer;
+            width: 20px;
+            height: 20px;
+        }
+
+        .limitedOffer {
+            background-color: var(--accent-color-light);
+            padding: 5px 15px;
+            border-radius: 30px;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 12px;
+            color: white;
+            user-select: none;
+            transition: background-color 0.3s ease;
+            white-space: nowrap;
+        }
+
+        body.dark-theme .limitedOffer {
+            background-color: var(--accent-color-dark);
+        }
+
+        button#themeToggle {
+            background-color: transparent;
+            border: 2px solid var(--accent-color-light);
+            color: var(--accent-color-light);
+            padding: 6px 15px;
+            border-radius: 30px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            user-select: none;
+            min-width: 120px;
+        }
+
+        button#themeToggle:hover {
+            background-color: var(--accent-hover-light);
+            color: white;
+            border-color: var(--accent-hover-light);
+        }
+
+        body.dark-theme button#themeToggle {
+            border-color: var(--accent-color-dark);
+            color: var(--accent-color-dark);
+        }
+
+        body.dark-theme button#themeToggle:hover {
+            background-color: var(--accent-hover-dark);
+            color: white;
+            border-color: var(--accent-hover-dark);
+        }
+
+        .navBottom {
+            display: flex;
+            justify-content: center;
+            padding: 15px 0;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .menuItem {
+            margin: 0 15px;
+            cursor: pointer;
+            font-weight: 400;
+            color: #aaa;
+            transition: all 0.3s ease;
+            user-select: none;
+            white-space: nowrap;
+        }
+
+        .menuItem:hover, .menuItem:focus {
+            color: white;
+            outline: none;
+        }
+
+        /* Header */
+        header.blog-header {
+            text-align: center;
+            padding: 3rem 1rem 2rem;
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+            font-weight: 900;
+            color: var(--nav-bg-light);
+            letter-spacing: 1px;
+            user-select: none;
+            transition: color 0.3s ease;
+        }
+
+        body.dark-theme header.blog-header {
+            color: var(--text-color-dark);
+        }
+
+        /* Main content */
+        main {
+            max-width: 900px;
+            margin: 0 auto 4rem;
+            padding: 0 1rem;
+        }
+
+        .search-container {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .search-container input[type="text"] {
+            width: 90%;
+            max-width: 500px;
+            padding: 0.75rem 1.25rem;
+            font-size: 1.1rem;
+            border: 2px solid var(--accent-color-light);
+            border-radius: 30px;
+            outline: none;
+            box-shadow: 0 2px 6px rgba(74, 144, 226, 0.4);
+            transition: all 0.3s ease;
+            color: var(--text-color-light);
+            background-color: var(--card-bg-light);
+        }
+
+        body.dark-theme .search-container input[type="text"] {
+            border-color: var(--accent-color-dark);
+            box-shadow: 0 2px 6px rgba(74, 144, 226, 0.8);
+            color: var(--text-color-dark);
+            background-color: var(--card-bg-dark);
+        }
+
+        .search-container input[type="text"]:focus {
+            box-shadow: 0 4px 12px rgba(74, 144, 226, 0.6);
+        }
+
+        /* Blog posts */
+        .posts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .blog-post {
+            background: var(--card-bg-light);
+            border-radius: 10px;
+            box-shadow: var(--card-shadow-light);
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid var(--border-color-light);
+        }
+
+        body.dark-theme .blog-post {
+            background: var(--card-bg-dark);
+            box-shadow: var(--card-shadow-dark);
+            border-color: var(--border-color-dark);
+        }
+
+        .blog-post:hover, .blog-post:focus-within {
+            transform: translateY(-6px);
+            box-shadow: var(--card-hover-shadow-light);
+            outline: none;
+        }
+
+        body.dark-theme .blog-post:hover, 
+        body.dark-theme .blog-post:focus-within {
+            box-shadow: var(--card-hover-shadow-dark);
+        }
+
+        .blog-post h2 {
+            margin: 0.5rem 0;
+            font-size: 1.5rem;
+            color: var(--accent-color-light);
+            font-weight: 700;
+            transition: color 0.3s ease;
+            line-height: 1.3;
+        }
+
+        body.dark-theme .blog-post h2 {
+            color: var(--accent-color-dark);
+        }
+
+        .blog-post:hover h2, .blog-post:focus-within h2 {
+            color: var(--accent-hover-light);
+        }
+
+        body.dark-theme .blog-post:hover h2,
+        body.dark-theme .blog-post:focus-within h2 {
+            color: var(--accent-hover-dark);
+        }
+
+        .blog-post .date {
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        body.dark-theme .blog-post .date {
+            color: #aaa;
+        }
+
+        .blog-post .summary {
+            font-size: 1rem;
+            color: #444;
+            flex-grow: 1;
+            margin-bottom: 1rem;
+        }
+
+        body.dark-theme .blog-post .summary {
+            color: #ccc;
+        }
+
+        .blog-post .content {
+            margin-top: 1rem;
+            font-size: 1rem;
+            color: var(--text-color-light);
+            line-height: 1.6;
+            display: none;
+            transition: all 0.4s ease;
+        }
+
+        body.dark-theme .blog-post .content {
+            color: var(--text-color-dark);
+        }
+
+        .blog-post.expanded .content {
+            display: block;
+        }
+
+        .blog-post img {
+            width: 100%;
+            height: 200px;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            object-fit: cover;
+            aspect-ratio: 16/9;
+            background-color: #f0f0f0;
+        }
+
+        body.dark-theme .blog-post img {
+            background-color: #333;
+            opacity: 0.9;
+        }
+
+        .read-more {
+            color: var(--accent-color-light);
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        body.dark-theme .read-more {
+            color: var(--accent-color-dark);
+        }
+
+        .read-more:hover, .read-more:focus {
+            color: var(--accent-hover-light);
+            text-decoration: underline;
+            outline: none;
+        }
+
+        body.dark-theme .read-more:hover,
+        body.dark-theme .read-more:focus {
+            color: var(--accent-hover-dark);
+        }
+
+        /* Footer */
+        footer {
+            display: flex;
+            padding: 50px;
+            background-color: var(--footer-bg-light);
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 2rem;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        body.dark-theme footer {
+            background-color: var(--footer-bg-dark);
+            color: var(--footer-text-dark);
+        }
+
+        .footerLeft {
+            flex: 2;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .footerRight {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-width: 250px;
+        }
+
+        .footerMenu {
+            min-width: 150px;
+        }
+
+        .fMenuTitle {
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: 1.25rem;
+            color: var(--text-color-light);
+        }
+
+        body.dark-theme .fMenuTitle {
+            color: var(--footer-text-dark);
+        }
+
+        .fList {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .fListItem {
+            margin-bottom: 0.75rem;
+            color: #555;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-theme .fListItem {
+            color: #aaa;
+        }
+
+        .fListItem:hover, .fListItem:focus {
+            color: var(--accent-color-light);
+            outline: none;
+        }
+
+        body.dark-theme .fListItem:hover,
+        body.dark-theme .fListItem:focus {
+            color: var(--accent-hover-dark);
+        }
+
+        .fMail {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        .fInput {
+            padding: 0.75rem;
+            border: 1px solid var(--border-color-light);
+            flex: 1;
+            min-width: 200px;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-theme .fInput {
+            background-color: #333;
+            border-color: var(--border-color-dark);
+            color: var(--text-color-dark);
+        }
+
+        .fInput:focus {
+            border-color: var(--accent-color-light);
+            box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.3);
+            outline: none;
+        }
+
+        body.dark-theme .fInput:focus {
+            border-color: var(--accent-color-dark);
+            box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.5);
+        }
+
+        .fButton {
+            padding: 0.75rem 1.5rem;
+            background-color: var(--accent-color-light);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        body.dark-theme .fButton {
+            background-color: var(--accent-color-dark);
+        }
+
+        .fButton:hover, .fButton:focus {
+            background-color: var(--accent-hover-light);
+            outline: none;
+        }
+
+        body.dark-theme .fButton:hover,
+        body.dark-theme .fButton:focus {
+            background-color: var(--accent-hover-dark);
+        }
+
+        .fIcons {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 1.5rem;
+        }
+
+        .fIcon {
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 50%;
+        }
+
+        .fIcon:hover, .fIcon:focus {
+            transform: scale(1.2);
+            outline: none;
+        }
+
+        .copyright {
+            color: #777;
+            font-size: 0.875rem;
+            margin-top: 1.5rem;
+        }
+
+        body.dark-theme .copyright {
+            color: #aaa;
+        }
+
+        /* Loading state */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsive improvements */
+        @media screen and (max-width: 1024px) {
+            .posts-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            #nav {
+                padding: 10px 20px;
+            }
+
+            .navTop {
+                flex-wrap: wrap;
+                justify-content: center;
+                padding: 10px 0;
+                gap: 15px;
+            }
+
+            .search {
+                order: 1;
+                margin: 0;
+                max-width: 100%;
+                min-width: 250px;
+            }
+
+            .navItem {
+                margin: 0;
+            }
+
+            .navBottom {
+                padding: 10px 0;
+            }
+
+            .menuItem {
+                margin: 0 10px;
+                font-size: 0.9rem;
+            }
+
+            footer {
+                padding: 30px 20px;
+                flex-direction: column;
+            }
+
+            .footerLeft {
+                flex-direction: column;
+                margin-bottom: 30px;
+            }
+
+            .footerMenu {
+                margin-bottom: 1.5rem;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .navTop {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search {
+                margin-bottom: 10px;
+            }
+
+            .posts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .blog-post {
+                padding: 1.25rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip to content link for keyboard users -->
+    <a href="#main-content" class="skip-link">Skip to content</a>
+
+    <nav id="nav" role="navigation" aria-label="Primary Navigation">
+        <div class="navTop">
+            <div class="navItem">
+                <!-- Logo removed as per user request -->
+            </div>
+            <div class="navItem">
+                <div class="search" role="search">
+                    <input type="text" placeholder="Search scans..." class="searchInput" aria-label="Search scans" />
+                    <img src="https://cdn-icons-png.flaticon.com/512/149/149852.png" width="20" height="20" alt="Search Icon" class="searchIcon" loading="lazy" />
+                </div>
+            </div>
+            <div class="navItem">
+                <span class="limitedOffer">FREE SCAN!</span>
+            </div>
+            <div class="navItem">
+                <button id="themeToggle" aria-label="Toggle light and dark theme">
+                    <span id="themeText">Dark Mode</span>
+                </button>
+            </div>
+            <div class="navItem">
+                <button onclick="window.location.href='combined ui/combined_login_signup.html'" 
+                        style="background-color: var(--accent-color-light); color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; transition: background-color 0.3s ease;"
+                        aria-label="Sign up for Binoculars Security">
+                    Sign Up
+                </button>
+            </div>
+        </div>
+        <div class="navBottom" role="menubar" aria-label="Secondary Navigation">
+            <h3 class="menuItem" role="menuitem" tabindex="0">QUICK SCAN</h3>
+            <h3 class="menuItem" role="menuitem" tabindex="0">DEEP SCAN</h3>
+            <h3 class="menuItem" role="menuitem" tabindex="0">CUSTOM SCAN</h3>
+            <h3 class="menuItem" role="menuitem" tabindex="0">REALTIME PROTECTION</h3>
+            <h3 class="menuItem" role="menuitem" tabindex="0">FIREWALL</h3>
+        </div>
+    </nav>
+
+    <header class="blog-header" role="banner" aria-label="Blog Page Header">
+        Binoculars Security Blog
+    </header>
+
+    <main id="main-content" tabindex="-1">
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search blog posts..." aria-label="Search blog posts" />
+            <div id="searchStatus" class="visually-hidden" aria-live="polite"></div>
+        </div>
+
+        <section class="posts-grid" id="postsGrid" aria-live="polite">
+            <!-- Blog posts will be dynamically inserted here -->
+            <div id="loadingIndicator" class="visually-hidden">Loading posts...</div>
+        </section>
+    </main>
+
+    <footer role="contentinfo">
+        <div class="footerLeft">
+            <div class="footerMenu">
+                <h1 class="fMenuTitle">About Us</h1>
+                <ul class="fList">
+                    <li class="fListItem" tabindex="0">Company</li>
+                    <li class="fListItem" tabindex="0">Security Team</li>
+                    <li class="fListItem" tabindex="0">Careers</li>
+                    <li class="fListItem" tabindex="0">Partners</li>
+                    <li class="fListItem" tabindex="0">Press</li>
+                </ul>
+            </div>
+            <div class="footerMenu">
+                <h1 class="fMenuTitle">Support</h1>
+                <ul class="fList">
+                    <li class="fListItem" tabindex="0">Help Center</li>
+                    <li class="fListItem" tabindex="0">Tutorials</li>
+                    <li class="fListItem" tabindex="0">FAQ</li>
+                    <li class="fListItem" tabindex="0">Contact</li>
+                    <li class="fListItem" tabindex="0">Blog</li>
+                </ul>
+            </div>
+            <div class="footerMenu">
+                <h1 class="fMenuTitle">Products</h1>
+                <ul class="fList">
+                    <li class="fListItem" tabindex="0">Binoculars Basic</li>
+                    <li class="fListItem" tabindex="0">Binoculars Pro</li>
+                    <li class="fListItem" tabindex="0">Enterprise Suite</li>
+                    <li class="fListItem" tabindex="0">Mobile Security</li>
+                    <li class="fListItem" tabindex="0">VPN Service</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footerRight">
+            <div class="footerRightMenu">
+                <h1 class="fMenuTitle">Subscribe to our newsletter</h1>
+                <div class="fMail">
+                    <input type="email" placeholder="your@email.com" class="fInput" aria-label="Email address" required />
+                    <button class="fButton" aria-label="Subscribe to newsletter">SUBSCRIBE</button>
+                </div>
+            </div>
+            <div class="footerRightMenu">
+                <h1 class="fMenuTitle">Follow Us</h1>
+                <div class="fIcons">
+                    <img src="https://cdn-icons-png.flaticon.com/512/124/124010.png" alt="Facebook" class="fIcon" tabindex="0" loading="lazy" />
+                    <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter" class="fIcon" tabindex="0" loading="lazy" />
+                    <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram" class="fIcon" tabindex="0" loading="lazy" />
+                    <img src="https://cdn-icons-png.flaticon.com/512/1384/1384023.png" alt="YouTube" class="fIcon" tabindex="0" loading="lazy" />
+                </div>
+            </div>
+            <div class="footerRightMenu">
+                <span class="copyright">© 2023 Binoculars Security. All rights reserved.</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Improved JavaScript with better performance, accessibility, and error handling
+        
+        // Utility functions
+        const Utils = {
+            // Debounce function to limit how often a function can fire
+            debounce: (func, wait) => {
+                let timeout;
+                return function(...args) {
+                    const context = this;
+                    clearTimeout(timeout);
+                    timeout = setTimeout(() => func.apply(context, args), wait);
+                };
+            },
+            
+            // Visually hide elements but keep them accessible to screen readers
+            visuallyHidden: {
+                position: 'absolute',
+                width: '1px',
+                height: '1px',
+                padding: 0,
+                margin: '-1px',
+                overflow: 'hidden',
+                clip: 'rect(0, 0, 0, 0)',
+                whiteSpace: 'nowrap',
+                border: 0
+            },
+            
+            // Create a loading spinner
+            createLoadingSpinner: () => {
+                const spinner = document.createElement('div');
+                spinner.className = 'loading';
+                spinner.setAttribute('aria-hidden', 'true');
+                return spinner;
+            }
+        };
+
+        // Blog data with more posts and categories
+        const blogPostsData = [
+            {
+                id: 1,
+                title: "How Binocular Detects Viruses Efficiently",
+                date: "April 20, 2024",
+                summary: "Discover the advanced algorithms and technology behind Binocular's virus detection capabilities.",
+                image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
+                content: `<p>Binocular uses a combination of heuristic analysis, signature matching, and machine learning to detect viruses quickly and accurately. Our system continuously updates its database to stay ahead of emerging threats.</p>
+                          <p>By leveraging cloud computing and real-time scanning, Binocular ensures minimal impact on your device's performance while providing robust protection.</p>
+                          <p>Key features of our detection system include:</p>
+                          <ul>
+                            <li>Behavioral analysis to detect zero-day threats</li>
+                            <li>Cloud-assisted scanning for real-time protection</li>
+                            <li>Machine learning models trained on millions of samples</li>
+                            <li>Regular automatic updates to stay current</li>
+                          </ul>`,
+                category: "technology",
+                readTime: "4 min read"
+            },
+            {
+                id: 2,
+                title: "Essential Tips to Keep Your Device Safe from Malware",
+                date: "March 15, 2024",
+                summary: "Simple yet effective practices to protect your device from malware and cyber threats.",
+                image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
+                content: `<p>Regularly update your software and operating system to patch vulnerabilities. Avoid clicking on suspicious links or downloading files from untrusted sources.</p>
+                          <p>Use strong, unique passwords and enable two-factor authentication wherever possible. Binocular also recommends running regular virus scans to detect any hidden threats.</p>
+                          <p>Additional security measures:</p>
+                          <ol>
+                            <li>Use a password manager to generate and store complex passwords</li>
+                            <li>Be cautious of phishing emails pretending to be from trusted sources</li>
+                            <li>Only download apps from official app stores</li>
+                            <li>Regularly back up your important data</li>
+                          </ol>`,
+                category: "security",
+                readTime: "5 min read"
+            },
+            {
+                id: 3,
+                title: "Understanding the Latest Virus Trends in 2024",
+                date: "February 10, 2024",
+                summary: "An overview of the most prevalent virus types and how Binocular adapts to new challenges.",
+                image: "https://images.unsplash.com/photo-1563206767-5b18f218e8de?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
+                content: `<p>The virus landscape is constantly evolving, with ransomware and phishing attacks on the rise. Binocular's adaptive detection methods help identify new variants quickly.</p>
+                          <p>Stay informed and vigilant by following our blog for updates on emerging threats and best practices for cybersecurity.</p>
+                          <p>Current trends to watch:</p>
+                          <ul>
+                            <li>AI-powered malware that adapts to defenses</li>
+                            <li>Supply chain attacks targeting software providers</li>
+                            <li>Cryptojacking malware that uses your device's resources</li>
+                            <li>Advanced persistent threats targeting businesses</li>
+                          </ul>`,
+                category: "trends",
+                readTime: "6 min read"
+            },
+            {
+                id: 4,
+                title: "The Importance of Regular Virus Scans",
+                date: "January 5, 2024",
+                summary: "Why regular virus scans are essential for maintaining device health and security.",
+                image: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                content: `<p>Regular virus scans help detect threats early before they can cause damage. Binocular's fast scanning technology makes it easy to keep your device safe without slowing it down.</p>
+                          <p>We recommend scheduling weekly scans and running additional scans after downloading new files or visiting unfamiliar websites.</p>
+                          <p>Benefits of regular scanning:</p>
+                          <ul>
+                            <li>Early detection of malware before it spreads</li>
+                            <li>Identification of potentially unwanted programs</li>
+                            <li>Performance optimization by removing resource hogs</li>
+                            <li>Peace of mind knowing your device is protected</li>
+                          </ul>`,
+                category: "best-practices",
+                readTime: "3 min read"
+            },
+            {
+                id: 5,
+                title: "How to Recognize and Avoid Phishing Attacks",
+                date: "December 20, 2023",
+                summary: "Learn to identify phishing emails and websites to protect your personal information.",
+                image: "https://images.unsplash.com/photo-1596524430615-b46475ddff6e?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
+                content: `<p>Phishing attacks often use fake emails or websites to trick you into revealing sensitive information. Binocular helps detect and block these threats effectively.</p>
+                          <p>Common signs of phishing attempts include:</p>
+                          <ul>
+                            <li>Urgent or threatening language demanding immediate action</li>
+                            <li>Suspicious sender email addresses</li>
+                            <li>Requests for personal or financial information</li>
+                            <li>Links to websites with slightly altered URLs</li>
+                          </ul>
+                          <p>Always verify requests through official channels before responding.</p>`,
+                category: "security",
+                readTime: "4 min read"
+            },
+            {
+                id: 6,
+                title: "Best Practices for Cybersecurity in 2024",
+                date: "November 10, 2023",
+                summary: "Top tips and strategies to enhance your cybersecurity posture this year.",
+                image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
+                content: `<p>Stay ahead of cyber threats by following best practices such as using strong passwords, keeping software updated, and being cautious online.</p>
+                          <p>Essential cybersecurity practices include:</p>
+                          <ol>
+                            <li>Enable automatic updates for all software</li>
+                            <li>Use a reputable antivirus solution like Binocular</li>
+                            <li>Be wary of public Wi-Fi networks</li>
+                            <li>Regularly review app permissions</li>
+                            <li>Educate yourself about current threats</li>
+                          </ol>
+                          <p>Implementing these measures can significantly reduce your risk of compromise.</p>`,
+                category: "best-practices",
+                readTime: "5 min read"
+            },
+            {
+                id: 7,
+                title: "Protecting Your Privacy in the Digital Age",
+                date: "October 15, 2023",
+                summary: "Strategies to maintain your privacy while using digital services and devices.",
+                image: "https://images.unsplash.com/photo-1531482615713-2afd69097998?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
+                content: `<p>In today's connected world, protecting your privacy requires proactive measures. Binocular's privacy tools help you maintain control over your personal data.</p>
+                          <p>Key privacy protection strategies:</p>
+                          <ul>
+                            <li>Review and adjust privacy settings on all accounts</li>
+                            <li>Use encrypted messaging apps</li>
+                            <li>Be selective about what you share online</li>
+                            <li>Regularly clear cookies and browsing history</li>
+                            <li>Consider using a VPN for additional protection</li>
+                          </ul>`,
+                category: "privacy",
+                readTime: "4 min read"
+            },
+            {
+                id: 8,
+                title: "The Future of Antivirus Technology",
+                date: "September 5, 2023",
+                summary: "Exploring emerging technologies that will shape the next generation of antivirus solutions.",
+                image: "https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
+                content: `<p>Antivirus technology is evolving rapidly to keep pace with sophisticated threats. Binocular is at the forefront of these innovations.</p>
+                          <p>Emerging technologies in cybersecurity:</p>
+                          <ul>
+                            <li>Artificial intelligence for threat detection</li>
+                            <li>Blockchain for secure authentication</li>
+                            <li>Behavioral biometrics for user verification</li>
+                            <li>Quantum-resistant encryption</li>
+                            <li>Cloud-based threat intelligence networks</li>
+                          </ul>
+                          <p>These advancements will provide more proactive and adaptive protection.</p>`,
+                category: "technology",
+                readTime: "5 min read"
+            }
+        ];
+
+        // DOM elements
+        const postsGrid = document.getElementById('postsGrid');
+        const searchInput = document.getElementById('searchInput');
+        const themeToggleBtn = document.getElementById('themeToggle');
+        const themeText = document.getElementById('themeText');
+        const searchStatus = document.getElementById('searchStatus');
+        const loadingIndicator = document.getElementById('loadingIndicator');
+
+        // Apply visually hidden style
+        if (loadingIndicator) {
+            Object.assign(loadingIndicator.style,
