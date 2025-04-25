@@ -88,6 +88,12 @@
       min-height: 18px;
     }
 
+    .loading {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #4db2ec;
+    }
+
     /* Dark mode styles */
     body.dark-mode {
       background: linear-gradient(to right, #121212, #2c2c2c);
@@ -158,9 +164,10 @@
   <div class="forgot-container">
     <h1>Forgot Password</h1>
     <form id="forgotPasswordForm">
-      <input type="email" id="email" placeholder="Enter your email" required />
-      <button type="submit">Send Reset Link</button>
-      <div class="message" id="resetMessage"></div>
+      <input type="email" id="email" placeholder="Enter your email" required aria-label="Email address" />
+      <button type="submit" aria-label="Send reset link">Send Reset Link</button>
+      <div class="message" id="resetMessage" aria-live="polite"></div>
+      <div class="loading" id="loadingIndicator" style="display: none;">Sending reset link...</div>
     </form>
     <a href="combined ui/combined_login_signup.html" class="back-link">Back to Login/Signup</a>
   </div>
@@ -173,6 +180,7 @@
     const form = document.getElementById('forgotPasswordForm');
     const emailInput = document.getElementById('email');
     const messageDiv = document.getElementById('resetMessage');
+    const loadingIndicator = document.getElementById('loadingIndicator');
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
@@ -186,7 +194,11 @@
       }
 
       messageDiv.textContent = '';
+      loadingIndicator.style.display = 'block';
+
+      // Simulate sending the reset link
       setTimeout(() => {
+        loadingIndicator.style.display = 'none';
         messageDiv.textContent = `✅ A password reset link has been sent to ${email}`;
         messageDiv.style.color = 'green';
         emailInput.value = '';
