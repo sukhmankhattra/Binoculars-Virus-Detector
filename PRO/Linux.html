@@ -1,518 +1,816 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Binoculars Security for Linux</title>
-    <style>
-        :root {
-            --linux-bg: #f8f9fa;
-            --linux-card: #ffffff;
-            --linux-titlebar: #3d3d3d;
-            --linux-text: #333333;
-            --linux-accent: #3465a4;
-            --linux-danger: #cc0000;
-            --linux-warning: #edd400;
-            --linux-success: #73d216;
-            --linux-border: #d3d7cf;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Binoculars Security for Linux</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --primary: #3a7bd5;
+      --primary-dark: #2b5ca8;
+      --danger: #e74c3c;
+      --success: #2ecc71;
+      --warning: #f39c12;
+      --bg-light: #f4f6fa;
+      --bg-dark: #121212;
+      --card-bg-light: rgba(255, 255, 255, 0.9);
+      --card-bg-dark: rgba(30, 30, 30, 0.9);
+      --border-radius: 16px;
+      --text-light: #333;
+      --text-dark: #f0f0f0;
+      --shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+    }
 
-        body {
-            font-family: 'Ubuntu', 'Roboto', 'Noto Sans', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: var(--linux-bg);
-            color: var(--linux-text);
-        }
+    html, body {
+      width: 100%;
+      min-height: 100%;
+      margin: 0;
+      padding: 20px;
+      overflow-x: hidden;
+      overflow-y: auto;
+      font-family: 'Ubuntu', 'Roboto', 'Noto Sans', sans-serif;
+      background: linear-gradient(135deg, #667eea, #764ba2, #4ca1af);
+      background-size: 400% 400%;
+      animation: gradientAnimation 15s ease infinite;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      line-height: 1.6;
+      text-align: center;
+      color: var(--text-light);
+    }
 
-        .linux-window {
-            width: 800px;
-            margin: 30px auto;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-        }
+    @keyframes gradientAnimation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
 
-        .title-bar {
-            background-color: var(--linux-titlebar);
-            color: white;
-            padding: 8px 16px;
-            display: flex;
-            align-items: center;
-            font-size: 14px;
-            font-weight: 500;
-        }
+    #particles-js {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
 
-        .window-controls {
-            display: flex;
-            gap: 8px;
-            margin-right: 16px;
-        }
+    .linux-window {
+      width: 100%;
+      max-width: 960px;
+      margin: 40px auto;
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      background-color: var(--card-bg-light);
+      color: var(--text-light);
+      position: relative;
+      z-index: 1;
+      transition: background-color 0.4s ease, color 0.4s ease;
+      backdrop-filter: blur(16px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
 
-        .window-control {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background-color: #5c5c5c;
-        }
+    .linux-window.dark {
+      background-color: var(--card-bg-dark);
+      color: var(--text-dark);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
 
-        .window-body {
-            background-color: var(--linux-card);
-            padding: 24px;
-        }
+    .title-bar {
+      background-color: var(--card-bg-light);
+      color: var(--primary);
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 14px;
+      font-weight: 500;
+      transition: background-color 0.4s ease, color 0.4s ease;
+    }
 
-        .scan-steps {
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-            margin-bottom: 32px;
-        }
+    .linux-window.dark .title-bar {
+      background-color: var(--card-bg-dark);
+      color: var(--primary-dark);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
 
-        .scan-step {
-            display: flex;
-            gap: 16px;
-            align-items: flex-start;
-        }
+    .window-controls {
+      display: flex;
+      gap: 8px;
+      margin-right: 20px;
+    }
 
-        .step-number {
-            background-color: var(--linux-accent);
-            color: white;
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            flex-shrink: 0;
-        }
+    .window-control {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      transition: background-color 0.4s ease;
+      background-color: #5c5c5c;
+    }
 
-        .step-content h3 {
-            margin: 0 0 8px 0;
-            color: var(--linux-accent);
-            font-size: 18px;
-        }
+    .window-control.close {
+      background-color: #e74c3c;
+    }
 
-        .step-content p {
-            margin: 0;
-            line-height: 1.5;
-            font-size: 15px;
-        }
+    .window-control.minimize {
+      background-color: #f39c12;
+    }
 
-        .visualization {
-            display: flex;
-            justify-content: center;
-            margin: 40px 0;
-            position: relative;
-            height: 200px;
-        }
+    .window-control.maximize {
+      background-color: #2ecc71;
+    }
 
-        .tux-icon {
-            width: 120px;
-            height: 120px;
-            background-color: #eeeeee;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            z-index: 2;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
+    .window-body {
+      background-color: var(--card-bg-light);
+      padding: 30px;
+      transition: background-color 0.4s ease, color 0.4s ease;
+      color: var(--text-light);
+    }
 
-        .scan-animation {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+    .linux-window.dark .window-body {
+      background-color: var(--card-bg-dark);
+      color: var(--text-dark);
+    }
 
-        .scan-wave {
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background-color: rgba(52, 101, 164, 0.1);
-            transform: scale(0);
-            animation: scanPulse 2s infinite;
-            border: 1px solid rgba(52, 101, 164, 0.3);
-        }
+    .scan-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+      margin-bottom: 40px;
+    }
 
-        @keyframes scanPulse {
-            0% { transform: scale(0); opacity: 1; }
-            100% { transform: scale(10); opacity: 0; }
-        }
+    .scan-step {
+      display: flex;
+      gap: 15px;
+      align-items: flex-start;
+    }
 
-        .file-icons {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            justify-content: center;
-            margin-top: 30px;
-        }
+    .step-number {
+      background-color: var(--primary);
+      color: white;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 500;
+      flex-shrink: 0;
+      margin-top: 2px;
+      transition: background-color 0.4s ease;
+    }
 
-        .file-icon {
-            width: 48px;
-            height: 60px;
-            background-color: #f5f5f5;
-            border-radius: 4px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            transition: all 0.3s;
-        }
+    .linux-window.dark .step-number {
+      background-color: var(--primary-dark);
+    }
 
-        .file-icon.clean {
-            background-color: rgba(115, 210, 22, 0.1);
-        }
+    .step-content {
+      flex-grow: 1;
+    }
 
-        .file-icon.infected {
-            background-color: rgba(204, 0, 0, 0.1);
-            animation: infectedPulse 1s infinite alternate;
-        }
+    .step-content h3 {
+      margin-top: 0;
+      margin-bottom: 8px;
+      font-size: 18px;
+      font-weight: 500;
+      color: var(--primary);
+      transition: color 0.4s ease;
+    }
 
-        @keyframes infectedPulse {
-            from { transform: translateY(0); }
-            to { transform: translateY(-5px); }
-        }
+    .linux-window.dark .step-content h3 {
+      color: var(--primary-dark);
+    }
 
-        .file-icon i {
-            font-size: 22px;
-            margin-bottom: 6px;
-        }
+    .step-content p {
+      margin: 0;
+      line-height: 1.5;
+      font-size: 15px;
+      color: var(--text-light);
+      transition: color 0.4s ease;
+    }
 
-        .file-icon .file-ext {
-            font-size: 11px;
-            font-weight: bold;
-        }
+    .linux-window.dark .step-content p {
+      color: var(--text-dark);
+    }
 
-        .demo-area {
-            background-color: var(--linux-bg);
-            border-radius: 8px;
-            padding: 20px;
-            margin-top: 30px;
-            border: 1px solid var(--linux-border);
-        }
+    .visualization {
+      display: flex;
+      justify-content: center;
+      margin: 40px 0;
+      position: relative;
+      height: 200px;
+    }
 
-        .demo-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
+    .tux-icon {
+      width: 120px;
+      height: 120px;
+      background: linear-gradient(135deg, #f4f6fa 0%, #e0e0e6 100%);
+      border-radius: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 2;
+      box-shadow: var(--shadow);
+      transition: background-color 0.4s ease;
+    }
 
-        .demo-header h2 {
-            margin: 0;
-            color: var(--linux-accent);
-            font-size: 18px;
-        }
+    .linux-window.dark .tux-icon {
+      background: linear-gradient(135deg, #2a2a2a 0%, #3a3a3a 100%);
+    }
 
-        .btn {
-            background-color: var(--linux-accent);
-            color: white;
-            border: none;
-            padding: 8px 20px;
-            border-radius: 4px;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
+    .scan-animation {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-        .btn:hover {
-            background-color: #204a87;
-        }
+    .scan-wave {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background-color: rgba(58, 123, 213, 0.1);
+      transform: scale(0);
+      animation: scanPulse 2s infinite;
+      border: 1px solid rgba(58, 123, 213, 0.3);
+      transition: background-color 0.4s ease;
+    }
 
-        .progress-container {
-            margin-bottom: 20px;
-        }
+    .linux-window.dark .scan-wave {
+      background-color: rgba(58, 123, 213, 0.3);
+      border-color: rgba(58, 123, 213, 0.7);
+    }
 
-        .progress-bar {
-            height: 8px;
-            background-color: #e0e0e0;
-            border-radius: 4px;
-            overflow: hidden;
-        }
+    @keyframes scanPulse {
+      0% { transform: scale(0); opacity: 1; }
+      100% { transform: scale(10); opacity: 0; }
+    }
 
-        .progress-fill {
-            height: 100%;
-            background-color: var(--linux-accent);
-            width: 0%;
-            transition: width 0.5s;
-            border-radius: 4px;
-        }
+    .file-icons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      margin-top: 30px;
+    }
 
-        .scan-details {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 20px;
-            font-size: 14px;
-        }
+    .file-icon {
+      width: 48px;
+      height: 60px;
+      background-color: var(--card-bg-light);
+      border-radius: 6px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow);
+    }
 
-        .scan-detail {
-            display: flex;
-            justify-content: space-between;
-        }
+    .linux-window.dark .file-icon {
+      background-color: var(--card-bg-dark);
+    }
 
-        .scan-detail span:first-child {
-            font-weight: 500;
-            color: #666;
-        }
+    .file-icon.clean {
+      background-color: rgba(48, 209, 88, 0.1);
+    }
 
-        .threat-list {
-            margin-top: 20px;
-            border: 1px solid var(--linux-border);
-            border-radius: 6px;
-            overflow: hidden;
-        }
+    .file-icon.infected {
+      background-color: rgba(231, 76, 60, 0.15);
+      animation: infectedPulse 1s infinite alternate;
+    }
 
-        .threat-item {
-            padding: 12px 16px;
-            border-bottom: 1px solid var(--linux-border);
-            display: flex;
-            justify-content: space-between;
-            font-size: 14px;
-        }
+    @keyframes infectedPulse {
+      from { transform: translateY(0); }
+      to { transform: translateY(-5px); }
+    }
 
-        .threat-item:last-child {
-            border-bottom: none;
-        }
+    .file-icon i {
+      font-size: 22px;
+      margin-bottom: 6px;
+    }
 
-        .threat-severe {
-            background-color: rgba(204, 0, 0, 0.1);
-        }
+    .file-icon .file-ext {
+      font-size: 11px;
+      font-weight: bold;
+    }
 
-        .threat-moderate {
-            background-color: rgba(237, 212, 0, 0.1);
-        }
-    </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet">
+    .demo-area {
+      background-color: var(--card-bg-light);
+      border-radius: 12px;
+      padding: 25px;
+      margin-top: 30px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: background-color 0.4s ease, color 0.4s ease;
+      color: var(--text-light);
+    }
+
+    .linux-window.dark .demo-area {
+      background-color: var(--card-bg-dark);
+      border-color: rgba(255, 255, 255, 0.2);
+      color: var(--text-dark);
+    }
+
+    .demo-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .demo-header h2 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 500;
+      color: var(--primary);
+      transition: color 0.4s ease;
+    }
+
+    .linux-window.dark .demo-header h2 {
+      color: var(--primary-dark);
+    }
+
+    .btn {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 8px 20px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: var(--primary-dark);
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .progress-container {
+      margin-bottom: 20px;
+    }
+
+    .progress-bar {
+      height: 8px;
+      background-color: #e0e0e6;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background-color: var(--primary);
+      width: 0%;
+      transition: width 0.5s;
+      border-radius: 4px;
+    }
+
+    .scan-details {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin-bottom: 20px;
+      font-size: 14px;
+    }
+
+    .scan-detail {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .scan-detail span:first-child {
+      font-weight: 500;
+      color: var(--text-dark);
+      transition: color 0.4s ease;
+    }
+
+    .threat-list {
+      margin-top: 20px;
+      border: 1px solid var(--card-bg-light);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: border-color 0.4s ease;
+    }
+
+    .linux-window.dark .threat-list {
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .threat-item {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--card-bg-light);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+      transition: background-color 0.4s ease;
+    }
+
+    .linux-window.dark .threat-item {
+      background-color: rgba(30, 30, 30, 0.7);
+    }
+
+    .threat-item:last-child {
+      border-bottom: none;
+    }
+
+    .threat-severe {
+      background-color: rgba(231, 76, 60, 0.15);
+    }
+
+    .threat-moderate {
+      background-color: rgba(243, 156, 18, 0.15);
+    }
+
+    .toggle-theme {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 100;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .theme-label-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      padding: 8px 12px;
+      background-color: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 8px;
+      color: #fff;
+      font-size: 0.85rem;
+      font-weight: 500;
+      text-align: center;
+      transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .theme-label-box:hover {
+      box-shadow: 0 0 15px rgba(58, 123, 213, 0.8), 0 0 30px rgba(58, 123, 213, 0.5);
+    }
+
+    .linux-window.dark .theme-label-box {
+      background-color: rgba(0, 0, 0, 0.5);
+      color: var(--text-dark);
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 24px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(255, 255, 255, 0.3);
+      border-radius: 24px;
+      transition: 0.4s;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      border-radius: 50%;
+      transition: 0.4s;
+    }
+
+    .slider i {
+      font-size: 12px;
+      transition: opacity 0.3s ease, color 0.3s ease;
+    }
+
+    #moonIcon {
+      color: #4a90e2;
+      opacity: 1;
+    }
+
+    #sunIcon {
+      color: #f1c40f;
+      opacity: 0;
+    }
+
+    input:checked + .slider {
+      background-color: var(--primary);
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
+
+    input:checked + .slider #moonIcon {
+      opacity: 0;
+    }
+
+    input:checked + .slider #sunIcon {
+      opacity: 1;
+    }
+  </style>
 </head>
 <body>
-    <div class="linux-window">
-        <div class="title-bar">
-            <div class="window-controls">
-                <div class="window-control"></div>
-                <div class="window-control"></div>
-                <div class="window-control"></div>
-            </div>
-            <span>Binoculars Security for Linux</span>
-        </div>
-        
-        <div class="window-body">
-            <div class="scan-steps">
-                <div class="scan-step">
-                    <div class="step-number">1</div>
-                    <div class="step-content">
-                        <h3>Rootkit Detection</h3>
-                        <p>Scans for hidden processes, kernel modules, and other rootkit techniques commonly used in Linux malware.</p>
-                    </div>
-                </div>
-                
-                <div class="scan-step">
-                    <div class="step-number">2</div>
-                    <div class="step-content">
-                        <h3>File Integrity Checking</h3>
-                        <p>Verifies checksums of system binaries against known good versions to detect tampering.</p>
-                    </div>
-                </div>
-                
-                <div class="scan-step">
-                    <div class="step-number">3</div>
-                    <div class="step-content">
-                        <h3>Permission Analysis</h3>
-                        <p>Checks for suspicious file permissions and SUID/SGID binaries that could be exploited.</p>
-                    </div>
-                </div>
-                
-                <div class="scan-step">
-                    <div class="step-number">4</div>
-                    <div class="step-content">
-                        <h3>Package Verification</h3>
-                        <p>Validates installed packages against distribution repositories to detect unauthorized modifications.</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="visualization">
-                <div class="scan-animation">
-                    <div class="scan-wave" style="animation-delay: 0s;"></div>
-                    <div class="scan-wave" style="animation-delay: 0.5s;"></div>
-                    <div class="scan-wave" style="animation-delay: 1s;"></div>
-                </div>
-                <div class="tux-icon">
-                    <i class="fab fa-linux" style="font-size: 48px; color: #333;"></i>
-                </div>
-            </div>
-            
-            <div class="file-icons">
-                <div class="file-icon clean">
-                    <i class="far fa-file"></i>
-                    <span class="file-ext">.sh</span>
-                </div>
-                <div class="file-icon clean">
-                    <i class="far fa-file"></i>
-                    <span class="file-ext">.conf</span>
-                </div>
-                <div class="file-icon infected">
-                    <i class="far fa-file"></i>
-                    <span class="file-ext">.so</span>
-                </div>
-                <div class="file-icon clean">
-                    <i class="far fa-file"></i>
-                    <span class="file-ext">.py</span>
-                </div>
-                <div class="file-icon clean">
-                    <i class="far fa-file"></i>
-                    <span class="file-ext">.log</span>
-                </div>
-                <div class="file-icon infected">
-                    <i class="far fa-file"></i>
-                    <span class="file-ext">.elf</span>
-                </div>
-            </div>
-            
-            <div class="demo-area">
-                <div class="demo-header">
-                    <h2>Try a Demo Scan</h2>
-                    <button class="btn" id="startScanBtn">Start Scan</button>
-                </div>
-                
-                <div class="progress-container" id="scanProgress" style="display: none;">
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="progressFill"></div>
-                    </div>
-                </div>
-                
-                <div class="scan-details" id="scanDetails" style="display: none;">
-                    <div class="scan-detail">
-                        <span>Status:</span>
-                        <span id="scanStatus">Initializing...</span>
-                    </div>
-                    <div class="scan-detail">
-                        <span>Files scanned:</span>
-                        <span id="filesScanned">0</span>
-                    </div>
-                    <div class="scan-detail">
-                        <span>Threats found:</span>
-                        <span id="threatsFound">0</span>
-                    </div>
-                    <div class="scan-detail">
-                        <span>Scan time:</span>
-                        <span id="scanTime">0s</span>
-                    </div>
-                </div>
-                
-                <div class="threat-list" id="threatList" style="display: none;">
-                    <!-- Threats will be added here -->
-                </div>
-                
-                <button class="btn" id="removeThreatsBtn" style="display: none; margin-top: 20px;">Remove Threats</button>
-            </div>
-        </div>
+  <div id="particles-js"></div>
+
+  <div class="toggle-theme">
+    <div class="theme-label-box">
+      <i class="fas fa-moon" id="moonIcon"></i>
+      <span>Dark Mode</span>
+      <label class="switch">
+        <input type="checkbox" id="themeToggleSwitch" />
+        <span class="slider"></span>
+      </label>
+      <i class="fas fa-sun" id="sunIcon"></i>
+    </div>
+  </div>
+
+  <div class="linux-window" id="linuxWindow">
+    <div class="title-bar">
+      <div class="window-controls">
+        <div class="window-control close"></div>
+        <div class="window-control minimize"></div>
+        <div class="window-control maximize"></div>
+      </div>
+      <span>Binoculars Security for Linux</span>
     </div>
 
-    <script>
-        document.getElementById('startScanBtn').addEventListener('click', function() {
-            const scanProgress = document.getElementById('scanProgress');
-            const scanDetails = document.getElementById('scanDetails');
-            const startScanBtn = document.getElementById('startScanBtn');
-            const threatList = document.getElementById('threatList');
-            const removeThreatsBtn = document.getElementById('removeThreatsBtn');
-            
-            // Show progress elements
-            scanProgress.style.display = 'block';
-            scanDetails.style.display = 'grid';
-            startScanBtn.style.display = 'none';
-            
-            // Reset progress
-            document.getElementById('progressFill').style.width = '0%';
-            document.getElementById('filesScanned').textContent = '0';
-            document.getElementById('threatsFound').textContent = '0';
-            document.getElementById('scanTime').textContent = '0s';
-            document.getElementById('scanStatus').textContent = 'Checking system integrity...';
-            
-            // Simulate scan progress
-            let progress = 0;
-            let filesScanned = 0;
-            let threatsFound = 0;
-            const totalFiles = 512;
-            const startTime = Date.now();
-            
-            const scanInterval = setInterval(() => {
-                progress += 1;
-                filesScanned += Math.floor(totalFiles / 100);
-                
-                if (filesScanned > totalFiles) filesScanned = totalFiles;
-                
-                document.getElementById('progressFill').style.width = progress + '%';
-                document.getElementById('filesScanned').textContent = filesScanned;
-                document.getElementById('scanTime').textContent = Math.floor((Date.now() - startTime)/1000) + 's';
-                
-                // Update status message
-                if (progress % 10 === 0) {
-                    const statusMessages = [
-                        "Scanning /usr/bin...",
-                        "Checking /etc for suspicious files...",
-                        "Analyzing running processes...",
-                        "Verifying package signatures...",
-                        "Inspecting kernel modules...",
-                        "Reviewing cron jobs..."
-                    ];
-                    document.getElementById('scanStatus').textContent = 
-                        statusMessages[Math.floor(Math.random() * statusMessages.length)];
-                }
-                
-                // Randomly find threats
-                if (progress > 30 && progress < 90 && Math.random() > 0.7) {
-                    threatsFound += Math.floor(Math.random() * 2) + 1;
-                    document.getElementById('threatsFound').textContent = threatsFound;
-                }
-                
-                // Complete the scan
-                if (progress >= 100) {
-                    clearInterval(scanInterval);
-                    document.getElementById('scanStatus').textContent = 'Scan completed';
-                    
-                    // Show threats if any found
-                    if (threatsFound > 0) {
-                        const threatTypes = [
-                            {name: "Linux.Trojan.HiddenWasp", severity: "severe"},
-                            {name: "Linux.Miner.XMRig", severity: "moderate"},
-                            {name: "Linux.Rootkit.Snakso", severity: "severe"},
-                            {name: "Linux.Backdoor.RShell", severity: "moderate"}
-                        ];
-                        
-                        let threatListHTML = "";
-                        for (let i = 0; i < threatsFound; i++) {
-                            const threat = threatTypes[Math.floor(Math.random() * threatTypes.length)];
-                            threatListHTML += `
-                                <div class="threat-item threat-${threat.severity}">
-                                    <span>${threat.name}</span>
-                                    <span>${threat.severity === 'severe' ? 'Severe' : 'Moderate'}</span>
-                                </div>
-                            `;
-                        }
-                        threatList.innerHTML = threatListHTML;
-                        threatList.style.display = 'block';
-                        removeThreatsBtn.style.display = 'block';
-                    }
-                }
-            }, 50);
-        });
-        
-        document.getElementById('removeThreatsBtn').addEventListener('click', function() {
-            alert('Threats have been successfully quarantined!');
-            document.getElementById('threatList').style.display = 'none';
-            document.getElementById('removeThreatsBtn').style.display = 'none';
-            document.getElementById('threatsFound').textContent = '0';
-        });
-    </script>
+    <div class="window-body">
+      <div class="scan-steps">
+        <div class="scan-step">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h3>Rootkit Detection</h3>
+            <p>Scans for hidden processes, kernel modules, and other rootkit techniques commonly used in Linux malware.</p>
+          </div>
+        </div>
+
+        <div class="scan-step">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h3>File Integrity Checking</h3>
+            <p>Verifies checksums of system binaries against known good versions to detect tampering.</p>
+          </div>
+        </div>
+
+        <div class="scan-step">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h3>Permission Analysis</h3>
+            <p>Checks for suspicious file permissions and SUID/SGID binaries that could be exploited.</p>
+          </div>
+        </div>
+
+        <div class="scan-step">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <h3>Package Verification</h3>
+            <p>Validates installed packages against distribution repositories to detect unauthorized modifications.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="visualization">
+        <div class="scan-animation">
+          <div class="scan-wave" style="animation-delay: 0s;"></div>
+          <div class="scan-wave" style="animation-delay: 0.5s;"></div>
+          <div class="scan-wave" style="animation-delay: 1s;"></div>
+        </div>
+        <div class="tux-icon">
+          <i class="fab fa-linux" style="font-size: 48px; color: #333;"></i>
+        </div>
+      </div>
+
+      <div class="file-icons">
+        <div class="file-icon clean">
+          <i class="far fa-file"></i>
+          <span class="file-ext">.sh</span>
+        </div>
+        <div class="file-icon clean">
+          <i class="far fa-file"></i>
+          <span class="file-ext">.conf</span>
+        </div>
+        <div class="file-icon infected">
+          <i class="far fa-file"></i>
+          <span class="file-ext">.so</span>
+        </div>
+        <div class="file-icon clean">
+          <i class="far fa-file"></i>
+          <span class="file-ext">.py</span>
+        </div>
+        <div class="file-icon clean">
+          <i class="far fa-file"></i>
+          <span class="file-ext">.log</span>
+        </div>
+        <div class="file-icon infected">
+          <i class="far fa-file"></i>
+          <span class="file-ext">.elf</span>
+        </div>
+      </div>
+
+      <div class="demo-area">
+        <div class="demo-header">
+          <h2>Try a Demo Scan</h2>
+          <button class="btn" id="startScanBtn">Start Scan</button>
+        </div>
+
+        <div class="progress-container" id="scanProgress" style="display: none;">
+          <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+        </div>
+
+        <div class="scan-details" id="scanDetails" style="display: none;">
+          <div class="scan-detail">
+            <span>Status:</span>
+            <span id="scanStatus">Checking system integrity...</span>
+          </div>
+          <div class="scan-detail">
+            <span>Files scanned:</span>
+            <span id="filesScanned">0</span>
+          </div>
+          <div class="scan-detail">
+            <span>Threats found:</span>
+            <span id="threatsFound">0</span>
+          </div>
+          <div class="scan-detail">
+            <span>Scan time:</span>
+            <span id="scanTime">0s</span>
+          </div>
+        </div>
+
+        <div class="threat-list" id="threatList" style="display: none;">
+          <!-- Threats will be added here -->
+        </div>
+
+        <button class="btn" id="removeThreatsBtn" style="display: none; margin-top: 20px;">Remove Threats</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <script>
+    particlesJS("particles-js", {
+      particles: {
+        number: { value: 80 },
+        color: { value: "#ffffff" },
+        shape: { type: "circle" },
+        opacity: { value: 0.5 },
+        size: { value: 3 },
+        move: { speed: 2 }
+      }
+    });
+
+    const themeToggleSwitch = document.getElementById('themeToggleSwitch');
+    const linuxWindow = document.getElementById('linuxWindow');
+    const moonIcon = document.getElementById('moonIcon');
+    const sunIcon = document.getElementById('sunIcon');
+
+    // Check for saved theme preference
+    if (localStorage.getItem('themePreference') === 'dark') {
+      linuxWindow.classList.add('dark');
+      themeToggleSwitch.checked = true;
+      moonIcon.style.opacity = '0';
+      sunIcon.style.opacity = '1';
+    }
+
+    themeToggleSwitch.addEventListener('change', () => {
+      const isDark = themeToggleSwitch.checked;
+      linuxWindow.classList.toggle('dark', isDark);
+
+      // Toggle icon visibility
+      moonIcon.style.opacity = isDark ? '0' : '1';
+      sunIcon.style.opacity = isDark ? '1' : '0';
+
+      // Save preference to localStorage
+      localStorage.setItem('themePreference', isDark ? 'dark' : 'light');
+    });
+
+    document.getElementById('startScanBtn').addEventListener('click', function() {
+      const scanProgress = document.getElementById('scanProgress');
+      const scanDetails = document.getElementById('scanDetails');
+      const startScanBtn = document.getElementById('startScanBtn');
+      const threatList = document.getElementById('threatList');
+      const removeThreatsBtn = document.getElementById('removeThreatsBtn');
+
+      // Show progress elements
+      scanProgress.style.display = 'block';
+      scanDetails.style.display = 'grid';
+      startScanBtn.style.display = 'none';
+
+      // Reset progress
+      document.getElementById('progressFill').style.width = '0%';
+      document.getElementById('filesScanned').textContent = '0';
+      document.getElementById('threatsFound').textContent = '0';
+      document.getElementById('scanTime').textContent = '0s';
+      document.getElementById('scanStatus').textContent = 'Checking system integrity...';
+
+      // Simulate scan progress
+      let progress = 0;
+      let filesScanned = 0;
+      let threatsFound = 0;
+      const totalFiles = 512;
+      const startTime = Date.now();
+
+      const scanInterval = setInterval(() => {
+        progress += 1;
+        filesScanned += Math.floor(totalFiles / 100);
+
+        if (filesScanned > totalFiles) filesScanned = totalFiles;
+
+        document.getElementById('progressFill').style.width = progress + '%';
+        document.getElementById('filesScanned').textContent = filesScanned;
+        document.getElementById('scanTime').textContent = Math.floor((Date.now() - startTime) / 1000) + 's';
+
+        // Update status message
+        if (progress % 10 === 0) {
+          const statusMessages = [
+            "Scanning /usr/bin...",
+            "Checking /etc for suspicious files...",
+            "Analyzing running processes...",
+            "Verifying package signatures...",
+            "Inspecting kernel modules...",
+            "Reviewing cron jobs..."
+          ];
+          document.getElementById('scanStatus').textContent =
+            statusMessages[Math.floor(Math.random() * statusMessages.length)];
+        }
+
+        // Randomly find threats
+        if (progress > 30 && progress < 90 && Math.random() > 0.7) {
+          threatsFound += Math.floor(Math.random() * 2) + 1;
+          document.getElementById('threatsFound').textContent = threatsFound;
+        }
+
+        // Complete the scan
+        if (progress >= 100) {
+          clearInterval(scanInterval);
+          document.getElementById('scanStatus').textContent = 'Scan completed';
+
+          // Show threats if any found
+          if (threatsFound > 0) {
+            const threatTypes = [
+              { name: "Linux.Trojan.HiddenWasp", severity: "severe" },
+              { name: "Linux.Miner.XMRig", severity: "moderate" },
+              { name: "Linux.Rootkit.Snakso", severity: "severe" },
+              { name: "Linux.Backdoor.RShell", severity: "moderate" }
+            ];
+
+            let threatListHTML = "";
+            for (let i = 0; i < threatsFound; i++) {
+              const threat = threatTypes[Math.floor(Math.random() * threatTypes.length)];
+              threatListHTML += `
+                <div class="threat-item threat-${threat.severity}">
+                  <span>${threat.name}</span>
+                  <span>${threat.severity === 'severe' ? 'Severe' : 'Moderate'}</span>
+                </div>
+              `;
+            }
+            threatList.innerHTML = threatListHTML;
+            threatList.style.display = 'block';
+            removeThreatsBtn.style.display = 'block';
+          }
+        }
+      }, 50);
+    });
+
+    document.getElementById('removeThreatsBtn').addEventListener('click', function() {
+      alert('Threats have been successfully quarantined!');
+      document.getElementById('threatList').style.display = 'none';
+      document.getElementById('removeThreatsBtn').style.display = 'none';
+      document.getElementById('threatsFound').textContent = '0';
+    });
+  </script>
 </body>
 </html>
