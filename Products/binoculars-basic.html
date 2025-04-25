@@ -1,24 +1,39 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Binoculars Basic | Basic Version with Essential Features</title>
+  <meta name="description" content="Binoculars Basic - Essential cybersecurity protection with AI virus detection, threat removal, and scheduled scanning">
+  <meta name="keywords" content="antivirus, cybersecurity, malware protection, virus scanner">
+  <meta name="theme-color" content="#3a7bd5">
+  <title>Binoculars Basic | Essential Cybersecurity Protection</title>
+  
+  <!-- Preload critical resources 
+  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" as="style">
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  
+  <!-- Favicon 
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  
   <style>
     :root {
       --primary: #3a7bd5;
       --primary-dark: #2b5ca8;
+      --primary-light: #5db4d4;
       --danger: #e74c3c;
       --success: #2ecc71;
       --warning: #f39c12;
       --bg-light: #f4f6fa;
       --bg-dark: #121212;
-      --card-bg-light: rgba(255, 255, 255, 0.9);
-      --card-bg-dark: rgba(30, 30, 30, 0.9);
+      --card-bg-light: rgba(255, 255, 255, 0.95);
+      --card-bg-dark: rgba(30, 30, 30, 0.95);
       --border-radius: 16px;
       --text-light: #333;
       --text-dark: #f0f0f0;
+      --text-muted: #666;
       --shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
 
     * {
@@ -27,8 +42,12 @@
       padding: 0;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
-      font-family: 'Segoe UI', 'Roboto', sans-serif;
+      font-family: 'Segoe UI', 'Roboto', system-ui, -apple-system, sans-serif;
       margin: 0;
       padding: 0;
       min-height: 100vh;
@@ -37,14 +56,31 @@
       animation: gradientAnimation 15s ease infinite;
       display: flex;
       flex-direction: column;
-      transition: background-color 0.3s ease, color 0.3s ease;
+      transition: var(--transition);
       color: var(--text-light);
+      line-height: 1.6;
     }
 
     @keyframes gradientAnimation {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
+    }
+
+    /* Skip to content link for accessibility */
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: var(--primary);
+      color: white;
+      padding: 8px;
+      z-index: 100;
+      transition: top 0.3s;
+    }
+
+    .skip-link:focus {
+      top: 0;
     }
 
     nav {
@@ -56,7 +92,10 @@
       box-shadow: var(--shadow);
       border-radius: var(--border-radius);
       margin: 1rem 2rem 0 2rem;
-      transition: background-color 0.3s ease, color 0.3s ease;
+      transition: var(--transition);
+      position: sticky;
+      top: 1rem;
+      z-index: 10;
     }
 
     nav.dark {
@@ -70,6 +109,13 @@
       color: var(--primary);
       cursor: pointer;
       user-select: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    nav .logo i {
+      font-size: 1.8rem;
     }
 
     nav ul {
@@ -82,7 +128,9 @@
       cursor: pointer;
       font-weight: 600;
       color: var(--text-light);
-      transition: color 0.3s ease;
+      transition: var(--transition);
+      position: relative;
+      padding: 0.5rem 0;
     }
 
     nav.dark ul li {
@@ -93,16 +141,32 @@
       color: var(--primary-dark);
     }
 
+    nav ul li::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--primary);
+      transition: var(--transition);
+    }
+
+    nav ul li:hover::after {
+      width: 100%;
+    }
+
     .container {
       backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
       background-color: var(--card-bg-light);
       padding: 2.5rem;
       border-radius: var(--border-radius);
       box-shadow: var(--shadow);
       width: 90%;
-      max-width: 900px;
+      max-width: 1200px;
       margin: 2rem auto 4rem auto;
-      transition: all 0.4s ease;
+      transition: var(--transition);
       border: 1px solid rgba(255, 255, 255, 0.1);
       color: var(--text-light);
     }
@@ -117,6 +181,13 @@
       font-weight: 700;
       color: var(--primary);
       text-align: center;
+      font-size: 2.5rem;
+    }
+
+    h2 {
+      color: var(--primary);
+      margin: 2rem 0 1rem;
+      font-size: 1.8rem;
     }
 
     p.description {
@@ -124,13 +195,15 @@
       margin-bottom: 2rem;
       text-align: center;
       opacity: 0.9;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .features {
-      display: flex;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 2rem;
-      justify-content: center;
       margin-bottom: 3rem;
     }
 
@@ -138,11 +211,13 @@
       background-color: var(--bg-light);
       border-radius: 12px;
       padding: 1.5rem;
-      width: 250px;
       box-shadow: var(--shadow);
       text-align: center;
-      transition: background-color 0.3s ease, color 0.3s ease;
+      transition: var(--transition);
       cursor: default;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     .container.dark .feature-item {
@@ -150,10 +225,20 @@
       color: var(--text-dark);
     }
 
+    .feature-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+    }
+
     .feature-item i {
       font-size: 2.5rem;
       color: var(--primary);
       margin-bottom: 1rem;
+      transition: var(--transition);
+    }
+
+    .feature-item:hover i {
+      transform: scale(1.1);
     }
 
     .feature-item h3 {
@@ -166,12 +251,83 @@
       opacity: 0.85;
     }
 
+    .pricing-table {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin: 3rem 0;
+    }
+
+    .pricing-card {
+      background: var(--bg-light);
+      border-radius: var(--border-radius);
+      padding: 2rem;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      text-align: center;
+      border: 2px solid transparent;
+    }
+
+    .container.dark .pricing-card {
+      background: #222;
+    }
+
+    .pricing-card.featured {
+      border-color: var(--primary);
+      transform: scale(1.03);
+    }
+
+    .pricing-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    .pricing-card .price {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin: 1rem 0;
+      color: var(--text-light);
+    }
+
+    .container.dark .pricing-card .price {
+      color: var(--text-dark);
+    }
+
+    .pricing-card .price span {
+      font-size: 1rem;
+      font-weight: normal;
+      opacity: 0.8;
+    }
+
+    .pricing-card ul {
+      list-style: none;
+      text-align: left;
+      margin: 1.5rem 0;
+    }
+
+    .pricing-card ul li {
+      padding: 0.5rem 0;
+      position: relative;
+      padding-left: 1.5rem;
+    }
+
+    .pricing-card ul li::before {
+      content: '\f00c';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      position: absolute;
+      left: 0;
+      color: var(--success);
+    }
+
     .cta {
       text-align: center;
+      margin: 3rem 0 2rem;
     }
 
     .cta button {
-      background: linear-gradient(135deg, var(--primary), #3498db);
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
       color: white;
       border: none;
       padding: 1rem 2rem;
@@ -180,14 +336,26 @@
       border-radius: var(--border-radius);
       cursor: pointer;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-      transition: all 0.3s ease;
+      transition: var(--transition);
       margin: 0 1rem;
+      min-width: 180px;
     }
 
     .cta button:hover {
-      background: linear-gradient(135deg, #5db4d4, #2980b9);
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
       transform: translateY(-3px);
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .cta button.secondary {
+      background: transparent;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+    }
+
+    .cta button.secondary:hover {
+      background: var(--primary);
+      color: white;
     }
 
     .toggle-theme {
@@ -206,11 +374,11 @@
       background-color: rgba(255, 255, 255, 0.2);
       border: 1px solid rgba(255, 255, 255, 0.3);
       border-radius: 8px;
-      color: #333333;
+      color: var(--text-light);
       font-size: 0.85rem;
       font-weight: 500;
       text-align: center;
-      transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+      transition: var(--transition);
       cursor: pointer;
     }
 
@@ -292,7 +460,7 @@
       box-shadow: var(--shadow);
       margin: 0 2rem 2rem 2rem;
       color: var(--text-light);
-      transition: background-color 0.3s ease, color 0.3s ease;
+      transition: var(--transition);
       display: flex;
       justify-content: space-between;
       flex-wrap: wrap;
@@ -323,7 +491,7 @@
       margin-bottom: 0.5rem;
       cursor: pointer;
       color: var(--text-light);
-      transition: color 0.3s ease;
+      transition: var(--transition);
     }
 
     .footer.dark .footer-section ul li {
@@ -332,68 +500,305 @@
 
     .footer-section ul li:hover {
       color: var(--primary-dark);
+      transform: translateX(5px);
+    }
+
+    .newsletter {
+      margin-top: 2rem;
+    }
+
+    .newsletter input {
+      width: 100%;
+      padding: 0.8rem;
+      border-radius: var(--border-radius);
+      border: 1px solid #ddd;
+      margin-bottom: 1rem;
+      transition: var(--transition);
+    }
+
+    .container.dark .newsletter input {
+      background-color: #333;
+      border-color: #444;
+      color: var(--text-dark);
+    }
+
+    .newsletter button {
+      width: 100%;
+      padding: 0.8rem;
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .newsletter button:hover {
+      background-color: var(--primary-dark);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .social-links a {
+      color: var(--text-light);
+      font-size: 1.2rem;
+      transition: var(--transition);
+    }
+
+    .footer.dark .social-links a {
+      color: var(--text-dark);
+    }
+
+    .social-links a:hover {
+      color: var(--primary);
+      transform: translateY(-3px);
+    }
+
+    .copyright {
+      width: 100%;
+      text-align: center;
+      margin-top: 2rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    .container.dark .copyright {
+      border-top-color: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Loading animation */
+    .loader {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      z-index: 9999;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .loader-content {
+      text-align: center;
+      color: white;
+    }
+
+    .spinner {
+      border: 5px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top: 5px solid var(--primary);
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 1rem;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Tooltip */
+    .tooltip {
+      position: relative;
+      display: inline-block;
+    }
+
+    .tooltip .tooltiptext {
+      visibility: hidden;
+      width: 200px;
+      background-color: var(--bg-dark);
+      color: var(--text-dark);
+      text-align: center;
+      border-radius: 6px;
+      padding: 0.5rem;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: opacity 0.3s;
+      font-size: 0.8rem;
+    }
+
+    .tooltip:hover .tooltiptext {
+      visibility: visible;
+      opacity: 1;
     }
 
     @media (max-width: 768px) {
-      .features {
+      nav {
         flex-direction: column;
-        align-items: center;
+        gap: 1rem;
+        padding: 1rem;
+        margin: 0.5rem;
+        position: static;
       }
 
-      nav, .container, .footer {
-        margin: 1rem;
+      nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .container, .footer {
+        margin: 0.5rem;
+        padding: 1.5rem;
+        width: 95%;
+      }
+
+      .cta {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .cta button {
+        margin: 0.5rem 0;
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 2rem;
+      }
+
+      .features {
+        grid-template-columns: 1fr;
+      }
+
+      .pricing-table {
+        grid-template-columns: 1fr;
       }
     }
   </style>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 <body>
+  <!-- Skip to content link for keyboard users 
+  <a href="#mainContent" class="skip-link">Skip to main content</a>
 
   <nav id="mainNav">
-    <div class="logo" tabindex="0" role="link" aria-label="Binoculars Home" onclick="location.href='../index.html'">Binoculars</div>
+    <div class="logo" tabindex="0" role="link" aria-label="Binoculars Home" onclick="location.href='../index.html'">
+      <i class="fa-solid fa-binoculars"></i> Binoculars
+    </div>
     <ul>
       <li tabindex="0" role="link" onclick="location.href='../index.html'">Home</li>
-      <li tabindex="0" role="link" onclick="location.href='binoculars-basic.html'">Binoculars Basic</li>
+      <li tabindex="0" role="link" onclick="location.href='binoculars-basic.html'" aria-current="page">Binoculars Basic</li>
+      <li tabindex="0" role="link" onclick="location.href='binoculars-pro.html'">Binoculars Pro</li>
       <li tabindex="0" role="link" onclick="location.href='enterprise-suite.html'">Enterprise Suite</li>
       <li tabindex="0" role="link" onclick="location.href='mobile-security.html'">Mobile Security</li>
-      <li tabindex="0" role="link" onclick="location.href='vpn.html'">VPN Service</li>
     </ul>
   </nav>
 
   <div class="container" id="basicContainer">
-    <h1><i class="fa-solid fa-binoculars"></i> Binoculars Basic</h1>
-    <p class="description">The basic version of Binoculars with essential features</p>
-    <p style="text-align:center; font-style: italic; margin-bottom: 1.5rem;">
-      For more advanced features, please consider upgrading to <a href="binoculars-pro.html" style="color: var(--primary); font-weight: 700;">Binoculars Pro</a>.
-    </p>
+    <main id="mainContent">
+      <h1><i class="fa-solid fa-shield-halved"></i> Binoculars Basic</h1>
+      <p class="description">Essential cybersecurity protection with AI-powered threat detection and removal for your personal devices</p>
+      
+      <div class="features" aria-label="Binoculars Basic Features">
+        <article class="feature-item" tabindex="0">
+          <i class="fa-solid fa-robot"></i>
+          <h3>AI Virus Detection</h3>
+          <p>Advanced AI algorithms detect and block malware, ransomware, and zero-day threats in real-time.</p>
+        </article>
+        <article class="feature-item" tabindex="0">
+          <i class="fa-solid fa-shield-virus"></i>
+          <h3>Threat Removal</h3>
+          <p>Automatically quarantines and removes detected threats to keep your system clean and secure.</p>
+        </article>
+        <article class="feature-item" tabindex="0">
+          <i class="fa-solid fa-calendar-check"></i>
+          <h3>Scan Scheduling</h3>
+          <p>Set up automatic scans at convenient times without interrupting your workflow.</p>
+        </article>
+        <article class="feature-item" tabindex="0">
+          <i class="fa-solid fa-headset"></i>
+          <h3>24/7 Support</h3>
+          <p>Access to our knowledgeable support team via email and live chat around the clock.</p>
+        </article>
+      </div>
 
-    <section class="features" aria-label="Binoculars Basic Features">
-      <article class="feature-item" tabindex="0">
-        <i class="fa-solid fa-robot"></i>
-        <h3>AI Virus Detection</h3>
-        <p>Reliable AI algorithms for effective malware detection.</p>
-      </article>
-      <article class="feature-item" tabindex="0">
-        <i class="fa-solid fa-shield-virus"></i>
-        <h3>Threat Removal</h3>
-        <p>Detects and removes common threats to keep your system safe.</p>
-      </article>
-      <article class="feature-item" tabindex="0">
-        <i class="fa-solid fa-calendar-check"></i>
-        <h3>Scan Scheduling</h3>
-        <p>Set up automatic scans at convenient times.</p>
-      </article>
-      <article class="feature-item" tabindex="0">
-        <i class="fa-solid fa-headset"></i>
-        <h3>Customer Support</h3>
-        <p>Access to support for assistance and troubleshooting.</p>
-      </article>
-    </section>
+      <h2>Simple, Transparent Pricing</h2>
+      <p class="description">Choose the plan that fits your needs. All plans include a 30-day money-back guarantee.</p>
 
-    <div class="cta">
-      <button id="buyNowBtn">Buy Now</button>
-      <button id="learnMoreBtn">Learn More</button>
-    </div>
+      <div class="pricing-table">
+        <div class="pricing-card">
+          <h3>Basic</h3>
+          <div class="price">$29.99<span>/year</span></div>
+          <ul>
+            <li>1 Device Protection</li>
+            <li>Real-time Scanning</li>
+            <li>Malware Removal</li>
+            <li>Email Support</li>
+            <li>Automatic Updates</li>
+          </ul>
+          <button class="buy-now" data-plan="basic">Get Started</button>
+        </div>
+        <div class="pricing-card featured">
+          <h3>Family</h3>
+          <div class="price">$49.99<span>/year</span></div>
+          <ul>
+            <li>5 Devices Protection</li>
+            <li>All Basic Features</li>
+            <li>Parental Controls</li>
+            <li>Priority Support</li>
+            <li>VPN (Limited)</li>
+          </ul>
+          <button class="buy-now" data-plan="family">Most Popular</button>
+        </div>
+        <div class="pricing-card">
+          <h3>Premium</h3>
+          <div class="price">$79.99<span>/year</span></div>
+          <ul>
+            <li>10 Devices Protection</li>
+            <li>All Family Features</li>
+            <li>Password Manager</li>
+            <li>Full VPN Access</li>
+            <li>Identity Protection</li>
+          </ul>
+          <button class="buy-now" data-plan="premium">Get Premium</button>
+        </div>
+      </div>
+
+      <div class="cta">
+        <button id="freeTrialBtn">Start 30-Day Free Trial</button>
+        <button id="comparePlansBtn" class="secondary">Compare All Plans</button>
+      </div>
+
+      <section aria-labelledby="faq-heading">
+        <h2 id="faq-heading">Frequently Asked Questions</h2>
+        <div class="faq">
+          <div class="faq-item" tabindex="0">
+            <h3>What devices are supported? <i class="fa-solid fa-chevron-down"></i></h3>
+            <div class="faq-answer">
+              <p>Binoculars Basic supports Windows 10/11, macOS 10.15+, Android 8+, and iOS 14+. Our Family and Premium plans extend protection to more devices simultaneously.</p>
+            </div>
+          </div>
+          <div class="faq-item" tabindex="0">
+            <h3>How does the free trial work? <i class="fa-solid fa-chevron-down"></i></h3>
+            <div class="faq-answer">
+              <p>The 30-day free trial gives you full access to all Basic features. No credit card is required to start. If you don't cancel before the trial ends, your chosen plan will automatically begin.</p>
+            </div>
+          </div>
+          <div class="faq-item" tabindex="0">
+            <h3>Can I upgrade my plan later? <i class="fa-solid fa-chevron-down"></i></h3>
+            <div class="faq-answer">
+              <p>Yes! You can upgrade at any time. We'll prorate the difference so you only pay for what you haven't used on your current plan.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
   </div>
 
   <div class="toggle-theme" role="region" aria-label="Toggle dark and light theme">
@@ -439,12 +844,46 @@
         <li tabindex="0" role="link" onclick="location.href='vpn.html'">VPN Service</li>
       </ul>
     </section>
+    <section class="footer-section" aria-label="Newsletter">
+      <h3>Stay Updated</h3>
+      <div class="newsletter">
+        <input type="email" placeholder="Your email address" aria-label="Email for newsletter">
+        <button type="button">Subscribe</button>
+      </div>
+      <div class="social-links">
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+      </div>
+    </section>
+    <div class="copyright">
+      <p>&copy; 2025 Binoculars Security. All rights reserved. <a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms of Service</a></p>
+    </div>
   </footer>
 
-  <script>
-    // JavaScript for Binoculars Basic page
+  <div class="loader" id="pageLoader">
+    <div class="loader-content">
+      <div class="spinner"></div>
+      <p>Loading your secure experience...</p>
+    </div>
+  </div>
 
+  <script>
+    // Enhanced JavaScript for Binoculars Basic page
     document.addEventListener('DOMContentLoaded', () => {
+      // Show loader initially
+      const loader = document.getElementById('pageLoader');
+      loader.style.display = 'flex';
+      
+      // Hide loader when page is fully loaded
+      window.addEventListener('load', () => {
+        setTimeout(() => {
+          loader.style.display = 'none';
+        }, 500);
+      });
+
+      // Theme management
       const themeToggleSwitch = document.getElementById('themeToggleSwitch');
       const body = document.body;
       const container = document.querySelector('.container');
@@ -452,54 +891,1229 @@
       const footer = document.querySelector('.footer');
       const themeLabelBox = document.querySelector('.theme-label-box');
 
+      // Apply saved theme or prefer color scheme
+      function applyTheme() {
+        const savedTheme = localStorage.getItem('themePreference');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+          themeToggleSwitch.checked = true;
+          toggleTheme();
+        }
+      }
+
       function toggleTheme() {
         const isDark = themeToggleSwitch.checked;
+        
         if (isDark) {
           body.style.background = 'linear-gradient(135deg, #121212, #2b2b2b, #121212)';
-          body.style.color = 'var(--text-dark)';
+          body.classList.add('dark-theme');
           container.classList.add('dark');
           nav.classList.add('dark');
           footer.classList.add('dark');
           themeLabelBox.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
           themeLabelBox.style.color = 'var(--text-dark)';
           themeLabelBox.setAttribute('aria-pressed', 'true');
+          document.querySelector('meta[name="theme-color"]').content = '#121212';
         } else {
           body.style.background = 'linear-gradient(135deg, #667eea, #764ba2, #4ca1af)';
-          body.style.color = 'var(--text-light)';
+          body.classList.remove('dark-theme');
           container.classList.remove('dark');
           nav.classList.remove('dark');
           footer.classList.remove('dark');
           themeLabelBox.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
-          themeLabelBox.style.color = '#333333';
+          themeLabelBox.style.color = 'var(--text-light)';
           themeLabelBox.setAttribute('aria-pressed', 'false');
+          document.querySelector('meta[name="theme-color"]').content = '#3a7bd5';
         }
       }
 
-      themeToggleSwitch.addEventListener('change', toggleTheme);
-
-      // Load saved theme preference
-      const savedTheme = localStorage.getItem('themePreference');
-      if (savedTheme === 'dark') {
-        themeToggleSwitch.checked = true;
-        toggleTheme();
-      }
-
-      // Save theme preference on toggle
       themeToggleSwitch.addEventListener('change', () => {
         localStorage.setItem('themePreference', themeToggleSwitch.checked ? 'dark' : 'light');
+        toggleTheme();
       });
 
-      const buyNowBtn = document.getElementById('buyNowBtn');
-      const learnMoreBtn = document.getElementById('learnMoreBtn');
-
-      buyNowBtn.addEventListener('click', () => {
-        alert('Thank you for your interest! The purchase feature will be available soon.');
+      // Watch for system theme changes
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+        if (!localStorage.getItem('themePreference')) {
+          themeToggleSwitch.checked = e.matches;
+          toggleTheme();
+        }
       });
 
-      learnMoreBtn.addEventListener('click', () => {
-        alert('Binoculars Basic offers essential virus detection and protection features. Stay tuned for more updates!');
+      // Initialize theme
+      applyTheme();
+
+      // Button functionality
+      const freeTrialBtn = document.getElementById('freeTrialBtn');
+      const comparePlansBtn = document.getElementById('comparePlansBtn');
+      const buyButtons = document.querySelectorAll('.buy-now');
+
+      freeTrialBtn.addEventListener('click', () => {
+        showLoader();
+        setTimeout(() => {
+          alert('Your 30-day free trial has started! Check your email for setup instructions.');
+          hideLoader();
+        }, 1000);
+      });
+
+      comparePlansBtn.addEventListener('click', () => {
+        window.location.href = 'compare-plans.html';
+      });
+
+      buyButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+          const plan = e.target.dataset.plan;
+          showLoader();
+          setTimeout(() => {
+            alert(`You've selected the ${plan} plan. Redirecting to secure checkout...`);
+            hideLoader();
+          }, 1000);
+        });
+      });
+
+      // FAQ functionality
+      const faqItems = document.querySelectorAll('.faq-item');
+      faqItems.forEach(item => {
+        const question = item.querySelector('h3');
+        const answer = item.querySelector('.faq-answer');
+        
+        question.addEventListener('click', () => {
+          const isOpen = answer.style.display === 'block';
+          faqItems.forEach(i => {
+            i.querySelector('.faq-answer').style.display = 'none';
+            i.querySelector('i').className = 'fa-solid fa-chevron-down';
+          });
+          
+          if (!isOpen) {
+            answer.style.display = 'block';
+            question.querySelector('i').className = 'fa-solid fa-chevron-up';
+          }
+        });
+        
+        // Keyboard accessibility
+        item.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            question.click();
+          }
+        });
+      });
+
+      // Newsletter form
+      const newsletterForm = document.querySelector('.newsletter');
+      const newsletterInput = newsletterForm.querySelector('input');
+      const newsletterButton = newsletterForm.querySelector('button');
+      
+      newsletterButton.addEventListener('click', () => {
+        if (newsletterInput.value && newsletterInput.value.includes('@')) {
+          showLoader();
+          setTimeout(() => {
+            alert('Thank you for subscribing to our newsletter!');
+            newsletterInput.value = '';
+            hideLoader();
+          }, 1000);
+        } else {
+          alert('Please enter a valid email address.');
+        }
+      });
+
+      // Loader functions
+      function showLoader() {
+        loader.style.display = 'flex';
+      }
+
+      function hideLoader() {
+        loader.style.display = 'none';
+      }
+
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          e.preventDefault();
+          document.querySelector(this.getAttribute('href')).scrollIntoView({
+            behavior: 'smooth'
+          });
+        });
+      });
+
+      // Track button clicks for analytics
+      document.querySelectorAll('button').forEach(button => {
+        button.addEventListener('click', function() {
+          console.log(`Button clicked: ${this.textContent.trim()}`);
+          // Here you would typically send data to your analytics platform
+        });
       });
     });
-  </script>
-</body>
-</html>
+
+    // Service worker registration for PWA
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').then(registration => -->
+
+
+
+        <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Binoculars Basic - Essential cybersecurity protection with AI virus detection, threat removal, and scheduled scanning">
+  <meta name="keywords" content="antivirus, cybersecurity, malware protection, virus scanner">
+  <meta name="theme-color" content="#4a90e2">
+  <title>Binoculars Basic | Essential Cybersecurity Protection</title>
+  
+  <!-- Preload critical resources -->
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" as="style">
+  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" as="style">
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  
+  <!-- Favicon -->
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  
+  <style>
+    /* Consistent theme variables with the blog page */
+    :root {
+      --bg-color-light: #f5f5f5;
+      --text-color-light: #333;
+      --nav-bg-light: #121212;
+      --nav-text-light: white;
+      --accent-color-light: #4a90e2;
+      --accent-hover-light: #3a7bc8;
+      --footer-bg-light: white;
+      --footer-text-light: #555;
+      --card-bg-light: white;
+      --card-shadow-light: 0 6px 15px rgba(0,0,0,0.1);
+      --card-hover-shadow-light: 0 12px 25px rgba(0,0,0,0.15);
+      --border-color-light: #e0e0e0;
+
+      --bg-color-dark: #121212;
+      --text-color-dark: #ddd;
+      --nav-bg-dark: #1e1e1e;
+      --nav-text-dark: #ddd;
+      --accent-color-dark: #4a90e2;
+      --accent-hover-dark: #3a7bc8;
+      --footer-bg-dark: #1e1e1e;
+      --footer-text-dark: #aaa;
+      --card-bg-dark: #222;
+      --card-shadow-dark: 0 6px 15px rgba(0,0,0,0.6);
+      --card-hover-shadow-dark: 0 12px 25px rgba(0,0,0,0.8);
+      --border-color-dark: #444;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      background-color: var(--bg-color-light);
+      color: var(--text-color-light);
+      line-height: 1.6;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    body.dark-theme {
+      background-color: var(--bg-color-dark);
+      color: var(--text-color-dark);
+    }
+
+    /* Skip to content link for accessibility */
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: var(--accent-color-light);
+      color: white;
+      padding: 8px;
+      z-index: 100;
+      transition: top 0.3s;
+    }
+
+    .skip-link:focus {
+      top: 0;
+    }
+
+    body.dark-theme .skip-link {
+      background: var(--accent-color-dark);
+    }
+
+    /* Navigation - matching blog style */
+    #nav {
+      display: flex;
+      flex-direction: column;
+      background-color: var(--nav-bg-light);
+      color: var(--nav-text-light);
+      padding: 10px 50px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    body.dark-theme #nav {
+      background-color: var(--nav-bg-dark);
+      color: var(--nav-text-dark);
+    }
+
+    .navTop {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 0;
+    }
+
+    .logo {
+      font-weight: 900;
+      font-size: 1.5rem;
+      color: var(--nav-text-light);
+      cursor: pointer;
+      user-select: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    body.dark-theme .logo {
+      color: var(--nav-text-dark);
+    }
+
+    .navItems {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .search {
+      display: flex;
+      align-items: center;
+      background-color: white;
+      padding: 10px 15px;
+      border-radius: 30px;
+      margin: 0 20px;
+      flex-grow: 1;
+      max-width: 400px;
+    }
+
+    body.dark-theme .search {
+      background-color: #333;
+    }
+
+    .searchInput {
+      border: none;
+      outline: none;
+      background: transparent;
+      width: 100%;
+      font-size: 1rem;
+      color: var(--text-color-light);
+    }
+
+    body.dark-theme .searchInput {
+      color: var(--text-color-dark);
+    }
+
+    .searchIcon {
+      cursor: pointer;
+      width: 20px;
+      height: 20px;
+    }
+
+    .limitedOffer {
+      background-color: var(--accent-color-light);
+      padding: 5px 15px;
+      border-radius: 30px;
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 12px;
+      color: white;
+      user-select: none;
+      transition: background-color 0.3s ease;
+      white-space: nowrap;
+    }
+
+    body.dark-theme .limitedOffer {
+      background-color: var(--accent-color-dark);
+    }
+
+    button#themeToggle {
+      background-color: transparent;
+      border: 2px solid var(--accent-color-light);
+      color: var(--accent-color-light);
+      padding: 6px 15px;
+      border-radius: 30px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      user-select: none;
+      min-width: 120px;
+    }
+
+    button#themeToggle:hover {
+      background-color: var(--accent-hover-light);
+      color: white;
+      border-color: var(--accent-hover-light);
+    }
+
+    body.dark-theme button#themeToggle {
+      border-color: var(--accent-color-dark);
+      color: var(--accent-color-dark);
+    }
+
+    body.dark-theme button#themeToggle:hover {
+      background-color: var(--accent-hover-dark);
+      color: white;
+      border-color: var(--accent-hover-dark);
+    }
+
+    .signup-btn {
+      background-color: var(--accent-color-light);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      font-weight: 700;
+    }
+
+    .signup-btn:hover {
+      background-color: var(--accent-hover-light);
+    }
+
+    body.dark-theme .signup-btn {
+      background-color: var(--accent-color-dark);
+    }
+
+    body.dark-theme .signup-btn:hover {
+      background-color: var(--accent-hover-dark);
+    }
+
+    .navBottom {
+      display: flex;
+      justify-content: center;
+      padding: 15px 0;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .menuItem {
+      margin: 0 15px;
+      cursor: pointer;
+      font-weight: 400;
+      color: #aaa;
+      transition: all 0.3s ease;
+      user-select: none;
+      white-space: nowrap;
+    }
+
+    .menuItem:hover, .menuItem:focus {
+      color: white;
+      outline: none;
+    }
+
+    /* Main content container */
+    .container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    /* Hero section */
+    .hero {
+      text-align: center;
+      padding: 3rem 1rem;
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+      font-weight: 900;
+      margin-bottom: 1rem;
+      color: var(--accent-color-light);
+    }
+
+    body.dark-theme .hero h1 {
+      color: var(--accent-color-dark);
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      max-width: 800px;
+      margin: 0 auto 2rem;
+      color: var(--text-color-light);
+      opacity: 0.9;
+    }
+
+    body.dark-theme .hero p {
+      color: var(--text-color-dark);
+    }
+
+    /* Features grid - matching blog card style */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin: 3rem 0;
+    }
+
+    .feature-card {
+      background: var(--card-bg-light);
+      border-radius: 10px;
+      padding: 1.5rem;
+      box-shadow: var(--card-shadow-light);
+      transition: all 0.3s ease;
+      cursor: default;
+      border: 1px solid var(--border-color-light);
+    }
+
+    body.dark-theme .feature-card {
+      background: var(--card-bg-dark);
+      box-shadow: var(--card-shadow-dark);
+      border-color: var(--border-color-dark);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--card-hover-shadow-light);
+    }
+
+    body.dark-theme .feature-card:hover {
+      box-shadow: var(--card-hover-shadow-dark);
+    }
+
+    .feature-card i {
+      font-size: 2.5rem;
+      color: var(--accent-color-light);
+      margin-bottom: 1rem;
+      transition: transform 0.3s ease;
+    }
+
+    body.dark-theme .feature-card i {
+      color: var(--accent-color-dark);
+    }
+
+    .feature-card:hover i {
+      transform: scale(1.1);
+    }
+
+    .feature-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--accent-color-light);
+    }
+
+    body.dark-theme .feature-card h3 {
+      color: var(--accent-color-dark);
+    }
+
+    .feature-card p {
+      color: var(--text-color-light);
+      opacity: 0.9;
+    }
+
+    body.dark-theme .feature-card p {
+      color: var(--text-color-dark);
+    }
+
+    /* Pricing section */
+    .pricing-section {
+      margin: 4rem 0;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      color: var(--accent-color-light);
+    }
+
+    body.dark-theme .section-title {
+      color: var(--accent-color-dark);
+    }
+
+    .pricing-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .pricing-card {
+      background: var(--card-bg-light);
+      border-radius: 10px;
+      padding: 2rem;
+      box-shadow: var(--card-shadow-light);
+      transition: all 0.3s ease;
+      text-align: center;
+      border: 2px solid transparent;
+    }
+
+    body.dark-theme .pricing-card {
+      background: var(--card-bg-dark);
+      box-shadow: var(--card-shadow-dark);
+    }
+
+    .pricing-card.featured {
+      border-color: var(--accent-color-light);
+      transform: scale(1.03);
+    }
+
+    body.dark-theme .pricing-card.featured {
+      border-color: var(--accent-color-dark);
+    }
+
+    .pricing-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--accent-color-light);
+    }
+
+    body.dark-theme .pricing-card h3 {
+      color: var(--accent-color-dark);
+    }
+
+    .price {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin: 1.5rem 0;
+      color: var(--text-color-light);
+    }
+
+    body.dark-theme .price {
+      color: var(--text-color-dark);
+    }
+
+    .price span {
+      font-size: 1rem;
+      font-weight: normal;
+      opacity: 0.8;
+    }
+
+    .pricing-features {
+      list-style: none;
+      text-align: left;
+      margin: 2rem 0;
+    }
+
+    .pricing-features li {
+      padding: 0.5rem 0;
+      position: relative;
+      padding-left: 1.8rem;
+      color: var(--text-color-light);
+    }
+
+    body.dark-theme .pricing-features li {
+      color: var(--text-color-dark);
+    }
+
+    .pricing-features li::before {
+      content: '\f00c';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      position: absolute;
+      left: 0;
+      color: var(--accent-color-light);
+    }
+
+    body.dark-theme .pricing-features li::before {
+      color: var(--accent-color-dark);
+    }
+
+    .btn {
+      display: inline-block;
+      background-color: var(--accent-color-light);
+      color: white;
+      padding: 0.8rem 1.5rem;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 700;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      text-align: center;
+    }
+
+    .btn:hover {
+      background-color: var(--accent-hover-light);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    body.dark-theme .btn {
+      background-color: var(--accent-color-dark);
+    }
+
+    body.dark-theme .btn:hover {
+      background-color: var(--accent-hover-dark);
+    }
+
+    .btn-secondary {
+      background-color: transparent;
+      border: 2px solid var(--accent-color-light);
+      color: var(--accent-color-light);
+    }
+
+    body.dark-theme .btn-secondary {
+      border-color: var(--accent-color-dark);
+      color: var(--accent-color-dark);
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--accent-color-light);
+      color: white;
+    }
+
+    body.dark-theme .btn-secondary:hover {
+      background-color: var(--accent-color-dark);
+    }
+
+    /* CTA section */
+    .cta-section {
+      text-align: center;
+      margin: 4rem 0;
+    }
+
+    .cta-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+
+    /* FAQ section */
+    .faq-section {
+      margin: 4rem 0;
+    }
+
+    .faq-item {
+      background: var(--card-bg-light);
+      border-radius: 10px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      box-shadow: var(--card-shadow-light);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    body.dark-theme .faq-item {
+      background: var(--card-bg-dark);
+      box-shadow: var(--card-shadow-dark);
+    }
+
+    .faq-item:hover {
+      box-shadow: var(--card-hover-shadow-light);
+    }
+
+    body.dark-theme .faq-item:hover {
+      box-shadow: var(--card-hover-shadow-dark);
+    }
+
+    .faq-question {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 700;
+      color: var(--accent-color-light);
+    }
+
+    body.dark-theme .faq-question {
+      color: var(--accent-color-dark);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      color: var(--text-color-light);
+      margin-top: 1rem;
+    }
+
+    body.dark-theme .faq-answer {
+      color: var(--text-color-dark);
+    }
+
+    .faq-item.active .faq-answer {
+      max-height: 300px;
+    }
+
+    /* Footer - matching blog style */
+    footer {
+      display: flex;
+      padding: 50px;
+      background-color: var(--footer-bg-light);
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 2rem;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    body.dark-theme footer {
+      background-color: var(--footer-bg-dark);
+      color: var(--footer-text-dark);
+    }
+
+    .footer-left {
+      flex: 2;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .footer-right {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .footer-menu {
+      min-width: 150px;
+    }
+
+    .footer-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: var(--text-color-light);
+    }
+
+    body.dark-theme .footer-title {
+      color: var(--footer-text-dark);
+    }
+
+    .footer-list {
+      list-style: none;
+    }
+
+    .footer-item {
+      margin-bottom: 10px;
+      color: var(--footer-text-light);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    body.dark-theme .footer-item {
+      color: var(--footer-text-dark);
+    }
+
+    .footer-item:hover {
+      color: var(--accent-color-light);
+    }
+
+    body.dark-theme .footer-item:hover {
+      color: var(--accent-hover-dark);
+    }
+
+    .newsletter-input {
+      padding: 10px;
+      border: 1px solid var(--border-color-light);
+      width: 70%;
+      margin-right: 10px;
+      border-radius: 5px;
+      background-color: var(--card-bg-light);
+      color: var(--text-color-light);
+    }
+
+    body.dark-theme .newsletter-input {
+      border-color: var(--border-color-dark);
+      background-color: var(--card-bg-dark);
+      color: var(--text-color-dark);
+    }
+
+    .newsletter-btn {
+      padding: 10px 20px;
+      background-color: var(--accent-color-light);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    body.dark-theme .newsletter-btn {
+      background-color: var(--accent-color-dark);
+    }
+
+    .newsletter-btn:hover {
+      background-color: var(--accent-hover-light);
+    }
+
+    body.dark-theme .newsletter-btn:hover {
+      background-color: var(--accent-hover-dark);
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 15px;
+    }
+
+    .social-icon {
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .social-icon:hover {
+      transform: scale(1.2);
+    }
+
+    .copyright {
+      color: var(--footer-text-light);
+      font-size: 14px;
+      margin-top: 20px;
+      text-align: center;
+      width: 100%;
+    }
+
+    body.dark-theme .copyright {
+      color: var(--footer-text-dark);
+    }
+
+    /* Responsive styles */
+    @media screen and (max-width: 1024px) {
+      .features, .pricing-cards {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      }
+    }
+
+    @media screen and (max-width: 768px) {
+      #nav {
+        padding: 10px 20px;
+      }
+
+      .navTop {
+        flex-direction: column;
+        gap: 15px;
+        padding: 10px 0;
+      }
+
+      .navItems {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      .search {
+        margin: 10px 0;
+        max-width: 100%;
+      }
+
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+
+      .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      footer {
+        padding: 30px 20px;
+        flex-direction: column;
+      }
+
+      .footer-left {
+        flex-direction: column;
+        margin-bottom: 30px;
+      }
+    }
+
+    @media screen and (max-width: 480px) {
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+
+      .features, .pricing-cards {
+        grid-template-columns: 1fr;
+      }
+
+      .pricing-card {
+        padding: 1.5rem;
+      }
+
+      .section-title {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+  <!-- Skip to content link for keyboard users -->
+  <a href="#mainContent" class="skip-link">Skip to main content</a>
+
+  <nav id="nav" role="navigation" aria-label="Primary Navigation">
+    <div class="navTop">
+      <div class="logo" tabindex="0" role="link" aria-label="Binoculars Home" onclick="location.href='index.html'">
+        <i class="fas fa-binoculars"></i> Binoculars Security
+      </div>
+      <div class="navItems">
+        <div class="search" role="search">
+          <input type="text" placeholder="Search scans..." class="searchInput" aria-label="Search scans" />
+          <i class="fas fa-search searchIcon"></i>
+        </div>
+        <span class="limitedOffer">FREE SCAN!</span>
+        <button id="themeToggle" aria-label="Toggle light and dark theme">
+          <span id="themeText">Dark Mode</span>
+        </button>
+        <button class="signup-btn" onclick="window.location.href='combined ui/combined_login_signup.html'">Sign Up</button>
+      </div>
+    </div>
+    <div class="navBottom" role="menubar" aria-label="Secondary Navigation">
+      <h3 class="menuItem" role="menuitem" tabindex="0">QUICK SCAN</h3>
+      <h3 class="menuItem" role="menuitem" tabindex="0">DEEP SCAN</h3>
+      <h3 class="menuItem" role="menuitem" tabindex="0">CUSTOM SCAN</h3>
+      <h3 class="menuItem" role="menuitem" tabindex="0">REALTIME PROTECTION</h3>
+      <h3 class="menuItem" role="menuitem" tabindex="0">FIREWALL</h3>
+    </div>
+  </nav>
+
+  <main class="container" id="mainContent" tabindex="-1">
+    <!-- Hero Section -->
+    <section class="hero" aria-labelledby="heroTitle">
+      <h1 id="heroTitle"><i class="fas fa-shield-halved"></i> Binoculars Basic</h1>
+      <p>Essential cybersecurity protection with AI-powered threat detection and removal for your personal devices</p>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" aria-labelledby="featuresTitle">
+      <h2 id="featuresTitle" class="section-title">Key Features</h2>
+      <div class="features-grid">
+        <article class="feature-card" tabindex="0">
+          <i class="fas fa-robot"></i>
+          <h3>AI Virus Detection</h3>
+          <p>Advanced AI algorithms detect and block malware, ransomware, and zero-day threats in real-time.</p>
+        </article>
+        <article class="feature-card" tabindex="0">
+          <i class="fas fa-shield-virus"></i>
+          <h3>Threat Removal</h3>
+          <p>Automatically quarantines and removes detected threats to keep your system clean and secure.</p>
+        </article>
+        <article class="feature-card" tabindex="0">
+          <i class="fas fa-calendar-check"></i>
+          <h3>Scan Scheduling</h3>
+          <p>Set up automatic scans at convenient times without interrupting your workflow.</p>
+        </article>
+        <article class="feature-card" tabindex="0">
+          <i class="fas fa-headset"></i>
+          <h3>24/7 Support</h3>
+          <p>Access to our knowledgeable support team via email and live chat around the clock.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing-section" aria-labelledby="pricingTitle">
+      <h2 id="pricingTitle" class="section-title">Simple, Transparent Pricing</h2>
+      <p class="section-description">Choose the plan that fits your needs. All plans include a 30-day money-back guarantee.</p>
+
+      <div class="pricing-cards">
+        <article class="pricing-card" tabindex="0">
+          <h3>Basic</h3>
+          <div class="price">$29.99<span>/year</span></div>
+          <ul class="pricing-features">
+            <li>1 Device Protection</li>
+            <li>Real-time Scanning</li>
+            <li>Malware Removal</li>
+            <li>Email Support</li>
+            <li>Automatic Updates</li>
+          </ul>
+          <button class="btn" data-plan="basic">Get Started</button>
+        </article>
+        <article class="pricing-card featured" tabindex="0">
+          <h3>Family</h3>
+          <div class="price">$49.99<span>/year</span></div>
+          <ul class="pricing-features">
+            <li>5 Devices Protection</li>
+            <li>All Basic Features</li>
+            <li>Parental Controls</li>
+            <li>Priority Support</li>
+            <li>VPN (Limited)</li>
+          </ul>
+          <button class="btn" data-plan="family">Most Popular</button>
+        </article>
+        <article class="pricing-card" tabindex="0">
+          <h3>Premium</h3>
+          <div class="price">$79.99<span>/year</span></div>
+          <ul class="pricing-features">
+            <li>10 Devices Protection</li>
+            <li>All Family Features</li>
+            <li>Password Manager</li>
+            <li>Full VPN Access</li>
+            <li>Identity Protection</li>
+          </ul>
+          <button class="btn" data-plan="premium">Get Premium</button>
+        </article>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" aria-labelledby="ctaTitle">
+      <h2 id="ctaTitle" class="section-title">Ready to Secure Your Devices?</h2>
+      <div class="cta-buttons">
+        <button id="freeTrialBtn" class="btn">Start 30-Day Free Trial</button>
+        <button id="comparePlansBtn" class="btn btn-secondary">Compare All Plans</button>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section" aria-labelledby="faqTitle">
+      <h2 id="faqTitle" class="section-title">Frequently Asked Questions</h2>
+      <div class="faq-container">
+        <article class="faq-item" tabindex="0">
+          <div class="faq-question">
+            <h3>What devices are supported?</h3>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            <p>Binoculars Basic supports Windows 10/11, macOS 10.15+, Android 8+, and iOS 14+. Our Family and Premium plans extend protection to more devices simultaneously.</p>
+          </div>
+        </article>
+        <article class="faq-item" tabindex="0">
+          <div class="faq-question">
+            <h3>How does the free trial work?</h3>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            <p>The 30-day free trial gives you full access to all Basic features. No credit card is required to start. If you don't cancel before the trial ends, your chosen plan will automatically begin.</p>
+          </div>
+        </article>
+        <article class="faq-item" tabindex="0">
+          <div class="faq-question">
+            <h3>Can I upgrade my plan later?</h3>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            <p>Yes! You can upgrade at any time. We'll prorate the difference so you only pay for what you haven't used on your current plan.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer role="contentinfo">
+    <div class="footer-left">
+      <div class="footer-menu">
+        <h3 class="footer-title">About Us</h3>
+        <ul class="footer-list">
+          <li class="footer-item" tabindex="0" role="link" onclick="location.href='aboutus/aboutus-mainpage.html'">Company</li>
+          <li class="footer-item" tabindex="0" role="link">Security Team</li>
+          <li class="footer-item" tabindex="0" role="link">Careers</li>
+          <li class="footer-item" tabindex="0" role="link">Partners</li>
+          <li class="footer-item" tabindex="0" role="link">Press</li>
+        </ul>
+      </div>
+      <div class="footer-menu">
+        <h3 class="footer-title">Support</h3>
+        <ul class="footer-list">
+          <li class="footer-item" tabindex="0" role="link" onclick="location.href='support/help center.html'">Help Center</li>
+          <li class="footer-item" tabindex="0" role="link" onclick="location.href='support/tutorials.html'">Tutorials</li>
+          <li class="footer-item" tabindex="0" role="link" onclick="location.href='support/FAQ.html'">FAQ</li>
+          <li class="footer-item" tabindex="0" role="link" onclick="location.href='support/contact us.html'">Contact</li>
+          <li class="footer-item" tabindex="0" role="link" onclick="location.href='support/blog.html'">Blog</li>
+        </ul>
+      </div>
+      <div class="footer-menu">
+        <h3 class="footer-title">Products</h3>
+        <ul class="footer-list">
+          <li class="footer-item" tabindex="0" role="link" onclick="location.href='FreeScan.html'">Binoculars Basic</li>
+          <li class="footer-item" tabindex="0" role="link" onclick="location.href='binoculars-pro.html'">Binoculars Pro</li>
+          <li class="footer-item" tabindex="0" role="link" onclick="location.href='enterprise-suite.html'">Enterprise Suite</li>
+          <li class="footer-item" tabindex="0" role="link" onclick="location.href='mobile-security.html'">Mobile Security</li>
+          <li class="footer-item" tabindex="0" role="link" onclick="location.href='vpn.html'">VPN Service</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-right">
+      <div class="footer-menu">
+        <h3 class="footer-title">Subscribe to our newsletter</h3>
+        <div class="newsletter-form">
+          <input type="email" placeholder="your@email.com" class="newsletter-input" aria-label="Email for newsletter">
+          <button class="newsletter-btn">Subscribe</button>
+        </div>
+      </div>
+      <div class="footer-menu">
+        <h3 class="footer-title">Follow Us</h3>
+        <div class="social-icons">
+          <i class="fab fa-facebook-f social-icon" tabindex="0" role="link" aria-label="Facebook"></i>
+          <i class="fab fa-twitter social-icon" tabindex="0" role="link" aria-label="Twitter"></i>
+          <i class="fab fa-instagram social-icon" tabindex="0" role="link" aria-label="Instagram"></i>
+          <i class="fab fa-youtube social-icon" tabindex="0" role="link" aria-label="YouTube"></i>
+        </div>
+      </div>
+      <div class="copyright">
+        <p>&copy; 2025 Binoculars Security. All rights reserved. <a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms of Service</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Enhanced JavaScript for Binoculars Basic page
+    document.addEventListener('DOMContentLoaded', () => {
+      // Theme management
+      const themeToggle = document.getElementById('themeToggle');
+      const themeText = document.getElementById('themeText');
+      const body = document.body;
+      const nav = document.getElementById('nav');
+      const footer = document.querySelector('footer');
+      
+      // Check for saved theme preference or use preferred color scheme
+      function applySavedTheme() {
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+          enableDarkTheme();
+        }
+      }
+      
+      function enableDarkTheme() {
+        body.classList.add('dark-theme');
+        localStorage.setItem('theme', 'dark');
+        themeText.textContent = 'Light Mode';
+      }
+      
+      function enableLightTheme() {
+        body.classList.remove('dark-theme');
+        localStorage.setItem('theme', 'light');
+        themeText.textContent = 'Dark Mode';
+      }
+      
+      function toggleTheme() {
+        if (body.classList.contains('dark-theme')) {
+          enableLightTheme();
+        } else {
+          enableDarkTheme();
+        }
+      }
+      
+      themeToggle.addEventListener('click', toggleTheme);
+      
+      // Watch for system theme changes
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+        if (!localStorage.getItem('theme')) {
+          if (e.matches) {
+            enableDarkTheme();
+          } else {
+            enableLightTheme();
+          }
+        }
+      });
+      
+      // Initialize theme
