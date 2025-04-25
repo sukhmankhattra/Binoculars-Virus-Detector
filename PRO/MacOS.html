@@ -1,553 +1,879 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Binoculars Security for macOS</title>
-    <style>
-        :root {
-            --macos-titlebar: #f0f0f0;
-            --macos-bg: #f5f5f7;
-            --macos-card: #ffffff;
-            --macos-text: #1d1d1f;
-            --macos-blue: #0071e3;
-            --macos-red: #ff453a;
-            --macos-yellow: #ff9f0a;
-            --macos-green: #30d158;
-            --macos-border: #d2d2d7;
-            --macos-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Binoculars Security for macOS</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <style>
+    :root {
+      --primary: #3a7bd5;
+      --primary-dark: #2b5ca8;
+      --danger: #e74c3c;
+      --success: #2ecc71;
+      --warning: #f39c12;
+      --bg-light: #f4f6fa;
+      --bg-dark: #121212;
+      --card-bg-light: rgba(255, 255, 255, 0.9);
+      --card-bg-dark: rgba(30, 30, 30, 0.9);
+      --border-radius: 16px;
+      --text-light: #333;
+      --text-dark: #f0f0f0;
+      --shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: var(--macos-bg);
-            color: var(--macos-text);
-            -webkit-font-smoothing: antialiased;
-        }
+      /* macOS specific colors */
+      --macos-titlebar: var(--card-bg-light);
+      --macos-card: var(--card-bg-light);
+      --macos-text: var(--text-light);
+      --macos-blue: var(--primary);
+      --macos-border: rgba(255, 255, 255, 0.1);
+      --macos-shadow: var(--shadow);
+    }
 
-        .macos-window {
-            width: 800px;
-            margin: 40px auto;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-        }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        .title-bar {
-            background-color: var(--macos-titlebar);
-            padding: 10px 20px;
-            display: flex;
-            align-items: center;
-            border-bottom: 1px solid var(--macos-border);
-        }
+    html, body {
+      width: 100%;
+      min-height: 100%;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
 
-        .window-controls {
-            display: flex;
-            gap: 8px;
-            margin-right: 20px;
-        }
+    body {
+      font-family: 'Segoe UI', 'Roboto', sans-serif;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #667eea, #764ba2, #4ca1af);
+      background-size: 400% 400%;
+      animation: gradientAnimation 15s ease infinite;
+      /* Remove flex centering to allow natural flow and scrolling */
+      display: block;
+      /* flex-direction: column;
+      align-items: center;
+      justify-content: center; */
+      text-align: center;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      line-height: 1.6;
+      padding: 20px;
+    }
 
-        .window-control {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-        }
+    @keyframes gradientAnimation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
 
-        .window-control.close {
-            background-color: var(--macos-red);
-        }
+    #particles-js {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
 
-        .window-control.minimize {
-            background-color: var(--macos-yellow);
-        }
+    .container {
+      backdrop-filter: blur(16px) saturate(180%);
+      background-color: var(--card-bg-light);
+      padding: 2.5rem;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      width: 100%;
+      max-width: 960px;
+      margin: 40px auto;
+      text-align: center;
+      transition: all 0.4s ease;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      position: relative;
+      z-index: 1;
+    }
 
-        .window-control.maximize {
-            background-color: var(--macos-green);
-        }
+    .container.dark {
+      background-color: var(--card-bg-dark);
+      color: var(--text-dark);
+    }
 
-        .title-bar h1 {
-            margin: 0;
-            font-size: 15px;
-            font-weight: 500;
-            flex-grow: 1;
-            text-align: center;
-        }
+    h1 {
+      margin-bottom: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      animation: float 3s ease-in-out infinite;
+      transition: color 0.4s ease;
+    }
 
-        .window-body {
-            background-color: var(--macos-card);
-            padding: 30px;
-        }
+    .container.dark h1 {
+      color: var(--primary-dark);
+    }
 
-        .scan-steps {
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-            margin-bottom: 40px;
-        }
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
 
-        .scan-step {
-            display: flex;
-            gap: 15px;
-            align-items: flex-start;
-        }
+    .toggle-theme {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 100;
+      display: flex;
+      justify-content: flex-end;
+    }
 
-        .step-number {
-            background-color: var(--macos-blue);
-            color: white;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            font-weight: 500;
-            flex-shrink: 0;
-            margin-top: 2px;
-        }
+    .theme-label-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      padding: 8px 12px;
+      background-color: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 8px;
+      color: #fff;
+      font-size: 0.85rem;
+      font-weight: 500;
+      text-align: center;
+      transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+    }
 
-        .step-content {
-            flex-grow: 1;
-        }
+    .theme-label-box:hover {
+      box-shadow: 0 0 15px rgba(58, 123, 213, 0.8), 0 0 30px rgba(58, 123, 213, 0.5);
+    }
 
-        .step-content h3 {
-            margin-top: 0;
-            margin-bottom: 8px;
-            font-size: 18px;
-            font-weight: 500;
-            color: var(--macos-blue);
-        }
+    .container.dark .theme-label-box {
+      background-color: rgba(0, 0, 0, 0.5);
+      color: var(--text-dark);
+    }
 
-        .step-content p {
-            margin: 0;
-            line-height: 1.5;
-            font-size: 15px;
-            color: var(--macos-text);
-        }
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 24px;
+    }
 
-        .visualization {
-            display: flex;
-            justify-content: center;
-            margin: 40px 0;
-            position: relative;
-            height: 200px;
-        }
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
 
-        .mac-icon {
-            width: 120px;
-            height: 120px;
-            background: linear-gradient(135deg, #f5f5f7 0%, #e0e0e6 100%);
-            border-radius: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            z-index: 2;
-            box-shadow: var(--macos-shadow);
-        }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(255, 255, 255, 0.3);
+      border-radius: 24px;
+      transition: 0.4s;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5px;
+    }
 
-        .scan-animation {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      border-radius: 50%;
+      transition: 0.4s;
+    }
 
-        .scan-wave {
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background-color: rgba(0, 113, 227, 0.1);
-            transform: scale(0);
-            animation: scanPulse 2s infinite;
-            border: 1px solid rgba(0, 113, 227, 0.3);
-        }
+    .slider i {
+      font-size: 12px;
+      transition: opacity 0.3s ease, color 0.3s ease;
+    }
 
-        @keyframes scanPulse {
-            0% { transform: scale(0); opacity: 1; }
-            100% { transform: scale(10); opacity: 0; }
-        }
+    #moonIcon {
+      color: #4a90e2;
+      opacity: 1;
+    }
 
-        .demo-area {
-            background-color: var(--macos-bg);
-            border-radius: 12px;
-            padding: 25px;
-            margin-top: 30px;
-            border: 1px solid var(--macos-border);
-        }
+    #sunIcon {
+      color: #f1c40f;
+      opacity: 0;
+    }
 
-        .demo-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
+    input:checked + .slider {
+      background-color: var(--primary);
+    }
 
-        .demo-header h2 {
-            margin: 0;
-            font-size: 18px;
-            font-weight: 500;
-            color: var(--macos-blue);
-        }
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
 
-        .btn {
-            background-color: var(--macos-blue);
-            color: white;
-            border: none;
-            padding: 8px 20px;
-            border-radius: 6px;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
+    input:checked + .slider #moonIcon {
+      opacity: 0;
+    }
 
-        .btn:hover {
-            background-color: #0062c3;
-        }
+    input:checked + .slider #sunIcon {
+      opacity: 1;
+    }
 
-        .btn:active {
-            transform: scale(0.98);
-        }
+    /* macOS specific overrides for dark mode */
+    .container.dark .macos-window {
+      background-color: var(--card-bg-dark);
+      color: var(--text-dark);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+    }
 
-        .progress-container {
-            margin-bottom: 20px;
-        }
+    .macos-window {
+      width: 100%;
+      max-width: 500px;
+      margin: 0 auto;
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      background-color: var(--card-bg-light);
+      transition: background-color 0.4s ease, color 0.4s ease;
+      position: relative;
+      z-index: 1;
+    }
 
-        .progress-bar {
-            height: 8px;
-            background-color: #e0e0e6;
-            border-radius: 4px;
-            overflow: hidden;
-        }
+    .title-bar {
+      background-color: var(--card-bg-light);
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      transition: background-color 0.4s ease;
+    }
 
-        .progress-fill {
-            height: 100%;
-            background-color: var(--macos-blue);
-            width: 0%;
-            transition: width 0.5s;
-            border-radius: 4px;
-        }
+    .container.dark .title-bar {
+      background-color: var(--card-bg-dark);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
 
-        .scan-details {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
+    .window-controls {
+      display: flex;
+      gap: 8px;
+      margin-right: 20px;
+    }
 
-        .scan-detail {
-            display: flex;
-            justify-content: space-between;
-            font-size: 14px;
-        }
+    .window-control {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      transition: background-color 0.4s ease;
+    }
 
-        .scan-detail span:first-child {
-            font-weight: 500;
-            color: #86868b;
-        }
+    .window-control.close {
+      background-color: #e74c3c;
+    }
 
-        .threat-list {
-            margin-top: 20px;
-            border: 1px solid var(--macos-border);
-            border-radius: 8px;
-            overflow: hidden;
-        }
+    .window-control.minimize {
+      background-color: #f39c12;
+    }
 
-        .threat-item {
-            padding: 12px 16px;
-            border-bottom: 1px solid var(--macos-border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 14px;
-        }
+    .window-control.maximize {
+      background-color: #2ecc71;
+    }
 
-        .threat-item:last-child {
-            border-bottom: none;
-        }
+    h1.title-text {
+      margin: 0;
+      font-size: 15px;
+      font-weight: 500;
+      flex-grow: 1;
+      text-align: center;
+      color: var(--primary);
+      transition: color 0.4s ease;
+    }
 
-        .threat-severe {
-            background-color: rgba(255, 69, 58, 0.1);
-        }
+    .container.dark h1.title-text {
+      color: var(--primary-dark);
+    }
 
-        .threat-moderate {
-            background-color: rgba(255, 159, 10, 0.1);
-        }
+    .window-body {
+      background-color: var(--card-bg-light);
+      padding: 30px;
+      transition: background-color 0.4s ease, color 0.4s ease;
+      color: var(--text-light);
+    }
 
-        .file-icons {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            justify-content: center;
-            margin-top: 30px;
-        }
+    .container.dark .window-body {
+      background-color: var(--card-bg-dark);
+      color: var(--text-dark);
+    }
 
-        .file-icon {
-            width: 48px;
-            height: 60px;
-            background-color: #f5f5f7;
-            border-radius: 6px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            transition: all 0.3s;
-            box-shadow: var(--macos-shadow);
-        }
+    .scan-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+      margin-bottom: 40px;
+    }
 
-        .file-icon.clean {
-            background-color: rgba(48, 209, 88, 0.1);
-        }
+    .scan-step {
+      display: flex;
+      gap: 15px;
+      align-items: flex-start;
+    }
 
-        .file-icon.infected {
-            background-color: rgba(255, 69, 58, 0.1);
-            animation: infectedPulse 1s infinite alternate;
-        }
+    .step-number {
+      background-color: var(--primary);
+      color: white;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 500;
+      flex-shrink: 0;
+      margin-top: 2px;
+      transition: background-color 0.4s ease;
+    }
 
-        @keyframes infectedPulse {
-            from { transform: translateY(0); }
-            to { transform: translateY(-5px); }
-        }
+    .container.dark .step-number {
+      background-color: var(--primary-dark);
+    }
 
-        .file-icon i {
-            font-size: 22px;
-            margin-bottom: 6px;
-            color: var(--macos-text);
-        }
+    .step-content {
+      flex-grow: 1;
+    }
 
-        .file-icon .file-ext {
-            font-size: 11px;
-            font-weight: 500;
-            color: var(--macos-text);
-        }
-    </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    .step-content h3 {
+      margin-top: 0;
+      margin-bottom: 8px;
+      font-size: 18px;
+      font-weight: 500;
+      color: var(--primary);
+      transition: color 0.4s ease;
+    }
+
+    .container.dark .step-content h3 {
+      color: var(--primary-dark);
+    }
+
+    .step-content p {
+      margin: 0;
+      line-height: 1.5;
+      font-size: 15px;
+      color: var(--text-light);
+      transition: color 0.4s ease;
+    }
+
+    .container.dark .step-content p {
+      color: var(--text-dark);
+    }
+
+    .visualization {
+      display: flex;
+      justify-content: center;
+      margin: 40px 0;
+      position: relative;
+      height: 200px;
+    }
+
+    .mac-icon {
+      width: 120px;
+      height: 120px;
+      background: linear-gradient(135deg, #f4f6fa 0%, #e0e0e6 100%);
+      border-radius: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 2;
+      box-shadow: var(--shadow);
+      transition: background-color 0.4s ease;
+    }
+
+    .container.dark .mac-icon {
+      background: linear-gradient(135deg, #2a2a2a 0%, #3a3a3a 100%);
+    }
+
+    .scan-animation {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .scan-wave {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background-color: rgba(58, 123, 213, 0.1);
+      transform: scale(0);
+      animation: scanPulse 2s infinite;
+      border: 1px solid rgba(58, 123, 213, 0.3);
+      transition: background-color 0.4s ease;
+    }
+
+    .container.dark .scan-wave {
+      background-color: rgba(58, 123, 213, 0.3);
+      border-color: rgba(58, 123, 213, 0.7);
+    }
+
+    @keyframes scanPulse {
+      0% { transform: scale(0); opacity: 1; }
+      100% { transform: scale(10); opacity: 0; }
+    }
+
+    .demo-area {
+      background-color: var(--card-bg-light);
+      border-radius: 12px;
+      padding: 25px;
+      margin-top: 30px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: background-color 0.4s ease, color 0.4s ease;
+      color: var(--text-light);
+    }
+
+    .container.dark .demo-area {
+      background-color: var(--card-bg-dark);
+      border-color: rgba(255, 255, 255, 0.2);
+      color: var(--text-dark);
+    }
+
+    .demo-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .demo-header h2 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 500;
+      color: var(--primary);
+      transition: color 0.4s ease;
+    }
+
+    .container.dark .demo-header h2 {
+      color: var(--primary-dark);
+    }
+
+    .btn {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 8px 20px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: var(--primary-dark);
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .progress-container {
+      margin-bottom: 20px;
+    }
+
+    .progress-bar {
+      height: 8px;
+      background-color: #e0e0e6;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background-color: var(--primary);
+      width: 0%;
+      transition: width 0.5s;
+      border-radius: 4px;
+    }
+
+    .scan-details {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .scan-detail {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+    }
+
+    .scan-detail span:first-child {
+      font-weight: 500;
+      color: #86868b;
+    }
+
+    .container.dark .scan-detail span:first-child {
+      color: var(--text-dark);
+    }
+
+    .threat-list {
+      margin-top: 20px;
+      border: 1px solid var(--macos-border);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: border-color 0.4s ease;
+    }
+
+    .container.dark .threat-list {
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .threat-item {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--macos-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+      transition: background-color 0.4s ease;
+    }
+
+    .container.dark .threat-item {
+      background-color: rgba(30, 30, 30, 0.7);
+    }
+
+    .threat-item:last-child {
+      border-bottom: none;
+    }
+
+    .threat-severe {
+      background-color: rgba(231, 76, 60, 0.15);
+    }
+
+    .threat-moderate {
+      background-color: rgba(243, 156, 18, 0.15);
+    }
+
+    .file-icons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      margin-top: 30px;
+    }
+
+    .file-icon {
+      width: 48px;
+      height: 60px;
+      background-color: var(--card-bg-light);
+      border-radius: 6px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow);
+    }
+
+    .container.dark .file-icon {
+      background-color: var(--card-bg-dark);
+    }
+
+    .file-icon.clean {
+      background-color: rgba(48, 209, 88, 0.1);
+    }
+
+    .file-icon.infected {
+      background-color: rgba(231, 76, 60, 0.15);
+      animation: infectedPulse 1s infinite alternate;
+    }
+
+    @keyframes infectedPulse {
+      from { transform: translateY(0); }
+      to { transform: translateY(-5px); }
+    }
+  </style>
 </head>
 <body>
-    <div class="macos-window">
-        <div class="title-bar">
-            <div class="window-controls">
-                <div class="window-control close"></div>
-                <div class="window-control minimize"></div>
-                <div class="window-control maximize"></div>
-            </div>
-            <h1>Binoculars Security Scanner for macOS</h1>
-        </div>
-        
-        <div class="window-body">
-            <div class="scan-steps">
-                <div class="scan-step">
-                    <div class="step-number">1</div>
-                    <div class="step-content">
-                        <h3>Signature Matching</h3>
-                        <p>Compares files against an extensive database of known malware signatures, updated hourly for maximum protection.</p>
-                    </div>
-                </div>
-                
-                <div class="scan-step">
-                    <div class="step-number">2</div>
-                    <div class="step-content">
-                        <h3>Behavior Analysis</h3>
-                        <p>Monitors application behavior in real-time to detect suspicious activities like unauthorized file access.</p>
-                    </div>
-                </div>
-                
-                <div class="scan-step">
-                    <div class="step-number">3</div>
-                    <div class="step-content">
-                        <h3>Machine Learning</h3>
-                        <p>Uses advanced algorithms to identify never-before-seen threats based on patterns and characteristics.</p>
-                    </div>
-                </div>
-                
-                <div class="scan-step">
-                    <div class="step-number">4</div>
-                    <div class="step-content">
-                        <h3>System Integrity Check</h3>
-                        <p>Verifies critical system files and settings to ensure they haven't been compromised by malware.</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="visualization">
-                <div class="scan-animation">
-                    <div class="scan-wave" style="animation-delay: 0s;"></div>
-                    <div class="scan-wave" style="animation-delay: 0.5s;"></div>
-                    <div class="scan-wave" style="animation-delay: 1s;"></div>
-                </div>
-                <div class="mac-icon">
-                    <i class="fas fa-laptop" style="font-size: 42px; color: #1d1d1f;"></i>
-                </div>
-            </div>
-            
-            <div class="file-icons">
-                <div class="file-icon clean">
-                    <i class="far fa-file-word"></i>
-                    <span class="file-ext">DOCX</span>
-                </div>
-                <div class="file-icon clean">
-                    <i class="far fa-file-pdf"></i>
-                    <span class="file-ext">PDF</span>
-                </div>
-                <div class="file-icon infected">
-                    <i class="far fa-file-archive"></i>
-                    <span class="file-ext">DMG</span>
-                </div>
-                <div class="file-icon clean">
-                    <i class="far fa-file-image"></i>
-                    <span class="file-ext">PNG</span>
-                </div>
-                <div class="file-icon clean">
-                    <i class="far fa-file-audio"></i>
-                    <span class="file-ext">MP3</span>
-                </div>
-                <div class="file-icon infected">
-                    <i class="far fa-file"></i>
-                    <span class="file-ext">APP</span>
-                </div>
-            </div>
-            
-            <div class="demo-area">
-                <div class="demo-header">
-                    <h2>Try a Demo Scan</h2>
-                    <button class="btn" id="startScanBtn">Start Scan</button>
-                </div>
-                
-                <div class="progress-container" id="scanProgress" style="display: none;">
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="progressFill"></div>
-                    </div>
-                </div>
-                
-                <div class="scan-details" id="scanDetails" style="display: none;">
-                    <div class="scan-detail">
-                        <span>Status:</span>
-                        <span id="scanStatus">Preparing to scan...</span>
-                    </div>
-                    <div class="scan-detail">
-                        <span>Files scanned:</span>
-                        <span id="filesScanned">0</span>
-                    </div>
-                    <div class="scan-detail">
-                        <span>Threats detected:</span>
-                        <span id="threatsFound">0</span>
-                    </div>
-                    <div class="scan-detail">
-                        <span>Scan time:</span>
-                        <span id="scanTime">0s</span>
-                    </div>
-                </div>
-                
-                <div class="threat-list" id="threatList" style="display: none;">
-                    <!-- Threats will be added here -->
-                </div>
-                
-                <button class="btn" id="removeThreatsBtn" style="display: none; margin-top: 20px;">Remove Threats</button>
-            </div>
-        </div>
+  <div id="particles-js"></div>
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+  <div class="toggle-theme">
+    <div class="theme-label-box">
+      <i class="fas fa-moon" id="moonIcon"></i>
+      <span>Dark Mode</span>
+      <label class="switch">
+        <input type="checkbox" id="themeToggleSwitch">
+        <span class="slider"></span>
+      </label>
+      <i class="fas fa-sun" id="sunIcon"></i>
+    </div>
+  </div>
+
+  <div class="container macos-window">
+    <div class="title-bar">
+      <div class="window-controls">
+        <div class="window-control close"></div>
+        <div class="window-control minimize"></div>
+        <div class="window-control maximize"></div>
+      </div>
+      <h1 class="title-text">Binoculars Security Scanner for macOS</h1>
     </div>
 
-    <script>
-        document.getElementById('startScanBtn').addEventListener('click', function() {
-            const scanProgress = document.getElementById('scanProgress');
-            const scanDetails = document.getElementById('scanDetails');
-            const startScanBtn = document.getElementById('startScanBtn');
-            const threatList = document.getElementById('threatList');
-            const removeThreatsBtn = document.getElementById('removeThreatsBtn');
-            
-            // Show progress elements
-            scanProgress.style.display = 'block';
-            scanDetails.style.display = 'grid';
-            startScanBtn.style.display = 'none';
-            
-            // Reset progress
-            document.getElementById('progressFill').style.width = '0%';
-            document.getElementById('filesScanned').textContent = '0';
-            document.getElementById('threatsFound').textContent = '0';
-            document.getElementById('scanTime').textContent = '0s';
-            document.getElementById('scanStatus').textContent = 'Starting scan...';
-            
-            // Simulate scan progress
-            let progress = 0;
-            let filesScanned = 0;
-            let threatsFound = 0;
-            const totalFiles = 412;
-            const startTime = Date.now();
-            
-            const scanInterval = setInterval(() => {
-                progress += 1;
-                filesScanned += Math.floor(totalFiles / 100);
-                
-                if (filesScanned > totalFiles) filesScanned = totalFiles;
-                
-                document.getElementById('progressFill').style.width = progress + '%';
-                document.getElementById('filesScanned').textContent = filesScanned;
-                document.getElementById('scanTime').textContent = Math.floor((Date.now() - startTime)/1000) + 's';
-                
-                // Update status message
-                if (progress % 10 === 0) {
-                    const statusMessages = [
-                        "Scanning Applications folder...",
-                        "Checking Downloads directory...",
-                        "Analyzing system extensions...",
-                        "Verifying Gatekeeper status...",
-                        "Inspecting browser plugins...",
-                        "Reviewing login items..."
-                    ];
-                    document.getElementById('scanStatus').textContent = 
-                        statusMessages[Math.floor(Math.random() * statusMessages.length)];
-                }
-                
-                // Randomly find threats
-                if (progress > 30 && progress < 90 && Math.random() > 0.7) {
-                    threatsFound += Math.floor(Math.random() * 2) + 1;
-                    document.getElementById('threatsFound').textContent = threatsFound;
-                }
-                
-                // Complete the scan
-                if (progress >= 100) {
-                    clearInterval(scanInterval);
-                    document.getElementById('scanStatus').textContent = 'Scan completed';
-                    
-                    // Show threats if any found
-                    if (threatsFound > 0) {
-                        const threatTypes = [
-                            {name: "OSX.Malware.Generic", severity: "severe"},
-                            {name: "OSX.PUA.PirateApp", severity: "moderate"},
-                            {name: "OSX.Adware.Crossrider", severity: "moderate"}
-                        ];
-                        
-                        let threatListHTML = "";
-                        for (let i = 0; i < threatsFound; i++) {
-                            const threat = threatTypes[Math.floor(Math.random() * threatTypes.length)];
-                            threatListHTML += `
-                                <div class="threat-item threat-${threat.severity}">
-                                    <span>${threat.name}</span>
-                                    <span>${threat.severity === 'severe' ? 'Severe' : 'Moderate'}</span>
-                                </div>
-                            `;
-                        }
-                        threatList.innerHTML = threatListHTML;
-                        threatList.style.display = 'block';
-                        removeThreatsBtn.style.display = 'block';
-                    }
-                }
-            }, 50);
-        });
-        
-        document.getElementById('removeThreatsBtn').addEventListener('click', function() {
-            alert('Threats have been successfully quarantined!');
-            document.getElementById('threatList').style.display = 'none';
-            document.getElementById('removeThreatsBtn').style.display = 'none';
-            document.getElementById('threatsFound').textContent = '0';
-        });
-    </script>
+    <div class="window-body">
+      <div class="scan-steps">
+        <div class="scan-step">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h3>Signature Matching</h3>
+            <p>Compares files against an extensive database of known malware signatures, updated hourly for maximum protection.</p>
+          </div>
+        </div>
+
+        <div class="scan-step">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h3>Behavior Analysis</h3>
+            <p>Monitors application behavior in real-time to detect suspicious activities like unauthorized file access.</p>
+          </div>
+        </div>
+
+        <div class="scan-step">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h3>Machine Learning</h3>
+            <p>Uses advanced algorithms to identify never-before-seen threats based on patterns and characteristics.</p>
+          </div>
+        </div>
+
+        <div class="scan-step">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <h3>System Integrity Check</h3>
+            <p>Verifies critical system files and settings to ensure they haven't been compromised by malware.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="visualization">
+        <div class="scan-animation">
+          <div class="scan-wave" style="animation-delay: 0s;"></div>
+          <div class="scan-wave" style="animation-delay: 0.5s;"></div>
+          <div class="scan-wave" style="animation-delay: 1s;"></div>
+        </div>
+        <div class="mac-icon">
+          <i class="fas fa-laptop" style="font-size: 42px; color: #1d1d1f;"></i>
+        </div>
+      </div>
+
+      <div class="file-icons">
+        <div class="file-icon clean">
+          <i class="far fa-file-word"></i>
+          <span class="file-ext">DOCX</span>
+        </div>
+        <div class="file-icon clean">
+          <i class="far fa-file-pdf"></i>
+          <span class="file-ext">PDF</span>
+        </div>
+        <div class="file-icon infected">
+          <i class="far fa-file-archive"></i>
+          <span class="file-ext">DMG</span>
+        </div>
+        <div class="file-icon clean">
+          <i class="far fa-file-image"></i>
+          <span class="file-ext">PNG</span>
+        </div>
+        <div class="file-icon clean">
+          <i class="far fa-file-audio"></i>
+          <span class="file-ext">MP3</span>
+        </div>
+        <div class="file-icon infected">
+          <i class="far fa-file"></i>
+          <span class="file-ext">APP</span>
+        </div>
+      </div>
+
+      <div class="demo-area">
+        <div class="demo-header">
+          <h2>Try a Demo Scan</h2>
+          <button class="btn" id="startScanBtn">Start Scan</button>
+        </div>
+
+        <div class="progress-container" id="scanProgress" style="display: none;">
+          <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+        </div>
+
+        <div class="scan-details" id="scanDetails" style="display: none;">
+          <div class="scan-detail">
+            <span>Status:</span>
+            <span id="scanStatus">Preparing to scan...</span>
+          </div>
+          <div class="scan-detail">
+            <span>Files scanned:</span>
+            <span id="filesScanned">0</span>
+          </div>
+          <div class="scan-detail">
+            <span>Threats detected:</span>
+            <span id="threatsFound">0</span>
+          </div>
+          <div class="scan-detail">
+            <span>Scan time:</span>
+            <span id="scanTime">0s</span>
+          </div>
+        </div>
+
+        <button class="btn" id="removeThreatsBtn" style="display: none; margin-top: 20px;">Remove Threats</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+  <script>
+    particlesJS("particles-js", {
+      particles: {
+        number: { value: 80 },
+        color: { value: "#ffffff" },
+        shape: { type: "circle" },
+        opacity: { value: 0.5 },
+        size: { value: 3 },
+        move: { speed: 2 }
+      }
+    });
+
+    const themeToggleSwitch = document.getElementById('themeToggleSwitch');
+    const container = document.querySelector('.container');
+    const moonIcon = document.getElementById('moonIcon');
+    const sunIcon = document.getElementById('sunIcon');
+
+    // Check for saved theme preference
+    if (localStorage.getItem('themePreference') === 'dark') {
+      container.classList.add('dark');
+      themeToggleSwitch.checked = true;
+      moonIcon.style.opacity = '0';
+      sunIcon.style.opacity = '1';
+    }
+
+    themeToggleSwitch.addEventListener('change', () => {
+      const isDark = themeToggleSwitch.checked;
+      container.classList.toggle('dark', isDark);
+
+      // Toggle icon visibility
+      moonIcon.style.opacity = isDark ? '0' : '1';
+      sunIcon.style.opacity = isDark ? '1' : '0';
+
+      // Save preference to localStorage
+      localStorage.setItem('themePreference', isDark ? 'dark' : 'light');
+    });
+
+    // Existing scan button functionality preserved
+    document.getElementById('startScanBtn').addEventListener('click', function() {
+      const scanProgress = document.getElementById('scanProgress');
+      const scanDetails = document.getElementById('scanDetails');
+      const startScanBtn = document.getElementById('startScanBtn');
+      const threatList = document.getElementById('threatList');
+      const removeThreatsBtn = document.getElementById('removeThreatsBtn');
+
+      // Show progress elements
+      scanProgress.style.display = 'block';
+      scanDetails.style.display = 'grid';
+      startScanBtn.style.display = 'none';
+
+      // Reset progress
+      document.getElementById('progressFill').style.width = '0%';
+      document.getElementById('filesScanned').textContent = '0';
+      document.getElementById('threatsFound').textContent = '0';
+      document.getElementById('scanTime').textContent = '0s';
+      document.getElementById('scanStatus').textContent = 'Starting scan...';
+
+      // Simulate scan progress
+      let progress = 0;
+      let filesScanned = 0;
+      let threatsFound = 0;
+      const totalFiles = 412;
+      const startTime = Date.now();
+
+      const scanInterval = setInterval(() => {
+        progress += 1;
+        filesScanned += Math.floor(totalFiles / 100);
+
+        if (filesScanned > totalFiles) filesScanned = totalFiles;
+
+        document.getElementById('progressFill').style.width = progress + '%';
+        document.getElementById('filesScanned').textContent = filesScanned;
+        document.getElementById('scanTime').textContent = Math.floor((Date.now() - startTime)/1000) + 's';
+
+        // Update status message
+        if (progress % 10 === 0) {
+          const statusMessages = [
+            "Scanning Applications folder...",
+            "Checking Downloads directory...",
+            "Analyzing system extensions...",
+            "Verifying Gatekeeper status...",
+            "Inspecting browser plugins...",
+            "Reviewing login items..."
+          ];
+          document.getElementById('scanStatus').textContent =
+            statusMessages[Math.floor(Math.random() * statusMessages.length)];
+        }
+
+        // Randomly find threats
+        if (progress > 30 && progress < 90 && Math.random() > 0.7) {
+          threatsFound += Math.floor(Math.random() * 2) + 1;
+          document.getElementById('threatsFound').textContent = threatsFound;
+        }
+
+        // Complete the scan
+        if (progress >= 100) {
+          clearInterval(scanInterval);
+          document.getElementById('scanStatus').textContent = 'Scan completed';
+
+          // Show threats if any found
+          if (threatsFound > 0) {
+            const threatTypes = [
+              {name: "OSX.Malware.Generic", severity: "severe"},
+              {name: "OSX.PUA.PirateApp", severity: "moderate"},
+              {name: "OSX.Adware.Crossrider", severity: "moderate"}
+            ];
+
+            let threatListHTML = "";
+            for (let i = 0; i < threatsFound; i++) {
+              const threat = threatTypes[Math.floor(Math.random() * threatTypes.length)];
+              threatListHTML += `
+                <div class="threat-item threat-${threat.severity}">
+                  <span>${threat.name}</span>
+                  <span>${threat.severity === 'severe' ? 'Severe' : 'Moderate'}</span>
+                </div>
+              `;
+            }
+            threatList.innerHTML = threatListHTML;
+            threatList.style.display = 'block';
+            removeThreatsBtn.style.display = 'block';
+          }
+        }
+      }, 50);
+    });
+
+    document.getElementById('removeThreatsBtn').addEventListener('click', function() {
+      alert('Threats have been successfully quarantined!');
+      document.getElementById('threatList').style.display = 'none';
+      document.getElementById('removeThreatsBtn').style.display = 'none';
+      document.getElementById('threatsFound').textContent = '0';
+    });
+  </script>
 </body>
 </html>
