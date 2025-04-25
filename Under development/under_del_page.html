@@ -438,231 +438,218 @@
   <div id="notification" class="notification"></div>
 
   <script>
-    // Enhanced Countdown Timer with more features
-    document.addEventListener('DOMContentLoaded', function() {
-      // Configuration
-      const config = {
-        launchDate: new Date('2025-05-09T17:00:00'), // Set your launch date here
-        notificationDuration: 5000, // 5 seconds
-        activeCountdownClass: 'active', // Class for active countdown items
-        localStorageKey: 'comingSoonSubscribers' // Key for storing emails
-      };
+document.addEventListener('DOMContentLoaded', function() {
+  // Configuration
+  const config = {
+    launchDate: new Date('2025-05-09T17:00:00'), // Set your launch date here
+    notificationDuration: 5000, // 5 seconds
+    activeCountdownClass: 'active', // Class for active countdown items
+    localStorageKey: 'comingSoonSubscribers', // Key for storing emails
+    floatingElementsCount: 15, // Number of floating background elements
+    colors: ['#4361ee', '#3f37c9', '#4cc9f0', '#4895ef', '#7209b7'] // Color palette
+  };
 
-      // DOM Elements
-      const elements = {
-        days: document.getElementById('days'),
-        hours: document.getElementById('hours'),
-        minutes: document.getElementById('minutes'),
-        seconds: document.getElementById('seconds'),
-        countdown: document.getElementById('countdown'),
-        launchMessage: document.getElementById('launch-message'),
-        spinner: document.querySelector('.spinner-container'),
-        progress: document.querySelector('.progress-container'),
-        emailInput: document.getElementById('email-input'),
-        subscribeBtn: document.getElementById('subscribe-btn'),
-        notification: document.getElementById('notification'),
-        countdownItems: document.querySelectorAll('.countdown-item')
-      };
+  // DOM Elements
+  const elements = {
+    days: document.getElementById('days'),
+    hours: document.getElementById('hours'),
+    minutes: document.getElementById('minutes'),
+    seconds: document.getElementById('seconds'),
+    countdown: document.getElementById('countdown'),
+    launchMessage: document.getElementById('launch-message'),
+    spinner: document.querySelector('.spinner-container'),
+    progress: document.querySelector('.progress-container'),
+    emailInput: document.getElementById('email-input'),
+    subscribeBtn: document.getElementById('subscribe-btn'),
+    notification: document.getElementById('notification'),
+    countdownItems: document.querySelectorAll('.countdown-item'),
+    floatingContainer: document.querySelector('.floating-elements'),
+    body: document.body
+  };
 
-      // State
-      let state = {
-        timerInterval: null,
-        activeCountdownItem: null,
-        subscribers: JSON.parse(localStorage.getItem(config.localStorageKey)) || []
-      };
+  // State
+  let state = {
+    timerInterval: null,
+    activeCountdownItem: null,
+    subscribers: JSON.parse(localStorage.getItem(config.localStorageKey)) || [],
+    floatingElements: []
+  };
 
-      // Initialize
-      init();
+  // Initialize everything
+  function init() {
+    updateCountdown();
+    state.timerInterval = setInterval(updateCountdown, 1000);
+    animateCountdownItems();
+    createFloatingElements();
+    setupEventListeners();
+    setupBackgroundAnimation();
+  }
 
-      function init() {
-        // Initialize countdown timer
-        updateCountdown();
-        state.timerInterval = setInterval(updateCountdown, 1000);
+  // Countdown Functions
+  function updateCountdown() {
+    const now = new Date();
+    const diff = config.launchDate - now;
 
-        // Initialize countdown item animation
-        animateCountdownItems();
-
-        // Add floating elements
-        addFloatingElements();
-
-        // Add event listeners
-        setupEventListeners();
-      }
-
-      // Countdown Timer Functions
-      function updateCountdown() {
-        const now = new Date();
-        const diff = config.launchDate - now;
-
-        if (diff <= 0) {
-          handleLaunch();
-          return;
-        }
-
-        const { days, hours, minutes, seconds } = calculateTimeUnits(diff);
-
-        // Update DOM
-        elements.days.textContent = formatTimeUnit(days);
-        elements.hours.textContent = formatTimeUnit(hours);
-        elements.minutes.textContent = formatTimeUnit(minutes);
-        elements.seconds.textContent = formatTimeUnit(seconds);
-      }
-
-      function calculateTimeUnits(diff) {
-        const seconds = Math.floor(diff / 1000);
-        const minutes = Math.floor(seconds / 60);
-        const hours = Math.floor(minutes / 60);
-        const days = Math.floor(hours / 24);
-
-        return {
-          days: days,
-          hours: hours % 24,
-          minutes: minutes % 60,
-          seconds: seconds % 60
-        };
-      }
-
-      function formatTimeUnit(unit) {
-        return unit.toString().padStart(2, '0');
-      }
-
-      function handleLaunch() {
-        clearInterval(state.timerInterval);
-        elements.countdown.style.display = 'none';
-        elements.launchMessage.style.display = 'block';
-        if (elements.spinner) elements.spinner.style.display = 'none';
-        if (elements.progress) elements.progress.style.display = 'none';
-        
-        // Show launch notification
-        showNotification('🚀 We have launched! Check it out!', 'success');
-      }
-
-      // Countdown Item Animation
-      function animateCountdownItems() {
-        if (state.activeCountdownItem !== null) {
-          elements.countdownItems[state.activeCountdownItem].classList.remove(config.activeCountdownClass);
-        }
-        
-        state.activeCountdownItem = state.activeCountdownItem === null ? 0 : 
-                                  (state.activeCountdownItem + 1) % elements.countdownItems.length;
-        
-        elements.countdownItems[state.activeCountdownItem].classList.add(config.activeCountdownClass);
-        
-        setTimeout(animateCountdownItems, 1000);
-      }
-
-      // Floating Elements
-      function addFloatingElements() {
-        const floatingContainer = document.querySelector('.floating-elements');
-        if (!floatingContainer) return;
-
-        const numberOfElements = 15;
-        const shapes = ['circle', 'square', 'triangle'];
-
-        for (let i = 0; i < numberOfElements; i++) {
-          const element = document.createElement('div');
-          element.className = 'floating-element';
-
-          const size = Math.random() * 30 + 10;
-          const randomLeft = Math.random() * 100;
-          const randomDelay = Math.random() * 5;
-          const randomDuration = Math.random() * 10 + 10;
-          const shape = shapes[Math.floor(Math.random() * shapes.length)];
-
-          element.style.width = `${size}px`;
-          element.style.height = `${size}px`;
-          element.style.left = `${randomLeft}%`;
-          element.style.animationDelay = `${randomDelay}s`;
-          element.style.animationDuration = `${randomDuration}s`;
-
-          if (shape === 'square') {
-            element.style.borderRadius = '5px';
-          } else if (shape === 'triangle') {
-            element.style.width = '0';
-            element.style.height = '0';
-            element.style.borderLeft = `${size/2}px solid transparent`;
-            element.style.borderRight = `${size/2}px solid transparent`;
-            element.style.borderBottom = `${size}px solid rgba(255, 255, 255, 0.15)`;
-            element.style.background = 'none';
-          }
-
-          floatingContainer.appendChild(element);
-        }
-      }
-
-      // Email Subscription
-      function setupEventListeners() {
-        elements.subscribeBtn.addEventListener('click', handleSubscription);
-        elements.emailInput.addEventListener('keypress', function(e) {
-          if (e.key === 'Enter') handleSubscription();
-        });
-      }
-
-      function handleSubscription() {
-        const email = elements.emailInput.value.trim();
-        
-        if (!validateEmail(email)) {
-          showNotification('Please enter a valid email address', 'error');
-          return;
-        }
-
-        if (state.subscribers.includes(email)) {
-          showNotification('You are already subscribed!', 'warning');
-          return;
-        }
-
-        // Add to subscribers
-        state.subscribers.push(email);
-        localStorage.setItem(config.localStorageKey, JSON.stringify(state.subscribers));
-        
-        // Show success message
-        showNotification('Thank you for subscribing!', 'success');
-        
-        // Clear input
-        elements.emailInput.value = '';
-      }
-
-      function validateEmail(email) {
-        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return re.test(email);
-      }
-
-      // Notification System
-      function showNotification(message, type) {
-        elements.notification.textContent = message;
-        elements.notification.className = `notification ${type} show`;
-        
-        setTimeout(() => {
-          elements.notification.classList.remove('show');
-        }, config.notificationDuration);
-      }
-
-      // Additional Utility Functions
-      function getRandomColor() {
-        const colors = ['#4361ee', '#3f37c9', '#4cc9f0', '#4895ef', '#7209b7'];
-        return colors[Math.floor(Math.random() * colors.length)];
-      }
-
-      // Initialize any additional components
-      initializeAdditionalFeatures();
-    });
-
-    function initializeAdditionalFeatures() {
-      // This function can be expanded with more features
-      console.log('Additional features initialized');
-      
-      // Example: Change background gradient periodically
-      setInterval(() => {
-        const colors = [
-          '#4361ee, #3f37c9, #4cc9f0, #4895ef',
-          '#7209b7, #3a0ca3, #4361ee, #4cc9f0',
-          '#f72585, #7209b7, #3a0ca3, #4361ee',
-          '#4cc9f0, #4895ef, #4361ee, #3f37c9'
-        ];
-        const randomColors = colors[Math.floor(Math.random() * colors.length)];
-        document.body.style.background = `linear-gradient(-45deg, ${randomColors})`;
-      }, 30000);
+    if (diff <= 0) {
+      handleLaunch();
+      return;
     }
+
+    const { days, hours, minutes, seconds } = calculateTimeUnits(diff);
+
+    updateDisplay(days, hours, minutes, seconds);
+  }
+
+  function calculateTimeUnits(diff) {
+    const seconds = Math.floor(diff / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+
+    return {
+      days: days,
+      hours: hours % 24,
+      minutes: minutes % 60,
+      seconds: seconds % 60
+    };
+  }
+
+  function updateDisplay(days, hours, minutes, seconds) {
+    elements.days.textContent = formatTimeUnit(days);
+    elements.hours.textContent = formatTimeUnit(hours);
+    elements.minutes.textContent = formatTimeUnit(minutes);
+    elements.seconds.textContent = formatTimeUnit(seconds);
+  }
+
+  function formatTimeUnit(unit) {
+    return unit.toString().padStart(2, '0');
+  }
+
+  function handleLaunch() {
+    clearInterval(state.timerInterval);
+    elements.countdown.style.display = 'none';
+    elements.launchMessage.style.display = 'block';
+    if (elements.spinner) elements.spinner.style.display = 'none';
+    if (elements.progress) elements.progress.style.display = 'none';
+    showNotification('🚀 We have launched! Check it out!', 'success');
+  }
+
+  // Countdown Item Animation
+  function animateCountdownItems() {
+    if (state.activeCountdownItem !== null) {
+      elements.countdownItems[state.activeCountdownItem].classList.remove(config.activeCountdownClass);
+    }
+    
+    state.activeCountdownItem = state.activeCountdownItem === null ? 0 : 
+                              (state.activeCountdownItem + 1) % elements.countdownItems.length;
+    
+    elements.countdownItems[state.activeCountdownItem].classList.add(config.activeCountdownClass);
+    
+    setTimeout(animateCountdownItems, 1000);
+  }
+
+  // Floating Background Elements
+  function createFloatingElements() {
+    if (!elements.floatingContainer) return;
+
+    const shapes = ['circle', 'square', 'triangle'];
+    
+    for (let i = 0; i < config.floatingElementsCount; i++) {
+      const element = document.createElement('div');
+      element.className = 'floating-element';
+
+      const size = Math.random() * 30 + 10;
+      const randomLeft = Math.random() * 100;
+      const randomDelay = Math.random() * 5;
+      const randomDuration = Math.random() * 10 + 10;
+      const shape = shapes[Math.floor(Math.random() * shapes.length)];
+      const color = config.colors[Math.floor(Math.random() * config.colors.length)];
+
+      element.style.width = `${size}px`;
+      element.style.height = `${size}px`;
+      element.style.left = `${randomLeft}%`;
+      element.style.animationDelay = `${randomDelay}s`;
+      element.style.animationDuration = `${randomDuration}s`;
+      element.style.backgroundColor = color;
+
+      if (shape === 'square') {
+        element.style.borderRadius = '5px';
+      } else if (shape === 'triangle') {
+        element.style.width = '0';
+        element.style.height = '0';
+        element.style.borderLeft = `${size/2}px solid transparent`;
+        element.style.borderRight = `${size/2}px solid transparent`;
+        element.style.borderBottom = `${size}px solid ${color}`;
+        element.style.background = 'none';
+      }
+
+      elements.floatingContainer.appendChild(element);
+      state.floatingElements.push(element);
+    }
+  }
+
+  // Background Animation
+  function setupBackgroundAnimation() {
+    const gradients = [
+      '#4361ee, #3f37c9, #4cc9f0, #4895ef',
+      '#7209b7, #3a0ca3, #4361ee, #4cc9f0',
+      '#f72585, #7209b7, #3a0ca3, #4361ee',
+      '#4cc9f0, #4895ef, #4361ee, #3f37c9'
+    ];
+
+    let currentGradient = 0;
+    
+    setInterval(() => {
+      currentGradient = (currentGradient + 1) % gradients.length;
+      elements.body.style.background = `linear-gradient(-45deg, ${gradients[currentGradient]})`;
+    }, 30000);
+  }
+
+  // Email Subscription
+  function setupEventListeners() {
+    elements.subscribeBtn.addEventListener('click', handleSubscription);
+    elements.emailInput.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') handleSubscription();
+    });
+  }
+
+  function handleSubscription() {
+    const email = elements.emailInput.value.trim();
+    
+    if (!validateEmail(email)) {
+      showNotification('Please enter a valid email address', 'error');
+      return;
+    }
+
+    if (state.subscribers.includes(email)) {
+      showNotification('You are already subscribed!', 'warning');
+      return;
+    }
+
+    state.subscribers.push(email);
+    localStorage.setItem(config.localStorageKey, JSON.stringify(state.subscribers));
+    showNotification('Thank you for subscribing!', 'success');
+    elements.emailInput.value = '';
+  }
+
+  function validateEmail(email) {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+  }
+
+  // Notification System
+  function showNotification(message, type) {
+    elements.notification.textContent = message;
+    elements.notification.className = `notification ${type} show`;
+    
+    setTimeout(() => {
+      elements.notification.classList.remove('show');
+    }, config.notificationDuration);
+  }
+
+  // Start the application
+  init();
+});
   </script>
 </body>
 </html>
