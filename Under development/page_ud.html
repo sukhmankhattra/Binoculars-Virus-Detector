@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Coming Soon | Luxe Designs</title>
+  <title>Binoculars | Coming Soon</title>
   <meta name="description" content="We're crafting an exceptional digital experience. Launching soon." />
+  <meta name="theme-color" content="#1f1f1f" />
 
   <!-- Favicon -->
   <link rel="icon" href="https://example.com/favicon.ico" type="image/x-icon" />
@@ -22,6 +23,7 @@
       --text: #333333; /* Dark gray */
       --text-light: #f5f5f5; /* Off-white */
       --overlay: rgba(31, 31, 31, 0.85); /* Dark overlay */
+      --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
 
     * {
@@ -43,23 +45,30 @@
       color: var(--text-light);
       line-height: 1.6;
       overflow-x: hidden;
+      padding: 20px;
     }
 
     .container {
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      background-color: rgba(31, 31, 31, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      background-color: rgba(31, 31, 31, 0.75);
       border: 1px solid var(--light-accent);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
       padding: 3.5rem;
       border-radius: 8px;
       text-align: center;
       max-width: 600px;
-      width: 90%;
+      width: 100%;
       transform-style: preserve-3d;
-      transition: transform 0.5s ease, box-shadow 0.5s ease;
+      transition: var(--transition);
       position: relative;
       overflow: hidden;
+      animation: fadeIn 1s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .container::before {
@@ -74,27 +83,29 @@
 
     .container:hover {
       transform: translateY(-5px);
-      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.35);
     }
 
     .logo {
-      width: 80px;
-      height: 80px;
+      width: 90px;
+      height: 90px;
       margin: 0 auto 2rem;
       border: 2px solid var(--accent);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 2.5rem;
+      font-size: 2.8rem;
       color: var(--accent);
-      transition: all 0.3s ease;
+      transition: var(--transition);
+      background: rgba(31, 31, 31, 0.5);
     }
 
     .logo:hover {
-      transform: rotate(15deg);
+      transform: rotate(15deg) scale(1.05);
       color: var(--light-accent);
       border-color: var(--light-accent);
+      box-shadow: 0 0 25px rgba(166, 124, 82, 0.3);
     }
 
     h1 {
@@ -106,6 +117,7 @@
       letter-spacing: 1px;
       position: relative;
       display: inline-block;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
     }
 
     h1::after {
@@ -117,6 +129,12 @@
       width: 80px;
       height: 2px;
       background: var(--accent);
+      transition: var(--transition);
+    }
+
+    h1:hover::after {
+      width: 120px;
+      background: var(--light-accent);
     }
 
     p {
@@ -127,12 +145,14 @@
       max-width: 80%;
       margin-left: auto;
       margin-right: auto;
+      line-height: 1.8;
     }
 
     .divider {
       display: flex;
       align-items: center;
       margin: 2rem 0;
+      position: relative;
     }
 
     .divider::before, .divider::after {
@@ -140,6 +160,11 @@
       flex: 1;
       border-bottom: 1px solid var(--light-accent);
       opacity: 0.3;
+      transition: var(--transition);
+    }
+
+    .divider:hover::before, .divider:hover::after {
+      opacity: 0.6;
     }
 
     .divider-text {
@@ -148,6 +173,7 @@
       font-size: 0.9rem;
       text-transform: uppercase;
       letter-spacing: 2px;
+      font-weight: 400;
     }
 
     .countdown {
@@ -155,6 +181,7 @@
       justify-content: center;
       gap: 1.5rem;
       margin: 2.5rem 0;
+      flex-wrap: wrap;
     }
 
     .countdown-item {
@@ -163,13 +190,15 @@
       padding: 1.2rem 0.8rem;
       border-radius: 8px;
       min-width: 80px;
-      transition: all 0.3s ease;
+      transition: var(--transition);
+      backdrop-filter: blur(5px);
     }
 
     .countdown-item:hover {
       transform: translateY(-5px);
       background: rgba(166, 124, 82, 0.2);
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+      border-color: rgba(166, 124, 82, 0.5);
     }
 
     .countdown-value {
@@ -177,6 +206,11 @@
       font-size: 2rem;
       font-weight: 600;
       color: var(--primary);
+      transition: var(--transition);
+    }
+
+    .countdown-item:hover .countdown-value {
+      color: var(--light-accent);
     }
 
     .countdown-label {
@@ -185,28 +219,50 @@
       letter-spacing: 1px;
       opacity: 0.7;
       margin-top: 0.3rem;
+      transition: var(--transition);
+    }
+
+    .countdown-item:hover .countdown-label {
+      opacity: 1;
     }
 
     .subscribe {
       margin: 2rem 0;
     }
 
+    .subscribe p {
+      margin-bottom: 1rem;
+    }
+
     .subscribe-input {
       display: flex;
       max-width: 400px;
       margin: 0 auto;
+      border-radius: 4px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      transition: var(--transition);
+    }
+
+    .subscribe-input:hover {
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
     }
 
     .subscribe-input input {
       flex: 1;
-      padding: 0.8rem 1.2rem;
+      padding: 0.9rem 1.2rem;
       border: none;
-      border-radius: 4px 0 0 4px;
       background: rgba(245, 245, 245, 0.1);
       color: var(--text-light);
       font-family: 'Montserrat', sans-serif;
       border: 1px solid var(--light-accent);
       border-right: none;
+      transition: var(--transition);
+    }
+
+    .subscribe-input input:focus {
+      outline: none;
+      background: rgba(245, 245, 245, 0.15);
     }
 
     .subscribe-input input::placeholder {
@@ -214,19 +270,19 @@
     }
 
     .subscribe-input button {
-      padding: 0 1.5rem;
+      padding: 0 1.8rem;
       background: linear-gradient(to right, var(--accent), var(--light-accent));
       color: var(--secondary);
       border: none;
-      border-radius: 0 4px 4px 0;
       font-family: 'Montserrat', sans-serif;
       font-weight: 500;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: var(--transition);
     }
 
     .subscribe-input button:hover {
       background: linear-gradient(to right, var(--light-accent), var(--accent));
+      padding: 0 2.2rem;
     }
 
     .social-links {
@@ -239,33 +295,62 @@
     .social-links a {
       color: var(--primary);
       font-size: 1.2rem;
-      width: 40px;
-      height: 40px;
+      width: 42px;
+      height: 42px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: all 0.3s ease;
+      transition: var(--transition);
       border: 1px solid transparent;
+      background: rgba(230, 213, 184, 0.05);
     }
 
     .social-links a:hover {
       color: var(--accent);
       border-color: var(--accent);
-      transform: translateY(-3px);
+      transform: translateY(-3px) scale(1.1);
+      background: rgba(166, 124, 82, 0.1);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     }
 
     .signature {
-      margin-top: 2rem;
+      margin-top: 2.5rem;
       font-family: 'Playfair Display', serif;
       font-style: italic;
       color: var(--light-accent);
       font-size: 0.9rem;
+      position: relative;
+      display: inline-block;
     }
 
+    .signature::before {
+      content: '';
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 40px;
+      height: 1px;
+      background: var(--light-accent);
+      opacity: 0.5;
+    }
+
+    /* Animation for elements */
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+
+    .floating {
+      animation: float 4s ease-in-out infinite;
+    }
+
+    /* Responsive adjustments */
     @media (max-width: 768px) {
       .container {
-        padding: 2.5rem 1.5rem;
+        padding: 2.5rem 1.8rem;
       }
       
       h1 {
@@ -289,17 +374,56 @@
       .countdown-value {
         font-size: 1.8rem;
       }
+
+      .logo {
+        width: 75px;
+        height: 75px;
+        font-size: 2.2rem;
+      }
+
+      .subscribe-input {
+        max-width: 100%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 2rem 1.5rem;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      .countdown {
+        gap: 0.5rem;
+      }
+
+      .countdown-item {
+        min-width: 60px;
+        padding: 0.8rem 0.4rem;
+      }
+
+      .countdown-value {
+        font-size: 1.5rem;
+      }
+
+      .social-links a {
+        width: 38px;
+        height: 38px;
+        font-size: 1rem;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="container">
+  <div class="container floating">
     <div class="logo">
       <i class="fas fa-pen-fancy"></i>
     </div>
     
     <h1>Coming Soon</h1>
-    <p>We're meticulously crafting an exceptional digital experience. Our team is putting the final touches on something truly special.</p>
+    <p>We're meticulously crafting an exceptional digital experience. Our team is putting the final touches on something truly special that will redefine standards in our industry.</p>
     
     <div class="divider">
       <span class="divider-text">Launching In</span>
@@ -307,24 +431,28 @@
     
     <div class="countdown">
       <div class="countdown-item">
-        <div class="countdown-value">14</div>
+        <div class="countdown-value" id="days">14</div>
         <div class="countdown-label">Days</div>
       </div>
       <div class="countdown-item">
-        <div class="countdown-value">08</div>
+        <div class="countdown-value" id="hours">08</div>
         <div class="countdown-label">Hours</div>
       </div>
       <div class="countdown-item">
-        <div class="countdown-value">42</div>
+        <div class="countdown-value" id="minutes">42</div>
         <div class="countdown-label">Minutes</div>
+      </div>
+      <div class="countdown-item">
+        <div class="countdown-value" id="seconds">30</div>
+        <div class="countdown-label">Seconds</div>
       </div>
     </div>
     
     <div class="subscribe">
-      <p>Be the first to know when we launch</p>
+      <p>Join our exclusive list to receive updates</p>
       <div class="subscribe-input">
-        <input type="email" placeholder="Your email address">
-        <button>Notify Me</button>
+        <input type="email" id="emailInput" placeholder="Your email address" required>
+        <button id="notifyBtn">Notify Me</button>
       </div>
     </div>
     
@@ -336,61 +464,90 @@
     </div>
     
     <div class="signature">
-      — The Luxe Designs Team
+      — The Binoculars Team
     </div>
   </div>
-  <script>
-    // Set the launch date (fixed date in the future)
-    const launchDate = new Date();
-    launchDate.setDate(launchDate.getDate() + 14); // 14 days from now
-    launchDate.setHours(0, 0, 0, 0); // Set to midnight for clean countdown
 
-    function updateCountdown() {
-      const now = new Date();
-      const diff = launchDate - now;
-      
-      // Stop the countdown if we've reached the launch date
-      if (diff <= 0) {
-        document.querySelector('.countdown').innerHTML = '<div class="countdown-value">Launched!</div>';
-        return;
+  <script>
+    // Set the launch date (2 weeks from now)
+    const launchDate = new Date();
+    launchDate.setDate(launchDate.getDate() + 14);
+    launchDate.setHours(12, 0, 0, 0); // Set launch time to 12:00 PM
+
+    // DOM elements
+    const daysEl = document.getElementById('days');
+    const hoursEl = document.getElementById('hours');
+    const minutesEl = document.getElementById('minutes');
+    const secondsEl = document.getElementById('seconds');
+    const emailInput = document.getElementById('emailInput');
+    const notifyBtn = document.getElementById('notifyBtn');
+
+    // Update countdown every second
+    const countdown = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = launchDate - now;
+
+      // Time calculations
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      // Display results
+      daysEl.textContent = days.toString().padStart(2, '0');
+      hoursEl.textContent = hours.toString().padStart(2, '0');
+      minutesEl.textContent = minutes.toString().padStart(2, '0');
+      secondsEl.textContent = seconds.toString().padStart(2, '0');
+
+      // If countdown is finished
+      if (distance < 0) {
+        clearInterval(countdown);
+        document.querySelector('.countdown').innerHTML = '<div style="padding: 1rem;">We\'re live! Refresh your browser</div>';
       }
-      
-      // Calculate time remaining
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-      
-      // Update the display
-      document.querySelectorAll('.countdown-value')[0].textContent = days.toString().padStart(2, '0');
-      document.querySelectorAll('.countdown-value')[1].textContent = hours.toString().padStart(2, '0');
-      document.querySelectorAll('.countdown-value')[2].textContent = minutes.toString().padStart(2, '0');
-      
-      // For testing purposes, you can see seconds in console
-      console.log(`${days}d ${hours}h ${minutes}m ${seconds}s remaining`);
-    }
-    
-    // Initialize and update countdown every second
-    updateCountdown();
-    const countdownInterval = setInterval(updateCountdown, 1000);
-    
+    }, 1000);
+
     // Email subscription handling
-    document.querySelector('.subscribe-input button').addEventListener('click', function() {
-      const emailInput = document.querySelector('.subscribe-input input');
-      if (emailInput.value && emailInput.value.includes('@')) {
-        alert('Thank you for subscribing! We\'ll notify you when we launch.');
+    function handleSubscription() {
+      const email = emailInput.value.trim();
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      if (email && emailRegex.test(email)) {
+        // In a real implementation, you would send this to your server
+        console.log('Subscribed email:', email);
+        
+        // Show success message
+        alert('Thank you for subscribing! You\'ll be the first to know when we launch.');
         emailInput.value = '';
+        
+        // Add to localStorage to prevent duplicate submissions
+        localStorage.setItem('subscribed', 'true');
       } else {
         alert('Please enter a valid email address.');
+        emailInput.focus();
       }
-    });
-    
-    // Allow Enter key to submit
-    document.querySelector('.subscribe-input input').addEventListener('keypress', function(e) {
+    }
+
+    // Event listeners
+    notifyBtn.addEventListener('click', handleSubscription);
+    emailInput.addEventListener('keypress', (e) => {
       if (e.key === 'Enter') {
-        document.querySelector('.subscribe-input button').click();
+        handleSubscription();
       }
     });
-</script>
+
+    // Check if already subscribed
+    if (localStorage.getItem('subscribed')) {
+      emailInput.placeholder = 'You\'re already subscribed!';
+      notifyBtn.disabled = true;
+      notifyBtn.textContent = 'Thank You';
+      notifyBtn.style.background = 'var(--light-accent)';
+    }
+
+    // Add floating animation to elements
+    document.querySelectorAll('.countdown-item, .social-links a').forEach(el => {
+      el.style.animationDelay = `${Math.random() * 0.5}s`;
+      el.classList.add('floating');
+    });
+  </script>
 </body>
 </html>
