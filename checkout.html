@@ -4,48 +4,182 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Binoculars Pro - Secure Checkout</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --primary-light: #93c5fd;
+      --danger: #ef4444;
+      --success: #10b981;
+      --gray-light: #f3f4f6;
+      --gray-medium: #e5e7eb;
+      --gray-dark: #6b7280;
+      --text-dark: #111827;
+      --text-light: #f9fafb;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+
     * {
       box-sizing: border-box;
-      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
     }
 
     body {
-      background: linear-gradient(to right, #f0f4f8, #dfeaf1);
+      background: linear-gradient(135deg, #f0f4f8 0%, #dfeaf1 100%);
       margin: 0;
-      padding: 0;
+      padding: 20px;
       min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
+      color: var(--text-dark);
+      line-height: 1.5;
     }
 
     .checkout-container {
       max-width: 1000px;
-      width: 95%;
+      width: 100%;
       background: #ffffff;
-      border-radius: 16px;
-      box-shadow: 0 8px 40px rgba(0,0,0,0.1);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
       display: grid;
       grid-template-columns: 1fr 1fr;
       overflow: hidden;
-      animation: fadeIn 0.5s ease-in-out;
+      animation: fadeIn 0.6s cubic-bezier(0.39, 0.575, 0.565, 1);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .product-section {
-      background: linear-gradient(to bottom right, #1e3a8a, #2563eb);
-      color: #fff;
-      padding: 40px;
+      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+      color: var(--text-light);
+      padding: 50px 40px;
       display: flex;
       flex-direction: column;
       justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product-section::before {
+      content: '';
+      position: absolute;
+      top: -50px;
+      right: -50px;
+      width: 200px;
+      height: 200px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+    }
+
+    .product-section::after {
+      content: '';
+      position: absolute;
+      bottom: -80px;
+      left: -80px;
+      width: 250px;
+      height: 250px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 50%;
+    }
+
+    .product-section h2 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .product-section p {
+      opacity: 0.9;
+      margin-bottom: 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .price {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .price::before {
+      content: '$49.99';
+      position: absolute;
+      top: -20px;
+      left: 0;
+      font-size: 16px;
+      font-weight: 500;
+      text-decoration: line-through;
+      opacity: 0.7;
+    }
+
+    .features-list {
+      list-style: none;
+      margin-top: 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .features-list li {
+      padding: 10px 0;
+      padding-left: 32px;
+      position: relative;
+    }
+
+    .features-list li::before {
+      content: '\f00c';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      position: absolute;
+      left: 0;
+      color: var(--primary-light);
+    }
+
+    .security-badge {
+      display: flex;
+      align-items: center;
+      margin-top: 32px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .security-badge i {
+      margin-right: 12px;
+      color: var(--success);
+      font-size: 20px;
+    }
+
+    .security-badge span {
+      font-size: 14px;
+      opacity: 0.9;
     }
 
     .form-section {
-      padding: 40px;
+      padding: 50px 40px;
+      display: flex;
+      flex-direction: column;
     }
 
-    /* Form styling */
+    .form-section h3 {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 24px;
+      color: var(--primary-dark);
+    }
+
     .form-group {
       margin-bottom: 20px;
     }
@@ -54,64 +188,204 @@
       display: block;
       margin-bottom: 8px;
       font-weight: 600;
+      font-size: 14px;
     }
 
     .required-field::after {
       content: " *";
-      color: #ef4444;
+      color: var(--danger);
     }
 
     input, select {
       width: 100%;
-      padding: 12px;
-      border: 2px solid #e2e8f0;
-      border-radius: 8px;
+      padding: 14px;
+      border: 2px solid var(--gray-medium);
+      border-radius: var(--radius-sm);
       font-size: 16px;
+      transition: all 0.3s;
     }
 
-    input:invalid, select:invalid {
-      border-color: #fecaca;
+    input:focus, select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-light);
+    }
+
+    input.error, select.error {
+      border-color: var(--danger);
+    }
+
+    input.error:focus, select.error:focus {
+      box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.3);
     }
 
     .error-message {
-      color: #ef4444;
-      font-size: 14px;
-      margin-top: 5px;
+      color: var(--danger);
+      font-size: 13px;
+      margin-top: 6px;
       display: none;
     }
 
-    input:invalid + .error-message,
-    select:invalid + .error-message {
+    .error-message.show {
       display: block;
     }
 
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    .card-icons {
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .card-icon {
+      width: 40px;
+      height: 25px;
+      background-color: var(--gray-light);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: var(--gray-dark);
+    }
+
+    .card-icon.active {
+      background-color: var(--primary);
+      color: white;
+    }
+
     .btn {
-      background: #2563eb;
+      background: var(--primary);
       color: white;
       padding: 16px;
       border: none;
-      border-radius: 8px;
-      font-size: 18px;
+      border-radius: var(--radius-sm);
+      font-size: 16px;
       font-weight: 600;
       width: 100%;
       cursor: pointer;
       transition: all 0.3s;
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn i {
+      margin-right: 10px;
     }
 
     .btn:disabled {
-      background: #cbd5e1;
+      background: var(--gray-medium);
       cursor: not-allowed;
     }
 
     .btn:not(:disabled):hover {
-      background: #1d4ed8;
+      background: var(--primary-dark);
       transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+
+    .btn:not(:disabled):active {
+      transform: translateY(0);
+    }
+
+    .alternative-payments {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .alternative-payments p {
+      font-size: 14px;
+      color: var(--gray-dark);
+      margin-bottom: 12px;
+      position: relative;
+    }
+
+    .alternative-payments p::before,
+    .alternative-payments p::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      width: 30%;
+      height: 1px;
+      background: var(--gray-medium);
+    }
+
+    .alternative-payments p::before {
+      left: 0;
+    }
+
+    .alternative-payments p::after {
+      right: 0;
+    }
+
+    .payment-methods {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .payment-method {
+      width: 40px;
+      height: 40px;
+      background: var(--gray-light);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .payment-method:hover {
+      background: var(--gray-medium);
+    }
+
+    .guarantee {
+      display: flex;
+      align-items: center;
+      margin-top: 24px;
+      font-size: 14px;
+      color: var(--gray-dark);
+    }
+
+    .guarantee i {
+      margin-right: 10px;
+      color: var(--success);
     }
 
     @media (max-width: 768px) {
       .checkout-container {
         grid-template-columns: 1fr;
         margin: 20px;
+      }
+
+      .product-section {
+        padding: 40px 30px;
+      }
+
+      .form-section {
+        padding: 40px 30px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .product-section h2 {
+        font-size: 24px;
+      }
+
+      .price {
+        font-size: 28px;
       }
     }
   </style>
@@ -120,55 +394,84 @@
   <div class="checkout-container">
     <div class="product-section">
       <h2>Binoculars Pro Antivirus</h2>
-      <p>Complete your purchase to activate protection</p>
+      <p>Complete your purchase to activate premium protection for all your devices</p>
       <div class="price">$19.99/year</div>
-      <ul style="text-align: left; padding-left: 20px;">
-        <li>Real-time malware protection</li>
-        <li>Secure up to 3 devices</li>
-        <li>24/7 customer support</li>
+      
+      <ul class="features-list">
+        <li>Real-time malware & ransomware protection</li>
+        <li>Secure up to 5 devices (PC, Mac, Android, iOS)</li>
+        <li>Advanced firewall & network protection</li>
+        <li>24/7 premium customer support</li>
+        <li>Password manager included</li>
+        <li>VPN for secure browsing</li>
       </ul>
+
+      <div class="security-badge">
+        <i class="fas fa-lock"></i>
+        <span>256-bit SSL encryption · Secure payment processing</span>
+      </div>
     </div>
 
     <div class="form-section">
-      <h3 style="margin-top: 0;">Payment Information</h3>
+      <h3>Payment Information</h3>
       <form id="paymentForm" novalidate>
-        <!-- Billing Info -->
+        <!-- Personal Info -->
         <div class="form-group">
           <label for="name" class="required-field">Full Name</label>
-          <input type="text" id="name" required minlength="3">
+          <input type="text" id="name" required minlength="3" placeholder="John Doe">
           <span class="error-message">Please enter your full name</span>
         </div>
 
         <div class="form-group">
-          <label for="email" class="required-field">Email</label>
-          <input type="email" id="email" required>
-          <span class="error-message">Please enter a valid email</span>
+          <label for="email" class="required-field">Email Address</label>
+          <input type="email" id="email" required placeholder="your@email.com">
+          <span class="error-message">Please enter a valid email address</span>
         </div>
 
         <!-- Payment Details -->
         <div class="form-group">
           <label for="card" class="required-field">Card Number</label>
-          <input type="text" id="card" required pattern="\d{13,19}" inputmode="numeric">
-          <span class="error-message">Enter a valid 13-19 digit card number</span>
+          <input type="text" id="card" required pattern="\d{13,19}" inputmode="numeric" placeholder="4242 4242 4242 4242">
+          <span class="error-message">Please enter a valid 13-19 digit card number</span>
+          <div class="card-icons">
+            <div class="card-icon"><i class="fab fa-cc-visa"></i></div>
+            <div class="card-icon"><i class="fab fa-cc-mastercard"></i></div>
+            <div class="card-icon"><i class="fab fa-cc-amex"></i></div>
+            <div class="card-icon"><i class="fab fa-cc-discover"></i></div>
+          </div>
         </div>
 
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+        <div class="form-row">
           <div class="form-group">
             <label for="expiry" class="required-field">Expiry Date</label>
             <input type="text" id="expiry" required placeholder="MM/YY" pattern="(0[1-9]|1[0-2])\/[0-9]{2}">
-            <span class="error-message">MM/YY format required</span>
+            <span class="error-message">Please use MM/YY format</span>
           </div>
 
           <div class="form-group">
             <label for="cvv" class="required-field">CVV</label>
-            <input type="text" id="cvv" required pattern="\d{3,4}" inputmode="numeric">
-            <span class="error-message">3-4 digit code required</span>
+            <input type="text" id="cvv" required pattern="\d{3,4}" inputmode="numeric" placeholder="123">
+            <span class="error-message">3-4 digit security code required</span>
           </div>
         </div>
 
-        <button type="submit" class="btn" id="submitBtn" disabled>
-          Complete Purchase
+        <button type="submit" class="btn" id="submitBtn">
+          <i class="fas fa-lock"></i> Complete Secure Payment
         </button>
+
+        <div class="alternative-payments">
+          <p>or pay with</p>
+          <div class="payment-methods">
+            <div class="payment-method"><i class="fab fa-paypal"></i></div>
+            <div class="payment-method"><i class="fab fa-apple-pay"></i></div>
+            <div class="payment-method"><i class="fab fa-google-pay"></i></div>
+          </div>
+        </div>
+
+        <div class="guarantee">
+          <i class="fas fa-shield-alt"></i>
+          <span>30-day money-back guarantee · Cancel anytime</span>
+        </div>
       </form>
     </div>
   </div>
@@ -177,40 +480,105 @@
     const form = document.getElementById('paymentForm');
     const submitBtn = document.getElementById('submitBtn');
     const inputs = form.querySelectorAll('input, select');
+    const cardNumberInput = document.getElementById('card');
+    const cardIcons = document.querySelectorAll('.card-icon');
 
-    // Real-time validation
-    function validateForm() {
+    // Format card number with spaces
+    cardNumberInput.addEventListener('input', function(e) {
+      let value = e.target.value.replace(/\s+/g, '');
+      if (value.length > 0) {
+        value = value.match(new RegExp('.{1,4}', 'g')).join(' ');
+      }
+      e.target.value = value;
+      
+      // Highlight card type icon
+      const firstDigit = value.charAt(0);
+      cardIcons.forEach(icon => icon.classList.remove('active'));
+      
+      if (firstDigit === '4') {
+        document.querySelector('.fa-cc-visa').parentElement.classList.add('active');
+      } else if (firstDigit === '5') {
+        document.querySelector('.fa-cc-mastercard').parentElement.classList.add('active');
+      } else if (firstDigit === '3') {
+        document.querySelector('.fa-cc-amex').parentElement.classList.add('active');
+      } else if (firstDigit === '6') {
+        document.querySelector('.fa-cc-discover').parentElement.classList.add('active');
+      }
+    });
+
+    // Format expiry date
+    document.getElementById('expiry').addEventListener('input', function(e) {
+      let value = e.target.value.replace(/\D/g, '');
+      if (value.length >= 3) {
+        value = value.substring(0, 2) + '/' + value.substring(2, 4);
+      }
+      e.target.value = value;
+    });
+
+    // Show errors on submit
+    function showErrors() {
       let isValid = true;
       
       inputs.forEach(input => {
-        if (!input.checkValidity()) {
-          isValid = false;
+        const errorMessage = input.nextElementSibling;
+        if (errorMessage && errorMessage.classList.contains('error-message')) {
+          if (!input.checkValidity() || (input.required && !input.value.trim())) {
+            input.classList.add('error');
+            errorMessage.classList.add('show');
+            isValid = false;
+          } else {
+            input.classList.remove('error');
+            errorMessage.classList.remove('show');
+          }
         }
       });
 
-      submitBtn.disabled = !isValid;
+      return isValid;
     }
-
-    // Validate on input changes
-    inputs.forEach(input => {
-      input.addEventListener('input', validateForm);
-      input.addEventListener('blur', validateForm);
-    });
-
-    // Initial validation
-    validateForm();
 
     // Form submission
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       
-      if (form.checkValidity()) {
-        // In a real app, process payment here
-        alert('Payment processed successfully!');
-        window.location.href = "purchase-completed.html";
+      const isValid = showErrors();
+      
+      if (isValid) {
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing Payment...';
+        submitBtn.disabled = true;
+        
+        // Simulate payment processing
+        setTimeout(() => {
+          alert('Payment processed successfully!\nThank you for choosing Binoculars Pro.');
+          window.location.href = "welcome.html";
+        }, 2000);
       } else {
-        alert('Please complete all required fields correctly');
+        // Scroll to first error
+        const firstError = document.querySelector('.error');
+        if (firstError) {
+          firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          firstError.focus();
+        }
       }
+    });
+
+    // Validate on input changes
+    inputs.forEach(input => {
+      input.addEventListener('input', function() {
+        const errorMessage = this.nextElementSibling;
+        if (errorMessage && errorMessage.classList.contains('error-message')) {
+          if (this.checkValidity() && (this.value.trim() || !this.required)) {
+            this.classList.remove('error');
+            errorMessage.classList.remove('show');
+          }
+        }
+      });
+    });
+
+    // Payment method buttons
+    document.querySelectorAll('.payment-method').forEach(method => {
+      method.addEventListener('click', function() {
+        alert('Redirecting to ' + this.querySelector('i').className.split('-')[2] + ' payment...');
+      });
     });
   </script>
 </body>
