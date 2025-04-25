@@ -16,6 +16,9 @@
       --text-light: #f8f9fa;
       --text-dark: #212529;
       --shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      --success-color: #4ade80;
+      --warning-color: #fbbf24;
+      --error-color: #f87171;
     }
     * {
       box-sizing: border-box;
@@ -33,7 +36,7 @@
       animation: gradientBG 12s ease infinite;
       color: var(--text-light);
       line-height: 1.6;
-      overflow-x: hidden; /* Prevent horizontal scroll */
+      overflow-x: hidden;
     }
     @keyframes gradientBG {
       0% { background-position: 0% 50%; }
@@ -51,9 +54,9 @@
       text-align: center;
       max-width: 500px;
       width: 90%;
-      transform-style: preserve-3d; /* Needed for 3D transforms if added later */
+      transform-style: preserve-3d;
       transition: all 0.5s ease;
-      z-index: 10; /* Ensure container is above floating elements */
+      z-index: 10;
     }
     .container:hover {
       transform: translateY(-5px);
@@ -103,7 +106,6 @@
       font-size: 2.5rem;
       margin-bottom: 1rem;
       font-weight: 700;
-      /* Gradient text effect */
       background: linear-gradient(to right, #fff, #c9d6ff);
       -webkit-background-clip: text;
       background-clip: text;
@@ -126,7 +128,7 @@
     }
     .progress-bar {
       height: 100%;
-      width: 65%; /* Initial width */
+      width: 65%;
       background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
       border-radius: 10px;
       animation: progressAnimation 2s ease-in-out infinite alternate;
@@ -161,17 +163,22 @@
       padding: 0.8rem;
       border-radius: 10px;
       min-width: 70px;
+      transition: all 0.3s ease;
+    }
+    .countdown-item.active {
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.05);
     }
     .countdown-value {
       font-size: 1.8rem;
       font-weight: 700;
-      display: block; /* Ensure it takes full width if needed */
+      display: block;
     }
     .countdown-label {
       font-size: 0.7rem;
       text-transform: uppercase;
       opacity: 0.7;
-      display: block; /* Ensure it takes full width if needed */
+      display: block;
     }
     .floating-elements {
       position: absolute;
@@ -180,16 +187,15 @@
       width: 100%;
       height: 100%;
       overflow: hidden;
-      z-index: 1; /* Ensure it's behind the container */
+      z-index: 1;
     }
     .floating-element {
       position: absolute;
-      bottom: -150px; /* Start below the screen */
+      bottom: -150px;
       background: rgba(255, 255, 255, 0.15);
       border-radius: 50%;
       animation: float 15s linear infinite;
     }
-    /* Keyframes for floating animation */
     @keyframes float {
       0% {
         transform: translateY(0) rotate(0deg);
@@ -199,11 +205,117 @@
           opacity: 1;
       }
       100% {
-        transform: translateY(-100vh) rotate(720deg); /* Move up entire viewport height */
+        transform: translateY(-100vh) rotate(720deg);
         opacity: 0;
       }
     }
-    /* Responsive adjustments */
+    .subscribe-form {
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .form-group {
+      position: relative;
+    }
+    .form-input {
+      width: 100%;
+      padding: 12px 20px;
+      border-radius: 50px;
+      border: none;
+      background: rgba(255, 255, 255, 0.2);
+      color: var(--text-light);
+      font-family: inherit;
+      font-size: 1rem;
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      transition: all 0.3s ease;
+    }
+    .form-input:focus {
+      outline: none;
+      background: rgba(255, 255, 255, 0.3);
+      box-shadow: 0 0 0 2px var(--accent-color);
+    }
+    .form-input::placeholder {
+      color: rgba(255, 255, 255, 0.7);
+    }
+    .submit-btn {
+      background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 50px;
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .submit-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+    .submit-btn:active {
+      transform: translateY(-1px);
+    }
+    .notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 15px 25px;
+      border-radius: 8px;
+      color: white;
+      font-weight: 500;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      transform: translateX(200%);
+      transition: transform 0.3s ease;
+      z-index: 1000;
+    }
+    .notification.show {
+      transform: translateX(0);
+    }
+    .notification.success {
+      background-color: var(--success-color);
+    }
+    .notification.error {
+      background-color: var(--error-color);
+    }
+    .notification.warning {
+      background-color: var(--warning-color);
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    .feature-item {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 1rem;
+      border-radius: 10px;
+      text-align: left;
+      transition: all 0.3s ease;
+    }
+    .feature-item:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-3px);
+    }
+    .feature-icon {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: var(--accent-color);
+    }
+    .feature-title {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+    }
+    .feature-desc {
+      font-size: 0.8rem;
+      opacity: 0.8;
+    }
     @media (max-width: 600px) {
       .container {
         padding: 2rem 1.5rem;
@@ -216,15 +328,18 @@
       }
       .countdown {
         gap: 0.5rem;
-        flex-wrap: wrap; /* Allow wrapping on very small screens */
+        flex-wrap: wrap;
       }
       .countdown-item {
         min-width: 60px;
         padding: 0.6rem;
-        margin-bottom: 0.5rem; /* Add space if wrapped */
+        margin-bottom: 0.5rem;
       }
       .countdown-value {
         font-size: 1.5rem;
+      }
+      .features-grid {
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -236,7 +351,7 @@
     <div class="floating-element" style="width: 40px; height: 40px; left: 45%; animation-delay: 4s; animation-duration: 18s;"></div>
     <div class="floating-element" style="width: 25px; height: 25px; left: 65%; animation-delay: 1s; animation-duration: 16s;"></div>
     <div class="floating-element" style="width: 35px; height: 35px; left: 85%; animation-delay: 3s; animation-duration: 14s;"></div>
-     </div>
+  </div>
 
   <div class="container">
     <div class="logo">
@@ -268,10 +383,44 @@
         <div id="minutes" class="countdown-value">--</div>
         <div class="countdown-label">Mins</div>
       </div>
+      <div class="countdown-item">
+        <div id="seconds" class="countdown-value">--</div>
+        <div class="countdown-label">Secs</div>
       </div>
+    </div>
 
     <div id="launch-message" style="display: none; font-size: 1.5rem; margin-top: 2rem;">
       🚀 We've Launched! 🚀
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-item">
+        <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+        <div class="feature-title">Lightning Fast</div>
+        <div class="feature-desc">Optimized for maximum performance and speed</div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon"><i class="fas fa-mobile-alt"></i></div>
+        <div class="feature-title">Responsive</div>
+        <div class="feature-desc">Works perfectly on all devices</div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+        <div class="feature-title">Secure</div>
+        <div class="feature-desc">Built with security in mind</div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon"><i class="fas fa-rocket"></i></div>
+        <div class="feature-title">Innovative</div>
+        <div class="feature-desc">Cutting-edge technology</div>
+      </div>
+    </div>
+
+    <div class="subscribe-form">
+      <div class="form-group">
+        <input type="email" id="email-input" class="form-input" placeholder="Enter your email for updates" required>
+      </div>
+      <button type="button" id="subscribe-btn" class="submit-btn">Notify Me</button>
     </div>
 
     <div class="social-links">
@@ -282,85 +431,234 @@
     </div>
   </div>
 
+  <div id="notification" class="notification"></div>
+
   <script>
-    // --- Countdown Timer ---
-    // ** SET YOUR LAUNCH DATE AND TIME HERE **
-    // Format: YYYY-MM-DDTHH:MM:SS (e.g., '2025-12-25T09:00:00')
-    // Using the original HTML values (14 days, 8 hours, 42 mins from approx. now)
-    // Current date: April 25, 2025. 14 days later is May 9, 2025.
-    const launchDate = new Date('2025-05-09T17:00:00'); // Example: May 9, 2025 at 5 PM local time
-
-    const daysEl = document.getElementById('days');
-    const hoursEl = document.getElementById('hours');
-    const minutesEl = document.getElementById('minutes');
-    // const secondsEl = document.getElementById('seconds'); // Uncomment if using seconds
-    const countdownEl = document.getElementById('countdown');
-    const launchMessageEl = document.getElementById('launch-message');
-
-    let intervalId = null;
-
-    function updateCountdown() {
-      const now = new Date();
-      const diff = launchDate - now;
-
-      if (diff <= 0) {
-        // Countdown finished
-        countdownEl.style.display = 'none'; // Hide countdown timer
-        launchMessageEl.style.display = 'block'; // Show launch message
-        if (intervalId) {
-            clearInterval(intervalId); // Stop the interval
-        }
-        // Maybe hide spinner/progress too
-        const spinner = document.querySelector('.spinner-container');
-        const progress = document.querySelector('.progress-container');
-        if(spinner) spinner.style.display = 'none';
-        if(progress) progress.style.display = 'none';
-        return;
-      }
-
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-      // Update the HTML elements (using robust IDs)
-      daysEl.textContent = days.toString().padStart(2, '0');
-      hoursEl.textContent = hours.toString().padStart(2, '0');
-      minutesEl.textContent = minutes.toString().padStart(2, '0');
-      // if (secondsEl) secondsEl.textContent = seconds.toString().padStart(2, '0'); // Uncomment if using seconds
-    }
-
-    // Initial call to display immediately
-    updateCountdown();
-    // Update countdown every second for smoother updates
-    intervalId = setInterval(updateCountdown, 1000);
-
-    // --- Dynamic Floating Elements ---
+    // Enhanced Countdown Timer with more features
     document.addEventListener('DOMContentLoaded', function() {
-      const floatingContainer = document.querySelector('.floating-elements');
-      if (!floatingContainer) return; // Safety check
+      // Configuration
+      const config = {
+        launchDate: new Date('2025-05-09T17:00:00'), // Set your launch date here
+        notificationDuration: 5000, // 5 seconds
+        activeCountdownClass: 'active', // Class for active countdown items
+        localStorageKey: 'comingSoonSubscribers' // Key for storing emails
+      };
 
-      const numberOfElements = 10; // How many extra elements to create
+      // DOM Elements
+      const elements = {
+        days: document.getElementById('days'),
+        hours: document.getElementById('hours'),
+        minutes: document.getElementById('minutes'),
+        seconds: document.getElementById('seconds'),
+        countdown: document.getElementById('countdown'),
+        launchMessage: document.getElementById('launch-message'),
+        spinner: document.querySelector('.spinner-container'),
+        progress: document.querySelector('.progress-container'),
+        emailInput: document.getElementById('email-input'),
+        subscribeBtn: document.getElementById('subscribe-btn'),
+        notification: document.getElementById('notification'),
+        countdownItems: document.querySelectorAll('.countdown-item')
+      };
 
-      for (let i = 0; i < numberOfElements; i++) {
-        const element = document.createElement('div');
-        element.className = 'floating-element';
+      // State
+      let state = {
+        timerInterval: null,
+        activeCountdownItem: null,
+        subscribers: JSON.parse(localStorage.getItem(config.localStorageKey)) || []
+      };
 
-        const size = Math.random() * 30 + 10; // Random size between 10px and 40px
-        const randomLeft = Math.random() * 100; // Random horizontal position
-        const randomDelay = Math.random() * 5; // Random start delay up to 5s
-        const randomDuration = Math.random() * 10 + 10; // Random duration between 10s and 20s
+      // Initialize
+      init();
 
-        // **FIXED SYNTAX:** Use standard string concatenation or direct assignment
-        element.style.width = size + 'px';
-        element.style.height = size + 'px'; // Make it square
-        element.style.left = randomLeft + '%';
-        element.style.animationDelay = randomDelay + 's';
-        element.style.animationDuration = randomDuration + 's';
+      function init() {
+        // Initialize countdown timer
+        updateCountdown();
+        state.timerInterval = setInterval(updateCountdown, 1000);
 
-        floatingContainer.appendChild(element);
+        // Initialize countdown item animation
+        animateCountdownItems();
+
+        // Add floating elements
+        addFloatingElements();
+
+        // Add event listeners
+        setupEventListeners();
       }
+
+      // Countdown Timer Functions
+      function updateCountdown() {
+        const now = new Date();
+        const diff = config.launchDate - now;
+
+        if (diff <= 0) {
+          handleLaunch();
+          return;
+        }
+
+        const { days, hours, minutes, seconds } = calculateTimeUnits(diff);
+
+        // Update DOM
+        elements.days.textContent = formatTimeUnit(days);
+        elements.hours.textContent = formatTimeUnit(hours);
+        elements.minutes.textContent = formatTimeUnit(minutes);
+        elements.seconds.textContent = formatTimeUnit(seconds);
+      }
+
+      function calculateTimeUnits(diff) {
+        const seconds = Math.floor(diff / 1000);
+        const minutes = Math.floor(seconds / 60);
+        const hours = Math.floor(minutes / 60);
+        const days = Math.floor(hours / 24);
+
+        return {
+          days: days,
+          hours: hours % 24,
+          minutes: minutes % 60,
+          seconds: seconds % 60
+        };
+      }
+
+      function formatTimeUnit(unit) {
+        return unit.toString().padStart(2, '0');
+      }
+
+      function handleLaunch() {
+        clearInterval(state.timerInterval);
+        elements.countdown.style.display = 'none';
+        elements.launchMessage.style.display = 'block';
+        if (elements.spinner) elements.spinner.style.display = 'none';
+        if (elements.progress) elements.progress.style.display = 'none';
+        
+        // Show launch notification
+        showNotification('🚀 We have launched! Check it out!', 'success');
+      }
+
+      // Countdown Item Animation
+      function animateCountdownItems() {
+        if (state.activeCountdownItem !== null) {
+          elements.countdownItems[state.activeCountdownItem].classList.remove(config.activeCountdownClass);
+        }
+        
+        state.activeCountdownItem = state.activeCountdownItem === null ? 0 : 
+                                  (state.activeCountdownItem + 1) % elements.countdownItems.length;
+        
+        elements.countdownItems[state.activeCountdownItem].classList.add(config.activeCountdownClass);
+        
+        setTimeout(animateCountdownItems, 1000);
+      }
+
+      // Floating Elements
+      function addFloatingElements() {
+        const floatingContainer = document.querySelector('.floating-elements');
+        if (!floatingContainer) return;
+
+        const numberOfElements = 15;
+        const shapes = ['circle', 'square', 'triangle'];
+
+        for (let i = 0; i < numberOfElements; i++) {
+          const element = document.createElement('div');
+          element.className = 'floating-element';
+
+          const size = Math.random() * 30 + 10;
+          const randomLeft = Math.random() * 100;
+          const randomDelay = Math.random() * 5;
+          const randomDuration = Math.random() * 10 + 10;
+          const shape = shapes[Math.floor(Math.random() * shapes.length)];
+
+          element.style.width = `${size}px`;
+          element.style.height = `${size}px`;
+          element.style.left = `${randomLeft}%`;
+          element.style.animationDelay = `${randomDelay}s`;
+          element.style.animationDuration = `${randomDuration}s`;
+
+          if (shape === 'square') {
+            element.style.borderRadius = '5px';
+          } else if (shape === 'triangle') {
+            element.style.width = '0';
+            element.style.height = '0';
+            element.style.borderLeft = `${size/2}px solid transparent`;
+            element.style.borderRight = `${size/2}px solid transparent`;
+            element.style.borderBottom = `${size}px solid rgba(255, 255, 255, 0.15)`;
+            element.style.background = 'none';
+          }
+
+          floatingContainer.appendChild(element);
+        }
+      }
+
+      // Email Subscription
+      function setupEventListeners() {
+        elements.subscribeBtn.addEventListener('click', handleSubscription);
+        elements.emailInput.addEventListener('keypress', function(e) {
+          if (e.key === 'Enter') handleSubscription();
+        });
+      }
+
+      function handleSubscription() {
+        const email = elements.emailInput.value.trim();
+        
+        if (!validateEmail(email)) {
+          showNotification('Please enter a valid email address', 'error');
+          return;
+        }
+
+        if (state.subscribers.includes(email)) {
+          showNotification('You are already subscribed!', 'warning');
+          return;
+        }
+
+        // Add to subscribers
+        state.subscribers.push(email);
+        localStorage.setItem(config.localStorageKey, JSON.stringify(state.subscribers));
+        
+        // Show success message
+        showNotification('Thank you for subscribing!', 'success');
+        
+        // Clear input
+        elements.emailInput.value = '';
+      }
+
+      function validateEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+      }
+
+      // Notification System
+      function showNotification(message, type) {
+        elements.notification.textContent = message;
+        elements.notification.className = `notification ${type} show`;
+        
+        setTimeout(() => {
+          elements.notification.classList.remove('show');
+        }, config.notificationDuration);
+      }
+
+      // Additional Utility Functions
+      function getRandomColor() {
+        const colors = ['#4361ee', '#3f37c9', '#4cc9f0', '#4895ef', '#7209b7'];
+        return colors[Math.floor(Math.random() * colors.length)];
+      }
+
+      // Initialize any additional components
+      initializeAdditionalFeatures();
     });
+
+    function initializeAdditionalFeatures() {
+      // This function can be expanded with more features
+      console.log('Additional features initialized');
+      
+      // Example: Change background gradient periodically
+      setInterval(() => {
+        const colors = [
+          '#4361ee, #3f37c9, #4cc9f0, #4895ef',
+          '#7209b7, #3a0ca3, #4361ee, #4cc9f0',
+          '#f72585, #7209b7, #3a0ca3, #4361ee',
+          '#4cc9f0, #4895ef, #4361ee, #3f37c9'
+        ];
+        const randomColors = colors[Math.floor(Math.random() * colors.length)];
+        document.body.style.background = `linear-gradient(-45deg, ${randomColors})`;
+      }, 30000);
+    }
   </script>
 </body>
 </html>
