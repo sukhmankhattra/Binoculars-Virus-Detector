@@ -1092,4 +1092,36 @@
                 tabContents.forEach(content => content.classList.remove('active'));
                 
                 // Add active class to clicked menu item
+                item.classList.add('active');
+                // Show corresponding tab content
+                const tab = item.getAttribute('data-tab');
+                document.getElementById(tab).classList.add('active');
+            });
+        });
+
+        // Scroll progress bar
+        const scrollProgress = document.querySelector('.scroll-progress');
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            scrollProgress.style.width = scrollPercent + '%';
+
+            // Show back to top button
+            const backToTop = document.querySelector('.back-to-top');
+            if (scrollTop > 300) {
+                backToTop.style.display = 'flex';
+            } else {
+                backToTop.style.display = 'none';
+            }
+        });
+
+        // Back to top button functionality
+        const backToTopBtn = document.querySelector('.back-to-top');
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
                
