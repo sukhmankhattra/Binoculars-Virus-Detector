@@ -581,7 +581,90 @@
             element.style.borderBottom = `${size}px solid rgba(255, 255, 255, 0.15)`;
             element.style.background = 'none';
           }
+// Enhanced Countdown Timer with more features
+document.addEventListener('DOMContentLoaded', function() {
+  // Configuration
+  const config = {
+    launchDate: new Date('2025-05-09T17:00:00'), // Set your launch date here
+    notificationDuration: 5000, // 5 seconds
+    activeCountdownClass: 'active', // Class for active countdown items
+    localStorageKey: 'comingSoonSubscribers' // Key for storing emails
+  };
 
+  // DOM Elements
+  const elements = {
+    days: document.getElementById('days'),
+    hours: document.getElementById('hours'),
+    minutes: document.getElementById('minutes'),
+    seconds: document.getElementById('seconds'),
+    countdown: document.getElementById('countdown'),
+    launchMessage: document.getElementById('launch-message'),
+    spinner: document.querySelector('.spinner-container'),
+    progress: document.querySelector('.progress-container'),
+    emailInput: document.getElementById('email-input'),
+    subscribeBtn: document.getElementById('subscribe-btn'),
+    notification: document.getElementById('notification'),
+    countdownItems: document.querySelectorAll('.countdown-item')
+  };
+
+  // State
+  let state = {
+    timerInterval: null,
+    activeCountdownItem: null,
+    subscribers: JSON.parse(localStorage.getItem(config.localStorageKey)) || []
+  };
+
+  // Initialize
+  init();
+
+  function init() {
+    updateCountdown();
+    state.timerInterval = setInterval(updateCountdown, 1000);
+    animateCountdownItems();
+    addFloatingElements();
+    setupEventListeners();
+  }
+
+  function updateCountdown() {
+    const now = new Date();
+    const diff = config.launchDate - now;
+
+    if (diff <= 0) {
+      handleLaunch();
+      return;
+    }
+
+    const { days, hours, minutes, seconds } = calculateTimeUnits(diff);
+
+    elements.days.textContent = formatTimeUnit(days);
+    elements.hours.textContent = formatTimeUnit(hours);
+    elements.minutes.textContent = formatTimeUnit(minutes);
+    elements.seconds.textContent = formatTimeUnit(seconds);
+  }
+
+  function calculateTimeUnits(diff) {
+    const seconds = Math.floor(diff / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+
+    return {
+      days: days,
+      hours: hours % 24,
+      minutes: minutes % 60,
+      seconds: seconds % 60
+    };
+  }
+
+  function handleLaunch() {
+    clearInterval(state.timerInterval);
+    elements.countdown.style.display = 'none';
+    elements.launchMessage.style.display = 'block';
+    if (elements.spinner) elements.spinner.style.display = 'none';
+    if (elements.progress) elements.progress.style.display = 'none';
+    showNotification('🚀 We have launched! Check it out!', 'success');
+  }
+});
           floatingContainer.appendChild(element);
         }
       }
