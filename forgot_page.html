@@ -3,177 +3,275 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Forgot Password</title>
-  <link rel="stylesheet" href="combined ui/combined_css.css" />
+  <title>Forgot Password - VirusGuard Security</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet" />
   <style>
+    :root {
+      --primary-color: #e74c3c;
+      --primary-hover: #c0392b;
+      --secondary-color: #4db2ec;
+      --secondary-hover: #3a94d8;
+      --text-light: #333;
+      --text-dark: #eee;
+      --bg-light: #f5f5f5;
+      --bg-dark: #121212;
+      --card-light: #fff;
+      --card-dark: #1e1e1e;
+      --input-light: #eee;
+      --input-dark: #333;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
-      background: linear-gradient(to right, #4db2ec, #c4364e);
+      font-family: 'Lato', sans-serif;
+      background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      font-family: 'Arial', sans-serif;
+      min-height: 100vh;
       margin: 0;
-      transition: background 0.3s ease, color 0.3s ease;
+      transition: all 0.3s ease;
+    }
+
+    body.dark-mode {
+      background: linear-gradient(135deg, var(--bg-dark), #2c2c2c);
+      color: var(--text-dark);
     }
 
     .forgot-container {
-      background: #fff;
+      background: var(--card-light);
       border-radius: 10px;
       box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-      width: 400px;
-      padding: 40px 50px;
+      width: 100%;
+      max-width: 400px;
+      padding: 40px;
       text-align: center;
-      transition: background 0.3s ease, color 0.3s ease;
+      transition: all 0.3s ease;
+    }
+
+    body.dark-mode .forgot-container {
+      background: var(--card-dark);
     }
 
     .forgot-container h1 {
+      margin-bottom: 25px;
+      font-weight: 700;
+      color: var(--primary-color);
+      font-size: 28px;
+    }
+
+    body.dark-mode .forgot-container h1 {
+      color: var(--primary-color);
+    }
+
+    .forgot-container p {
       margin-bottom: 20px;
-      font-weight: bold;
-      color: #333;
+      color: var(--text-light);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    body.dark-mode .forgot-container p {
+      color: var(--text-dark);
     }
 
     .forgot-container form {
       display: flex;
       flex-direction: column;
+      margin-top: 20px;
     }
 
     .forgot-container input {
-      background: #eee;
+      background: var(--input-light);
       border: none;
-      padding: 12px 15px;
+      padding: 15px;
       margin: 8px 0;
       width: 100%;
       border-radius: 4px;
       font-size: 14px;
-      transition: background 0.3s ease, color 0.3s ease;
+      transition: all 0.3s ease;
+    }
+
+    body.dark-mode .forgot-container input {
+      background: var(--input-dark);
+      color: var(--text-dark);
+    }
+
+    .forgot-container input:focus {
+      outline: 2px solid var(--secondary-color);
+    }
+
+    body.dark-mode .forgot-container input:focus {
+      outline-color: var(--primary-color);
     }
 
     .forgot-container button {
       border: none;
-      padding: 12px 45px;
+      padding: 15px;
       margin-top: 20px;
-      background-color: #4db2ec;
+      background-color: var(--primary-color);
       color: #fff;
       font-size: 14px;
-      font-weight: bold;
+      font-weight: 700;
       letter-spacing: 1px;
       text-transform: uppercase;
       cursor: pointer;
       border-radius: 4px;
-      transition: background-color 0.3s ease;
+      transition: all 0.3s ease;
+    }
+
+    body.dark-mode .forgot-container button {
+      background-color: var(--primary-color);
     }
 
     .forgot-container button:hover {
-      background-color: #3a94d8;
+      background-color: var(--primary-hover);
     }
 
     .back-link {
-      margin-top: 20px;
+      margin-top: 25px;
       display: inline-block;
-      color: #4db2ec;
+      color: var(--secondary-color);
       text-decoration: none;
       font-size: 14px;
-      font-weight: bold;
+      font-weight: 700;
       transition: color 0.3s ease;
     }
 
+    body.dark-mode .back-link {
+      color: var(--secondary-color);
+    }
+
     .back-link:hover {
-      color: #3a94d8;
+      color: var(--secondary-hover);
+      text-decoration: underline;
     }
 
     .message {
       margin-top: 15px;
       font-size: 14px;
-      min-height: 18px;
+      min-height: 20px;
+      padding: 10px;
+      border-radius: 4px;
+    }
+
+    .success {
+      color: #2ecc71;
+      background-color: rgba(46, 204, 113, 0.1);
+    }
+
+    .error {
+      color: #e74c3c;
+      background-color: rgba(231, 76, 60, 0.1);
     }
 
     .loading {
-      margin-top: 10px;
+      margin-top: 15px;
       font-size: 14px;
-      color: #4db2ec;
+      color: var(--secondary-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
     }
 
-    /* Dark mode styles */
-    body.dark-mode {
-      background: linear-gradient(to right, #121212, #2c2c2c);
-      color: #eee;
+    .spinner {
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(77, 178, 236, 0.3);
+      border-radius: 50%;
+      border-top-color: var(--secondary-color);
+      animation: spin 1s ease-in-out infinite;
     }
 
-    body.dark-mode .forgot-container {
-      background: #1e1e1e;
-      color: #eee;
+    @keyframes spin {
+      to { transform: rotate(360deg); }
     }
 
-    body.dark-mode .forgot-container h1 {
-      color: #fff;
-    }
-
-    body.dark-mode .forgot-container input {
-      background: #333;
-      color: #fff;
-    }
-
-    body.dark-mode .forgot-container button {
-      background-color: #555;
-    }
-
-    body.dark-mode .forgot-container button:hover {
-      background-color: #444;
-    }
-
-    body.dark-mode .back-link {
-      color: #90caf9;
-    }
-
-    body.dark-mode .back-link:hover {
-      color: #64b5f6;
-    }
-
-    /* Theme toggle button */
     .toggle-theme {
       position: fixed;
       bottom: 20px;
       right: 20px;
       z-index: 999;
-      background-color: #fff;
+      background-color: var(--card-light);
       border: none;
       border-radius: 50%;
-      padding: 10px 12px;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-size: 20px;
       cursor: pointer;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-      transition: background-color 0.3s;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
     }
 
-    .dark-mode .toggle-theme {
-      background-color: #444;
-      color: #fff;
+    body.dark-mode .toggle-theme {
+      background-color: var(--card-dark);
+      color: var(--text-dark);
     }
 
     .toggle-theme:hover {
-      background-color: #ddd;
+      transform: scale(1.1);
     }
 
-    .dark-mode .toggle-theme:hover {
-      background-color: #555;
+    @media (max-width: 480px) {
+      .forgot-container {
+        padding: 30px 20px;
+        margin: 0 15px;
+      }
+      
+      .forgot-container h1 {
+        font-size: 24px;
+      }
     }
   </style>
 </head>
 <body>
   <div class="forgot-container">
-    <h1>Forgot Password</h1>
-    <form id="forgotPasswordForm">
-      <input type="email" id="email" placeholder="Enter your email" required aria-label="Email address" />
-      <button type="submit" aria-label="Send reset link">Send Reset Link</button>
-      <div class="message" id="resetMessage" aria-live="polite"></div>
-      <div class="loading" id="loadingIndicator" style="display: none;">Sending reset link...</div>
+    <h1>Reset Your Password</h1>
+    <p>Enter your email address and we'll send you a link to reset your password.</p>
+    
+    <form id="forgotPasswordForm" novalidate>
+      <input 
+        type="email" 
+        id="email" 
+        placeholder="Enter your email address" 
+        required 
+        aria-label="Email address"
+        aria-describedby="emailHelp"
+      />
+      <div id="emailHelp" class="sr-only">Enter the email address associated with your account</div>
+      
+      <button type="submit" aria-label="Send password reset link">
+        Send Reset Link
+      </button>
+      
+      <div id="resetMessage" class="message" aria-live="polite"></div>
+      <div id="loadingIndicator" class="loading" style="display: none;">
+        <span class="spinner" aria-hidden="true"></span>
+        Sending reset link...
+      </div>
     </form>
-    <a href="combined ui/combined_login_signup.html" class="back-link">Back to Login/Signup</a>
+    
+    <a href="combined ui/combined_login_signup.html" class="back-link">
+      <i class="fas fa-arrow-left" aria-hidden="true"></i> Back to Login
+    </a>
   </div>
 
-  <!-- Toggle button -->
-  <button class="toggle-theme" onclick="toggleTheme()" id="themeToggle">🌙</button>
+  <!-- Theme toggle button -->
+  <button class="toggle-theme" onclick="toggleTheme()" id="themeToggle" aria-label="Toggle dark mode">
+    🌙
+  </button>
+
+  <!-- Font Awesome for icons -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
   <script>
     // Email form handling
@@ -181,48 +279,92 @@
     const emailInput = document.getElementById('email');
     const messageDiv = document.getElementById('resetMessage');
     const loadingIndicator = document.getElementById('loadingIndicator');
+    const emailHelp = document.getElementById('emailHelp');
 
-    form.addEventListener('submit', function (e) {
+    // Enhanced email validation
+    function validateEmail(email) {
+      const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return re.test(String(email).toLowerCase());
+    }
+
+    form.addEventListener('submit', function(e) {
       e.preventDefault();
+      
       const email = emailInput.value.trim();
-      const emailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;
-
-      if (!emailRegex.test(email)) {
-        messageDiv.textContent = '⚠️ Please enter a valid email address.';
-        messageDiv.style.color = 'orangered';
+      messageDiv.textContent = '';
+      messageDiv.className = 'message';
+      
+      // Validate email
+      if (!email) {
+        showMessage('Please enter your email address', 'error');
+        emailInput.focus();
         return;
       }
-
-      messageDiv.textContent = '';
-      loadingIndicator.style.display = 'block';
-
-      // Simulate sending the reset link
+      
+      if (!validateEmail(email)) {
+        showMessage('Please enter a valid email address', 'error');
+        emailInput.focus();
+        return;
+      }
+      
+      // Show loading indicator
+      loadingIndicator.style.display = 'flex';
+      
+      // Simulate API call
       setTimeout(() => {
         loadingIndicator.style.display = 'none';
-        messageDiv.textContent = `✅ A password reset link has been sent to ${email}`;
-        messageDiv.style.color = 'green';
-        emailInput.value = '';
-      }, 1500);
+        showMessage(`Password reset link sent to ${email}`, 'success');
+        form.reset();
+        
+        // Hide success message after 5 seconds
+        setTimeout(() => {
+          messageDiv.textContent = '';
+          messageDiv.className = 'message';
+        }, 5000);
+      }, 2000);
+    });
+    
+    function showMessage(message, type) {
+      messageDiv.textContent = message;
+      messageDiv.className = `message ${type}`;
+    }
+    
+    // Focus on email input when page loads
+    window.addEventListener('DOMContentLoaded', () => {
+      emailInput.focus();
     });
 
     // Dark mode toggle logic
     const body = document.body;
     const toggleBtn = document.getElementById('themeToggle');
-
-    function setTheme(theme) {
-      body.classList.toggle('dark-mode', theme === 'dark');
-      toggleBtn.textContent = theme === 'dark' ? '☀️' : '🌙';
-      localStorage.setItem('theme', theme);
-    }
-
-    function toggleTheme() {
-      const currentTheme = body.classList.contains('dark-mode') ? 'dark' : 'light';
-      setTheme(currentTheme === 'dark' ? 'light' : 'dark');
-    }
-
-    // Apply saved theme on load
+    
+    // Check for saved theme preference
     const savedTheme = localStorage.getItem('theme') || 'light';
-    setTheme(savedTheme);
+    
+    // Apply saved theme
+    if (savedTheme === 'dark') {
+      body.classList.add('dark-mode');
+      toggleBtn.textContent = '☀️';
+    }
+    
+    function toggleTheme() {
+      body.classList.toggle('dark-mode');
+      
+      if (body.classList.contains('dark-mode')) {
+        localStorage.setItem('theme', 'dark');
+        toggleBtn.textContent = '☀️';
+      } else {
+        localStorage.setItem('theme', 'light');
+        toggleBtn.textContent = '🌙';
+      }
+    }
+    
+    // Accessibility helper
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        emailInput.blur();
+      }
+    });
   </script>
 </body>
 </html>
