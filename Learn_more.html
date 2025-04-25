@@ -1,121 +1,640 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Learn | Virus Scanner</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Learn More | Binoculars Security</title>
+    <style>
+        /* --- Base Styles --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background-color: #f5f7fa;
-      color: #2d3a3f;
-    }
+        body {
+            font-family: 'Lato', sans-serif;
+            color: #343A40;
+            line-height: 1.6;
+            background-color: #FFFFFF;
+            overflow-x: hidden;
+        }
 
-    header {
-      background-color: #3498db;
-      color: white;
-      padding: 1.5rem 2rem;
-      text-align: center;
-    }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            color: #0A4A7B;
+            margin-bottom: 0.8em;
+        }
 
-    header h1 {
-      margin: 0;
-      font-size: 2.2rem;
-    }
+        a {
+            text-decoration: none;
+            color: #0A4A7B;
+            transition: color 0.3s ease;
+        }
 
-    .content {
-      max-width: 900px;
-      margin: 2rem auto;
-      padding: 0 1.5rem;
-    }
+        a:hover {
+            color: #2ECC71;
+        }
 
-    .section {
-      margin-bottom: 2rem;
-    }
+        /* --- Navigation --- */
+        #nav {
+            background-color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
 
-    .section h2 {
-      font-size: 1.6rem;
-      margin-bottom: 0.5rem;
-      color: #2980b9;
-    }
+        .navTop {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
 
-    .section p {
-      font-size: 1rem;
-      line-height: 1.6;
-      color: #444;
-    }
+        .navItem img {
+            height: 50px;
+        }
 
-    .highlight-box {
-      background: #e3f2fd;
-      border-left: 5px solid #3498db;
-      padding: 1rem;
-      margin: 1rem 0;
-      border-radius: 8px;
-    }
+        .search {
+            display: flex;
+            align-items: center;
+            background-color: #f8f9fa;
+            padding: 8px 15px;
+            border-radius: 25px;
+        }
 
-    footer {
-      text-align: center;
-      font-size: 0.9rem;
-      padding: 1rem;
-      color: #777;
-      background: #ecf0f1;
-      margin-top: 3rem;
-    }
+        .searchInput {
+            border: none;
+            background: transparent;
+            outline: none;
+            padding: 5px;
+            width: 200px;
+        }
 
-    @media screen and (max-width: 600px) {
-      header h1 {
-        font-size: 1.8rem;
-      }
+        .searchIcon {
+            margin-left: 10px;
+        }
 
-      .section h2 {
-        font-size: 1.3rem;
-      }
-    }
-  </style>
+        .limitedOffer {
+            background-color: #2ECC71;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .limitedOffer:hover {
+            background-color: #25a25a;
+        }
+
+        .signup-btn {
+            background-color: #0A4A7B;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .signup-btn:hover {
+            background-color: #08355d;
+        }
+
+        .navBottom {
+            display: flex;
+            justify-content: center;
+            padding: 15px 0;
+            border-top: 1px solid #e9ecef;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .menuItem {
+            margin: 0 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .menuItem:hover {
+            color: #2ECC71;
+        }
+
+        /* --- Container --- */
+        .learn-more-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* --- Hero Section --- */
+        .learn-more-hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                        url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 100px 20px;
+            margin-bottom: 60px;
+        }
+
+        .learn-more-hero h1 {
+            font-size: 3em;
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .learn-more-hero p {
+            font-size: 1.2em;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+
+        .hero-btn {
+            background-color: #2ECC71;
+            color: white;
+            padding: 15px 40px;
+            border-radius: 5px;
+            font-weight: 600;
+            display: inline-block;
+            transition: background-color 0.3s ease;
+        }
+
+        .hero-btn:hover {
+            background-color: #25a25a;
+            color: white;
+        }
+
+        /* --- Features Grid --- */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 60px 0;
+        }
+
+        .feature-card {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            background-color: #0A4A7B;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2em;
+        }
+
+        .feature-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        /* --- Comparison Table --- */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 60px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .comparison-table th, 
+        .comparison-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .comparison-table th {
+            background-color: #0A4A7B;
+            color: white;
+            font-weight: 600;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        .check-mark {
+            color: #2ECC71;
+            font-weight: bold;
+        }
+
+        /* --- Testimonials --- */
+        .testimonials {
+            margin: 60px 0;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .testimonial-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .testimonial-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-author {
+            font-weight: 700;
+            color: #0A4A7B;
+        }
+
+        /* --- CTA Section --- */
+        .cta-section {
+            background-color: #0A4A7B;
+            color: white;
+            text-align: center;
+            padding: 80px 20px;
+            border-radius: 10px;
+            margin: 60px 0;
+        }
+
+        .cta-section h2 {
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            max-width: 700px;
+            margin: 0 auto 30px;
+            font-size: 1.1em;
+        }
+
+        /* --- Footer --- */
+        footer {
+            background-color: #f8f9fa;
+            padding: 50px 20px;
+            color: #343A40;
+        }
+
+        .footerLeft {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto 30px;
+        }
+
+        .footerMenu {
+            flex: 1;
+            min-width: 200px;
+            margin-bottom: 20px;
+            padding: 0 15px;
+        }
+
+        .fMenuTitle {
+            font-size: 1.2em;
+            margin-bottom: 15px;
+        }
+
+        .fList {
+            list-style: none;
+        }
+
+        .fListItem {
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .fListItem:hover {
+            color: #2ECC71;
+        }
+
+        .footerRight {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 30px;
+            border-top: 1px solid #e9ecef;
+        }
+
+        .footerRightMenu {
+            margin-bottom: 20px;
+        }
+
+        .fMail {
+            display: flex;
+            margin-bottom: 15px;
+        }
+
+        .fInput {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #e9ecef;
+            border-radius: 5px 0 0 5px;
+            outline: none;
+        }
+
+        .fButton {
+            padding: 10px 20px;
+            background-color: #0A4A7B;
+            color: white;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .fButton:hover {
+            background-color: #08355d;
+        }
+
+        .fIcons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .fIcon {
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .fIcon:hover {
+            transform: scale(1.1);
+        }
+
+        .copyright {
+            font-size: 0.9em;
+            color: #6c757d;
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 768px) {
+            .learn-more-hero h1 {
+                font-size: 2.2em;
+            }
+            
+            .learn-more-hero p {
+                font-size: 1em;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .navBottom {
+                flex-wrap: wrap;
+            }
+
+            .menuItem {
+                margin: 5px 10px;
+                font-size: 0.9em;
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- Navigation -->
+    <nav id="nav">
+        <div class="navTop">
+            <div class="navItem">
+                <img src="https://thumbs.dreamstime.com/b/shield-anti-virus-logo-vector-image-virus-shield-antibacterial-protection-antiviral-drug-logo-design-antibacterial-protection-340608516.jpg" alt="Binoculars Security Logo">
+            </div>
+            <div class="navItem">
+                <div class="search">
+                    <input type="text" placeholder="Search Scans..." class="searchInput">
+                    <img src="https://cdn-icons-png.flaticon.com/512/149/149852.png" width="20" height="20" alt="" class="searchIcon">
+                </div>
+            </div>
+            <div class="navItem">
+                <span class="limitedOffer" onclick="window.location.href='FreeScan.html'">FREE SCAN!</span>
+            </div>
+            <div>
+                <button onclick="window.location.href='combined ui/combined_login_signup.html'" class="signup-btn">Sign In / Sign Up</button>
+            </div>
+        </div>
+        <div class="navBottom">
+            <h3 class="menuItem">QUICK SCAN</h3>
+            <h3 class="menuItem">DEEP SCAN</h3>
+            <h3 class="menuItem">CUSTOM SCAN</h3>
+            <h3 class="menuItem">REALTIME PROTECTION</h3>
+            <h3 class="menuItem">FIREWALL</h3>
+        </div>
+    </nav>
 
-  <header>
-    <h1>Learn About Virus Scanning</h1>
-  </header>
-
-  <div class="content">
-    <div class="section">
-      <h2>🔍 What is a Virus Scanner?</h2>
-      <p>A virus scanner is a tool that checks files and programs for harmful code. It helps detect and remove malware, viruses, trojans, and other digital threats that can damage your system or compromise your privacy.</p>
+    <!-- Learn More Content -->
+    <div class="learn-more-hero">
+        <h1>Advanced Security Solutions</h1>
+        <p>Discover how Binoculars Security protects millions of devices worldwide with cutting-edge threat detection and prevention technology.</p>
+        <a href="#product" class="hero-btn">Get Protected Now</a>
     </div>
 
-    <div class="section">
-      <h2>⚙️ How Does It Work?</h2>
-      <p>Our scanner uses a combination of signature-based detection (checking files against known virus patterns) and heuristic analysis (looking for suspicious behavior) to identify threats in real-time or during scheduled scans.</p>
-      <div class="highlight-box">
-        Tip: Regularly update your virus definitions to stay protected against the latest threats.
-      </div>
+    <div class="learn-more-container">
+        <section>
+            <h2>Why Choose Binoculars Security?</h2>
+            <p>Binoculars Security offers enterprise-grade protection for your personal and business devices. Our multi-layered security approach combines advanced algorithms with real-time threat intelligence to keep you safe from the latest cyber threats.</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Real-Time Protection" class="feature-image">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Real-Time Protection</h3>
+                    <p>Continuous monitoring that detects and blocks threats before they can harm your system.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Fast Scanning" class="feature-image">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Lightning Fast Scans</h3>
+                    <p>Complete system scans in under 5 minutes without slowing down your device.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="High Detection Rate" class="feature-image">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>99.9% Detection Rate</h3>
+                    <p>Industry-leading threat detection that outperforms competitors in independent tests.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Product Comparison</h2>
+            <p>Choose the perfect protection plan for your needs with our flexible options:</p>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Basic</th>
+                        <th>Pro</th>
+                        <th>Enterprise</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Real-Time Protection</td>
+                        <td class="check-mark">✓</td>
+                        <td class="check-mark">✓</td>
+                        <td class="check-mark">✓</td>
+                    </tr>
+                    <tr>
+                        <td>Advanced Firewall</td>
+                        <td>-</td>
+                        <td class="check-mark">✓</td>
+                        <td class="check-mark">✓</td>
+                    </tr>
+                    <tr>
+                        <td>Multi-Device Protection</td>
+                        <td>-</td>
+                        <td>Up to 5 devices</td>
+                        <td>Unlimited devices</td>
+                    </tr>
+                    <tr>
+                        <td>Priority Support</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td class="check-mark">✓</td>
+                    </tr>
+                    <tr>
+                        <td>Cloud Backup</td>
+                        <td>-</td>
+                        <td>10GB</td>
+                        <td>100GB</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="testimonials">
+            <h2>What Our Customers Say</h2>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sarah Johnson" class="testimonial-avatar">
+                    <p class="testimonial-text">"Binoculars Security saved my business from a ransomware attack that would have cost us thousands. Their real-time protection is unmatched."</p>
+                    <p class="testimonial-author">- Sarah Johnson, Small Business Owner</p>
+                </div>
+                
+                <div class="testimonial-card">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Michael Chen" class="testimonial-avatar">
+                    <p class="testimonial-text">"I've tried many security solutions, but none are as lightweight and effective as Binoculars. My computer runs faster with it installed!"</p>
+                    <p class="testimonial-author">- Michael Chen, IT Professional</p>
+                </div>
+                
+                <div class="testimonial-card">
+                    <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="David Miller" class="testimonial-avatar">
+                    <p class="testimonial-text">"The peace of mind knowing my family's devices are protected is priceless. The parental controls are an excellent bonus feature."</p>
+                    <p class="testimonial-author">- David Miller, Parent</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <h2>Ready to Experience Premium Protection?</h2>
+            <p>Join over 5 million users who trust Binoculars Security to keep their digital lives safe from threats.</p>
+            <a href="#product" class="hero-btn">Get Started Today</a>
+        </section>
     </div>
 
-    <div class="section">
-      <h2>🛡️ Why Use Our Virus Scanner?</h2>
-      <p>We provide reliable, lightweight, and fast scanning technology with:</p>
-      <ul>
-        <li>✔️ Real-time threat detection</li>
-        <li>✔️ Lightweight performance impact</li>
-        <li>✔️ Easy-to-use interface</li>
-        <li>✔️ 24/7 support</li>
-      </ul>
-    </div>
+    <!-- Footer -->
+    <footer>
+        <div class="footerLeft">
+            <div class="footerMenu">
+                <h1 class="fMenuTitle">About Us</h1>
+                <ul class="fList">
+                    <li class="fListItem">Company</li>
+                    <li class="fListItem">Security Team</li>
+                    <li class="fListItem">Careers</li>
+                    <li class="fListItem">Partners</li>
+                    <li class="fListItem">Press</li>
+                </ul>
+            </div>
+            <div class="footerMenu">
+                <h1 class="fMenuTitle">Support</h1>
+                <ul class="fList">
+                    <li class="fListItem">Help Center</li>
+                    <li class="fListItem">Tutorials</li>
+                    <li class="fListItem">FAQ</li>
+                    <li class="fListItem">Contact</li>
+                    <li class="fListItem">Blog</li>
+                </ul>
+            </div>
+            <div class="footerMenu">
+                <h1 class="fMenuTitle">Products</h1>
+                <ul class="fList">
+                    <li class="fListItem">Binoculars Basic</li>
+                    <li class="fListItem">Binoculars Pro</li>
+                    <li class="fListItem">Enterprise Suite</li>
+                    <li class="fListItem">Mobile Security</li>
+                    <li class="fListItem">VPN Service</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footerRight">
+            <div class="footerRightMenu">
+                <h1 class="fMenuTitle">Subscribe to our newsletter</h1>
+                <div class="fMail">
+                    <input type="text" placeholder="your@email.com" class="fInput">
+                    <button class="fButton">SUBSCRIBE</button>
+                </div>
+            </div>
+            <div class="footerRightMenu">
+                <h1 class="fMenuTitle">Follow Us</h1>
+                <div class="fIcons">
+                    <img src="https://cdn-icons-png.flaticon.com/512/124/124010.png" alt="Facebook" class="fIcon">
+                    <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter" class="fIcon">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram" class="fIcon">
+                    <img src="https://cdn-icons-png.flaticon.com/512/1384/1384023.png" alt="YouTube" class="fIcon">
+                </div>
+            </div>
+            <div class="footerRightMenu">
+                <span class="copyright">© 2025 Binoculars Security. All rights reserved.</span>
+            </div>
+        </div>
+    </footer>
 
-    <div class="section">
-      <h2>📚 Want to Go Deeper?</h2>
-      <p>Stay tuned for our upcoming blog and documentation where you'll learn about file hashing, sandbox analysis, and how to build your own scanner using Python and C++.</p>
-    </div>
-  </div>
-
-  <footer>
-    &copy; 2025 Binoculars Virus Scan. All rights reserved.
-  </footer>
-
+    <!-- Font Awesome for icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </body>
 </html>
