@@ -1,244 +1,273 @@
-// DOM Elements
-const fileInput = document.getElementById('fileInput');
-const dropZone = document.getElementById('dropZone');
-const fileNameDisplay = document.getElementById('fileName');
-const scanButton = document.getElementById('scanButton');
-const progressContainer = document.getElementById('progressContainer');
-const progressBar = document.getElementById('progressBar');
-const resultDiv = document.getElementById('result');
-const scanStatus = document.getElementById('scanStatus');
-const fileSizeDisplay = document.getElementById('fileSize');
-const fileTypeDisplay = document.getElementById('fileType');
-const lastModifiedDisplay = document.getElementById('lastModified');
+document.addEventListener('DOMContentLoaded', function() {
+    // Create the main container
+    const settingsContainer = document.createElement('div');
+    settingsContainer.className = 'settings-container';
+    document.body.appendChild(settingsContainer);
 
-// State
-let selectedFile = null;
-let isScanning = false;
-let scanTimeout = null;
+    // Create sidebar
+    const sidebar = document.createElement('div');
+    sidebar.className = 'sidebar';
+    settingsContainer.appendChild(sidebar);
 
-// Event Listeners
-fileInput.addEventListener('change', handleFileSelect);
-dropZone.addEventListener('dragover', handleDragOver);
-dropZone.addEventListener('dragleave', handleDragLeave);
-dropZone.addEventListener('drop', handleDrop);
-scanButton.addEventListener('click', startScan);
-
-// File Selection Handlers
-function handleFileSelect(e) {
-    selectedFile = e.target.files[0];
-    displayFileInfo(selectedFile);
-}
-
-function handleDragOver(e) {
-    e.preventDefault();
-    dropZone.style.backgroundColor = 'rgba(44, 62, 80, 0.8)';
-    dropZone.style.borderColor = '#3498db';
-}
-
-function handleDragLeave() {
-    dropZone.style.backgroundColor = 'rgba(44, 62, 80, 0.4)';
-    dropZone.style.borderColor = '#34495e';
-}
-
-function handleDrop(e) {
-    e.preventDefault();
-    dropZone.style.backgroundColor = 'rgba(44, 62, 80, 0.4)';
-    dropZone.style.borderColor = '#34495e';
-    
-    if (e.dataTransfer.files.length > 1) {
-        alert('Please upload only one file at a time.');
-        return;
-    }
-    
-    selectedFile = e.dataTransfer.files[0];
-    displayFileInfo(selectedFile);
-    fileInput.files = e.dataTransfer.files;
-}
-
-// File Information Display
-function displayFileInfo(file) {
-    fileNameDisplay.textContent = file.name;
-    fileSizeDisplay.textContent = formatFileSize(file.size);
-    fileTypeDisplay.textContent = file.type || 'Unknown';
-    lastModifiedDisplay.textContent = new Date(file.lastModified).toLocaleString();
-    
-    document.getElementById('fileInfo').classList.remove('hidden');
-    scanButton.disabled = false;
-}
-
-function formatFileSize(bytes) {
-    if (bytes === 0) return '0 Bytes';
-    const k = 1024;
-    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-    const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(2) + ' ' + sizes[i];
-}
-
-// Scanning Process
-async function startScan() {
-    if (!selectedFile) {
-        showAlert('Please select a file to scan.', 'error');
-        return;
-    }
-    
-    if (isScanning) {
-        showAlert('Scan already in progress.', 'warning');
-        return;
-    }
-
-    // Reset UI
-    progressBar.style.width = '0%';
-    progressContainer.classList.remove('hidden');
-    resultDiv.classList.add('hidden');
-    scanButton.disabled = true;
-    isScanning = true;
-    
-    try {
-        // Show initial progress
-        updateProgress(10, 'Preparing file...');
-        await delay(500);
-        
-        // Hash the file
-        updateProgress(20, 'Calculating file hash...');
-        const fileHash = await hashFile(selectedFile);
-        await delay(800);
-        
-        // Simulate scanning process
-        updateProgress(40, 'Scanning for malware...');
-        await delay(1200);
-        
-        updateProgress(70, 'Analyzing file content...');
-        await delay(1500);
-        
-        updateProgress(90, 'Finalizing results...');
-        await delay(800);
-        
-        updateProgress(100, 'Scan complete!');
-        await delay(300);
-        
-        // Show results
-        showResult(fileHash);
-    } catch (error) {
-        showAlert('Scan failed: ' + error.message, 'error');
-        console.error('Scan error:', error);
-    } finally {
-        isScanning = false;
-        scanButton.disabled = false;
-        if (scanTimeout) clearTimeout(scanTimeout);
-    }
-}
-
-function updateProgress(percent, message) {
-    progressBar.style.width = `${percent}%`;
-    progressBar.setAttribute('aria-valuenow', percent);
-    document.getElementById('progressMessage').textContent = message;
-}
-
-async function hashFile(file) {
-    try {
-        const buffer = await file.arrayBuffer();
-        const hashBuffer = await crypto.subtle.digest('SHA-256', buffer);
-        const hashArray = Array.from(new Uint8Array(hashBuffer));
-        return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-    } catch (error) {
-        console.error('Hashing error:', error);
-        throw new Error('Failed to calculate file hash');
-    }
-}
-
-function showResult(fileHash) {
-    progressContainer.classList.add('hidden');
-    resultDiv.classList.remove('hidden');
-    
-    // Get deterministic results based on file hash
-    const scanners = getScanResults(fileHash);
-    
-    // Format results
-    const resultsHTML = scanners.map(scanner => {
-        return `<div class="scan-result ${scanner.isInfected ? 'infected' : 'clean'}">
-            <span class="scanner-name">${scanner.name}</span>
-            <span class="scanner-status">${scanner.isInfected ? '⚠️ Infected' : '✅ Clean'}</span>
-            <span class="scanner-details">Detection: ${scanner.detectionName || 'None'}</span>
-        </div>`;
-    }).join('');
-    
-    scanStatus.innerHTML = resultsHTML;
-    
-    // Add summary
-    const infectedCount = scanners.filter(s => s.isInfected).length;
-    const summary = document.createElement('div');
-    summary.className = 'scan-summary';
-    
-    if (infectedCount > 0) {
-        summary.innerHTML = `<strong style="color:#e74c3c;">
-            ${infectedCount}/${scanners.length} scanners detected threats. File may be unsafe.
-        </strong>`;
-    } else {
-        summary.innerHTML = `<strong style="color:#2ecc71;">
-            All scanners reported clean. File appears safe.
-        </strong>`;
-    }
-    
-    scanStatus.appendChild(summary);
-}
-
-function getScanResults(fileHash) {
-    // List of available scanners with base probabilities
-    const scanners = [
-        { name: 'Antivirus Pro', probability: 0.3 },
-        { name: 'Malware Defender', probability: 0.4 },
-        { name: 'Threat Scanner', probability: 0.25 },
-        { name: 'Secure Shield', probability: 0.35 },
-        { name: 'Virus Eliminator', probability: 0.2 }
-    ];
-    
-    // Possible detection names
-    const detectionNames = [
-        'Trojan.Generic',
-        'Heur.AdvML.B',
-        'Riskware.PUP',
-        'Exploit.CVE-2023-1234',
-        'Script.Phishing'
-    ];
-    
-    return scanners.map(scanner => {
-        // Create deterministic result based on file hash and scanner name
-        const seed = fileHash + scanner.name;
-        const rand = deterministicRandom(seed);
-        const isInfected = rand < scanner.probability;
-        
-        return {
-            ...scanner,
-            isInfected,
-            detectionName: isInfected ? 
-                detectionNames[Math.floor(deterministicRandom(seed + 'detect') * detectionNames.length] : 
-                null
-        };
+    // Add sidebar items
+    const sidebarItems = ['System', 'Devices', 'Network & Internet', 'Update & Security'];
+    sidebarItems.forEach(item => {
+        const sidebarItem = document.createElement('div');
+        sidebarItem.className = 'sidebar-item';
+        if (item === 'Update & Security') sidebarItem.classList.add('active');
+        sidebarItem.textContent = item;
+        sidebarItem.addEventListener('click', function() {
+            document.querySelectorAll('.sidebar-item').forEach(el => el.classList.remove('active'));
+            this.classList.add('active');
+            updateMainContent(item);
+        });
+        sidebar.appendChild(sidebarItem);
     });
-}
 
-// Utility Functions
-function deterministicRandom(seed) {
-    let hash = 0;
-    for (let i = 0; i < seed.length; i++) {
-        hash = (hash * 31 + seed.charCodeAt(i)) >>> 0;
+    // Create main content area
+    const mainContent = document.createElement('div');
+    mainContent.className = 'main-content';
+    settingsContainer.appendChild(mainContent);
+
+    // Initial content
+    updateMainContent('Update & Security');
+
+    // Function to update main content based on selection
+    function updateMainContent(section) {
+        mainContent.innerHTML = '';
+
+        if (section === 'Update & Security') {
+            // Create security header
+            const header = document.createElement('h1');
+            header.textContent = 'Windows Security';
+            mainContent.appendChild(header);
+
+            // Create virus protection section
+            const virusSection = document.createElement('div');
+            virusSection.className = 'setting-group';
+            
+            const virusTitle = document.createElement('div');
+            virusTitle.className = 'setting-group-title';
+            virusTitle.textContent = 'Virus & threat protection';
+            virusSection.appendChild(virusTitle);
+
+            // Add protection status
+            const statusItem = document.createElement('div');
+            statusItem.className = 'setting-item';
+            statusItem.innerHTML = `
+                <div>
+                    <div>Current threats</div>
+                    <div class="setting-description">No current threats</div>
+                </div>
+                <div class="status-indicator safe">No action needed</div>
+            `;
+            virusSection.appendChild(statusItem);
+
+            // Add scan options
+            const scanItem = document.createElement('div');
+            scanItem.className = 'setting-item';
+            scanItem.innerHTML = `
+                <div>
+                    <div>Scan options</div>
+                    <div class="setting-description">Choose a scan option</div>
+                </div>
+                <select class="dropdown" id="scanType">
+                    <option>Quick scan</option>
+                    <option>Full scan</option>
+                    <option>Custom scan</option>
+                </select>
+            `;
+            virusSection.appendChild(scanItem);
+
+            // Add scan button
+            const scanButton = document.createElement('button');
+            scanButton.className = 'scan-button';
+            scanButton.textContent = 'Scan now';
+            scanButton.addEventListener('click', runVirusScan);
+            virusSection.appendChild(scanButton);
+
+            // Add scan results area
+            const resultsArea = document.createElement('div');
+            resultsArea.id = 'scanResults';
+            resultsArea.className = 'results-area';
+            virusSection.appendChild(resultsArea);
+
+            mainContent.appendChild(virusSection);
+        } else {
+            mainContent.innerHTML = `<h1>${section}</h1><p>Content for ${section} would appear here.</p>`;
+        }
     }
-    return (hash % 1000) / 1000;
-}
 
-function delay(ms) {
-    return new Promise(resolve => scanTimeout = setTimeout(resolve, ms));
-}
+    // Virus scan function
+    function runVirusScan() {
+        const scanType = document.getElementById('scanType').value;
+        const resultsArea = document.getElementById('scanResults');
+        resultsArea.innerHTML = '<div class="scanning">Scanning your computer...</div>';
 
-function showAlert(message, type) {
-    const alertDiv = document.createElement('div');
-    alertDiv.className = `alert alert-${type}`;
-    alertDiv.textContent = message;
-    
-    document.body.appendChild(alertDiv);
-    
-    setTimeout(() => {
-        alertDiv.classList.add('fade-out');
-        setTimeout(() => alertDiv.remove(), 500);
-    }, 3000);
-}
+        // Simulate scan with timeout
+        setTimeout(() => {
+            const threatsFound = Math.random() > 0.8 ? Math.floor(Math.random() * 3) + 1 : 0;
+            
+            if (threatsFound > 0) {
+                resultsArea.innerHTML = `
+                    <div class="scan-result threat-found">
+                        <strong>Scan completed:</strong> ${threatsFound} potential threat(s) found
+                        <button class="action-button">Start actions</button>
+                    </div>
+                `;
+            } else {
+                resultsArea.innerHTML = `
+                    <div class="scan-result safe">
+                        <strong>Scan completed:</strong> No threats found
+                    </div>
+                `;
+            }
+        }, 3000);
+    }
+
+    // Add basic styles
+    const style = document.createElement('style');
+    style.textContent = `
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f3f3f3;
+            color: #333;
+        }
+        
+        .settings-container {
+            display: flex;
+            height: 100vh;
+        }
+        
+        .sidebar {
+            width: 220px;
+            background-color: white;
+            padding: 20px 0;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        
+        .sidebar-item {
+            padding: 8px 20px;
+            cursor: pointer;
+        }
+        
+        .sidebar-item:hover {
+            background-color: #f0f0f0;
+        }
+        
+        .sidebar-item.active {
+            background-color: #e5f1fb;
+            color: #0078d7;
+            font-weight: 500;
+        }
+        
+        .main-content {
+            flex: 1;
+            padding: 30px;
+            background-color: white;
+            margin: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+        }
+        
+        h1 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 30px;
+        }
+        
+        .setting-group {
+            margin-bottom: 30px;
+        }
+        
+        .setting-group-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .setting-description {
+            color: #666;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        
+        .dropdown {
+            padding: 8px 12px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            background-color: white;
+        }
+        
+        .scan-button {
+            background-color: #0078d7;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        
+        .scan-button:hover {
+            background-color: #106ebe;
+        }
+        
+        .results-area {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+        }
+        
+        .scanning {
+            color: #0078d7;
+        }
+        
+        .scan-result {
+            padding: 10px;
+        }
+        
+        .threat-found {
+            background-color: #fde7e9;
+            color: #d13438;
+        }
+        
+        .safe {
+            background-color: #e6f4ea;
+            color: #107c10;
+        }
+        
+        .action-button {
+            background-color: #d13438;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        
+        .status-indicator {
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        .status-indicator.safe {
+            background-color: #e6f4ea;
+            color: #107c10;
+        }
+    `;
+    document.head.appendChild(style);
+});
