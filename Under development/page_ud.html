@@ -339,28 +339,40 @@
       — The Luxe Designs Team
     </div>
   </div>
-
   <script>
-    // Countdown timer
+    // Set the launch date (fixed date in the future)
+    const launchDate = new Date();
+    launchDate.setDate(launchDate.getDate() + 14); // 14 days from now
+    launchDate.setHours(0, 0, 0, 0); // Set to midnight for clean countdown
+
     function updateCountdown() {
-      const launchDate = new Date();
-      launchDate.setDate(launchDate.getDate() + 14);
-      
       const now = new Date();
       const diff = launchDate - now;
       
+      // Stop the countdown if we've reached the launch date
+      if (diff <= 0) {
+        document.querySelector('.countdown').innerHTML = '<div class="countdown-value">Launched!</div>';
+        return;
+      }
+      
+      // Calculate time remaining
       const days = Math.floor(diff / (1000 * 60 * 60 * 24));
       const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
       
+      // Update the display
       document.querySelectorAll('.countdown-value')[0].textContent = days.toString().padStart(2, '0');
       document.querySelectorAll('.countdown-value')[1].textContent = hours.toString().padStart(2, '0');
       document.querySelectorAll('.countdown-value')[2].textContent = minutes.toString().padStart(2, '0');
+      
+      // For testing purposes, you can see seconds in console
+      console.log(`${days}d ${hours}h ${minutes}m ${seconds}s remaining`);
     }
     
-    // Update countdown every minute
+    // Initialize and update countdown every second
     updateCountdown();
-    setInterval(updateCountdown, 60000);
+    const countdownInterval = setInterval(updateCountdown, 1000);
     
     // Email subscription handling
     document.querySelector('.subscribe-input button').addEventListener('click', function() {
@@ -379,6 +391,6 @@
         document.querySelector('.subscribe-input button').click();
       }
     });
-  </script>
+</script>
 </body>
 </html>
