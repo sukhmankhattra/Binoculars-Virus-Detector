@@ -3,80 +3,324 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Purchase Completed - Binoculars Pro</title>
+  <title>Purchase Completed - Binoculars Pro Antivirus</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
+    :root {
+      --primary: #4361ee;
+      --primary-dark: #3a56d4;
+      --success: #10b981;
+      --text-dark: #1f2937;
+      --text-medium: #4b5563;
+      --text-light: #6b7280;
+      --bg-light: #f9fafb;
+      --shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
     * {
       box-sizing: border-box;
-      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
     }
 
     body {
-      margin: 0;
-      padding: 0;
-      background: linear-gradient(to right, #e0f7fa, #ffffff);
+      background: linear-gradient(135deg, #f0f9ff 0%, #e0f7fa 100%);
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh;
+      padding: 20px;
+      line-height: 1.5;
     }
 
     .confirmation-box {
       background: #ffffff;
-      padding: 50px 40px;
-      border-radius: 20px;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+      padding: 60px 50px;
+      border-radius: 24px;
+      box-shadow: var(--shadow);
       text-align: center;
-      max-width: 450px;
-      animation: zoomIn 0.8s ease;
+      max-width: 500px;
+      width: 100%;
+      animation: fadeInUp 0.8s ease;
+      position: relative;
+      overflow: hidden;
     }
 
-    @keyframes zoomIn {
-      from { transform: scale(0.8); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
+    .confirmation-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 8px;
+      background: linear-gradient(90deg, #4361ee, #3a0ca3);
+    }
+
+    @keyframes fadeInUp {
+      from { 
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to { 
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .checkmark-circle {
+      width: 100px;
+      height: 100px;
+      background-color: #f0fdf4;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto 25px;
+      position: relative;
+      animation: scaleIn 0.8s ease;
     }
 
     .checkmark {
-      font-size: 64px;
-      color: #10b981;
-      margin-bottom: 20px;
+      font-size: 48px;
+      color: var(--success);
+    }
+
+    @keyframes scaleIn {
+      0% { transform: scale(0); }
+      80% { transform: scale(1.1); }
+      100% { transform: scale(1); }
     }
 
     h2 {
       font-size: 28px;
-      margin-bottom: 10px;
-      color: #1f2937;
+      font-weight: 700;
+      margin-bottom: 15px;
+      color: var(--text-dark);
     }
 
     p {
       font-size: 16px;
-      color: #4b5563;
+      color: var(--text-medium);
       margin-bottom: 30px;
     }
 
-    .btn {
-      background: #3b82f6;
-      color: white;
-      padding: 14px 24px;
-      font-size: 16px;
-      border: none;
-      border-radius: 10px;
-      text-decoration: none;
-      display: inline-block;
-      transition: background 0.3s ease, transform 0.2s ease;
+    .license-info {
+      background-color: var(--bg-light);
+      border-radius: 12px;
+      padding: 20px;
+      margin: 30px 0;
+      text-align: left;
     }
 
-    .btn:hover {
-      background: #2563eb;
-      transform: scale(1.05);
+    .license-key {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 10px;
+    }
+
+    .key {
+      font-family: 'Courier New', monospace;
+      font-weight: 600;
+      color: var(--text-dark);
+      letter-spacing: 1px;
+    }
+
+    .copy-btn {
+      background: transparent;
+      border: none;
+      color: var(--primary);
+      cursor: pointer;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: var(--transition);
+    }
+
+    .copy-btn:hover {
+      color: var(--primary-dark);
+    }
+
+    .btn-container {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 14px 28px;
+      font-size: 16px;
+      font-weight: 500;
+      border-radius: 12px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      border: none;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: white;
+      color: var(--primary);
+      border: 1px solid #d1d5db;
+    }
+
+    .btn-secondary:hover {
+      background: var(--bg-light);
+      border-color: #9ca3af;
+    }
+
+    .download-links {
+      margin-top: 30px;
+      text-align: left;
+    }
+
+    .download-links h3 {
+      font-size: 16px;
+      margin-bottom: 10px;
+      color: var(--text-dark);
+    }
+
+    .download-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--primary);
+      text-decoration: none;
+      margin-bottom: 8px;
+      transition: var(--transition);
+    }
+
+    .download-link:hover {
+      color: var(--primary-dark);
+    }
+
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: #f00;
+      opacity: 0;
+    }
+
+    @media (max-width: 480px) {
+      .confirmation-box {
+        padding: 40px 25px;
+      }
+      
+      .btn-container {
+        flex-direction: column;
+        width: 100%;
+      }
+      
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
     }
   </style>
 </head>
 <body>
   <div class="confirmation-box">
-    <div class="checkmark">✅</div>
+    <div class="checkmark-circle">
+      <div class="checkmark">✓</div>
+    </div>
     <h2>Purchase Completed!</h2>
-    <p>Thank you for purchasing <strong>Binoculars Pro Antivirus</strong>.<br>Your license key has been sent to your email.</p>
-    <a href="home.html" class="btn">Back to Home</a>
+    <p>Thank you for purchasing <strong>Binoculars Pro Antivirus</strong>. Your order has been processed successfully.</p>
+    
+    <div class="license-info">
+      <div>
+        <span style="color: var(--text-light);">License Key:</span>
+        <div class="license-key">
+          <span class="key">BPR0-8A2F-4C9E-1D7B</span>
+          <button class="copy-btn" onclick="copyToClipboard()">
+            <i class="far fa-copy"></i> Copy
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <p>Your license details and download instructions have been sent to <strong>user@example.com</strong>.</p>
+    
+    <div class="btn-container">
+      <a href="download.html" class="btn btn-primary">
+        <i class="fas fa-download"></i> Download Now
+      </a>
+      <a href="home.html" class="btn btn-secondary">
+        <i class="fas fa-home"></i> Back to Home
+      </a>
+    </div>
+    
+    <div class="download-links">
+      <h3>Quick Downloads:</h3>
+      <a href="#" class="download-link">
+        <i class="fab fa-windows"></i> Windows Version
+      </a>
+      <a href="#" class="download-link">
+        <i class="fab fa-apple"></i> macOS Version
+      </a>
+    </div>
   </div>
+
+  <script>
+    function copyToClipboard() {
+      const key = document.querySelector('.key').textContent;
+      navigator.clipboard.writeText(key).then(() => {
+        const copyBtn = document.querySelector('.copy-btn');
+        copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+        setTimeout(() => {
+          copyBtn.innerHTML = '<i class="far fa-copy"></i> Copy';
+        }, 2000);
+      });
+    }
+
+    // Simple confetti effect
+    function createConfetti() {
+      const colors = ['#4361ee', '#3a0ca3', '#7209b7', '#f72585', '#4cc9f0'];
+      const box = document.querySelector('.confirmation-box');
+      
+      for (let i = 0; i < 50; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.left = Math.random() * 100 + '%';
+        confetti.style.top = -10 + 'px';
+        confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+        box.appendChild(confetti);
+        
+        const animation = confetti.animate([
+          { top: '-10px', opacity: 1, transform: `rotate(0deg) scale(1)` },
+          { top: '100%', opacity: 0, transform: `rotate(${Math.random() * 360}deg) scale(0.5)` }
+        ], {
+          duration: 2000 + Math.random() * 3000,
+          easing: 'cubic-bezier(0.1, 0.8, 0.3, 1)'
+        });
+        
+        animation.onfinish = () => confetti.remove();
+      }
+    }
+
+    // Trigger confetti on load
+    window.addEventListener('load', createConfetti);
+  </script>
 </body>
 </html>
