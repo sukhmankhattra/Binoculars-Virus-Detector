@@ -3,24 +3,32 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Binoculars Deep Scan | Thorough Threat Detection</title>
+  <title>Binoculars Deep Scan | Advanced Threat Detection</title>
+  <meta name="description" content="Comprehensive deep scanning technology to detect hidden and complex threats with maximum accuracy">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
+    /* Base Styles & Variables */
     :root {
       --primary: #3a7bd5;
       --primary-dark: #2b5ca8;
+      --primary-light: #5db4d4;
       --danger: #e74c3c;
       --success: #2ecc71;
       --warning: #f39c12;
       --bg-light: #f4f6fa;
       --bg-dark: #121212;
-      --card-bg-light: rgba(255, 255, 255, 0.9);
-      --card-bg-dark: rgba(30, 30, 30, 0.9);
-      --border-radius: 16px;
+      --card-bg-light: rgba(255, 255, 255, 0.95);
+      --card-bg-dark: rgba(30, 30, 30, 0.95);
       --text-light: #333;
       --text-dark: #f0f0f0;
-      --shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
-      --max-width: 1100px;
+      --text-muted: #666;
+      --border-radius: 12px;
+      --border-radius-lg: 16px;
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
+      --shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      --shadow-lg: 0 12px 30px rgba(0, 0, 0, 0.2);
+      --transition: all 0.3s ease;
+      --max-width: 1200px;
     }
 
     * {
@@ -30,7 +38,7 @@
     }
 
     body {
-      font-family: 'Segoe UI', 'Roboto', sans-serif;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
       background: linear-gradient(135deg, #667eea, #764ba2, #4ca1af);
       background-size: 400% 400%;
       animation: gradientAnimation 15s ease infinite;
@@ -38,33 +46,57 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      transition: background-color 0.3s ease, color 0.3s ease;
+      line-height: 1.6;
     }
 
+    /* Keyframes */
     @keyframes gradientAnimation {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
 
-    nav {
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.02); }
+    }
+
+    /* Utility Classes */
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
+    }
+
+    /* Layout Components */
+    .navbar {
       background-color: var(--card-bg-light);
       padding: 1rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
       box-shadow: var(--shadow);
-      border-radius: var(--border-radius);
-      margin: 1rem 2rem 0 2rem;
-      transition: background-color 0.3s ease, color 0.3s ease;
+      border-radius: var(--border-radius-lg);
+      margin: 1rem 2rem 0;
+      transition: var(--transition);
     }
 
-    nav.dark {
+    .navbar.dark {
       background-color: var(--card-bg-dark);
       color: var(--text-dark);
     }
 
-    nav .logo {
+    .logo {
       font-weight: 700;
       font-size: 1.5rem;
       color: var(--primary);
@@ -72,36 +104,52 @@
       user-select: none;
     }
 
-    nav ul {
+    .nav-links {
       list-style: none;
       display: flex;
       gap: 1.5rem;
     }
 
-    nav ul li {
+    .nav-links li {
       cursor: pointer;
       font-weight: 600;
       color: var(--text-light);
       transition: color 0.3s ease;
+      padding: 0.5rem;
+      border-radius: var(--border-radius);
     }
 
-    nav.dark ul li {
+    .navbar.dark .nav-links li {
       color: var(--text-dark);
     }
 
-    nav ul li:hover {
+    .nav-links li:hover {
       color: var(--primary-dark);
+      background-color: rgba(58, 123, 213, 0.1);
+    }
+
+    .mobile-menu-button {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--text-light);
+      cursor: pointer;
+    }
+
+    .navbar.dark .mobile-menu-button {
+      color: var(--text-dark);
     }
 
     main {
       flex: 1;
       max-width: var(--max-width);
-      margin: 2rem auto 4rem auto;
+      margin: 2rem auto 4rem;
       background-color: var(--card-bg-light);
-      border-radius: var(--border-radius);
-      box-shadow: var(--shadow);
+      border-radius: var(--border-radius-lg);
+      box-shadow: var(--shadow-lg);
       padding: 2.5rem 3rem;
-      transition: background-color 0.3s ease, color 0.3s ease;
+      transition: var(--transition);
       color: var(--text-light);
       text-align: center;
     }
@@ -111,11 +159,11 @@
       color: var(--text-dark);
     }
 
-    header {
+    .scan-header {
       margin-bottom: 2rem;
     }
 
-    header h1 {
+    .scan-header h1 {
       font-weight: 700;
       font-size: 2.5rem;
       color: var(--primary);
@@ -128,62 +176,63 @@
     }
 
     @keyframes float {
-      0%, 100% {
-        transform: translateY(0);
-      }
-      50% {
-        transform: translateY(-10px);
-      }
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
     }
 
-    header p {
+    .scan-header p {
       font-size: 1.2rem;
       opacity: 0.9;
       max-width: 700px;
       margin: 0 auto;
     }
 
-    section.features {
-      margin-top: 2rem;
-      display: flex;
-      flex-wrap: wrap;
+    /* Features Section */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 1.5rem;
-      justify-content: center;
+      margin-top: 2rem;
     }
 
-    .feature-item {
+    .feature-card {
       background-color: var(--bg-light);
-      border-radius: 12px;
+      border-radius: var(--border-radius);
       padding: 1.5rem;
-      width: 250px;
       box-shadow: var(--shadow);
       text-align: center;
-      transition: background-color 0.3s ease, color 0.3s ease;
+      transition: var(--transition);
       cursor: default;
     }
 
-    main.dark .feature-item {
+    main.dark .feature-card {
       background-color: #222;
       color: var(--text-dark);
     }
 
-    .feature-item i {
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .feature-card i {
       font-size: 2.5rem;
       color: var(--primary);
       margin-bottom: 1rem;
     }
 
-    .feature-item h3 {
+    .feature-card h3 {
       margin-bottom: 0.5rem;
       font-weight: 700;
     }
 
-    .feature-item p {
+    .feature-card p {
       font-size: 0.95rem;
       opacity: 0.85;
     }
 
-    form {
+    /* Scan Form */
+    .scan-form {
       margin-top: 2rem;
       max-width: 600px;
       margin-left: auto;
@@ -191,24 +240,24 @@
       text-align: left;
     }
 
-    label {
+    .scan-form label {
       font-size: 1rem;
       font-weight: 600;
       display: block;
       margin-bottom: 0.5rem;
     }
 
-    input[type="file"] {
+    .scan-form input[type="file"] {
       display: none;
     }
 
     .drop-zone {
       border: 2px dashed var(--primary);
       padding: 2rem;
-      border-radius: 10px;
+      border-radius: var(--border-radius);
       cursor: pointer;
       margin-bottom: 1.5rem;
-      transition: all 0.3s ease;
+      transition: var(--transition);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -229,12 +278,16 @@
 
     .drop-zone i {
       font-size: 3rem;
-      transition: transform 0.3s ease, color 0.3s ease;
+      transition: var(--transition);
+    }
+
+    .drop-zone:hover {
+      background-color: rgba(58, 123, 213, 0.1);
     }
 
     .drop-zone:hover i {
       transform: rotate(10deg) scale(1.2);
-      color: #5db4d4;
+      color: var(--primary-light);
     }
 
     .file-info {
@@ -242,9 +295,10 @@
       margin-top: 0.5rem;
       padding: 0.75rem;
       background-color: rgba(46, 204, 113, 0.15);
-      border-radius: 8px;
+      border-radius: var(--border-radius);
       font-size: 0.9rem;
       color: var(--text-light);
+      animation: fadeIn 0.3s ease;
     }
 
     main.dark .file-info {
@@ -261,43 +315,115 @@
       margin-bottom: 0.25rem;
     }
 
-    .file-info div {
+    .file-details {
       display: flex;
-      justify-content: space-between;
-      margin-bottom: 0.25rem;
+      flex-direction: column;
+      gap: 0.25rem;
     }
 
-    button {
+    .file-details div {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    /* Progress Bar */
+    .progress-container {
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.1);
+      border-radius: var(--border-radius);
+      margin: 1rem 0;
+      display: none;
+      position: relative;
+      height: 8px;
+    }
+
+    .progress-container.show {
+      display: block;
+    }
+
+    .progress-bar {
+      height: 100%;
+      border-radius: var(--border-radius);
+      background: linear-gradient(90deg, #4ca1af, #3498db);
+      box-shadow: 0 0 10px rgba(58, 123, 213, 0.8);
+      transition: width 0.3s ease, box-shadow 0.3s ease;
+      width: 0%;
+    }
+
+    .progress-percent {
+      position: absolute;
+      right: 0;
+      top: -25px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-light);
+    }
+
+    main.dark .progress-percent {
+      color: var(--text-dark);
+    }
+
+    /* Buttons */
+    .scan-button {
       width: 100%;
       padding: 1rem;
       background: linear-gradient(135deg, #4ca1af, #3498db);
       color: #fff;
       font-weight: 700;
       border: none;
-      border-radius: 12px;
+      border-radius: var(--border-radius-lg);
       cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      box-shadow: var(--shadow);
       font-size: 1.1rem;
-      transition: all 0.3s ease, transform 0.2s, box-shadow 0.3s;
+      transition: var(--transition), transform 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
     }
 
-    button:hover {
+    .scan-button:hover {
       background: linear-gradient(135deg, #5db4d4, #2980b9);
       transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      box-shadow: var(--shadow-lg);
     }
 
-    button:disabled {
+    .scan-button:disabled {
       background: #95a5a6;
       cursor: not-allowed;
       transform: none;
       box-shadow: none;
+      opacity: 0.7;
     }
 
+    .secondary-button {
+      background: transparent;
+      border: 2px solid var(--primary);
+      color: var(--primary);
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--border-radius);
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      margin-top: 1rem;
+      width: auto;
+      display: inline-block;
+    }
+
+    main.dark .secondary-button {
+      color: var(--primary-light);
+      border-color: var(--primary-light);
+    }
+
+    .secondary-button:hover {
+      background-color: rgba(58, 123, 213, 0.1);
+    }
+
+    /* Results Section */
     .result {
       margin-top: 1.5rem;
       padding: 1.25rem;
-      border-radius: 10px;
+      border-radius: var(--border-radius);
       display: none;
       animation: fadeIn 0.5s ease;
       text-align: left;
@@ -305,6 +431,7 @@
 
     .result.show {
       display: block;
+      animation: pulse 1.5s ease infinite;
     }
 
     .result.safe {
@@ -338,30 +465,25 @@
       font-size: 1.5rem;
     }
 
-    .progress-container {
-      width: 100%;
-      background-color: rgba(0, 0, 0, 0.1);
-      border-radius: 8px;
-      margin: 1rem 0;
-      display: none;
+    .threat-details {
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px dashed currentColor;
     }
 
-    .progress-container.show {
-      display: block;
+    .threat-details h4 {
+      margin-bottom: 0.5rem;
     }
 
-    .progress-bar {
-      height: 8px;
-      border-radius: 8px;
-      background: linear-gradient(90deg, #4ca1af, #3498db);
-      box-shadow: 0 0 10px rgba(58, 123, 213, 0.8);
-      transition: width 0.3s ease, box-shadow 0.3s ease;
+    .threat-details ul {
+      list-style-position: inside;
     }
 
-    .progress-bar:hover {
-      box-shadow: 0 0 20px rgba(58, 123, 213, 1);
+    .threat-details li {
+      margin-bottom: 0.25rem;
     }
 
+    /* Theme Toggle */
     .toggle-theme {
       position: fixed;
       top: 20px;
@@ -377,12 +499,12 @@
       padding: 8px 12px;
       background-color: rgba(255, 255, 255, 0.2);
       border: 1px solid rgba(255, 255, 255, 0.3);
-      border-radius: 8px;
-      color: #333333;
+      border-radius: var(--border-radius);
+      color: var(--text-light);
       font-size: 0.85rem;
       font-weight: 500;
       text-align: center;
-      transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+      transition: var(--transition);
       cursor: pointer;
     }
 
@@ -442,12 +564,12 @@
     }
 
     #moonIcon {
-      color: #4a90e2; /* Blue for moon */
+      color: #4a90e2;
       opacity: 1;
     }
 
     #sunIcon {
-      color: #f1c40f; /* Yellow for sun */
+      color: #f1c40f;
       opacity: 0;
     }
 
@@ -467,23 +589,27 @@
       opacity: 1;
     }
 
+    /* Footer */
     .footer {
       background-color: var(--card-bg-light);
       padding: 2rem;
-      border-radius: var(--border-radius);
+      border-radius: var(--border-radius-lg);
       box-shadow: var(--shadow);
-      margin: 0 2rem 2rem 2rem;
+      margin: 0 2rem 2rem;
       color: var(--text-light);
-      transition: background-color 0.3s ease, color 0.3s ease;
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 2rem;
+      transition: var(--transition);
     }
 
     .footer.dark {
       background-color: var(--card-bg-dark);
       color: var(--text-dark);
+    }
+
+    .footer-content {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: space-between;
     }
 
     .footer-section {
@@ -506,6 +632,7 @@
       cursor: pointer;
       color: var(--text-light);
       transition: color 0.3s ease;
+      padding: 0.25rem 0;
     }
 
     .footer.dark .footer-section ul li {
@@ -534,7 +661,7 @@
       margin-bottom: 1rem;
     }
 
-    .newsletter form {
+    .newsletter-form {
       display: flex;
       gap: 0.5rem;
     }
@@ -542,120 +669,231 @@
     .newsletter input[type="email"] {
       flex: 1;
       padding: 0.5rem;
-      border-radius: 8px;
+      border-radius: var(--border-radius);
       border: 1px solid var(--primary);
       font-size: 1rem;
+      background-color: transparent;
+      color: var(--text-light);
     }
 
-    .newsletter button {
+    main.dark .newsletter input[type="email"] {
+      color: var(--text-dark);
+      border-color: var(--primary-light);
+    }
+
+    .subscribe-button {
       background-color: var(--primary);
       color: white;
       border: none;
       padding: 0 1rem;
-      border-radius: 8px;
+      border-radius: var(--border-radius);
       cursor: pointer;
       font-weight: 700;
-      transition: background-color 0.3s ease;
+      transition: var(--transition);
+      white-space: nowrap;
     }
 
-    .newsletter button:hover {
+    .subscribe-button:hover {
       background-color: var(--primary-dark);
     }
 
-    .socialMedia {
+    .social-media {
       display: flex;
       gap: 1rem;
       margin-top: 1rem;
     }
 
-    .socialMedia a {
+    .social-media a {
       color: var(--text-light);
       font-size: 1.5rem;
-      transition: color 0.3s ease;
+      transition: var(--transition);
     }
 
-    .socialMedia a:hover {
+    .footer.dark .social-media a {
+      color: var(--text-dark);
+    }
+
+    .social-media a:hover {
       color: var(--primary);
+      transform: translateY(-2px);
     }
 
     .copyright {
-      flex-basis: 100%;
       text-align: center;
-      margin-top: 1rem;
+      margin-top: 1.5rem;
       color: var(--text-light);
       font-size: 0.9rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
     }
 
+    .footer.dark .copyright {
+      color: var(--text-dark);
+      border-top-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: var(--text-light);
+      text-decoration: none;
+      font-size: 0.8rem;
+    }
+
+    .footer.dark .footer-links a {
+      color: var(--text-dark);
+    }
+
+    .footer-links a:hover {
+      text-decoration: underline;
+      color: var(--primary-dark);
+    }
+
+    /* Responsive Design */
     @media (max-width: 768px) {
-      .footer {
-        flex-direction: column;
-        margin: 1rem;
+      .navbar {
+        margin: 0;
+        border-radius: 0;
+        padding: 1rem;
       }
 
-      .footer-section,
-      .newsletter {
+      .nav-links {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        right: 0;
+        background-color: var(--card-bg-light);
+        flex-direction: column;
+        align-items: center;
+        padding: 1rem 0;
+        box-shadow: var(--shadow);
+        transform: translateY(-150%);
+        transition: transform 0.3s ease;
+        z-index: 99;
+      }
+
+      main.dark .nav-links {
+        background-color: var(--card-bg-dark);
+      }
+
+      .nav-links.active {
+        transform: translateY(0);
+      }
+
+      .mobile-menu-button {
+        display: block;
+      }
+
+      main {
+        padding: 1.5rem;
+        margin: 0 auto 2rem;
+        border-radius: 0;
+      }
+
+      .footer {
+        margin: 0;
+        border-radius: 0;
+      }
+
+      .footer-content {
+        flex-direction: column;
+      }
+
+      .footer-section, .newsletter {
         min-width: 100%;
       }
 
-      .socialMedia {
+      .social-media {
         justify-content: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .scan-header h1 {
+        font-size: 2rem;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .drop-zone {
+        padding: 1.5rem;
+      }
+
+      .toggle-theme {
+        top: 10px;
+        right: 10px;
+      }
+
+      .theme-label-box span {
+        display: none;
       }
     }
   </style>
 </head>
 <body>
 
-  <nav id="mainNav">
-    <div class="logo" tabindex="0" role="link" aria-label="Binoculars Home" onclick="location.href='index.html'">Binoculars</div>
-    <ul>
-      <li tabindex="0" role="link" onclick="location.href='index.html'">Home</li>
-      <li tabindex="0" role="link" onclick="location.href='Products/vpn.html'">VPN Service</li>
-      <li tabindex="0" role="link" onclick="location.href='FreeScan.html'">Free Scan</li>
-      <li tabindex="0" role="link" onclick="location.href='support/blog.html'">Blog</li>
-      <li tabindex="0" role="link" onclick="location.href='aboutus/aboutus-mainpage.html'">About Us</li>
+  <nav id="mainNav" class="navbar">
+    <div class="logo" tabindex="0" role="link" aria-label="Binoculars Home">Binoculars</div>
+    <button class="mobile-menu-button" aria-label="Toggle menu" aria-expanded="false">
+      <i class="fas fa-bars"></i>
+    </button>
+    <ul class="nav-links">
+      <li tabindex="0" role="link">Home</li>
+      <li tabindex="0" role="link">VPN Service</li>
+      <li tabindex="0" role="link">Free Scan</li>
+      <li tabindex="0" role="link">Blog</li>
+      <li tabindex="0" role="link">About Us</li>
     </ul>
   </nav>
 
   <main id="deepScanPage" role="main">
-    <header>
-      <h1><i class="fa-solid fa-magnifying-glass"></i> Binoculars Deep Scan</h1>
+    <header class="scan-header">
+      <h1><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i> Binoculars Deep Scan</h1>
       <p>Thorough scanning technology to detect hidden and complex threats with maximum accuracy.</p>
     </header>
 
     <section class="features" aria-label="Deep Scan Features">
-      <h2>Key Features</h2>
-      <article class="feature-item" tabindex="0">
-        <i class="fa-solid fa-search"></i>
-        <h3>Comprehensive File Analysis</h3>
-        <p>Scan all files deeply to uncover hidden threats and vulnerabilities.</p>
-      </article>
-      <article class="feature-item" tabindex="0">
-        <i class="fa-solid fa-microchip"></i>
-        <h3>Behavioral Detection</h3>
-        <p>Analyze program behavior to identify suspicious activities and zero-day threats.</p>
-      </article>
-      <article class="feature-item" tabindex="0">
-        <i class="fa-solid fa-shield-virus"></i>
-        <h3>Malware Heuristics</h3>
-        <p>Use advanced heuristics to detect new and evolving malware variants.</p>
-      </article>
-      <article class="feature-item" tabindex="0">
-        <i class="fa-solid fa-clock"></i>
-        <h3>Scheduled Scans</h3>
-        <p>Set up automatic deep scans at convenient times to maintain system security.</p>
-      </article>
-      <article class="feature-item" tabindex="0">
-        <i class="fa-solid fa-file-lines"></i>
-        <h3>Detailed Reports</h3>
-        <p>Receive in-depth scan reports with actionable insights and recommendations.</p>
-      </article>
+      <h2 class="visually-hidden">Key Features</h2>
+      <div class="features-grid">
+        <article class="feature-card" tabindex="0">
+          <i class="fa-solid fa-search" aria-hidden="true"></i>
+          <h3>Comprehensive File Analysis</h3>
+          <p>Scan all files deeply to uncover hidden threats and vulnerabilities.</p>
+        </article>
+        <article class="feature-card" tabindex="0">
+          <i class="fa-solid fa-microchip" aria-hidden="true"></i>
+          <h3>Behavioral Detection</h3>
+          <p>Analyze program behavior to identify suspicious activities and zero-day threats.</p>
+        </article>
+        <article class="feature-card" tabindex="0">
+          <i class="fa-solid fa-shield-virus" aria-hidden="true"></i>
+          <h3>Malware Heuristics</h3>
+          <p>Use advanced heuristics to detect new and evolving malware variants.</p>
+        </article>
+        <article class="feature-card" tabindex="0">
+          <i class="fa-solid fa-clock" aria-hidden="true"></i>
+          <h3>Scheduled Scans</h3>
+          <p>Set up automatic deep scans at convenient times to maintain system security.</p>
+        </article>
+        <article class="feature-card" tabindex="0">
+          <i class="fa-solid fa-file-lines" aria-hidden="true"></i>
+          <h3>Detailed Reports</h3>
+          <p>Receive in-depth scan reports with actionable insights and recommendations.</p>
+        </article>
+      </div>
     </section>
 
-    <form id="deepScanForm" aria-label="Deep Scan Form">
+    <form id="deepScanForm" class="scan-form" aria-label="Deep Scan Form">
       <label for="fileInput">Select a file or folder to scan (Max 500MB)</label>
       <input type="file" id="fileInput" webkitdirectory directory multiple aria-describedby="fileHelp" />
       <div id="dropZone" class="drop-zone" tabindex="0" role="button" aria-label="Drag and drop files or folders here or click to browse">
-        <i class="fas fa-cloud-upload-alt"></i>
+        <i class="fas fa-cloud-upload-alt" aria-hidden="true"></i>
         <p>Drag & drop your files or folders here or click to browse</p>
       </div>
       <div id="fileInfo" class="file-info" aria-live="polite" aria-atomic="true">
@@ -669,99 +907,152 @@
             <span>Type:</span>
             <span id="fileType"></span>
           </div>
+          <div>
+            <span>Last modified:</span>
+            <span id="fileModified"></span>
+          </div>
         </div>
       </div>
 
       <div class="progress-container" id="progressContainer" aria-hidden="true">
-        <div class="progress-bar" id="progressBar"></div>
+        <div class="progress-bar" id="progressBar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+        <span class="progress-percent" id="progressPercent">0%</span>
       </div>
 
-      <button type="button" id="scanButton" disabled aria-disabled="true" aria-live="polite" aria-label="Start deep scan">
-        <i class="fas fa-search"></i>
+      <button type="button" id="scanButton" class="scan-button" disabled aria-disabled="true" aria-live="polite">
+        <i class="fas fa-search" aria-hidden="true"></i>
         <span>Start Scan</span>
       </button>
 
-      <div id="result" class="result" role="region" aria-live="polite" aria-atomic="true">
+      <div id="result" class="result" role="region" aria-live="polite" aria-atomic="true" hidden>
         <div class="result-header">
-          <i id="resultIcon"></i>
+          <i id="resultIcon" aria-hidden="true"></i>
           <span id="resultTitle"></span>
         </div>
         <p id="scanStatus"></p>
         <div id="scanDetails" class="file-details"></div>
+        <div id="threatDetails" class="threat-details" hidden>
+          <h4>Threat Details</h4>
+          <ul id="threatList"></ul>
+        </div>
+        <button id="viewDetails" class="secondary-button" hidden>View Detailed Report</button>
       </div>
     </form>
   </main>
 
-  <div class="toggle-theme" role="region" aria-label="Toggle dark and light theme">
-    <div class="theme-label-box" tabindex="0" role="button" aria-pressed="false" onclick="toggleTheme()">
-      <i class="fas fa-moon" id="moonIcon"></i>
+  <div class="toggle-theme" role="region" aria-label="Theme toggle">
+    <div class="theme-label-box" tabindex="0" role="button" aria-pressed="false">
+      <i class="fas fa-moon" id="moonIcon" aria-hidden="true"></i>
       <span>Dark Mode</span>
       <label class="switch">
         <input type="checkbox" id="themeToggleSwitch" aria-label="Toggle dark mode" />
         <span class="slider"></span>
       </label>
-      <i class="fas fa-sun" id="sunIcon"></i>
+      <i class="fas fa-sun" id="sunIcon" aria-hidden="true"></i>
     </div>
   </div>
 
-  <footer class="footer" role="contentinfo" aria-label="Site Footer">
-    <section class="footer-section" aria-label="About Us">
-      <h3>About Us</h3>
-      <ul>
-        <li tabindex="0" role="link" onclick="location.href='aboutus/aboutus-mainpage.html'">Company</li>
-        <li tabindex="0" role="link">Security Team</li>
-        <li tabindex="0" role="link">Careers</li>
-        <li tabindex="0" role="link">Partners</li>
-        <li tabindex="0" role="link">Press</li>
-      </ul>
-    </section>
-    <section class="footer-section" aria-label="Support">
-      <h3>Support</h3>
-      <ul>
-        <li tabindex="0" role="link" onclick="location.href='support/help center.html'">Help Center</li>
-        <li tabindex="0" role="link" onclick="location.href='support/tutorials.html'">Tutorials</li>
-        <li tabindex="0" role="link" onclick="location.href='support/FAQ.html'">FAQ</li>
-        <li tabindex="0" role="link" onclick="location.href='support/contact us.html'">Contact</li>
-        <li tabindex="0" role="link" onclick="location.href='support/blog.html'">Blog</li>
-      </ul>
-    </section>
-    <section class="footer-section" aria-label="Products">
-      <h3>Products</h3>
-      <ul>
-        <li tabindex="0" role="link" onclick="location.href='FreeScan.html'">Binoculars Basic</li>
-        <li tabindex="0" role="link">Binoculars Pro</li>
-        <li tabindex="0" role="link">Enterprise Suite</li>
-        <li tabindex="0" role="link">Mobile Security</li>
-        <li tabindex="0" role="link" onclick="location.href='Products/vpn.html'">VPN Service</li>
-      </ul>
-    </section>
-    <section class="footer-section" aria-label="Newsletter Subscription and Social Media">
-      <h3>Subscribe to our newsletter</h3>
-      <p>Get the latest updates and offers.</p>
-      <form>
-        <input type="email" placeholder="Your email address" aria-label="Email address" />
-        <button type="submit">Subscribe</button>
-      </form>
-      <div class="socialMedia">
-        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+  <footer class="footer" role="contentinfo">
+    <div class="footer-content">
+      <section class="footer-section" aria-label="About Us">
+        <h3>About Us</h3>
+        <ul>
+          <li tabindex="0" role="link">Company</li>
+          <li tabindex="0" role="link">Security Team</li>
+          <li tabindex="0" role="link">Careers</li>
+          <li tabindex="0" role="link">Partners</li>
+          <li tabindex="0" role="link">Press</li>
+        </ul>
+      </section>
+      <section class="footer-section" aria-label="Support">
+        <h3>Support</h3>
+        <ul>
+          <li tabindex="0" role="link">Help Center</li>
+          <li tabindex="0" role="link">Tutorials</li>
+          <li tabindex="0" role="link">FAQ</li>
+          <li tabindex="0" role="link">Contact</li>
+          <li tabindex="0" role="link">Blog</li>
+        </ul>
+      </section>
+      <section class="footer-section" aria-label="Products">
+        <h3>Products</h3>
+        <ul>
+          <li tabindex="0" role="link">Binoculars Basic</li>
+          <li tabindex="0" role="link">Binoculars Pro</li>
+          <li tabindex="0" role="link">Enterprise Suite</li>
+          <li tabindex="0" role="link">Mobile Security</li>
+          <li tabindex="0" role="link">VPN Service</li>
+        </ul>
+      </section>
+      <section class="footer-section newsletter" aria-label="Newsletter">
+        <h3>Subscribe to our newsletter</h3>
+        <p>Get the latest updates and offers.</p>
+        <form class="newsletter-form">
+          <input type="email" placeholder="Your email address" aria-label="Email address" required />
+          <button type="submit" class="subscribe-button">Subscribe</button>
+        </form>
+        <div class="social-media">
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f" aria-hidden="true"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a>
+        </div>
+      </section>
+    </div>
+    <div class="copyright">
+      &copy; <span id="currentYear"></span> Binoculars. All rights reserved.
+      <div class="footer-links">
+        <a href="#" tabindex="0">Privacy Policy</a>
+        <a href="#" tabindex="0">Terms of Service</a>
+        <a href="#" tabindex="0">Cookie Policy</a>
       </div>
-      <div class="copyright">
-        &copy; 2024 Binoculars. All rights reserved.
-      </div>
-    </section>
+    </div>
   </footer>
 
   <script>
+    // DOM Elements
     const themeToggleSwitch = document.getElementById('themeToggleSwitch');
     const body = document.body;
     const main = document.querySelector('main');
     const nav = document.getElementById('mainNav');
-    const footer = document.querySelector('footer');
+    const footer = document.querySelector('.footer');
     const themeLabelBox = document.querySelector('.theme-label-box');
+    const mobileMenuButton = document.querySelector('.mobile-menu-button');
+    const navLinks = document.querySelector('.nav-links');
+    const currentYear = document.getElementById('currentYear');
+    
+    // File Scan Elements
+    const fileInput = document.getElementById('fileInput');
+    const dropZone = document.getElementById('dropZone');
+    const scanButton = document.getElementById('scanButton');
+    const fileInfo = document.getElementById('fileInfo');
+    const fileName = document.getElementById('fileName');
+    const fileSize = document.getElementById('fileSize');
+    const fileType = document.getElementById('fileType');
+    const fileModified = document.getElementById('fileModified');
+    const result = document.getElementById('result');
+    const resultIcon = document.getElementById('resultIcon');
+    const resultTitle = document.getElementById('resultTitle');
+    const scanStatus = document.getElementById('scanStatus');
+    const scanDetails = document.getElementById('scanDetails');
+    const threatDetails = document.getElementById('threatDetails');
+    const threatList = document.getElementById('threatList');
+    const viewDetails = document.getElementById('viewDetails');
+    const progressContainer = document.getElementById('progressContainer');
+    const progressBar = document.getElementById('progressBar');
+    const progressPercent = document.getElementById('progressPercent');
 
+    // Set current year in footer
+    currentYear.textContent = new Date().getFullYear();
+
+    // Mobile menu toggle
+    mobileMenuButton.addEventListener('click', () => {
+      const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+      mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
+      navLinks.classList.toggle('active');
+    });
+
+    // Theme toggle functionality
     function toggleTheme() {
       const isDark = themeToggleSwitch.checked;
       if (isDark) {
@@ -780,12 +1071,15 @@
         nav.classList.remove('dark');
         footer.classList.remove('dark');
         themeLabelBox.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
-        themeLabelBox.style.color = '#333333';
+        themeLabelBox.style.color = 'var(--text-light)';
         themeLabelBox.setAttribute('aria-pressed', 'false');
       }
     }
 
-    themeToggleSwitch.addEventListener('change', toggleTheme);
+    themeToggleSwitch.addEventListener('change', () => {
+      toggleTheme();
+      localStorage.setItem('themePreference', themeToggleSwitch.checked ? 'dark' : 'light');
+    });
 
     // Load saved theme preference
     window.addEventListener('DOMContentLoaded', () => {
@@ -794,30 +1088,17 @@
         themeToggleSwitch.checked = true;
         toggleTheme();
       }
-    });
-
-    // Save theme preference on toggle
-    themeToggleSwitch.addEventListener('change', () => {
-      localStorage.setItem('themePreference', themeToggleSwitch.checked ? 'dark' : 'light');
+      
+      // Close mobile menu when clicking on a link
+      document.querySelectorAll('.nav-links li').forEach(link => {
+        link.addEventListener('click', () => {
+          navLinks.classList.remove('active');
+          mobileMenuButton.setAttribute('aria-expanded', 'false');
+        });
+      });
     });
 
     // File input and drag-drop handling
-    const fileInput = document.getElementById('fileInput');
-    const dropZone = document.getElementById('dropZone');
-    const scanButton = document.getElementById('scanButton');
-    const fileInfo = document.getElementById('fileInfo');
-    const fileName = document.getElementById('fileName');
-    const fileSize = document.getElementById('fileSize');
-    const fileType = document.getElementById('fileType');
-    const result = document.getElementById('result');
-    const resultIcon = document.getElementById('resultIcon');
-    const resultTitle = document.getElementById('resultTitle');
-    const scanStatus = document.getElementById('scanStatus');
-    const scanDetails = document.getElementById('scanDetails');
-    const progressContainer = document.getElementById('progressContainer');
-    const progressBar = document.getElementById('progressBar');
-
-    // Prevent default drag behaviors
     ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
       dropZone.addEventListener(eventName, preventDefaults, false);
     });
@@ -827,23 +1108,25 @@
       e.stopPropagation();
     }
 
-    // Highlight drop zone on dragenter and dragover
     ['dragenter', 'dragover'].forEach(eventName => {
-      dropZone.addEventListener(eventName, () => dropZone.classList.add('highlight'), false);
+      dropZone.addEventListener(eventName, highlight, false);
     });
 
-    // Remove highlight on dragleave and drop
     ['dragleave', 'drop'].forEach(eventName => {
-      dropZone.addEventListener(eventName, () => dropZone.classList.remove('highlight'), false);
+      dropZone.addEventListener(eventName, unhighlight, false);
     });
 
-    // Handle drop event
-    dropZone.addEventListener('drop', handleDrop, false);
+    function highlight() {
+      dropZone.classList.add('highlight');
+    }
 
-    // Open file dialog on drop zone click
+    function unhighlight() {
+      dropZone.classList.remove('highlight');
+    }
+
+    dropZone.addEventListener('drop', handleDrop, false);
     dropZone.addEventListener('click', () => fileInput.click());
 
-    // Handle dropped files
     function handleDrop(e) {
       const dt = e.dataTransfer;
       const files = dt.files;
@@ -852,14 +1135,12 @@
       }
     }
 
-    // Handle file input change
     fileInput.addEventListener('change', () => {
       if (fileInput.files.length) {
         handleFiles(fileInput.files);
       }
     });
 
-    // Handle selected files
     function handleFiles(files) {
       // For simplicity, only handle first file/folder
       const file = files[0];
@@ -876,6 +1157,7 @@
       fileName.textContent = file.name;
       fileSize.textContent = formatFileSize(file.size);
       fileType.textContent = file.type || 'Unknown';
+      fileModified.textContent = new Date(file.lastModified).toLocaleString();
       fileInfo.classList.add('show');
 
       // Enable scan button
@@ -886,7 +1168,6 @@
       scanButton.file = file;
     }
 
-    // Format file size helper
     function formatFileSize(bytes) {
       if (bytes === 0) return '0 Bytes';
       const k = 1024;
@@ -903,11 +1184,18 @@
       // Show progress bar
       progressContainer.classList.add('show');
       progressBar.style.width = '0%';
+      progressPercent.textContent = '0%';
+      progressBar.setAttribute('aria-valuenow', '0');
 
       // Disable scan button during scan
       scanButton.disabled = true;
       scanButton.setAttribute('aria-disabled', 'true');
-      scanButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Scanning...';
+      scanButton.innerHTML = '<i class="fas fa-spinner fa-spin" aria-hidden="true"></i> Scanning...';
+
+      // Hide any previous results
+      result.hidden = true;
+      threatDetails.hidden = true;
+      viewDetails.hidden = true;
 
       // Simulate scan process (replace with real API integration)
       simulateScan(file);
@@ -920,6 +1208,8 @@
         progress += Math.random() * 10;
         if (progress > 100) progress = 100;
         progressBar.style.width = progress + '%';
+        progressPercent.textContent = Math.round(progress) + '%';
+        progressBar.setAttribute('aria-valuenow', Math.round(progress));
 
         if (progress === 100) {
           clearInterval(interval);
@@ -937,20 +1227,40 @@
       if (isSafe) {
         showResult('safe', 'No Threats Found', 'Your selected item appears to be clean and safe to use.', file);
       } else if (hasWarning) {
-        showResult('warning', 'Potential Risk Detected', 'This item contains elements that may be suspicious. Proceed with caution.', file);
+        const threats = generateRandomThreats(1);
+        showResult('warning', 'Potential Risk Detected', 'This item contains elements that may be suspicious. Proceed with caution.', file, threats);
       } else {
-        showResult('danger', 'Threat Detected!', 'This item contains malicious code and should not be opened.', file);
+        const threats = generateRandomThreats(2);
+        showResult('danger', 'Threat Detected!', 'This item contains malicious code and should not be opened.', file, threats);
       }
 
       // Reset scan button
       scanButton.disabled = false;
       scanButton.setAttribute('aria-disabled', 'false');
-      scanButton.innerHTML = '<i class="fas fa-search"></i> Start Scan';
+      scanButton.innerHTML = '<i class="fas fa-search" aria-hidden="true"></i> <span>Start Scan</span>';
+    }
+
+    function generateRandomThreats(count) {
+      const threatTypes = [
+        "Trojan:Win32/Zpevdo.B",
+        "PUA:Win32/Puamson.A!ml",
+        "Exploit:HTML/CVE-2021-40444",
+        "Ransomware:Win32/WannaCrypt",
+        "Spyware:Win32/Keylogger",
+        "Adware:Win32/Generic",
+        "Backdoor:Win32/Bladabindi"
+      ];
+      
+      const threats = [];
+      for (let i = 0; i < count; i++) {
+        threats.push(threatTypes[Math.floor(Math.random() * threatTypes.length)]);
+      }
+      return threats;
     }
 
     // Show scan results
-    function showResult(type, title, message, file) {
-      result.className = 'result show pulse ' + type;
+    function showResult(type, title, message, file, threats = []) {
+      result.className = `result show ${type}`;
       const iconClass = {
         safe: 'fas fa-check-circle',
         warning: 'fas fa-exclamation-triangle',
@@ -969,8 +1279,33 @@
         `;
       }
 
+      if (threats.length > 0) {
+        threatList.innerHTML = '';
+        threats.forEach(threat => {
+          const li = document.createElement('li');
+          li.textContent = threat;
+          threatList.appendChild(li);
+        });
+        threatDetails.hidden = false;
+        viewDetails.hidden = false;
+      }
+
+      result.hidden = false;
       result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
+
+    // View detailed report
+    viewDetails.addEventListener('click', () => {
+      alert('Detailed scan report would be displayed here in a real implementation.');
+    });
+
+    // Newsletter form submission
+    document.querySelector('.newsletter-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = e.target.querySelector('input[type="email"]').value;
+      alert(`Thank you for subscribing with ${email}! You'll receive our newsletter soon.`);
+      e.target.reset();
+    });
   </script>
 
 </body>
