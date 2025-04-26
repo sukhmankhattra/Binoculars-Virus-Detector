@@ -20,8 +20,6 @@
       --text-light: #333;
       --text-dark: #f0f0f0;
       --shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
-
-      /* macOS specific colors */
       --macos-titlebar: var(--card-bg-light);
       --macos-card: var(--card-bg-light);
       --macos-text: var(--text-light);
@@ -44,26 +42,28 @@
     }
 
     body {
-      font-family: 'Segoe UI', 'Roboto', sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       min-height: 100vh;
       background: linear-gradient(135deg, #667eea, #764ba2, #4ca1af);
       background-size: 400% 400%;
       animation: gradientAnimation 15s ease infinite;
-      /* Remove flex centering to allow natural flow and scrolling */
       display: block;
-      /* flex-direction: column;
-      align-items: center;
-      justify-content: center; */
       text-align: center;
       transition: background-color 0.3s ease, color 0.3s ease;
       line-height: 1.6;
       padding: 20px;
+      color: var(--text-light);
     }
 
     @keyframes gradientAnimation {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     #particles-js {
@@ -227,24 +227,25 @@
       opacity: 1;
     }
 
-    /* macOS specific overrides for dark mode */
-    .container.dark .macos-window {
-      background-color: var(--card-bg-dark);
-      color: var(--text-dark);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
-    }
-
+    /* macOS window styles */
     .macos-window {
       width: 100%;
-      max-width: 500px;
+      max-width: 800px;
       margin: 0 auto;
-      border-radius: var(--border-radius);
+      border-radius: 14px;
       overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-      background-color: var(--card-bg-light);
-      transition: background-color 0.4s ease, color 0.4s ease;
-      position: relative;
-      z-index: 1;
+      backdrop-filter: blur(30px);
+      background: rgba(255, 255, 255, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 
+        0 10px 30px rgba(0, 0, 0, 0.1),
+        0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+      transition: all 0.4s ease;
+    }
+
+    .container.dark .macos-window {
+      background: rgba(30, 30, 30, 0.8);
+      border-color: rgba(50, 50, 50, 0.5);
     }
 
     .title-bar {
@@ -271,7 +272,13 @@
       width: 12px;
       height: 12px;
       border-radius: 50%;
-      transition: background-color 0.4s ease;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+      opacity: 0.8;
+    }
+
+    .window-control:hover {
+      opacity: 1;
+      transform: scale(1.1);
     }
 
     .window-control.close {
@@ -347,6 +354,7 @@
 
     .step-content {
       flex-grow: 1;
+      text-align: left;
     }
 
     .step-content h3 {
@@ -382,24 +390,6 @@
       height: 200px;
     }
 
-    .mac-icon {
-      width: 120px;
-      height: 120px;
-      background: linear-gradient(135deg, #f4f6fa 0%, #e0e0e6 100%);
-      border-radius: 24px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      z-index: 2;
-      box-shadow: var(--shadow);
-      transition: background-color 0.4s ease;
-    }
-
-    .container.dark .mac-icon {
-      background: linear-gradient(135deg, #2a2a2a 0%, #3a3a3a 100%);
-    }
-
     .scan-animation {
       position: absolute;
       width: 100%;
@@ -419,6 +409,7 @@
       animation: scanPulse 2s infinite;
       border: 1px solid rgba(58, 123, 213, 0.3);
       transition: background-color 0.4s ease;
+      animation-delay: var(--delay);
     }
 
     .container.dark .scan-wave {
@@ -431,6 +422,105 @@
       100% { transform: scale(10); opacity: 0; }
     }
 
+    .mac-icon {
+      width: 120px;
+      height: 120px;
+      background: linear-gradient(135deg, #f4f6fa 0%, #e0e0e6 100%);
+      border-radius: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 2;
+      box-shadow: var(--shadow);
+      transition: background-color 0.4s ease;
+    }
+
+    .container.dark .mac-icon {
+      background: linear-gradient(135deg, #2a2a2a 0%, #3a3a3a 100%);
+    }
+
+    .mac-icon i {
+      font-size: 42px;
+      color: #1d1d1f;
+      transition: color 0.4s ease;
+    }
+
+    .container.dark .mac-icon i {
+      color: #f0f0f0;
+    }
+
+    .file-highlight {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      background: rgba(58, 123, 213, 0.2);
+      border-radius: 12px;
+      z-index: 1;
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+
+    /* File icons */
+    .file-icons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      margin-top: 30px;
+    }
+
+    .file-icon {
+      width: 48px;
+      height: 60px;
+      background-color: var(--card-bg-light);
+      border-radius: 6px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow);
+      will-change: transform;
+    }
+
+    .container.dark .file-icon {
+      background-color: var(--card-bg-dark);
+    }
+
+    .file-icon.clean {
+      background-color: rgba(48, 209, 88, 0.1);
+    }
+
+    .file-icon.infected {
+      background-color: rgba(231, 76, 60, 0.15);
+      animation: infectedPulse 1s infinite alternate;
+    }
+
+    .file-icon.scanning {
+      transform: scale(1.1);
+      box-shadow: 0 0 15px rgba(58, 123, 213, 0.6);
+      transition: all 0.3s ease;
+    }
+
+    .file-icon i {
+      font-size: 20px;
+      margin-bottom: 5px;
+    }
+
+    .file-ext {
+      font-size: 10px;
+      font-weight: 500;
+      margin-top: 3px;
+    }
+
+    @keyframes infectedPulse {
+      from { transform: translateY(0); }
+      to { transform: translateY(-5px); }
+    }
+
+    /* Demo area */
     .demo-area {
       background-color: var(--card-bg-light);
       border-radius: 12px;
@@ -476,14 +566,39 @@
       font-weight: 500;
       cursor: pointer;
       transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
     }
 
     .btn:hover {
       background-color: var(--primary-dark);
+      transform: translateY(-2px);
     }
 
     .btn:active {
       transform: scale(0.98);
+    }
+
+    .btn-small {
+      padding: 6px 12px;
+      font-size: 13px;
+    }
+
+    .btn-danger {
+      background-color: var(--danger);
+    }
+
+    .btn-danger:hover {
+      background-color: #c0392b;
+    }
+
+    .btn-secondary {
+      background-color: #7f8c8d;
+    }
+
+    .btn-secondary:hover {
+      background-color: #6c7a7d;
     }
 
     .progress-container {
@@ -501,7 +616,7 @@
       height: 100%;
       background-color: var(--primary);
       width: 0%;
-      transition: width 0.5s;
+      transition: width 0.5s ease-out;
       border-radius: 4px;
     }
 
@@ -527,82 +642,137 @@
       color: var(--text-dark);
     }
 
-    .threat-list {
+    /* Threat details panel */
+    .threat-details {
+      background: var(--card-bg-light);
+      border-radius: 12px;
+      padding: 20px;
       margin-top: 20px;
-      border: 1px solid var(--macos-border);
-      border-radius: 8px;
-      overflow: hidden;
-      transition: border-color 0.4s ease;
+      border-left: 4px solid var(--danger);
+      animation: fadeIn 0.3s ease;
+      display: none;
+      text-align: left;
     }
 
-    .container.dark .threat-list {
-      border-color: rgba(255, 255, 255, 0.2);
+    .container.dark .threat-details {
+      background: var(--card-bg-dark);
     }
 
-    .threat-item {
-      padding: 12px 16px;
-      border-bottom: 1px solid var(--macos-border);
+    .threat-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .threat-header h3 {
+      font-size: 16px;
+      margin: 0;
+    }
+
+    .threat-info {
+      margin-bottom: 15px;
+    }
+
+    .threat-info p {
+      margin-bottom: 8px;
       font-size: 14px;
-      transition: background-color 0.4s ease;
     }
 
-    .container.dark .threat-item {
-      background-color: rgba(30, 30, 30, 0.7);
-    }
-
-    .threat-item:last-child {
-      border-bottom: none;
+    .threat-info strong {
+      font-weight: 600;
     }
 
     .threat-severe {
-      background-color: rgba(231, 76, 60, 0.15);
+      color: var(--danger);
+      font-weight: bold;
     }
 
-    .threat-moderate {
-      background-color: rgba(243, 156, 18, 0.15);
-    }
-
-    .file-icons {
+    .threat-actions {
       display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      justify-content: center;
-      margin-top: 30px;
+      gap: 10px;
+      margin-top: 15px;
     }
 
-    .file-icon {
-      width: 48px;
-      height: 60px;
-      background-color: var(--card-bg-light);
-      border-radius: 6px;
+    /* Real-time protection toggle */
+    .setting-toggle {
       display: flex;
-      flex-direction: column;
       align-items: center;
-      justify-content: center;
+      gap: 10px;
+      font-size: 14px;
+      margin-left: auto;
+      padding-left: 20px;
+    }
+
+    .setting-toggle label {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .toggle-slider {
       position: relative;
-      transition: all 0.3s ease;
-      box-shadow: var(--shadow);
+      width: 40px;
+      height: 20px;
+      background-color: #ccc;
+      border-radius: 20px;
+      transition: background-color 0.3s ease;
+      margin-right: 8px;
     }
 
-    .container.dark .file-icon {
-      background-color: var(--card-bg-dark);
+    .toggle-slider:before {
+      content: "";
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      left: 2px;
+      top: 2px;
+      background-color: white;
+      border-radius: 50%;
+      transition: transform 0.3s ease;
     }
 
-    .file-icon.clean {
-      background-color: rgba(48, 209, 88, 0.1);
+    input[type="checkbox"] {
+      display: none;
     }
 
-    .file-icon.infected {
-      background-color: rgba(231, 76, 60, 0.15);
-      animation: infectedPulse 1s infinite alternate;
+    input[type="checkbox"]:checked + .toggle-slider {
+      background-color: var(--success);
     }
 
-    @keyframes infectedPulse {
-      from { transform: translateY(0); }
-      to { transform: translateY(-5px); }
+    input[type="checkbox"]:checked + .toggle-slider:before {
+      transform: translateX(20px);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .container {
+        padding: 1.5rem;
+        margin: 20px 10px;
+      }
+      
+      .scan-steps {
+        gap: 15px;
+      }
+      
+      .scan-step {
+        flex-direction: column;
+        gap: 8px;
+      }
+      
+      .demo-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+      }
+      
+      .scan-details {
+        grid-template-columns: 1fr;
+      }
+      
+      .threat-actions {
+        flex-direction: column;
+      }
     }
   </style>
 </head>
@@ -669,13 +839,14 @@
 
       <div class="visualization">
         <div class="scan-animation">
-          <div class="scan-wave" style="animation-delay: 0s;"></div>
-          <div class="scan-wave" style="animation-delay: 0.5s;"></div>
-          <div class="scan-wave" style="animation-delay: 1s;"></div>
+          <div class="scan-wave" style="--delay: 0s;"></div>
+          <div class="scan-wave" style="--delay: 0.4s;"></div>
+          <div class="scan-wave" style="--delay: 0.8s;"></div>
         </div>
         <div class="mac-icon">
-          <i class="fas fa-laptop" style="font-size: 42px; color: #1d1d1f;"></i>
+          <i class="fas fa-shield-alt"></i>
         </div>
+        <div class="file-highlight"></div>
       </div>
 
       <div class="file-icons">
@@ -708,7 +879,16 @@
       <div class="demo-area">
         <div class="demo-header">
           <h2>Try a Demo Scan</h2>
-          <button class="btn" id="startScanBtn">Start Scan</button>
+          <div class="setting-toggle">
+            <label>
+              <input type="checkbox" id="realTimeToggle" checked>
+              <span class="toggle-slider"></span>
+            </label>
+            <span>Real-Time Protection</span>
+          </div>
+          <button class="btn" id="startScanBtn">
+            <i class="fas fa-search"></i> Start Scan
+          </button>
         </div>
 
         <div class="progress-container" id="scanProgress" style="display: none;">
@@ -736,14 +916,37 @@
           </div>
         </div>
 
-        <button class="btn" id="removeThreatsBtn" style="display: none; margin-top: 20px;">Remove Threats</button>
+        <div class="threat-details" id="threatDetails">
+          <div class="threat-header">
+            <h3>Threat Detected: <span id="threatName">OSX.Malware.Generic</span></h3>
+            <button class="btn btn-small" id="closeThreatDetails">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+          <div class="threat-info">
+            <p><strong>Severity:</strong> <span class="threat-severe">High</span></p>
+            <p><strong>Location:</strong> <code>/Applications/PirateApp.app</code></p>
+            <p><strong>Description:</strong> This malware attempts to steal sensitive data and modify system files without permission.</p>
+          </div>
+          <div class="threat-actions">
+            <button class="btn btn-danger">
+              <i class="fas fa-trash"></i> Quarantine
+            </button>
+            <button class="btn btn-secondary">
+              <i class="fas fa-info-circle"></i> Learn More
+            </button>
+          </div>
+        </div>
+
+        <button class="btn" id="removeThreatsBtn" style="display: none; margin-top: 20px;">
+          <i class="fas fa-shield-alt"></i> Remove All Threats
+        </button>
       </div>
     </div>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-
   <script>
+    // Initialize particles.js
     particlesJS("particles-js", {
       particles: {
         number: { value: 80 },
@@ -755,6 +958,7 @@
       }
     });
 
+    // Theme toggle functionality
     const themeToggleSwitch = document.getElementById('themeToggleSwitch');
     const container = document.querySelector('.container');
     const moonIcon = document.getElementById('moonIcon');
@@ -780,18 +984,26 @@
       localStorage.setItem('themePreference', isDark ? 'dark' : 'light');
     });
 
-    // Existing scan button functionality preserved
+    // Real-time protection toggle
+    document.getElementById('realTimeToggle').addEventListener('change', (e) => {
+      const status = e.target.checked ? "ON" : "OFF";
+      alert(`Real-Time Protection ${status}\n(Simulated in this demo)`);
+    });
+
+    // Scan functionality
     document.getElementById('startScanBtn').addEventListener('click', function() {
       const scanProgress = document.getElementById('scanProgress');
       const scanDetails = document.getElementById('scanDetails');
       const startScanBtn = document.getElementById('startScanBtn');
-      const threatList = document.getElementById('threatList');
       const removeThreatsBtn = document.getElementById('removeThreatsBtn');
+      const threatDetails = document.getElementById('threatDetails');
 
       // Show progress elements
       scanProgress.style.display = 'block';
       scanDetails.style.display = 'grid';
       startScanBtn.style.display = 'none';
+      threatDetails.style.display = 'none';
+      removeThreatsBtn.style.display = 'none';
 
       // Reset progress
       document.getElementById('progressFill').style.width = '0%';
@@ -809,13 +1021,18 @@
 
       const scanInterval = setInterval(() => {
         progress += 1;
-        filesScanned += Math.floor(totalFiles / 100);
-
-        if (filesScanned > totalFiles) filesScanned = totalFiles;
+        filesScanned = Math.floor((progress / 100) * totalFiles);
 
         document.getElementById('progressFill').style.width = progress + '%';
         document.getElementById('filesScanned').textContent = filesScanned;
         document.getElementById('scanTime').textContent = Math.floor((Date.now() - startTime)/1000) + 's';
+
+        // Animate random files being scanned
+        if (progress % 5 === 0) {
+          const randomFile = document.querySelectorAll('.file-icon')[Math.floor(Math.random() * 6)];
+          randomFile.classList.add('scanning');
+          setTimeout(() => randomFile.classList.remove('scanning'), 500);
+        }
 
         // Update status message
         if (progress % 10 === 0) {
@@ -844,35 +1061,32 @@
 
           // Show threats if any found
           if (threatsFound > 0) {
-            const threatTypes = [
-              {name: "OSX.Malware.Generic", severity: "severe"},
-              {name: "OSX.PUA.PirateApp", severity: "moderate"},
-              {name: "OSX.Adware.Crossrider", severity: "moderate"}
-            ];
-
-            let threatListHTML = "";
-            for (let i = 0; i < threatsFound; i++) {
-              const threat = threatTypes[Math.floor(Math.random() * threatTypes.length)];
-              threatListHTML += `
-                <div class="threat-item threat-${threat.severity}">
-                  <span>${threat.name}</span>
-                  <span>${threat.severity === 'severe' ? 'Severe' : 'Moderate'}</span>
-                </div>
-              `;
-            }
-            threatList.innerHTML = threatListHTML;
-            threatList.style.display = 'block';
-            removeThreatsBtn.style.display = 'block';
+            setTimeout(() => {
+              threatDetails.style.display = 'block';
+              removeThreatsBtn.style.display = 'block';
+            }, 500);
+          } else {
+            document.getElementById('scanStatus').textContent = 'No threats found';
+            startScanBtn.style.display = 'block';
+            startScanBtn.textContent = 'Scan Again';
           }
         }
       }, 50);
     });
 
+    // Close threat details
+    document.getElementById('closeThreatDetails').addEventListener('click', function() {
+      document.getElementById('threatDetails').style.display = 'none';
+    });
+
+    // Remove threats button
     document.getElementById('removeThreatsBtn').addEventListener('click', function() {
-      alert('Threats have been successfully quarantined!');
-      document.getElementById('threatList').style.display = 'none';
+      alert('All threats have been successfully quarantined!');
+      document.getElementById('threatDetails').style.display = 'none';
       document.getElementById('removeThreatsBtn').style.display = 'none';
       document.getElementById('threatsFound').textContent = '0';
+      document.getElementById('startScanBtn').style.display = 'block';
+      document.getElementById('startScanBtn').textContent = 'Scan Again';
     });
   </script>
 </body>
