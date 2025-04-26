@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Methods Links</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+        .payment-button {
+            display: inline-block;
+            margin: 10px;
+            padding: 12px 24px;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            width: 200px;
+        }
+        .gpay { background-color: #4285F4; }
+        .gpay:hover { background-color: #3367D6; }
+        .paypal { background-color: #003087; }
+        .paypal:hover { background-color: #001F6B; }
+        .applepay { background-color: #000000; }
+        .applepay:hover { background-color: #333333; }
+        .stripe { background-color: #635BFF; }
+        .stripe:hover { background-color: #4A42E0; }
+        .amazonpay { background-color: #FF9900; }
+        .amazonpay:hover { background-color: #E88C00; }
+    </style>
+</head>
+<body>
+    <h1>Payment Methods</h1>
+    
+    <!-- Google Pay -->
+    <a href="https://pay.google.com" class="payment-button gpay" target="_blank">
+        Google Pay
+    </a>
+    <a href="https://pay.google.com/about/payment-methods/" class="payment-button gpay" target="_blank">
+        GPay Methods
+    </a>
+    <br>
+
+    <!-- PayPal -->
+    <a href="https://www.paypal.com" class="payment-button paypal" target="_blank">
+        PayPal
+    </a>
+    <a href="https://www.paypal.com/us/webapps/mpp/account-selection" class="payment-button paypal" target="_blank">
+        PayPal Options
+    </a>
+    <br>
+
+    <!-- Apple Pay -->
+    <a href="https://www.apple.com/apple-pay/" class="payment-button applepay" target="_blank">
+        Apple Pay
+    </a>
+    <a href="https://support.apple.com/en-us/HT207957" class="payment-button applepay" target="_blank">
+        Apple Pay Setup
+    </a>
+    <br>
+
+    <!-- Stripe -->
+    <a href="https://stripe.com" class="payment-button stripe" target="_blank">
+        Stripe
+    </a>
+    <a href="https://stripe.com/payments/payment-methods" class="payment-button stripe" target="_blank">
+        Stripe Methods
+    </a>
+    <br>
+
+    <!-- Amazon Pay -->
+    <a href="https://pay.amazon.com" class="payment-button amazonpay" target="_blank">
+        Amazon Pay
+    </a>
+    <a href="https://pay.amazon.com/help/202180980" class="payment-button amazonpay" target="_blank">
+        Amazon Pay Help
+    </a>
+</body>
+</html>
