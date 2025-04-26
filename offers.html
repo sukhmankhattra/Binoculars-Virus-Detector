@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Payment Offers</title>
+    <style>
+        /* Self-contained CSS - No external dependencies */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+        .disclaimer {
+            background: #fff8e1;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        .payment-method {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+        .method-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .method-icon {
+            font-size: 24px;
+            margin-right: 15px;
+            width: 40px;
+            text-align: center;
+        }
+        .method-name {
+            font-weight: bold;
+            font-size: 20px;
+        }
+        .offers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
+        }
+        .offer-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 15px;
+            position: relative;
+        }
+        .offer-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #e74c3c;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+        }
+        .offer-title {
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        .offer-desc {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        .offer-valid {
+            font-size: 12px;
+            color: #7f8c8d;
+        }
+        .secure-link {
+            display: inline-block;
+            margin-top: 10px;
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .secure-link:hover {
+            text-decoration: underline;
+        }
+        @media (max-width: 600px) {
+            .offers-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔒 Secure Payment Offers</h1>
+        
+        <div class="disclaimer">
+            <strong>Security Note:</strong> This page contains only static content with links to official payment provider websites. No scripts, trackers, or external resources are loaded.
+        </div>
+
+        <!-- Google Pay -->
+        <div class="payment-method">
+            <div class="method-header">
+                <div class="method-icon">G</div>
+                <div class="method-name">Google Pay</div>
+            </div>
+            <div class="offers-grid">
+                <div class="offer-card">
+                    <div class="offer-badge">10% OFF</div>
+                    <div class="offer-title">HDFC Bank Cards</div>
+                    <div class="offer-desc">Get 10% cashback (max ₹500) on first transaction</div>
+                    <div class="offer-valid">Valid until: 31/12/2025</div>
+                    <a href="https://pay.google.com/offers" class="secure-link" target="_blank" rel="noopener">Official Offer →</a>
+                </div>
+                <div class="offer-card">
+                    <div class="offer-badge">FREE</div>
+                    <div class="offer-title">Movie Tickets</div>
+                    <div class="offer-desc">Book 2 tickets and get 1 free on BookMyShow</div>
+                    <div class="offer-valid">Valid until: 15/01/2026</div>
+                    <a href="https://pay.google.com/offers" class="secure-link" target="_blank" rel="noopener">Official Offer →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- PayPal -->
+        <div class="payment-method">
+            <div class="method-header">
+                <div class="method-icon">P</div>
+                <div class="method-name">PayPal</div>
+            </div>
+            <div class="offers-grid">
+                <div class="offer-card">
+                    <div class="offer-badge">$10 OFF</div>
+                    <div class="offer-title">eBay Shopping</div>
+                    <div class="offer-desc">Get $10 discount on purchases over $50</div>
+                    <div class="offer-valid">Valid until: 30/11/2025</div>
+                    <a href="https://www.paypal.com/offers" class="secure-link" target="_blank" rel="noopener">Official Offer →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Apple Pay -->
+        <div class="payment-method">
+            <div class="method-header">
+                <div class="method-icon">A</div>
+                <div class="method-name">Apple Pay</div>
+            </div>
+            <div class="offers-grid">
+                <div class="offer-card">
+                    <div class="offer-badge">3% BACK</div>
+                    <div class="offer-title">Apple Card Daily Cash</div>
+                    <div class="offer-desc">Earn 3% cashback </div>
+                    <div class="offer-valid">No expiration</div>
+                    <a href="https://www.apple.com/apple-card" class="secure-link" target="_blank" rel="noopener">Official Info →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Security Footer -->
+        <div style="text-align: center; margin-top: 40px; font-size: 12px; color: #95a5a6;">
+            <p>This page uses only HTTPS links to official domains. No cookies or tracking.</p>
+            <p>Last verified safe: april 2025</p>
+        </div>
+    </div>
+</body>
+</html>
