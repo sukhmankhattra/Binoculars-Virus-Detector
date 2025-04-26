@@ -3,24 +3,35 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Binoculars Firewall | Network Security & Protection</title>
+  <meta name="description" content="Advanced network security with Binoculars Firewall - real-time threat protection, intrusion prevention, and comprehensive network monitoring">
+  <title>Binoculars Firewall | Advanced Network Security & Protection</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --primary: #3a7bd5;
       --primary-dark: #2b5ca8;
+      --primary-light: #e3f2fd;
       --danger: #e74c3c;
       --success: #2ecc71;
       --warning: #f39c12;
+      --info: #3498db;
       --bg-light: #f4f6fa;
       --bg-dark: #121212;
       --card-bg-light: rgba(255, 255, 255, 0.95);
       --card-bg-dark: rgba(30, 30, 30, 0.95);
       --border-radius: 16px;
+      --border-radius-sm: 8px;
       --text-light: #333;
+      --text-muted: #666;
       --text-dark: #f0f0f0;
+      --text-dark-muted: #b0b0b0;
       --shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
-      --max-width: 1100px;
+      --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.1);
+      --max-width: 1200px;
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
 
     * {
@@ -30,7 +41,7 @@
     }
 
     body {
-      font-family: 'Segoe UI', 'Roboto', sans-serif;
+      font-family: 'Poppins', 'Segoe UI', 'Roboto', sans-serif;
       background: linear-gradient(135deg, #667eea, #764ba2, #4ca1af);
       background-size: 400% 400%;
       animation: gradientAnimation 15s ease infinite;
@@ -38,7 +49,8 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      transition: background-color 0.3s ease, color 0.3s ease;
+      transition: var(--transition);
+      line-height: 1.6;
     }
 
     @keyframes gradientAnimation {
@@ -47,6 +59,7 @@
       100% { background-position: 0% 50%; }
     }
 
+    /* Navigation */
     nav {
       background-color: var(--card-bg-light);
       padding: 1rem 2rem;
@@ -56,7 +69,10 @@
       box-shadow: var(--shadow);
       border-radius: var(--border-radius);
       margin: 1rem 2rem 0 2rem;
-      transition: background-color 0.3s ease, color 0.3s ease;
+      transition: var(--transition);
+      position: sticky;
+      top: 1rem;
+      z-index: 1000;
     }
 
     nav.dark {
@@ -66,10 +82,17 @@
 
     nav .logo {
       font-weight: 700;
-      font-size: 1.5rem;
+      font-size: 1.8rem;
       color: var(--primary);
       cursor: pointer;
       user-select: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    nav .logo i {
+      font-size: 1.5rem;
     }
 
     nav ul {
@@ -82,7 +105,9 @@
       cursor: pointer;
       font-weight: 600;
       color: var(--text-light);
-      transition: color 0.3s ease;
+      transition: var(--transition);
+      position: relative;
+      padding: 0.5rem 0;
     }
 
     nav.dark ul li {
@@ -93,6 +118,22 @@
       color: var(--primary-dark);
     }
 
+    nav ul li::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--primary);
+      transition: var(--transition);
+    }
+
+    nav ul li:hover::after {
+      width: 100%;
+    }
+
+    /* Main Content */
     main {
       flex: 1;
       max-width: var(--max-width);
@@ -101,7 +142,7 @@
       border-radius: var(--border-radius);
       box-shadow: var(--shadow);
       padding: 2.5rem 3rem;
-      transition: background-color 0.3s ease, color 0.3s ease;
+      transition: var(--transition);
       color: var(--text-light);
     }
 
@@ -112,21 +153,36 @@
 
     header {
       text-align: center;
-      margin-bottom: 2rem;
+      margin-bottom: 3rem;
     }
 
     header h1 {
       font-weight: 700;
-      font-size: 2.5rem;
+      font-size: 2.8rem;
       color: var(--primary);
-      margin-bottom: 0.5rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
     }
 
     header p {
       font-size: 1.2rem;
       opacity: 0.9;
-      max-width: 700px;
-      margin: 0 auto;
+      max-width: 800px;
+      margin: 0 auto 2rem;
+    }
+
+    .badge {
+      display: inline-block;
+      background-color: var(--primary);
+      color: white;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin: 0 0.5rem;
     }
 
     section {
@@ -135,76 +191,406 @@
 
     section h2 {
       font-weight: 700;
-      font-size: 1.8rem;
+      font-size: 2rem;
       color: var(--primary);
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
       border-bottom: 3px solid var(--primary);
       display: inline-block;
-      padding-bottom: 0.3rem;
+      padding-bottom: 0.5rem;
     }
 
-    .features, .benefits, .how-it-works {
+    /* Stats Section */
+    .stats {
       display: flex;
+      justify-content: space-around;
       flex-wrap: wrap;
       gap: 2rem;
-      justify-content: center;
+      margin: 3rem 0;
     }
 
-    .feature-item, .benefit-item, .how-it-works-item {
-      background-color: var(--bg-light);
-      border-radius: 12px;
-      padding: 1.5rem;
-      width: 320px;
-      box-shadow: var(--shadow);
+    .stat-item {
       text-align: center;
-      transition: background-color 0.3s ease, color 0.3s ease;
-      cursor: default;
+      flex: 1;
+      min-width: 150px;
     }
 
-    main.dark .feature-item, main.dark .benefit-item, main.dark .how-it-works-item {
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      font-size: 1rem;
+      opacity: 0.8;
+    }
+
+    /* Features Grid */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .feature-card {
+      background-color: var(--bg-light);
+      border-radius: var(--border-radius);
+      padding: 2rem;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+      cursor: default;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      height: 100%;
+    }
+
+    main.dark .feature-card {
+      background-color: #222;
+      color: var(--text-dark);
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow);
+      border-color: var(--primary);
+    }
+
+    .feature-card i {
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+      background-color: var(--primary-light);
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
+
+    main.dark .feature-card i {
+      background-color: rgba(58, 123, 213, 0.2);
+    }
+
+    .feature-card h3 {
+      margin-bottom: 1rem;
+      font-weight: 600;
+      font-size: 1.3rem;
+    }
+
+    .feature-card p {
+      font-size: 1rem;
+      opacity: 0.85;
+      margin-bottom: 1.5rem;
+    }
+
+    .feature-more {
+      color: var(--primary);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: var(--transition);
+    }
+
+    .feature-more:hover {
+      gap: 1rem;
+    }
+
+    /* How It Works - Steps */
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      counter-reset: step-counter;
+    }
+
+    .step {
+      display: flex;
+      gap: 2rem;
+      align-items: flex-start;
+      position: relative;
+      padding-left: 80px;
+    }
+
+    .step::before {
+      counter-increment: step-counter;
+      content: counter(step-counter);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 60px;
+      height: 60px;
+      background-color: var(--primary);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .step-content {
+      flex: 1;
+    }
+
+    .step h3 {
+      font-size: 1.4rem;
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+    }
+
+    .step p {
+      opacity: 0.9;
+    }
+
+    /* Comparison Table */
+    .comparison {
+      overflow-x: auto;
+      margin: 2rem 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+
+    th, td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    main.dark th, main.dark td {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    th {
+      background-color: var(--primary);
+      color: white;
+      font-weight: 600;
+    }
+
+    tr:nth-child(even) {
+      background-color: rgba(0, 0, 0, 0.03);
+    }
+
+    main.dark tr:nth-child(even) {
+      background-color: rgba(255, 255, 255, 0.03);
+    }
+
+    .feature-present {
+      color: var(--success);
+      font-weight: 600;
+    }
+
+    .feature-absent {
+      color: var(--danger);
+    }
+
+    /* Testimonials */
+    .testimonials {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .testimonial-card {
+      background-color: var(--bg-light);
+      border-radius: var(--border-radius);
+      padding: 2rem;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    main.dark .testimonial-card {
+      background-color: #222;
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .testimonial-text {
+      font-style: italic;
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    .testimonial-text::before,
+    .testimonial-text::after {
+      content: '"';
+      font-size: 2rem;
+      color: var(--primary);
+      opacity: 0.3;
+      position: absolute;
+    }
+
+    .testimonial-text::before {
+      top: -10px;
+      left: -15px;
+    }
+
+    .testimonial-text::after {
+      bottom: -20px;
+      right: -10px;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .author-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--primary);
+    }
+
+    .author-info h4 {
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+    }
+
+    .author-info p {
+      font-size: 0.9rem;
+      opacity: 0.7;
+    }
+
+    /* CTA Section */
+    .cta-section {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      padding: 3rem;
+      border-radius: var(--border-radius);
+      text-align: center;
+      margin: 3rem 0;
+    }
+
+    .cta-section h2 {
+      color: white;
+      border-bottom: 3px solid rgba(255, 255, 255, 0.3);
+      margin-bottom: 1.5rem;
+    }
+
+    .cta-section p {
+      max-width: 700px;
+      margin: 0 auto 2rem;
+      opacity: 0.9;
+    }
+
+    .cta-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 2rem;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: var(--border-radius-sm);
+      cursor: pointer;
+      transition: var(--transition);
+      text-decoration: none;
+      border: none;
+    }
+
+    .btn-primary {
+      background-color: white;
+      color: var(--primary);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-primary:hover {
+      background-color: #f0f0f0;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .btn-secondary {
+      background-color: transparent;
+      color: white;
+      border: 2px solid white;
+    }
+
+    .btn-secondary:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+      transform: translateY(-3px);
+    }
+
+    /* FAQ Section */
+    .faq-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      margin-bottom: 1rem;
+      border-radius: var(--border-radius-sm);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .faq-question {
+      background-color: var(--bg-light);
+      color: var(--text-light);
+      padding: 1.5rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: var(--transition);
+    }
+
+    main.dark .faq-question {
       background-color: #222;
       color: var(--text-dark);
     }
 
-    .feature-item i, .benefit-item i, .how-it-works-item i {
-      font-size: 3rem;
-      color: var(--primary);
-      margin-bottom: 1rem;
+    .faq-question:hover {
+      background-color: rgba(58, 123, 213, 0.1);
     }
 
-    .feature-item h3, .benefit-item h3, .how-it-works-item h3 {
-      margin-bottom: 0.5rem;
-      font-weight: 700;
+    main.dark .faq-question:hover {
+      background-color: rgba(58, 123, 213, 0.2);
     }
 
-    .feature-item p, .benefit-item p, .how-it-works-item p {
-      font-size: 1rem;
-      opacity: 0.85;
+    .faq-answer {
+      background-color: white;
+      padding: 0;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
     }
 
-    .cta {
-      text-align: center;
+    main.dark .faq-answer {
+      background-color: #2a2a2a;
     }
 
-    .cta button {
-      background: linear-gradient(135deg, #4ca1af, #3498db);
-      color: white;
-      border: none;
-      padding: 1rem 2.5rem;
-      font-size: 1.2rem;
-      font-weight: 700;
-      border-radius: 12px;
-      cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-      transition: all 0.3s ease;
+    .faq-answer.show {
+      padding: 1.5rem;
+      max-height: 500px;
     }
 
-    .cta button:hover {
-      background: linear-gradient(135deg, #5db4d4, #2980b9);
-      transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    .faq-toggle {
+      transition: transform 0.3s ease;
     }
 
+    .faq-toggle.rotate {
+      transform: rotate(180deg);
+    }
+
+    /* Theme Toggle */
     .toggle-theme {
       position: fixed;
       top: 20px;
@@ -225,7 +611,7 @@
       font-size: 0.85rem;
       font-weight: 500;
       text-align: center;
-      transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+      transition: var(--transition);
       cursor: pointer;
     }
 
@@ -300,14 +686,15 @@
       opacity: 1;
     }
 
+    /* Footer */
     footer {
       background-color: var(--card-bg-light);
-      padding: 2rem;
+      padding: 3rem 2rem;
       border-radius: var(--border-radius);
       box-shadow: var(--shadow);
       margin: 0 2rem 2rem 2rem;
       color: var(--text-light);
-      transition: background-color 0.3s ease, color 0.3s ease;
+      transition: var(--transition);
       display: flex;
       justify-content: space-between;
       flex-wrap: wrap;
@@ -325,8 +712,9 @@
     }
 
     .footer-section h3 {
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
       color: var(--primary);
+      font-size: 1.2rem;
     }
 
     .footer-section ul {
@@ -335,10 +723,13 @@
     }
 
     .footer-section ul li {
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.8rem;
       cursor: pointer;
       color: var(--text-light);
-      transition: color 0.3s ease;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
     }
 
     footer.dark .footer-section ul li {
@@ -347,16 +738,135 @@
 
     .footer-section ul li:hover {
       color: var(--primary-dark);
+      transform: translateX(5px);
+    }
+
+    .footer-section ul li i {
+      width: 20px;
+      text-align: center;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .social-links a {
+      color: var(--text-light);
+      background-color: rgba(0, 0, 0, 0.1);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+
+    footer.dark .social-links a {
+      color: var(--text-dark);
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .social-links a:hover {
+      background-color: var(--primary);
+      color: white;
+      transform: translateY(-3px);
+    }
+
+    .copyright {
+      width: 100%;
+      text-align: center;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    footer.dark .copyright {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 992px) {
+      header h1 {
+        font-size: 2.2rem;
+      }
+      
+      nav ul {
+        gap: 1rem;
+      }
     }
 
     @media (max-width: 768px) {
-      .features, .benefits, .how-it-works {
+      nav {
         flex-direction: column;
-        align-items: center;
+        gap: 1rem;
+        padding: 1rem;
+        margin: 0.5rem;
+        position: static;
       }
-
-      nav, main, footer {
+      
+      nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      main {
+        padding: 1.5rem;
         margin: 1rem;
+      }
+      
+      header h1 {
+        font-size: 1.8rem;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      
+      .steps {
+        gap: 1.5rem;
+      }
+      
+      .step {
+        flex-direction: column;
+        padding-left: 0;
+        padding-top: 70px;
+      }
+      
+      .step::before {
+        top: 0;
+        left: 0;
+      }
+      
+      .cta-section {
+        padding: 2rem 1rem;
+      }
+      
+      .cta-buttons {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      
+      footer {
+        padding: 2rem 1rem;
+        margin: 0 0.5rem 1rem 0.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .stats {
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+      
+      .stat-item {
+        min-width: 100%;
       }
     }
   </style>
@@ -364,7 +874,9 @@
 <body>
 
   <nav id="mainNav">
-    <div class="logo" tabindex="0" role="link" aria-label="Binoculars Home" onclick="location.href='index.html'">Binoculars</div>
+    <div class="logo" tabindex="0" role="link" aria-label="Binoculars Home" onclick="location.href='index.html'">
+      <i class="fas fa-shield-alt"></i> Binoculars
+    </div>
     <ul>
       <li tabindex="0" role="link" onclick="location.href='index.html'">Home</li>
       <li tabindex="0" role="link" onclick="location.href='Products/vpn.html'">VPN Service</li>
@@ -377,114 +889,237 @@
   <main id="firewallPage" role="main">
     <header>
       <h1><i class="fa-solid fa-shield-halved"></i> Binoculars Firewall</h1>
-      <p>Comprehensive network security solution to protect your devices and data from unauthorized access and cyber threats.</p>
+      <p>Advanced network security solution to protect your devices and data from unauthorized access, cyber threats, and malicious attacks with real-time monitoring and AI-powered protection.</p>
+      <div>
+        <span class="badge"><i class="fas fa-check-circle"></i> Enterprise-grade security</span>
+        <span class="badge"><i class="fas fa-bolt"></i> Lightning fast</span>
+        <span class="badge"><i class="fas fa-lock"></i> 99.99% uptime</span>
+      </div>
     </header>
+
+     
 
     <section class="overview" aria-label="Firewall Overview">
       <h2>What is a Firewall?</h2>
-      <p>A firewall is a critical security system that monitors and controls incoming and outgoing network traffic based on predetermined security rules. It acts as a barrier between trusted internal networks and untrusted external networks, such as the internet, to prevent unauthorized access and cyber attacks.</p>
+      <p>A firewall is a critical security system that monitors and controls incoming and outgoing network traffic based on predetermined security rules. It acts as a barrier between trusted internal networks and untrusted external networks, such as the internet, to prevent unauthorized access and cyber attacks. Binoculars Firewall goes beyond traditional protection with AI-powered threat detection, behavioral analysis, and real-time response capabilities.</p>
     </section>
 
     <section class="features" aria-label="Firewall Features">
-      <h2>Key Features</h2>
-      <article class="feature-item" tabindex="0">
-        <i class="fa-solid fa-shield-virus"></i>
-        <h3>Real-Time Threat Detection</h3>
-        <p>Continuously monitor network traffic to identify and block malicious activities instantly.</p>
-      </article>
-      <article class="feature-item" tabindex="0">
-        <i class="fa-solid fa-network-wired"></i>
-        <h3>Network Traffic Control</h3>
-        <p>Manage inbound and outbound traffic with customizable rules to ensure secure communication.</p>
-      </article>
-      <article class="feature-item" tabindex="0">
-        <i class="fa-solid fa-lock"></i>
-        <h3>Application Control</h3>
-        <p>Allow or block specific applications from accessing the network to prevent unauthorized usage.</p>
-      </article>
-      <article class="feature-item" tabindex="0">
-        <i class="fa-solid fa-user-shield"></i>
-        <h3>Intrusion Prevention System</h3>
-        <p>Detect and prevent intrusion attempts to safeguard your network from attacks.</p>
-      </article>
-      <article class="feature-item" tabindex="0">
-        <i class="fa-solid fa-shield-alt"></i>
-        <h3>Advanced Firewall Rules</h3>
-        <p>Create complex rules based on IP, port, protocol, and time to tailor your security policies.</p>
-      </article>
-      <article class="feature-item" tabindex="0">
-        <i class="fa-solid fa-chart-line"></i>
-        <h3>Comprehensive Logging & Reporting</h3>
-        <p>Keep detailed logs and generate reports to analyze network security events and trends.</p>
-      </article>
-      <article class="feature-item" tabindex="0">
-        <i class="fa-solid fa-mobile-screen-button"></i>
-        <h3>Multi-Device Support</h3>
-        <p>Protect multiple devices on your network with a single firewall solution.</p>
-      </article>
-      <article class="feature-item" tabindex="0">
-        <i class="fa-solid fa-wifi"></i>
-        <h3>Wi-Fi Security</h3>
-        <p>Secure your wireless networks against unauthorized access and attacks.</p>
-      </article>
-      <article class="feature-item" tabindex="0">
-        <i class="fa-solid fa-bug"></i>
-        <h3>Malware & Exploit Blocking</h3>
-        <p>Block known malware and exploits before they can infiltrate your network.</p>
-      </article>
-      <article class="feature-item" tabindex="0">
-        <i class="fa-solid fa-headset"></i>
-        <h3>24/7 Expert Support</h3>
-        <p>Our dedicated support team is available around the clock to assist with any firewall issues.</p>
-      </article>
+      <h2>Advanced Security Features</h2>
+      <div class="features-grid">
+        <article class="feature-card" tabindex="0">
+          <i class="fa-solid fa-shield-virus"></i>
+          <h3>AI Threat Detection</h3>
+          <p>Our machine learning algorithms analyze network patterns to detect and block emerging threats before they reach your systems.</p>
+          <a href="#" class="feature-more">Learn more <i class="fas fa-arrow-right"></i></a>
+        </article>
+        <article class="feature-card" tabindex="0">
+          <i class="fa-solid fa-network-wired"></i>
+          <h3>Traffic Analysis</h3>
+          <p>Deep packet inspection and behavioral analysis to identify suspicious activities across all network layers.</p>
+          <a href="#" class="feature-more">Learn more <i class="fas fa-arrow-right"></i></a>
+        </article>
+        <article class="feature-card" tabindex="0">
+          <i class="fa-solid fa-lock"></i>
+          <h3>Zero Trust Architecture</h3>
+          <p>Implement least-privilege access controls and verify every request as though it originates from an open network.</p>
+          <a href="#" class="feature-more">Learn more <i class="fas fa-arrow-right"></i></a>
+        </article>
+        <article class="feature-card" tabindex="0">
+          <i class="fa-solid fa-user-shield"></i>
+          <h3>Intrusion Prevention</h3>
+          <p>Proactively detect and prevent intrusion attempts with signature-based and anomaly-based detection.</p>
+          <a href="#" class="feature-more">Learn more <i class="fas fa-arrow-right"></i></a>
+        </article>
+        <article class="feature-card" tabindex="0">
+          <i class="fa-solid fa-shield-alt"></i>
+          <h3>Advanced Rule Engine</h3>
+          <p>Granular control over network traffic with rules based on IP, port, protocol, time, and application.</p>
+          <a href="#" class="feature-more">Learn more <i class="fas fa-arrow-right"></i></a>
+        </article>
+        <article class="feature-card" tabindex="0">
+          <i class="fa-solid fa-chart-line"></i>
+          <h3>Real-time Analytics</h3>
+          <p>Comprehensive dashboards and reports with actionable insights into your network security posture.</p>
+          <a href="#" class="feature-more">Learn more <i class="fas fa-arrow-right"></i></a>
+        </article>
+      </div>
     </section>
 
     <section class="how-it-works" aria-label="How Firewall Works">
-      <h2>How It Works</h2>
-      <article class="how-it-works-item" tabindex="0">
-        <i class="fa-solid fa-network-wired"></i>
-        <h3>Traffic Monitoring</h3>
-        <p>Inspects all incoming and outgoing network packets to detect suspicious activity.</p>
-      </article>
-      <article class="how-it-works-item" tabindex="0">
-        <i class="fa-solid fa-lock"></i>
-        <h3>Rule Enforcement</h3>
-        <p>Applies security rules to allow or block traffic based on source, destination, and content.</p>
-      </article>
-      <article class="how-it-works-item" tabindex="0">
-        <i class="fa-solid fa-shield-virus"></i>
-        <h3>Threat Prevention</h3>
-        <p>Blocks malware, exploits, and unauthorized access attempts in real-time.</p>
-      </article>
+      <h2>How Binoculars Firewall Protects You</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-content">
+            <h3>Traffic Inspection</h3>
+            <p>Every packet entering or leaving your network is analyzed in real-time using deep packet inspection technology to identify potential threats.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-content">
+            <h3>Threat Assessment</h3>
+            <p>Our AI engine evaluates traffic against known threat signatures, behavioral patterns, and anomaly detection algorithms.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-content">
+            <h3>Policy Enforcement</h3>
+            <p>Custom security policies are applied to allow, block, or quarantine traffic based on your configured rules and threat intelligence.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-content">
+            <h3>Continuous Protection</h3>
+            <p>The system continuously learns from network activity and updates protection mechanisms to guard against evolving threats.</p>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <section class="benefits" aria-label="Firewall Benefits">
-      <h2>Benefits of Using Binoculars Firewall</h2>
-      <article class="benefit-item" tabindex="0">
-        <i class="fa-solid fa-shield-check"></i>
-        <h3>Enhanced Security</h3>
-        <p>Protect your network from a wide range of cyber threats and unauthorized access.</p>
-      </article>
-      <article class="benefit-item" tabindex="0">
-        <i class="fa-solid fa-tachometer-alt"></i>
-        <h3>Optimized Performance</h3>
-        <p>Efficiently manage network traffic without compromising speed or reliability.</p>
-      </article>
-      <article class="benefit-item" tabindex="0">
-        <i class="fa-solid fa-user-shield"></i>
-        <h3>Customizable Policies</h3>
-        <p>Create tailored security rules to meet your specific network requirements.</p>
-      </article>
-      <article class="benefit-item" tabindex="0">
-        <i class="fa-solid fa-headset"></i>
-        <h3>Reliable Support</h3>
-        <p>Access expert assistance whenever you need it to keep your firewall running smoothly.</p>
-      </article>
+    <!-- Comparison Table -->
+    <section aria-label="Feature Comparison">
+      <h2>Compare Firewall Solutions</h2>
+      <p>See how Binoculars Firewall outperforms basic security solutions:</p>
+      <div class="comparison">
+        <table>
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th>Basic Firewall</th>
+              <th>Binoculars Firewall</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>AI Threat Detection</td>
+              <td class="feature-absent">No</td>
+              <td class="feature-present">Yes</td>
+            </tr>
+            <tr>
+              <td>Real-time Analytics</td>
+              <td class="feature-absent">Limited</td>
+              <td class="feature-present">Advanced</td>
+            </tr>
+            <tr>
+              <td>Intrusion Prevention</td>
+              <td class="feature-absent">Basic</td>
+              <td class="feature-present">Advanced</td>
+            </tr>
+            <tr>
+              <td>Zero Trust Architecture</td>
+              <td class="feature-absent">No</td>
+              <td class="feature-present">Yes</td>
+            </tr>
+            <tr>
+              <td>24/7 Security Monitoring</td>
+              <td class="feature-absent">No</td>
+              <td class="feature-present">Yes</td>
+            </tr>
+            <tr>
+              <td>Multi-Device Protection</td>
+              <td class="feature-present">Yes</td>
+              <td class="feature-present">Yes</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </section>
 
-    <div class="cta">
-      <button onclick="location.href='signup.html'">Get Protected Now</button>
-    </div>
+    <!-- Testimonials -->
+    <section aria-label="Customer Testimonials">
+      <h2>What Our Customers Say</h2>
+      <div class="testimonials">
+        <div class="testimonial-card">
+          <div class="testimonial-text">
+            Binoculars Firewall has transformed our network security. The AI detection caught several advanced threats that our previous solution missed.
+          </div>
+          <div class="testimonial-author">
+            <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Sarah Johnson" class="author-avatar">
+            <div class="author-info">
+              <h4>Sarah Johnson</h4>
+              <p>CTO, TechCorp</p>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-text">
+            The real-time analytics and reporting give us unparalleled visibility into our network traffic and security events.
+          </div>
+          <div class="testimonial-author">
+            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Michael Chen" class="author-avatar">
+            <div class="author-info">
+              <h4>Michael Chen</h4>
+              <p>Security Director, FinSecure</p>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-text">
+            Implementation was seamless, and their support team helped us customize the rules for our specific needs.
+          </div>
+          <div class="testimonial-author">
+            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Emma Rodriguez" class="author-avatar">
+            <div class="author-info">
+              <h4>Emma Rodriguez</h4>
+              <p>IT Manager, EduNet</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section aria-label="Frequently Asked Questions">
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-container">
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFAQ(this)">
+            What types of threats does Binoculars Firewall protect against?
+            <i class="fas fa-chevron-down faq-toggle"></i>
+          </div>
+          <div class="faq-answer">
+            Binoculars Firewall protects against a wide range of threats including malware, ransomware, DDoS attacks, intrusion attempts, unauthorized access, data exfiltration, and zero-day exploits. Our AI engine continuously learns to detect emerging threats.
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFAQ(this)">
+            How does Binoculars Firewall differ from built-in OS firewalls?
+            <i class="fas fa-chevron-down faq-toggle"></i>
+          </div>
+          <div class="faq-answer">
+            While OS firewalls provide basic protection, Binoculars Firewall offers enterprise-grade features like deep packet inspection, AI threat detection, behavioral analysis, centralized management, and real-time analytics that go far beyond basic port blocking.
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFAQ(this)">
+            Can I manage firewall rules for multiple devices centrally?
+            <i class="fas fa-chevron-down faq-toggle"></i>
+          </div>
+          <div class="faq-answer">
+            Yes, our centralized management console allows you to configure and monitor firewall rules across all protected devices from a single dashboard, with role-based access control for team members.
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFAQ(this)">
+            Does the firewall impact network performance?
+            <i class="fas fa-chevron-down faq-toggle"></i>
+          </div>
+          <div class="faq-answer">
+            Binoculars Firewall is optimized for minimal performance impact, with average latency under 1ms. Our tests show less than 2% throughput reduction even under heavy load with all security features enabled.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+      <h2>Ready to Secure Your Network?</h2>
+      <p>Join thousands of businesses protected by Binoculars Firewall's advanced security technology.</p>
+      <div class="cta-buttons">
+        <button class="btn btn-primary" onclick="location.href='signup.html'">Start Free Trial</button>
+        <button class="btn btn-secondary" onclick="location.href='demo.html'">Request Demo</button>
+      </div>
+    </section>
   </main>
 
   <div class="toggle-theme" role="region" aria-label="Toggle dark and light theme">
@@ -503,36 +1138,55 @@
     <section class="footer-section" aria-label="About Us">
       <h3>About Us</h3>
       <ul>
-        <li tabindex="0" role="link" onclick="location.href='aboutus/aboutus-mainpage.html'">Company</li>
-        <li tabindex="0" role="link">Security Team</li>
-        <li tabindex="0" role="link">Careers</li>
-        <li tabindex="0" role="link">Partners</li>
-        <li tabindex="0" role="link">Press</li>
+        <li tabindex="0" role="link" onclick="location.href='aboutus/aboutus-mainpage.html'"><i class="fas fa-building"></i> Company</li>
+        <li tabindex="0" role="link"><i class="fas fa-users"></i> Security Team</li>
+        <li tabindex="0" role="link"><i class="fas fa-briefcase"></i> Careers</li>
+        <li tabindex="0" role="link"><i class="fas fa-handshake"></i> Partners</li>
+        <li tabindex="0" role="link"><i class="fas fa-newspaper"></i> Press</li>
       </ul>
     </section>
     <section class="footer-section" aria-label="Support">
       <h3>Support</h3>
       <ul>
-        <li tabindex="0" role="link" onclick="location.href='support/help center.html'">Help Center</li>
-        <li tabindex="0" role="link" onclick="location.href='support/tutorials.html'">Tutorials</li>
-        <li tabindex="0" role="link" onclick="location.href='support/FAQ.html'">FAQ</li>
-        <li tabindex="0" role="link" onclick="location.href='support/contact us.html'">Contact</li>
-        <li tabindex="0" role="link" onclick="location.href='support/blog.html'">Blog</li>
+        <li tabindex="0" role="link" onclick="location.href='support/help center.html'"><i class="fas fa-question-circle"></i> Help Center</li>
+        <li tabindex="0" role="link" onclick="location.href='support/tutorials.html'"><i class="fas fa-graduation-cap"></i> Tutorials</li>
+        <li tabindex="0" role="link" onclick="location.href='support/FAQ.html'"><i class="fas fa-comments"></i> FAQ</li>
+        <li tabindex="0" role="link" onclick="location.href='support/contact us.html'"><i class="fas fa-envelope"></i> Contact</li>
+        <li tabindex="0" role="link" onclick="location.href='support/blog.html'"><i class="fas fa-blog"></i> Blog</li>
       </ul>
     </section>
     <section class="footer-section" aria-label="Products">
       <h3>Products</h3>
       <ul>
-        <li tabindex="0" role="link" onclick="location.href='FreeScan.html'">Binoculars Basic</li>
-        <li tabindex="0" role="link">Binoculars Pro</li>
-        <li tabindex="0" role="link">Enterprise Suite</li>
-        <li tabindex="0" role="link">Mobile Security</li>
-        <li tabindex="0" role="link" onclick="location.href='Products/vpn.html'">VPN Service</li>
+        <li tabindex="0" role="link" onclick="location.href='FreeScan.html'"><i class="fas fa-shield-alt"></i> Binoculars Basic</li>
+        <li tabindex="0" role="link"><i class="fas fa-star"></i> Binoculars Pro</li>
+        <li tabindex="0" role="link"><i class="fas fa-building"></i> Enterprise Suite</li>
+        <li tabindex="0" role="link"><i class="fas fa-mobile-alt"></i> Mobile Security</li>
+        <li tabindex="0" role="link" onclick="location.href='Products/vpn.html'"><i class="fas fa-user-lock"></i> VPN Service</li>
       </ul>
     </section>
+    <section class="footer-section" aria-label="Legal">
+      <h3>Legal</h3>
+      <ul>
+        <li tabindex="0" role="link"><i class="fas fa-gavel"></i> Terms of Service</li>
+        <li tabindex="0" role="link"><i class="fas fa-lock"></i> Privacy Policy</li>
+        <li tabindex="0" role="link"><i class="fas fa-file-contract"></i> Compliance</li>
+        <li tabindex="0" role="link"><i class="fas fa-balance-scale"></i> GDPR</li>
+      </ul>
+      <div class="social-links">
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+      </div>
+    </section>
+    <div class="copyright">
+      &copy; 2023 Binoculars Security. All rights reserved.
+    </div>
   </footer>
 
   <script>
+    // Theme Toggle
     const themeToggleSwitch = document.getElementById('themeToggleSwitch');
     const body = document.body;
     const main = document.querySelector('main');
@@ -567,7 +1221,8 @@
 
     // Load saved theme preference
     window.addEventListener('DOMContentLoaded', () => {
-      const savedTheme = localStorage.getItem('themePreference');
+      const savedTheme = localStorage.getItem('themePreference') || 
+                        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
       if (savedTheme === 'dark') {
         themeToggleSwitch.checked = true;
         toggleTheme();
@@ -578,6 +1233,55 @@
     themeToggleSwitch.addEventListener('change', () => {
       localStorage.setItem('themePreference', themeToggleSwitch.checked ? 'dark' : 'light');
     });
+
+    // FAQ Toggle
+    function toggleFAQ(element) {
+      const answer = element.nextElementSibling;
+      const toggleIcon = element.querySelector('.faq-toggle');
+      
+      answer.classList.toggle('show');
+      toggleIcon.classList.toggle('rotate');
+    }
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+
+    // Animate stats on scroll
+    const statNumbers = document.querySelectorAll('.stat-number');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateValue(entry.target, 0, parseInt(entry.target.textContent.replace(/[^0-9]/g, '')), 1000);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    statNumbers.forEach(stat => {
+      observer.observe(stat);
+    });
+
+    function animateValue(obj, start, end, duration) {
+      let startTimestamp = null;
+      const step = (timestamp) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        const value = Math.floor(progress * (end - start) + start);
+        obj.textContent = obj.textContent.replace(/[0-9]+/, value) + 
+                         (obj.textContent.match(/[^0-9]+$/) ? obj.textContent.match(/[^0-9]+$/)[0] : '');
+        if (progress < 1) {
+          window.requestAnimationFrame(step);
+        }
+      };
+      window.requestAnimationFrame(step);
+    }
   </script>
 
 </body>
