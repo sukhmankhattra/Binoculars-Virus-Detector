@@ -1,1127 +1,757 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <title>Binoculars Security</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            font-family: 'Lato', sans-serif;
-            box-sizing: border-box;
-        }
-
-        body {
-            background-color: #f5f5f5;
-            color: #333;
-            overflow-x: hidden;
-        }
-
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
-            color: #0A4A7B;
-            margin-bottom: 0.8em;
-        }
-
-        a {
-            text-decoration: none;
-            color: #0A4A7B;
-            transition: color 0.3s ease;
-        }
-
-        a:hover {
-            color: #2ECC71;
-        }
-
-        button {
-            font-family: 'Poppins', sans-serif;
-            cursor: pointer;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 5px;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-        }
-
-        button:hover {
-            transform: translateY(-2px);
-        }
-
-        /* Navigation */
-        #nav {
-            background-color: #FFFFFF;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            position: sticky;
-            top: 0;
-            z-index: 998;
-        }
-
-        .navTop {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 30px;
-            border-bottom: 1px solid #e9ecef;
-        }
-
-        .navItem img {
-            height: 22px;
-            width: auto;
-        }
-
-        .search {
-            display: flex;
-            align-items: center;
-            background-color: #f8f9fa;
-            padding: 5px 10px;
-            border-radius: 10px;
-            border: 2px solid #dee2e6;
-        }
-
-        .searchInput {
-            border: none;
-            background: transparent;
-            outline: none;
-            padding: 5px;
-            width: 300px;
-        }
-
-        .searchIcon {
-            cursor: pointer;
-            margin-left: 5px;
-        }
-
-        .limitedOffer {
-            background-color: #2ECC71;
-            color: white;
-            padding: 5px 15px;
-            border-radius: 15px;
-            font-weight: bold;
-            font-size: 0.9em;
-        }
-
-        .signup-btn {
-            background-color: #0A4A7B;
-            color: white;
-        }
-
-        .signup-btn:hover {
-            background-color: #083b61;
-        }
-
-        .navBottom {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 15px 30px;
-            gap: 30px;
-        }
-
-        .menuItem {
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
-            font-size: 1em;
-            color: #343A40;
-            cursor: pointer;
-            transition: color 0.3s ease;
-            margin-bottom: 0;
-            padding: 8px 12px;
-            border-radius: 5px;
-        }
-
-        .menuItem:hover {
-            color: #2ECC71;
-            background-color: #f8f9fa;
-        }
-
-        .menuItem.active {
-            background-color: #0A4A7B;
-            color: white;
-        }
-
-        /* Tab Content */
-        .tab-content {
-            display: none;
-            padding: 40px;
-            background-color: #f8f9fa;
-            border-radius: 8px;
-            margin: 20px 0;
-            animation: fadeIn 0.5s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        .scan-features {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .scan-feature {
-            flex: 1;
-            min-width: 250px;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        .scan-feature h3 {
-            color: #2ECC71;
-            margin-bottom: 10px;
-        }
-
-        .scan-button {
-            background-color: #2ECC71;
-            color: white;
-            margin-top: 20px;
-            padding: 10px 20px;
-            border-radius: 5px;
-            display: inline-block;
-        }
-
-        .scan-button:hover {
-            background-color: #25a25a;
-        }
-
-        /* Slider */
-        .slider {
-            overflow: hidden;
-            position: relative;
-            background-color: #343A40;
-            height: 70vh;
-        }
-
-        .sliderWrapper {
-            display: flex;
-            height: 100%;
-            transition: transform 0.5s ease-in-out;
-        }
-
-        .sliderItem {
-            min-width: 100%;
-            position: relative;
-            color: white;
-            text-align: center;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .sliderImg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: 1;
-        }
-
-        .sliderBg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 2;
-        }
-
-        .sliderTitle, .sliderPrice, .sliderItem a {
-            position: relative;
-            z-index: 3;
-        }
-
-        .sliderTitle {
-            font-size: 3em;
-            font-weight: 700;
-            line-height: 1.2;
-            margin-bottom: 0.5em;
-            color: #FFFFFF;
-        }
-
-        .sliderPrice {
-            font-size: 1.8em;
-            font-weight: 400;
-            margin-bottom: 1em;
-            color: #FFFFFF;
-        }
-
-        .buyButton {
-            background-color: #2ECC71;
-            color: white;
-            font-size: 1.1em;
-            padding: 15px 35px;
-        }
-
-        .buyButton:hover {
-            background-color: #25a25a;
-        }
-
-        /* Features */
-        .features {
-            display: flex;
-            justify-content: space-around;
-            align-items: flex-start;
-            flex-wrap: wrap;
-            padding: 60px 30px;
-            background-color: #f8f9fa;
-            text-align: center;
-            gap: 30px;
-        }
-
-        .feature {
-            flex-basis: 200px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .featureIcon {
-            width: 60px;
-            height: 60px;
-            margin-bottom: 20px;
-        }
-
-        .featureTitle {
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
-            font-size: 1.2em;
-            margin-bottom: 10px;
-            color: #0A4A7B;
-        }
-
-        .featureDesc {
-            font-size: 0.95em;
-            color: #6C757D;
-        }
-
-        /* Product Section */
-        .product {
-            display: flex;
-            align-items: center;
-            padding: 60px 30px;
-            background-color: #FFFFFF;
-            gap: 40px;
-            flex-wrap: wrap;
-        }
-
-        .productImg {
-            flex: 1;
-            min-width: 300px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .productDetails {
-            flex: 1;
-            min-width: 300px;
-        }
-
-        .productTitle {
-            font-size: 2.5em;
-        }
-
-        .productPrice {
-            font-size: 2em;
-            color: #2ECC71;
-            margin-bottom: 20px;
-        }
-
-        .productDesc {
-            margin-bottom: 30px;
-            color: #6C757D;
-        }
-
-        .sizes {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-
-        .size {
-            padding: 8px 20px;
-            border: 1px solid #dee2e6;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease, border-color 0.3s ease;
-        }
-
-        .size:hover {
-            background-color: #e9ecef;
-            border-color: #adb5bd;
-        }
-
-        .productButton {
-            background-color: #0A4A7B;
-            color: white;
-            font-size: 1.1em;
-            padding: 15px 40px;
-        }
-
-        .productButton:hover {
-            background-color: #083b61;
-        }
-
-        /* Gallery */
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 5px;
-            padding: 5px;
-            background-color: #e9ecef;
-        }
-
-        .galleryItem {
-            position: relative;
-            overflow: hidden;
-            min-height: 300px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .galleryImg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.4s ease;
-        }
-
-        .galleryItem:hover .galleryImg {
-            transform: scale(1.05);
-        }
-
-        .galleryTitle {
-            position: relative;
-            z-index: 2;
-            color: white;
-            font-size: 2em;
-            text-align: center;
-            padding: 20px;
-            background-color: rgba(0, 0, 0, 0.5);
-            border-radius: 5px;
-        }
-
-        /* New Season Section */
-        .newSeason {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background-color: #0A4A7B;
-            color: white;
-            padding: 40px 0;
-            flex-wrap: wrap;
-        }
-
-        .nsItem {
-            flex: 1;
-            text-align: center;
-            min-width: 250px;
-            padding: 20px;
-        }
-
-        .nsItem:nth-child(2) {
-            flex-grow: 1.5;
-        }
-
-        .nsImg {
-            max-height: 300px;
-            width: auto;
-            margin: 0 auto;
-            border-radius: 8px;
-        }
-
-        .nsTitleSm {
-            font-size: 1em;
-            font-weight: 400;
-            margin-bottom: 5px;
-            color: #e0e0e0;
-        }
-
-        .nsTitle {
-            font-size: 2.5em;
-            font-weight: 700;
-            line-height: 1.1;
-            margin-bottom: 0.3em;
-            color: #FFFFFF;
-        }
-
-        .nsButton {
-            background-color: #2ECC71;
-            color: white;
-            padding: 12px 30px;
-            margin-top: 20px;
-            font-size: 1em;
-        }
-
-        .nsButton:hover {
-            background-color: #25a25a;
-        }
-
-        /* Footer */
-        footer {
-            background-color: #343A40;
-            color: #f8f9fa;
-            padding: 50px 30px 20px 30px;
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 40px;
-        }
-
-        .footerLeft {
-            display: flex;
-            gap: 50px;
-            flex-wrap: wrap;
-        }
-
-        .footerMenu {
-            min-width: 150px;
-        }
-
-        .fMenuTitle {
-            font-size: 1.3em;
-            margin-bottom: 15px;
-            color: #FFFFFF;
-        }
-
-        .fList {
-            list-style: none;
-            padding: 0;
-        }
-
-        .fListItem {
-            margin-bottom: 10px;
-            color: #adb5bd;
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
-
-        .fListItem:hover {
-            color: #FFFFFF;
-        }
-
-        .footerRight {
-            min-width: 250px;
-        }
-
-        .footerRightMenu {
-            margin-bottom: 30px;
-        }
-
-        .fMail {
-            display: flex;
-            margin-top: 15px;
-        }
-
-        .fInput {
-            padding: 10px;
-            border: 1px solid #6C757D;
-            border-radius: 5px 0 0 5px;
-            background-color: #495057;
-            color: white;
-            outline: none;
-            flex-grow: 1;
-        }
-
-        .fButton {
-            padding: 10px 20px;
-            border: none;
-            background-color: #0A4A7B;
-            color: white;
-            border-radius: 0 5px 5px 0;
-        }
-
-        .fButton:hover {
-            background-color: #083b61;
-        }
-
-        .fIcons {
-            display: flex;
-            gap: 15px;
-            margin-top: 15px;
-        }
-
-        .fIcon {
-            width: 30px;
-            height: 30px;
-            cursor: pointer;
-            filter: grayscale(100%) brightness(150%);
-            transition: filter 0.3s ease;
-        }
-
-        .fIcon:hover {
-            filter: none;
-        }
-
-        .copyright {
-            font-size: 0.9em;
-            color: #adb5bd;
-            margin-top: 30px;
-            display: block;
-        }
-
-        /* Scroll Progress & Back to Top */
-        .scroll-progress {
-            height: 5px;
-            background-color: #2ECC71;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 1000;
-            width: 0%;
-        }
-
-        .back-to-top {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: #0A4A7B;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            font-size: 24px;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 999;
-            cursor: pointer;
-        }
-
-        .back-to-top:hover {
-            background-color: #083b61;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 992px) {
-            .navTop, .navBottom {
-                padding-left: 20px;
-                padding-right: 20px;
-            }
-            .navBottom {
-                gap: 20px;
-                font-size: 0.9em;
-            }
-            .sliderTitle {
-                font-size: 2.5em;
-            }
-            .sliderPrice {
-                font-size: 1.5em;
-            }
-            .features {
-                padding: 40px 20px;
-            }
-            .product {
-                padding: 40px 20px;
-                flex-direction: column;
-            }
-            footer {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-            }
-            .footerLeft {
-                justify-content: center;
-                width: 100%;
-            }
-            .footerRight {
-                width: 100%;
-                max-width: 400px;
-                margin-top: 20px;
-            }
-            .fMail {
-                justify-content: center;
-            }
-            .fIcons {
-                justify-content: center;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .navTop {
-                flex-direction: column;
-                gap: 10px;
-                padding: 15px;
-            }
-            .navBottom {
-                flex-wrap: wrap;
-                justify-content: center;
-                padding: 10px;
-                gap: 15px;
-            }
-            .menuItem {
-                font-size: 0.9em;
-            }
-            .sliderItem {
-                height: 60vh;
-            }
-            .sliderTitle {
-                font-size: 2em;
-            }
-            .sliderPrice {
-                font-size: 1.3em;
-            }
-            .buyButton {
-                padding: 12px 25px;
-                font-size: 1em;
-            }
-            .features {
-                padding: 30px 15px;
-            }
-            .feature {
-                flex-basis: 150px;
-            }
-            .product {
-                padding: 30px 15px;
-            }
-            .productTitle {
-                font-size: 2em;
-            }
-            .productPrice {
-                font-size: 1.8em;
-            }
-            .sizes {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            .newSeason {
-                padding: 30px 0;
-            }
-            .nsTitle {
-                font-size: 2em;
-            }
-            footer {
-                padding: 40px 15px 15px 15px;
-            }
-            .footerLeft {
-                gap: 30px;
-            }
-        }
-
-        @media (max-width: 500px) {
-            .navTop .navItem:not(:first-child) {
-                display: none; 
-            }
-            .navBottom {
-                gap: 10px;
-            }
-            .menuItem {
-                font-size: 0.8em;
-            }
-            .sliderTitle {
-                font-size: 1.8em;
-            }
-            .sliderPrice {
-                font-size: 1.1em;
-            }
-            .feature {
-                flex-basis: 100%;
-            }
-            .productTitle {
-                font-size: 1.8em;
-            }
-            .productPrice {
-                font-size: 1.6em;
-            }
-            .nsItem {
-                padding: 10px;
-            }
-            .nsTitle {
-                font-size: 1.8em;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Binoculars Virus Scan | Advanced Virus Detector</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    :root {
+      --primary: #3a7bd5;
+      --primary-dark: #2b5ca8;
+      --danger: #e74c3c;
+      --success: #2ecc71;
+      --warning: #f39c12;
+      --bg-light: #f4f6fa;
+      --bg-dark: #121212;
+      --card-bg-light: rgba(255, 255, 255, 0.9);
+      --card-bg-dark: rgba(30, 30, 30, 0.9);
+      --border-radius: 16px;
+      --text-light: #333;
+      --text-dark: #f0f0f0;
+      --shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow-x: hidden;
+    }
+
+    body {
+      font-family: 'Segoe UI', 'Roboto', sans-serif;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #667eea, #764ba2, #4ca1af);
+      background-size: 400% 400%;
+      animation: gradientAnimation 15s ease infinite;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      line-height: 1.6;
+      padding: 20px;
+    }
+
+    @keyframes gradientAnimation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .container {
+      backdrop-filter: blur(16px) saturate(180%);
+      background-color: var(--card-bg-light);
+      padding: 2.5rem;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      width: 100%;
+      max-width: 500px;
+      margin: 0 auto;
+      text-align: center;
+      transition: all 0.4s ease;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .container.dark {
+      background-color: var(--card-bg-dark);
+      color: var(--text-dark);
+    }
+
+    h1 {
+      margin-bottom: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    .description {
+      margin-bottom: 1.5rem;
+      font-size: 0.95rem;
+      opacity: 0.9;
+    }
+
+    label {
+      font-size: 0.9rem;
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      text-align: left;
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+
+    .drop-zone {
+      border: 2px dashed var(--primary);
+      padding: 2rem;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-bottom: 1.5rem;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      min-height: 150px;
+      background-color: rgba(58, 123, 213, 0.05);
+      width: 100%;
+    }
+
+    .drop-zone.highlight {
+      border-color: var(--success);
+      background-color: rgba(46, 204, 113, 0.1);
+      transform: scale(1.01);
+    }
+
+    .drop-zone i,
+    button i {
+      font-size: 2.5rem;
+      color: var(--primary);
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    .drop-zone:hover i,
+    button:hover i {
+      transform: rotate(10deg) scale(1.2);
+      color: #5db4d4;
+    }
+
+    .drop-zone p {
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    .file-info {
+      display: none;
+      margin-top: 0.5rem;
+      padding: 0.75rem;
+      background-color: rgba(58, 123, 213, 0.1);
+      border-radius: 8px;
+      text-align: left;
+      font-size: 0.9rem;
+      width: 100%;
+    }
+
+    .file-info.show {
+      display: block;
+    }
+
+    button {
+      width: 100%;
+      padding: 0.9rem;
+      background: linear-gradient(135deg, #4ca1af, #3498db);
+      color: #fff;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease, transform 0.2s, box-shadow 0.3s;
+      font-size: 1rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    button:hover {
+      background: linear-gradient(135deg, #5db4d4, #2980b9);
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    button:active {
+      transform: translateY(0) scale(1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    button:disabled {
+      background: #95a5a6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .toggle-theme {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 100;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .theme-label-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      padding: 8px 12px;
+      background-color: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 8px;
+      color: #fff;
+      font-size: 0.85rem;
+      font-weight: 500;
+      text-align: center;
+      transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .theme-label-box:hover {
+      box-shadow: 0 0 15px rgba(58, 123, 213, 0.8), 0 0 30px rgba(58, 123, 213, 0.5);
+    }
+
+    .container.dark .theme-label-box {
+      background-color: rgba(0, 0, 0, 0.5);
+      color: var(--text-dark);
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 24px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(255, 255, 255, 0.3);
+      border-radius: 24px;
+      transition: 0.4s;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      border-radius: 50%;
+      transition: 0.4s;
+    }
+
+    .slider i {
+      font-size: 12px;
+      transition: opacity 0.3s ease, color 0.3s ease;
+    }
+
+    #moonIcon {
+      color: #4a90e2;
+      opacity: 1;
+    }
+
+    #sunIcon {
+      color: #f1c40f;
+      opacity: 0;
+    }
+
+    input:checked + .slider {
+      background-color: var(--primary);
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
+
+    input:checked + .slider #moonIcon {
+      opacity: 0;
+    }
+
+    input:checked + .slider #sunIcon {
+      opacity: 1;
+    }
+
+    .result {
+      margin-top: 1.5rem;
+      padding: 1.25rem;
+      border-radius: 10px;
+      display: none;
+      animation: fadeIn 0.5s ease;
+      width: 100%;
+    }
+
+    .result.show {
+      display: block;
+    }
+
+    .result.safe {
+      background-color: rgba(46, 204, 113, 0.15);
+      border: 1px solid var(--success);
+    }
+
+    .result.danger {
+      background-color: rgba(231, 76, 60, 0.15);
+      border: 1px solid var(--danger);
+    }
+
+    .result.warning {
+      background-color: rgba(243, 156, 18, 0.15);
+      border: 1px solid var(--warning);
+    }
+
+    .result-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+      font-weight: 600;
+    }
+
+    .progress-container {
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin: 1rem 0;
+      display: none;
+    }
+
+    .progress-container.show {
+      display: block;
+    }
+
+    .progress-bar {
+      height: 8px;
+      border-radius: 8px;
+      background: linear-gradient(90deg, #4ca1af, #3498db);
+      box-shadow: 0 0 10px rgba(58, 123, 213, 0.8);
+      transition: width 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .progress-bar:hover {
+      box-shadow: 0 0 20px rgba(58, 123, 213, 1);
+    }
+
+    .file-details {
+      text-align: left;
+      margin-top: 1rem;
+      font-size: 0.85rem;
+      width: 100%;
+    }
+
+    .file-details div {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.25rem;
+    }
+
+    .file-details span:first-child {
+      font-weight: 500;
+      opacity: 0.8;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    .pulse {
+      animation: pulse 1.5s infinite;
+    }
+
+    .loading {
+      display: none;
+    }
+
+    .loading.show {
+      display: inline-block;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 1.5rem;
+      }
+      
+      h1 {
+        font-size: 1.5rem;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      
+      .description {
+        font-size: 0.85rem;
+      }
+      
+      .drop-zone {
+        padding: 1.5rem;
+        min-height: 120px;
+      }
+      
+      .toggle-theme {
+        top: 10px;
+        right: 10px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 1.25rem;
+      }
+      
+      .drop-zone p {
+        font-size: 0.9rem;
+      }
+      
+      button {
+        padding: 0.75rem;
+        font-size: 0.9rem;
+      }
+      
+      .theme-label-box {
+        padding: 6px 10px;
+        font-size: 0.8rem;
+      }
+      
+      .switch {
+        width: 40px;
+        height: 20px;
+      }
+      
+      .slider:before {
+        height: 14px;
+        width: 14px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <nav id="nav">
-        <div class="navTop">
-            <div class="navItem">
-                <img src="https://cdn-icons-png.flaticon.com/512/3063/3063176.png" alt="Binoculars Security Logo">
-            </div>
-            <div class="navItem">
-                <div class="search">
-                    <input type="text" placeholder="Search scans..." class="searchInput">
-                    <img src="https://cdn-icons-png.flaticon.com/512/149/149852.png" width="20" height="20" alt="" class="searchIcon">
-                </div>
-            </div>
-            <div class="navItem">
-                <span class="limitedOffer"><a href="FreeScan.html">FREE SCAN!</a></span>
-            </div>
-            <div>
-                <button class="signup-btn" onclick="window.location.href='combined ui/combined_login_signup.html'">Sign Up</button>
-            </div>
-            
-        </div>
-        <div class="navBottom">
-            <h3 class="menuItem " data-tab="quick-scan"><a href="Firewall\quick-scan.html">QUICK SCAN</a></h3>
-            <h3 class="menuItem" data-tab="deep-scan"><a href="Firewall\deep-scan.html">DEEP SCAN</a></h3>
-            <h3 class="menuItem" data-tab="custom-scan"><a href="Firewall\custom-scan.html">CUSTOM SCAN</a></h3>
-            <h3 class="menuItem" data-tab="realtime-protection"><a href="Firewall\realtime-protection.html">REALTIME PROTECTION</a></h3>
-            <h3 class="menuItem" data-tab="firewall"><a href="Firewall\firewall.html">FIREWALL</a></h3>
-        </div>
-    </nav>
-    
-    <!-- Tab Content Sections -->
-    <div id="quick-scan" class="tab-content active">
-        <h2>Quick Scan</h2>
-        <p>Our Quick Scan option provides a fast and efficient way to check your system for common threats and vulnerabilities. It examines critical areas of your system where malware is most likely to hide, providing results in just a few minutes.</p>
-        
-        <div class="scan-features">
-            
-            <div class="scan-feature">
 
-                <h3>Fast Results</h3>
-                <p>Complete scan in under 2 minutes for most systems.</p>
-            </div>
-            <div class="scan-feature">
-                <h3>Critical Areas</h3>
-                <p>Focuses on system memory, startup programs, and common infection points.</p>
-            </div>
-            <div class="scan-feature">
-                <h3>Lightweight</h3>
-                <p>Minimal impact on system performance while scanning.</p>
-            </div>
-        </div>
-        
-        <a href="Firewall\quick-scan.html" class="scan-button">Run Quick Scan Now</a>
-    </div>
-    
-    <div id="deep-scan" class="tab-content">
-        <h2>Deep Scan</h2>
-        <p>The Deep Scan option performs a comprehensive examination of your entire system, including all files, registry entries, and installed programs. This thorough scan takes longer but provides the most complete security assessment.</p>
-        
-        <div class="scan-features">
-            <div class="scan-feature">
-                <h3>Complete Coverage</h3>
-                <p>Scans every file and folder on your system for potential threats.</p>
-            </div>
-            <div class="scan-feature">
-                <h3>Advanced Detection</h3>
-                <p>Uses heuristic analysis to detect even the most sophisticated malware.</p>
-            </div>
-            <div class="scan-feature">
-                <h3>Rootkit Detection</h3>
-                <p>Special algorithms detect deeply hidden rootkits and bootkits.</p>
-            </div>
-        </div>
-        
-        <a href="Firewall\deep-scan.html" class="scan-button">Run Deep Scan Now</a>
-    </div>
-    
-    <div id="custom-scan" class="tab-content">
-        <h2>Custom Scan</h2>
-        <p>With Custom Scan, you have full control over what gets scanned. Choose specific drives, folders, or file types to examine. This is ideal for targeting suspicious areas or checking external devices.</p>
-        
-        <div class="scan-features">
-            <div class="scan-feature">
-                <h3>Flexible Scanning</h3>
-                <p>Select exactly what you want to scan - drives, folders, or file types.</p>
-            </div>
-            <div class="scan-feature">
-                <h3>External Devices</h3>
-                <p>Perfect for scanning USB drives, external hard disks, or network locations.</p>
-            </div>
-            <div class="scan-feature">
-                <h3>Scheduled Scans</h3>
-                <p>Set up automatic scans of selected locations at specific times.</p>
-            </div>
-        </div>
-        
-        <a href="Firewall\custom-scan.html" class="scan-button">Configure Custom Scan</a>
-    </div>
-    
-    <div id="realtime-protection" class="tab-content">
-        <h2>Realtime Protection</h2>
-        <p>Our Realtime Protection module actively monitors your system for threats as they emerge. It prevents malware from executing, blocks malicious websites, and stops suspicious behavior before it can harm your system.</p>
-        
-        <div class="scan-features">
-            <div class="scan-feature">
-                <h3>Active Monitoring</h3>
-                <p>24/7 protection that works in the background without slowing you down.</p>
-            </div>
-            <div class="scan-feature">
-                <h3>Behavior Analysis</h3>
-                <p>Detects and blocks suspicious activities even from unknown threats.</p>
-            </div>
-            <div class="scan-feature">
-                <h3>Web Protection</h3>
-                <p>Blocks access to malicious websites and phishing attempts.</p>
-            </div>
-        </div>
-        
-        <a href="Firewall\realtime-protection.html" class="scan-button">Enable Realtime Protection</a>
-    </div>
-    
-    <div id="firewall" class="tab-content">
-        <h2>Firewall</h2>
-        <p>Our advanced firewall monitors all incoming and outgoing network traffic, providing an essential layer of protection against hackers and unauthorized access attempts. Configure rules to control which applications can access the network.</p>
-        
-        <div class="scan-features">
-            <div class="scan-feature">
-                <h3>Two-Way Protection</h3>
-                <p>Monitors both incoming and outgoing network traffic.</p>
-            </div>
-            <div class="scan-feature">
-                <h3>Application Control</h3>
-                <p>Set rules for which programs can access the internet.</p>
-            </div>
-            <div class="scan-feature">
-                <h3>Intrusion Prevention</h3>
-                <p>Blocks hacking attempts and port scans in real time.</p>
-            </div>
-        </div>
-        
-        <a href="Firewall\firewall.html" class="scan-button">Configure Firewall Settings</a>
-    </div>
-    
-    <div class="slider">
-        <div class="sliderWrapper">
-            <div class="sliderItem active">
-                <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Security Concept" class="sliderImg">
-                <div class="sliderBg"></div>
-                <h1 class="sliderTitle">ADVANCED<br> SECURITY<br> SCANNING</h1>
-                <h2 class="sliderPrice">FREE TRIAL</h2>
-                <!-- <a href="FreeScan.html"> -->
-                <a href="FreeScan.html" class="navlink">
-<!-- ======= -->
-<!--                 <a href="#product"> -->
-<!-- >>>>>>> main -->
-                    <button class="buyButton">SCAN NOW!</button>
-                </a>
-            </div>
-            <div class="sliderItem">
-                <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Virus Scanning" class="sliderImg">
-                <div class="sliderBg"></div>
-                <h1 class="sliderTitle">REALTIME<br> THREAT<br> PROTECTION</h1>
-                <h2 class="sliderPrice">$9.99/mo</h2>
-                <a href="checkout.html">
-                    <button class="buyButton">GET PROTECTED!</button>
-                </a>
-            </div>
-            <div class="sliderItem">
-                <img src="https://images.unsplash.com/photo-1563206767-5b18f218e8de?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Server Security" class="sliderImg">
-                <div class="sliderBg"></div>
-                <h1 class="sliderTitle">ENTERPRISE<br> SECURITY<br> SOLUTIONS</h1>
-                <h2 class="sliderPrice">CUSTOM PRICING</h2>
-                <a href="#product">
-                    <button class="buyButton">LEARN MORE!</button>
-                </a>
-            </div>
-        </div>
-    </div>
-   
-    <div class="features">
-        <div class="feature">
-            <a href="Under development\page_ud.html">
-            <img src="https://cdn-icons-png.flaticon.com/512/3050/3050158.png" alt="Fast Scanning" class="featureIcon"></a>
-            <span class="featureTitle">LIGHTNING FAST</span>
-            <span class="featureDesc">Complete system scans in under 5 minutes</span>
-        </div>
-        <div class="feature">
-            <a href="Under development\page_ud.html">
-            <img class="featureIcon" src="https://cdn-icons-png.flaticon.com/512/3053/3053991.png" alt="Threat Detection"></a>
-            <span class="featureTitle">99.9% DETECTION</span>
-            <span class="featureDesc">Industry-leading threat detection rates</span>
-        </div>
-        <div class="feature">
-            <a href="Under development\page_ud.html">
-            <img class="featureIcon" src="https://www.shutterstock.com/image-vector/affordable-icon-thin-linear-outline-600nw-2108650451.jpg" alt="Pricing"></a>
-            <span class="featureTitle">AFFORDABLE</span>
-            <span class="featureDesc">Premium protection at competitive prices</span>
-        </div>
-        <div class="feature">
-            <a href="Under development\page_ud.html">
-                <img class="featureIcon" src="https://cdn-icons-png.flaticon.com/512/3059/3059518.png" alt="Support"></a>
-        
-            <span class="featureTitle">24/7 SUPPORT</span>
-            <span class="featureDesc">Expert security team always available</span>
-        </div>
-    </div>
+  <div id="particles-js"></div>
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <script>
+    particlesJS("particles-js", {
+      particles: {
+        number: { value: 80 },
+        color: { value: "#ffffff" },
+        shape: { type: "circle" },
+        opacity: { value: 0.5 },
+        size: { value: 3 },
+        move: { speed: 2 }
+      }
+    });
+  </script>
 
-    <div class="product" id="product">
-        <img src="https://images.unsplash.com/photo-1597852074816-d933c7d2b988?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Security Dashboard" class="productImg">
-        <div class="productDetails">
-            <h1 class="productTitle">BINOCULARS PRO</h1>
-            <h2 class="productPrice">$19.99/year</h2>
-            <p class="productDesc">Our premium security suite offers complete protection for your devices with real-time threat monitoring, advanced firewall, and automatic updates to keep you safe from the latest vulnerabilities.</p>
-            <div class="sizes">
-                <div class="size"><a href="PRO\Windows.html">WINDOWS</a></div>
-                <div class="size"><a href="PRO/MacOS.html">MAC</a></div>
-                <div class="size"><a href="PRO/Linux.html">LINUX</a></div>
-            </div>
-            <a href="checkout.html" class="buy-link">
-                <button class="productButton" id="BuyNow">BUY NOW!</button>
-            </a>
-            
-        </div>
+  <div class="toggle-theme">
+    <div class="theme-label-box">
+      <i class="fas fa-moon" id="moonIcon"></i>
+      <span>Dark Mode</span>
+      <label class="switch">
+        <input type="checkbox" id="themeToggleSwitch">
+        <span class="slider"></span>
+      </label>
+      <i class="fas fa-sun" id="sunIcon"></i>
     </div>
+  </div>
+
+  <div class="container" id="formContainer">
+    <h1><i class="fa-solid fa-shield-virus"></i> Binoculars Virus Scan</h1>
+    <p class="description">Advanced file scanning powered by AI to detect malware, viruses, and suspicious content</p>
     
-    <div class="gallery">
-        <div class="galleryItem">
-            <h1 class="galleryTitle">Stay Protected!</h1>
-            <img src="https://images.unsplash.com/photo-1481487196290-c152efe083f5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
-                alt="Secure Network" class="galleryImg">
+    <form id="virusForm">
+      <label for="fileInput">Select a file to scan (Max 50MB)</label>
+      <input type="file" id="fileInput" required />
+      <div id="dropZone" class="drop-zone">
+        <i class="fas fa-cloud-upload-alt"></i>
+        <p>Drag & drop your file here or click to browse</p>
+      </div>
+      <div id="fileInfo" class="file-info">
+        <strong>Selected file:</strong> <span id="fileName"></span>
+        <div class="file-details">
+          <div>
+            <span>Size:</span>
+            <span id="fileSize"></span>
+          </div>
+          <div>
+            <span>Type:</span>
+            <span id="fileType"></span>
+          </div>
         </div>
-        <div class="galleryItem">
-            <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
-                alt="Data Protection" class="galleryImg">
-            <h1 class="galleryTitle">Your Data is Safe</h1>
+      </div>
+      
+      <div class="progress-container" id="progressContainer">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+      
+      <button type="button" id="scanButton" disabled>
+        <i class="fas fa-search"></i>
+        <span>Scan File</span>
+      </button>
+      
+      <div id="result" class="result">
+        <div class="result-header">
+          <i id="resultIcon"></i>
+          <span id="resultTitle"></span>
         </div>
-        <div class="galleryItem">
-            <h1 class="galleryTitle">Peace of Mind</h1>
-            <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
-                alt="Secure Devices" class="galleryImg">
-        </div>
-    </div>
-    
-    <div class="newSeason">
-        <div class="nsItem">
-            <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Mobile Protection" class="nsImg">
-        </div>
-        <div class="nsItem">
-            <h3 class="nsTitleSm">NEW SECURITY UPDATE</h3>
-            <h1 class="nsTitle">Version 1.0</h1>
-            <h1 class="nsTitle">Now Available</h1>
-            <a href="Learn_more.html">
-                <button class="nsButton">LEARN MORE</button>
-            </a>
-        </div>
-        <div class="nsItem">
-            <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Cloud Security" class="nsImg">
-        </div>
-    </div>
-    
-    <footer>
-        <div class="footerLeft">
-            <div class="footerMenu">
-                <h1 class="fMenuTitle">About Us</h1>
-                <ul class="fList">
-                    <li class="fListItem"><a href="aboutus\company.html">Company</a></li>
-                    <li class="fListItem"><a href="aboutus\securityteam.html">Security Team</a></li>
-                    <li class="fListItem"><a href="aboutus\Careers.html">Careers</a></li>
-                    <li class="fListItem"><a href="aboutus\partners.html">Partners</a></li>
-                    <li class="fListItem"><a href="aboutus\press.html">Press</a></li>
-                </ul>
-            </div>
-            <div class="footerMenu">
-                <h1 class="fMenuTitle">Support</h1>
-                <ul class="fList">
-                    <li class="fListItem"><a href="support\help center.html">Help Center</a></li>
-                    <li class="fListItem"><a href="support\tutorials.html">Tutorials</a></li>
-                    <li class="fListItem"><a href="support\FAQ.html">FAQ</a></li>
-                    <li class="fListItem"><a href="support\Contact.html">Contact</a></li>
-                    <li class="fListItem"><a href="support\blog.html">Blog</a></li>
-                </ul>
-            </div>
-            <div class="footerMenu">
-                <h1 class="fMenuTitle">Products</h1>
-                <ul class="fList">
-                    <li class="fListItem"><a href="Products\binoculars-basic.html">Binoculars Basic</a></li>
-                    <li class="fListItem"><a href="Products\binoculars-pro.html">Binoculars Pro</a></li>
-                    <li class="fListItem"><a href="Products\enterprise-suite.html">Enterprise Suite</a></li>
-                    <li class="fListItem"><a href="Products/mobile-security.html">Mobile Security</a></li>
-                    <li class="fListItem"><a href="Products/vpn.html">VPN Service</a></li>
-                </ul>
-            </div>
-            
-        </div>
-        <div class="footerRight">
-            <div class="footerRightMenu">
-                <h1 class="fMenuTitle">Subscribe to our newsletter</h1>
-                <div class="fMail">
-                    <input type="text" placeholder="your@email.com" class="fInput">
-                    <button class="fButton">SUBSCRIBE</button>
-                </div>
-            </div>
-            <div class="footerRightMenu">
-                <h1 class="fMenuTitle">Follow Us</h1>
-                <div class="fIcons">
-                    <a href="https://www.facebook.com" target="_blank">
-                        <img src="https://cdn-icons-png.flaticon.com/512/124/124010.png" alt="Facebook" class="fIcon">
-                    </a>
-                    <a href="https://www.twitter.com" target="_blank">
-                        <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter" class="fIcon">
-                    </a>
-                    <a href="https://www.instagram.com" target="_blank">
-                        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram" class="fIcon">
-                    </a>
-                    <a href="https://www.Whatsapp.com" target="_blank">
-                        <img src="https://cdn-icons-png.flaticon.com/512/1384/1384023.png" alt="YouTube" class="fIcon">
-                    </a>
-                </div>
-                
-            </div>
-            <div class="footerRightMenu">
-                <span class="copyright">© 2025 Binoculars Security. All rights reserved.</span>
-            </div>
-        </div>
-    </footer>
-    
-    <div class="scroll-progress"></div>
-    <button class="back-to-top">↑</button>
-    
-    <script>
-        // Tab functionality
-        const menuItems = document.querySelectorAll('.menuItem');
-        const tabContents = document.querySelectorAll('.tab-content');
+        <p id="scanStatus"></p>
+        <div id="scanDetails" class="file-details"></div>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    // DOM Elements
+    const themeToggleSwitch = document.getElementById('themeToggleSwitch');
+    const container = document.getElementById('formContainer');
+    const fileInput = document.getElementById('fileInput');
+    const dropZone = document.getElementById('dropZone');
+    const scanButton = document.getElementById('scanButton');
+    const fileInfo = document.getElementById('fileInfo');
+    const fileName = document.getElementById('fileName');
+    const fileSize = document.getElementById('fileSize');
+    const fileType = document.getElementById('fileType');
+    const result = document.getElementById('result');
+    const resultIcon = document.getElementById('resultIcon');
+    const resultTitle = document.getElementById('resultTitle');
+    const scanStatus = document.getElementById('scanStatus');
+    const scanDetails = document.getElementById('scanDetails');
+    const progressContainer = document.getElementById('progressContainer');
+    const progressBar = document.getElementById('progressBar');
+    const themeIcon = document.getElementById('themeIcon');
+
+    // Check for saved theme preference
+    if (localStorage.getItem('themePreference') === 'dark') {
+      container.classList.add('dark');
+      themeToggleSwitch.checked = true;
+      document.getElementById('moonIcon').style.opacity = '0';
+      document.getElementById('sunIcon').style.opacity = '1';
+    }
+
+    themeToggleSwitch.addEventListener('change', () => {
+      const isDark = themeToggleSwitch.checked;
+      container.classList.toggle('dark', isDark);
+
+      // Toggle icon visibility
+      document.getElementById('moonIcon').style.opacity = isDark ? '0' : '1';
+      document.getElementById('sunIcon').style.opacity = isDark ? '1' : '0';
+
+      // Save preference to localStorage
+      localStorage.setItem('themePreference', isDark ? 'dark' : 'light');
+    });
+
+    // File Drag and Drop
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+      dropZone.addEventListener(eventName, preventDefaults, false);
+    });
+
+    function preventDefaults(e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    ['dragenter', 'dragover'].forEach(eventName => {
+      dropZone.addEventListener(eventName, highlight, false);
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+      dropZone.addEventListener(eventName, unhighlight, false);
+    });
+
+    function highlight() {
+      dropZone.classList.add('highlight');
+    }
+
+    function unhighlight() {
+      dropZone.classList.remove('highlight');
+    }
+
+    dropZone.addEventListener('drop', handleDrop, false);
+    dropZone.addEventListener('click', () => fileInput.click());
+
+    function handleDrop(e) {
+      const dt = e.dataTransfer;
+      const files = dt.files;
+      if (files.length) {
+        handleFiles(files);
+      }
+    }
+
+    // File Input Change
+    fileInput.addEventListener('change', function() {
+      if (this.files.length) {
+        handleFiles(this.files);
+      }
+    });
+
+    // Handle Selected Files
+    function handleFiles(files) {
+      const file = files[0];
+      
+      // Check file size (max 50MB)
+      if (file.size > 50 * 1024 * 1024) {
+        showResult('danger', 'File Too Large', 'Please select a file smaller than 50MB');
+        scanButton.disabled = true;
+        return;
+      }
+      
+      // Update file info display
+      fileName.textContent = file.name;
+      fileSize.textContent = formatFileSize(file.size);
+      fileType.textContent = file.type || 'Unknown';
+      fileInfo.classList.add('show');
+      
+      // Enable scan button
+      scanButton.disabled = false;
+      
+      // Store the file for scanning
+      scanButton.file = file;
+    }
+
+    // Format file size
+    function formatFileSize(bytes) {
+      if (bytes === 0) return '0 Bytes';
+      const k = 1024;
+      const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+      const i = Math.floor(Math.log(bytes) / Math.log(k));
+      return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    }
+
+    // Scan Button Click
+    scanButton.addEventListener('click', function() {
+      const file = this.file;
+      if (!file) return;
+      
+      // Show progress bar
+      progressContainer.classList.add('show');
+      
+      // Placeholder for real virus scanning API integration
+      // TODO: Replace simulateScan with actual API call to scan the file
+      simulateScan(file);
+    });
+
+    // Simulate scanning process - to be replaced with real API call
+    function simulateScan(file) {
+      scanButton.disabled = true;
+      scanButton.innerHTML = '<i class="fas fa-spinner fa-spin loading show"></i><span>Scanning...</span>';
+      
+      let progress = 0;
+      const interval = setInterval(() => {
+        progress += Math.random() * 10;
+        if (progress > 100) progress = 100;
+        progressBar.style.width = `${progress}%`;
         
-        menuItems.forEach(item => {
-            item.addEventListener('click', () => {
-                // Remove active class from all menu items and tab contents
-                menuItems.forEach(i => i.classList.remove('active'));
-                tabContents.forEach(content => content.classList.remove('active'));
-                
-                // Add active class to clicked menu item
-                item.classList.add('active');
-                // Show corresponding tab content
-                const tab = item.getAttribute('data-tab');
-                document.getElementById(tab).classList.add('active');
-            });
-        });
+        if (progress === 100) {
+          clearInterval(interval);
+          // Placeholder for processing real API response
+          completeScan(file);
+        }
+      }, 200);
+    }
 
-        // Scroll progress bar
-        const scrollProgress = document.querySelector('.scroll-progress');
-        window.addEventListener('scroll', () => {
-            const scrollTop = window.scrollY;
-            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-            const scrollPercent = (scrollTop / docHeight) * 100;
-            scrollProgress.style.width = scrollPercent + '%';
+    // Complete the scan with results - to be replaced with real API response handling
+    function completeScan(file) {
+      // For demo purposes, we'll randomly generate a result
+      const isSafe = Math.random() > 0.3; // 70% chance of being safe
+      const hasWarning = !isSafe && Math.random() > 0.5; // If unsafe, 50% chance of warning vs danger
+      
+      if (isSafe) {
+        showResult('safe', 'No Threats Found', 'Your file appears to be clean and safe to use.', file);
+      } else if (hasWarning) {
+        showResult('warning', 'Potential Risk Detected', 'This file contains elements that may be suspicious. Proceed with caution.', file);
+      } else {
+        showResult('danger', 'Malware Detected!', 'This file contains malicious code and should not be opened.', file);
+      }
+      
+      scanButton.disabled = false;
+      scanButton.innerHTML = '<i class="fas fa-search"></i><span>Scan File</span>';
+    }
 
-            // Show back to top button
-            const backToTop = document.querySelector('.back-to-top');
-            if (scrollTop > 300) {
-                backToTop.style.display = 'flex';
-            } else {
-                backToTop.style.display = 'none';
-            }
-        });
+    // Show scan results with enhanced animations
+    function showResult(type, title, message, file) {
+      result.className = `result show ${type} pulse`;
+      
+      // Set appropriate icon
+      const iconClass = {
+        safe: 'fas fa-check-circle',
+        warning: 'fas fa-exclamation-triangle',
+        danger: 'fas fa-times-circle'
+      }[type];
+      
+      resultIcon.className = iconClass;
+      resultTitle.textContent = title;
+      scanStatus.textContent = message;
+      
+      // Add file details if available
+      if (file) {
+        scanDetails.innerHTML = `
+          <div>
+            <span>File name:</span>
+            <span>${file.name}</span>
+          </div>
+          <div>
+            <span>File size:</span>
+            <span>${formatFileSize(file.size)}</span>
+          </div>
+          <div>
+            <span>File type:</span>
+            <span>${file.type || 'Unknown'}</span>
+          </div>
+          <div>
+            <span>Scan date:</span>
+            <span>${new Date().toLocaleString()}</span>
+          </div>
+        `;
+      }
+      
+      // Scroll to result
+      result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
 
-        // Back to top button functionality
-        const backToTopBtn = document.querySelector('.back-to-top');
-        backToTopBtn.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-    </script>
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      // Any initialization code can go here
+    });
+  </script>
+
 </body>
 </html>
-               
